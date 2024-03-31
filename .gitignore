@@ -18,3 +18,5 @@ valgrind_log.txt
 WendyGrand/__pycahe__/
 out/
 *.class
+.idea/
+venv/
