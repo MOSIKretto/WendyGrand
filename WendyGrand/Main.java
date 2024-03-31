@@ -13,7 +13,7 @@ public class Main
     public static void main(String[] args)
     {
         // Запуск Recognizer.py
-        ProcessBuilder processBuilder1 = new ProcessBuilder("python3", "Recognizer.py");
+        ProcessBuilder processBuilder1 = new ProcessBuilder("python3", "./WendyGrand/Recognizer.py");
         try
         {
             processBuilder1.start();

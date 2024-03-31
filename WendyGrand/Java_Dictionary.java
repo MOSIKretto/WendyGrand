@@ -5,7 +5,7 @@
  * EN Looks for a match in dictionaries and issues a command to execute
  * 
  */
-import BrowserFunction.BrowserManager;
+import Actions.BrowserManager;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -44,18 +44,17 @@ public class Java_Dictionary
             //--------------------------------------------------------------------------------------------------------------
             if (Browsers.contains(arg))
             {
-                BrowserManager browserManager = new BrowserManager();
-                browserManager.startBrowser();
-
-                ProcessBuilder processBuilder = new ProcessBuilder("python3", "../Support.py");
-                try
-                {
-                    processBuilder.start();
-                } 
-                catch (IOException e)
-                {
-                    e.printStackTrace();
-                }
+                BrowserManager.startBrowser();
+                System.out.println("Done in Java");
+//                ProcessBuilder processBuilder = new ProcessBuilder("python3", "./BrowserFunction/Support.py");
+//                try
+//                {
+//                    processBuilder.start();
+//                }
+//                catch (IOException e)
+//                {
+//                    e.printStackTrace();
+//                }
             }
             //--------------------------------------------------------------------------------------------------------------
             //if..
