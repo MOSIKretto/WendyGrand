@@ -44,17 +44,9 @@ public class Java_Dictionary
             //--------------------------------------------------------------------------------------------------------------
             if (Browsers.contains(arg))
             {
-                BrowserManager.startBrowser();
-                System.out.println("Done in Java");
-//                ProcessBuilder processBuilder = new ProcessBuilder("python3", "./BrowserFunction/Support.py");
-//                try
-//                {
-//                    processBuilder.start();
-//                }
-//                catch (IOException e)
-//                {
-//                    e.printStackTrace();
-//                }
+                BrowserManager browserManager = new BrowserManager();
+                browserManager.startBrowser();
+
             }
             //--------------------------------------------------------------------------------------------------------------
             //if..
