@@ -24,4 +24,9 @@ public class BrowserManager
             }
         }
     }
+
+    public static void supportBrowserVoiceover()
+    {
+        
+    }
 }

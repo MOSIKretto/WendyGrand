@@ -9,7 +9,6 @@ import Actions.BrowserManager;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.io.IOException;
 
 public class Java_Dictionary 
 {
@@ -44,8 +43,8 @@ public class Java_Dictionary
             //--------------------------------------------------------------------------------------------------------------
             if (Browsers.contains(arg))
             {
-                BrowserManager browserManager = new BrowserManager();
-                browserManager.startBrowser();
+                BrowserManager.startBrowser();
+                
 
             }
             //--------------------------------------------------------------------------------------------------------------
