@@ -49,8 +49,7 @@ def listen():
                 bye()
                 sys.exit(0)
             elif (text[0:5] == "венди") or (text[0:5] == "среда"):
-                subprocess.run(["java", "./Java_Dictionary.java", text[0:5]], stdout=sys.stdout)
-                print("done")
+                subprocess.run(["java", "./Java_Dictionary.java", text[6:]], stdout=sys.stdout)
             else:
                 pass
 
