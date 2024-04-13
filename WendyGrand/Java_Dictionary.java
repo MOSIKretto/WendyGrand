@@ -22,9 +22,9 @@ public class Java_Dictionary
             * EU Dictionaries with commands
             */
             Map <String, String> FunctionsDictionary = Map.ofEntries(entry("Browser", "CallBrowser"));
-            ArrayList <String> Hello = new ArrayList<String>(Arrays.asList("венди привет", "венди здравствуй", "венди ты тут?"));
-            ArrayList <String> HowYou = new ArrayList<String>(Arrays.asList("венди как дела", "венди как ты"));
-            ArrayList <String> Browsers = new ArrayList<String>(Arrays.asList("венди открой браузер", "венди браузер", "венди интернет", "венди открой интернет"));
+            ArrayList <String> Hello = new ArrayList<String>(Arrays.asList("привет", "здравствуй", "ты тут?"));
+            ArrayList <String> HowYou = new ArrayList<String>(Arrays.asList("как дела", "как ты"));
+            ArrayList <String> Browsers = new ArrayList<String>(Arrays.asList("открой браузер", "браузер", "интернет", "открой интернет"));
 
             /*
             * RU Проверка на соответсвие и отдача команды на выполнение задачи 
