@@ -23,11 +23,10 @@ public class Java_Dictionary
             */
 
             Map <String, String> FunctionsDictionary = Map.ofEntries(entry("Browser", "BrowserManager.StartBrowser"));
-            ArrayList <String> Browsers = new ArrayList<String>(Arrays.asList("венди открой браузер", "венди браузер", "венди интернет", "венди открой интернет"));
-            
 
-            ArrayList <String> Hello = new ArrayList<String>(Arrays.asList("венди привет", "венди здравствуй", "венди ты тут?"));
-            ArrayList <String> HowYou = new ArrayList<String>(Arrays.asList("венди как дела", "венди как ты"));
+            ArrayList <String> Browser = new ArrayList<String>(Arrays.asList("открой браузер", "браузер", "интернет", "открой интернет"));
+            ArrayList <String> Hello = new ArrayList<String>(Arrays.asList("привет", "здравствуй", "ты тут"));
+            ArrayList <String> HowYou = new ArrayList<String>(Arrays.asList("как дела", "как ты"));
 
             /*
             * RU Проверка на соответсвие и отдача команды на выполнение задачи 
@@ -44,7 +43,7 @@ public class Java_Dictionary
                 System.out.println("Хорошо! Надеюсь у вас еще лучше, User!");
             }
             //--------------------------------------------------------------------------------------------------------------
-            if (Browsers.contains(arg))
+            if (Browser.contains(arg))
             {
                 ActionsHandler.CallFunction(FunctionsDictionary.get("Browser"));
             }
