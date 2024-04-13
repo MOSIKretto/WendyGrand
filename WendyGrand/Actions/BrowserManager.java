@@ -4,6 +4,12 @@ import java.io.IOException;
 
 public class BrowserManager 
 {
+    public static void startBrowserManager()
+    {
+        startBrowser();
+        supportBrowserVoiceover();
+    }
+
     public static void startBrowser() 
     {
         String[] browsers = {"firefox"};
@@ -27,6 +33,14 @@ public class BrowserManager
 
     public static void supportBrowserVoiceover()
     {
-        
+        ProcessBuilder processBuilder = new ProcessBuilder("python3", "./WendyGrand/Actions/voiceover.py");
+        try
+        {
+            processBuilder.start();
+        } 
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
     }
 }
