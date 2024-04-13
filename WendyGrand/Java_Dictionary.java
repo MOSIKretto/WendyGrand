@@ -5,11 +5,10 @@
  * EN Looks for a match in dictionaries and issues a command to execute
  * 
  */
-import Actions.BrowserManager;
-
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.io.IOException;
+import java.util.Map;
+import static java.util.Map.entry;
 
 public class Java_Dictionary 
 {
@@ -22,7 +21,7 @@ public class Java_Dictionary
             * RU Словари с командами 
             * EU Dictionaries with commands
             */
-
+            Map <String, String> FunctionsDictionary = Map.ofEntries(entry("Browser", "BrowserManager.StartBrowser"));
             ArrayList <String> Hello = new ArrayList<String>(Arrays.asList("венди привет", "венди здравствуй", "венди ты тут?"));
             ArrayList <String> HowYou = new ArrayList<String>(Arrays.asList("венди как дела", "венди как ты"));
             ArrayList <String> Browsers = new ArrayList<String>(Arrays.asList("венди открой браузер", "венди браузер", "венди интернет", "венди открой интернет"));
@@ -31,6 +30,8 @@ public class Java_Dictionary
             * RU Проверка на соответсвие и отдача команды на выполнение задачи 
             * EU Checking for compliance and issuing a command to complete the task
             */
+
+
 
             if (Hello.contains(arg))
             {
@@ -44,17 +45,7 @@ public class Java_Dictionary
             //--------------------------------------------------------------------------------------------------------------
             if (Browsers.contains(arg))
             {
-                BrowserManager.startBrowser();
-                System.out.println("Done in Java");
-//                ProcessBuilder processBuilder = new ProcessBuilder("python3", "./BrowserFunction/Support.py");
-//                try
-//                {
-//                    processBuilder.start();
-//                }
-//                catch (IOException e)
-//                {
-//                    e.printStackTrace();
-//                }
+                ActionsHandler.CallFunction(FunctionsDictionary.get("Browser"));
             }
             //--------------------------------------------------------------------------------------------------------------
             //if..
