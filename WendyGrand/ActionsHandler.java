@@ -3,6 +3,7 @@ import java.lang.reflect.Method;
 import Actions.BrowserManager;
 
 public class ActionsHandler {
+    
     public static void CallFunction(String FunctionName)
     {
         try

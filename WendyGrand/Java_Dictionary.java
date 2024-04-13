@@ -21,6 +21,7 @@ public class Java_Dictionary
             * RU Словари с командами 
             * EU Dictionaries with commands
             */
+            
             Map <String, String> FunctionsDictionary = Map.ofEntries(entry("Browser", "BrowserManager.StartBrowser"));
             ArrayList <String> Hello = new ArrayList<String>(Arrays.asList("венди привет", "венди здравствуй", "венди ты тут?"));
             ArrayList <String> HowYou = new ArrayList<String>(Arrays.asList("венди как дела", "венди как ты"));
@@ -30,8 +31,6 @@ public class Java_Dictionary
             * RU Проверка на соответсвие и отдача команды на выполнение задачи 
             * EU Checking for compliance and issuing a command to complete the task
             */
-
-
 
             if (Hello.contains(arg))
             {
