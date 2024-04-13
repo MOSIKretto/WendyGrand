@@ -24,7 +24,7 @@ public class Java_Dictionary
 
             Map <String, String> FunctionsDictionary = Map.ofEntries(entry("Browser", "BrowserManager.StartBrowser"));
 
-            ArrayList <String> Browser = new ArrayList<String>(Arrays.asList("открой браузер", "браузер", "интернет", "открой интернет"));
+            ArrayList <String> Browser = new ArrayList<String>(Arrays.asList(" открой браузер", " браузер", " интернет", " открой интернет"));
             ArrayList <String> Hello = new ArrayList<String>(Arrays.asList("привет", "здравствуй", "ты тут"));
             ArrayList <String> HowYou = new ArrayList<String>(Arrays.asList("как дела", "как ты"));
 
