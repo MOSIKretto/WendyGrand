@@ -27,6 +27,6 @@ public class ActionsHandler {
 
     private static void CallBrowser()
     {
-        BrowserManager.startBrowser();
+        BrowserManager.startBrowserManager();
     }
 }

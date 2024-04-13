@@ -24,3 +24,9 @@ class ActionsVoiceover:
             playsound(AUDIO_DIR + "OpenItNow.mp3")
 
         sys.exit(0)
+
+# Читаем команду из стандартного ввода
+command = sys.stdin.readline().strip()
+# Выполняем команду
+if command == "browser_voiceover":
+    ActionsVoiceover().browser_voiceover()

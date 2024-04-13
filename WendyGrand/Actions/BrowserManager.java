@@ -1,6 +1,6 @@
 package Actions;
 
-import java.io.IOException;
+import java.io.*;
 
 public class BrowserManager 
 {
@@ -33,12 +33,18 @@ public class BrowserManager
 
     public static void supportBrowserVoiceover()
     {
-        ProcessBuilder processBuilder = new ProcessBuilder("python3", "./WendyGrand/Actions/voiceover.py");
-        try
+        try 
         {
-            processBuilder.start();
+            // Запускаем Python-скрипт и передаем команду "browser_voiceover"
+            Process process = Runtime.getRuntime().exec("python3 voiceover.py");
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(process.getOutputStream()));
+            writer.write("browser_voiceover\n");
+            writer.flush();
+
+            // Ожидаем завершения процесса
+            process.waitFor();
         } 
-        catch (IOException e)
+        catch (IOException | InterruptedException e) 
         {
             e.printStackTrace();
         }
