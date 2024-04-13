@@ -45,11 +45,11 @@ def listen():
         try:
             text = str(r.recognize_google(audio, language="ru-RU")).lower()
 
-            if text[0:10] == "венди пока":
+            if (text[0:10] == "венди пока") or (text[0:10] == "среда пока"):
                 bye()
                 sys.exit(0)
-            elif text[0:5] == "венди":
-                subprocess.run(["java", "./Java_Dictionary.java", text], stdout=sys.stdout)
+            elif (text[0:5] == "венди") or (text[0:5] == "среда"):
+                subprocess.run(["java", "./Java_Dictionary.java", text[0:5]], stdout=sys.stdout)
                 print("done")
             else:
                 pass

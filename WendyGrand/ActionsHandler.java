@@ -8,8 +8,8 @@ public class ActionsHandler {
     {
         try
         {
-        Method method = ActionsHandler.class.getDeclaredMethod(FunctionName);
-        method.invoke(null);
+            Method method = ActionsHandler.class.getDeclaredMethod(FunctionName);
+            method.invoke(null);
         }
         catch(NoSuchMethodException ignored)
         {
