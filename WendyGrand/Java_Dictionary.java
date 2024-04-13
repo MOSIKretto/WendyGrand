@@ -30,9 +30,6 @@ public class Java_Dictionary
             * RU Проверка на соответсвие и отдача команды на выполнение задачи 
             * EU Checking for compliance and issuing a command to complete the task
             */
-
-
-
             if (Hello.contains(arg))
             {
                 System.out.println("Привет, User!");
