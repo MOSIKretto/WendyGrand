@@ -1,7 +1,13 @@
+'''
+* *voiceover*
+*
+*RU Активирует звуковые файлы
+*-------------------------------
+*En Activates audio files
+'''
 from playsound import playsound
 from config import AUDIO_DIR
 from random import *
-import sys
 
 class ActionsVoiceover:
 
@@ -22,5 +28,3 @@ class ActionsVoiceover:
             playsound(AUDIO_DIR + 'OpeningBrowser.mp3')
         else:
             playsound(AUDIO_DIR + "OpenItNow.mp3")
-
-        sys.exit(0)
