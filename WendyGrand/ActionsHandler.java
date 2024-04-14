@@ -1,7 +1,6 @@
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import Actions.BrowserManager;
-import java.io.IOException;
 
 public class ActionsHandler 
 {
