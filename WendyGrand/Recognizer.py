@@ -18,9 +18,9 @@ r = sr.Recognizer()
 
 
 def hello():
-    number = random.randint(0, 1)
+    executive_voice = random.randint(0, 1)
 
-    if number == 0:
+    if executive_voice == 0:
         playsound(AUDIO_DIR + "LaunchScriptsAndReadyToWork.mp3")
     else:
         playsound(AUDIO_DIR + "HellowStartWork.mp3")
