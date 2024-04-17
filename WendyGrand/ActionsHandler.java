@@ -10,6 +10,8 @@ import java.lang.reflect.Method;
 import Actions.BrowserManager;
 import Actions.TelegramManager;
 
+import Actions.*;
+
 public class ActionsHandler {
 
     public static void CallFunction(String FunctionName) 

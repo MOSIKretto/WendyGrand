@@ -6,7 +6,6 @@ public class TelegramManager
 {
     public static void startTelegram()
     {
-        String[] Telegram = {"telegram-desktop"};
         String os = System.getProperty("os.name").toLowerCase();
         Runtime runtime = Runtime.getRuntime();
     
@@ -14,7 +13,7 @@ public class TelegramManager
         {
             try 
             {
-                runtime.exec(Telegram);
+                runtime.exec("telegram-desktop");
             } 
             catch (IOException ignored) 
             {

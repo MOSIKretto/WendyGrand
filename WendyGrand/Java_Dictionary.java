@@ -27,8 +27,13 @@ public class Java_Dictionary
                 entry("Telegram", "CallTelegram")
             );
 
-            ArrayList <String> Browser = new ArrayList<String>(Arrays.asList("открой браузер", "браузер", "интернет", "открой интернет"));
-            ArrayList <String> Telegram = new ArrayList<String>(Arrays.asList("открой телеграм", "телеграм", "телега","открой телегу"));
+            ArrayList <String> Browser = new ArrayList<String>(
+                Arrays.asList("открой браузер", "браузер", "интернет", "открой интернет")
+            );
+
+            ArrayList <String> Telegram = new ArrayList<String>(
+                Arrays.asList("открой телеграм", "открой telegram", "телеграм", "telegram", "телега","открой телегу")
+            );
 
             ArrayList <String> Hello = new ArrayList<String>(Arrays.asList("привет", "здравствуй", "ты тут"));
             ArrayList <String> HowYou = new ArrayList<String>(Arrays.asList("как дела", "как ты"));
