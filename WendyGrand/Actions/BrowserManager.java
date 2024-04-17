@@ -4,7 +4,7 @@ import java.io.IOException;
 
 public class BrowserManager 
 {
-    public static void startBrowser() 
+    public static void startBrowser()
     {
         String[] browsers = {"firefox"};
         String os = System.getProperty("os.name").toLowerCase();

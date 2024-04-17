@@ -8,6 +8,7 @@
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import Actions.BrowserManager;
+import Actions.TelegramManager;
 
 public class ActionsHandler {
 
@@ -35,5 +36,9 @@ public class ActionsHandler {
     private static void CallBrowser() 
     {
         BrowserManager.startBrowser();
+    }
+    private static void CallTelegram() 
+    {
+        TelegramManager.startTelegram();
     }
 }

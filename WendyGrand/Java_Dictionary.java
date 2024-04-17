@@ -22,9 +22,14 @@ public class Java_Dictionary
             * EU Dictionaries with commands
             */
 
-            Map <String, String> FunctionsDictionary = Map.ofEntries(entry("Browser", "CallBrowser"));
+            Map <String, String> FunctionsDictionary = Map.ofEntries(
+                entry("Browser", "CallBrowser"), 
+                entry("Telegram", "CallTelegram")
+            );
 
-            ArrayList <String> Browsers = new ArrayList<String>(Arrays.asList("открой браузер", "браузер", "интернет", "открой интернет"));
+            ArrayList <String> Browser = new ArrayList<String>(Arrays.asList("открой браузер", "браузер", "интернет", "открой интернет"));
+            ArrayList <String> Telegram = new ArrayList<String>(Arrays.asList("открой телеграм", "телеграм", "телега","открой телегу"));
+
             ArrayList <String> Hello = new ArrayList<String>(Arrays.asList("привет", "здравствуй", "ты тут"));
             ArrayList <String> HowYou = new ArrayList<String>(Arrays.asList("как дела", "как ты"));
 
@@ -43,12 +48,15 @@ public class Java_Dictionary
                 System.out.println("Хорошо! Надеюсь у вас еще лучше, User!");
             }
             //--------------------------------------------------------------------------------------------------------------
-            if (Browsers.contains(arg))
+            if (Browser.contains(arg))
             {
                 ActionsHandler.CallFunction(FunctionsDictionary.get("Browser"));
             }
             //--------------------------------------------------------------------------------------------------------------
-            //if..
+            if (Telegram.contains(arg))
+            {
+                ActionsHandler.CallFunction(FunctionsDictionary.get("Telegram"));
+            }
         }
     }
 }
