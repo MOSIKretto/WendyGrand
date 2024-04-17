@@ -37,7 +37,7 @@ public class ActionsHandler {
     {
         BrowserManager.startBrowser();
     }
-    private static void CallTelegram() 
+    private static void CallTelegram()
     {
         TelegramManager.startTelegram();
     }
