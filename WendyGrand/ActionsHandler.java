@@ -41,4 +41,8 @@ public class ActionsHandler {
     {
         TelegramManager.startTelegram();
     }
+    private static void CallVScode()
+    {
+        VScodeManager.startVScode();
+    }
 }

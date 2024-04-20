@@ -24,7 +24,8 @@ public class Java_Dictionary
 
             Map <String, String> FunctionsDictionary = Map.ofEntries(
                 entry("Browser", "CallBrowser"), 
-                entry("Telegram", "CallTelegram")
+                entry("Telegram", "CallTelegram"),
+                entry("VScode", "CallVScode")
             );
 
             ArrayList <String> Hello = new ArrayList<String>(
@@ -41,6 +42,10 @@ public class Java_Dictionary
 
             ArrayList <String> Telegram = new ArrayList<String>(
                 Arrays.asList("открой телеграм", "открой telegram", "телеграм", "telegram", "телега","открой телегу")
+            );
+
+            ArrayList <String> VScode = new ArrayList<String>(
+                Arrays.asList("открой vs code", "открой vs код", "vs", "vs code", "vs код")
             );
 
             /*
@@ -66,6 +71,10 @@ public class Java_Dictionary
             if (Telegram.contains(arg))
             {
                 ActionsHandler.CallFunction(FunctionsDictionary.get("Telegram"));
+            }
+            if (VScode.contains(arg))
+            {
+                ActionsHandler.CallFunction(FunctionsDictionary.get("VScode"));
             }
         }
     }
