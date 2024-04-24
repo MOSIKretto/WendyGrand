@@ -10,7 +10,8 @@ import java.lang.reflect.Method;
 
 import Actions.*;
 
-public class ActionsHandler {
+public class ActionsHandler 
+{
 
     public static void CallFunction(String FunctionName) 
     {
