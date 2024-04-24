@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
 import static java.util.Map.entry;
-import java.io.IOException;
 
 public class Java_Dictionary 
 {
