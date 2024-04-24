@@ -9,9 +9,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
 import static java.util.Map.entry;
+import java.io.IOException;
 
 public class Java_Dictionary 
 {
+
     public static void main(String[] args)
     {
         for (String arg : args) 
