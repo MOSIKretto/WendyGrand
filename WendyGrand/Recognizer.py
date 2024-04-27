@@ -18,9 +18,9 @@ r = sr.Recognizer()
 
 
 def hello():
-    number = random.randint(0, 1)
+    executive_voice = random.randint(0, 1)
 
-    if number == 0:
+    if executive_voice == 0:
         playsound(AUDIO_DIR + "LaunchScriptsAndReadyToWork.mp3")
     else:
         playsound(AUDIO_DIR + "HellowStartWork.mp3")
@@ -50,6 +50,7 @@ def listen():
                 sys.exit(0)
             elif (text[0:5] == "венди") or (text[0:5] == "среда"):
                 subprocess.run(["java", "./Java_Dictionary.java", text[6:]], stdout=sys.stdout)
+                print(text)
             else:
                 pass
 
