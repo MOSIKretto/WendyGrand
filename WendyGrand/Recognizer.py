@@ -7,35 +7,13 @@
 *
 '''
 
-import random
 import speech_recognition as sr
 import sys
 import subprocess
-from playsound import playsound
-from config import AUDIO_DIR
+from AudioHelper.HelloVoice import hello
+from AudioHelper.ByeVoice import bye
 
 r = sr.Recognizer()
-
-
-def hello():
-    executive_voice = random.randint(0, 1)
-
-    if executive_voice == 0:
-        playsound(AUDIO_DIR + "LaunchScriptsAndReadyToWork.mp3")
-    else:
-        playsound(AUDIO_DIR + "HellowStartWork.mp3")
-
-
-def bye():
-    executive_voice = random.randint(0, 2)
-
-    if executive_voice == 0:
-        playsound(AUDIO_DIR + "ByeBye.mp3")
-    elif executive_voice == 1:
-        playsound(AUDIO_DIR + "GladToHelp.mp3")
-    else:
-        playsound(AUDIO_DIR + "Goodbye.mp3")
-
 
 def listen():
     with sr.Microphone() as source:
