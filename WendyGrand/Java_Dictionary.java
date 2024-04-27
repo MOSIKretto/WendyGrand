@@ -21,15 +21,38 @@ public class Java_Dictionary
             * RU Словари с командами 
             * EU Dictionaries with commands
             */
-            Map <String, String> FunctionsDictionary = Map.ofEntries(entry("Browser", "CallBrowser"));
-            ArrayList <String> Hello = new ArrayList<String>(Arrays.asList("привет", "здравствуй", "ты тут?"));
-            ArrayList <String> HowYou = new ArrayList<String>(Arrays.asList("как дела", "как ты"));
-            ArrayList <String> Browsers = new ArrayList<String>(Arrays.asList("открой браузер", "браузер", "интернет", "открой интернет"));
+
+            Map <String, String> FunctionsDictionary = Map.ofEntries(
+                entry("Browser", "CallBrowser"),
+                entry("Telegram", "CallTelegram"),
+                entry("VScode", "CallVScode")
+            );
+
+            ArrayList <String> Hello = new ArrayList<String>(
+                Arrays.asList("привет", "здравствуй", "ты тут")
+            );
+
+            ArrayList <String> HowYou = new ArrayList<String>(
+                Arrays.asList("как дела", "как ты")
+            );
+
+            ArrayList <String> Browser = new ArrayList<String>(
+                Arrays.asList("открой браузер", "браузер", "интернет", "открой интернет")
+            );
+
+            ArrayList <String> Telegram = new ArrayList<String>(
+                Arrays.asList("открой телеграм", "открой telegram", "телеграм", "telegram", "телега","открой телегу")
+            );
+
+            ArrayList <String> VScode = new ArrayList<String>(
+                Arrays.asList("открой vs code", "открой vs код", "vs", "vs code", "vs код")
+            );
 
             /*
             * RU Проверка на соответсвие и отдача команды на выполнение задачи 
             * EU Checking for compliance and issuing a command to complete the task
             */
+
             if (Hello.contains(arg))
             {
                 System.out.println("Привет, User!");
@@ -40,12 +63,19 @@ public class Java_Dictionary
                 System.out.println("Хорошо! Надеюсь у вас еще лучше, User!");
             }
             //--------------------------------------------------------------------------------------------------------------
-            if (Browsers.contains(arg))
+            if (Browser.contains(arg))
             {
                 ActionsHandler.CallFunction(FunctionsDictionary.get("Browser"));
             }
             //--------------------------------------------------------------------------------------------------------------
-            //if..
+            if (Telegram.contains(arg))
+            {
+                ActionsHandler.CallFunction(FunctionsDictionary.get("Telegram"));
+            }
+            if (VScode.contains(arg))
+            {
+                ActionsHandler.CallFunction(FunctionsDictionary.get("VScode"));
+            }
         }
     }
 }
