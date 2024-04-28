@@ -5,6 +5,7 @@
 *----------------------------------------------
 *En Path customizer. Paths are stored in .env
 '''
+
 import os
 from os.path import join, dirname, exists
 from dotenv import load_dotenv

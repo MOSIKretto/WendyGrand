@@ -5,6 +5,7 @@
  * EN Looks for a match in dictionaries and issues a command to execute
  * 
  */
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
@@ -17,6 +18,7 @@ public class Java_Dictionary
         for (String arg : args) 
         {
             System.out.println(System.getProperty("user.dir"));
+
             /*
             * RU Словари с командами 
             * EU Dictionaries with commands
@@ -52,6 +54,7 @@ public class Java_Dictionary
             * RU Проверка на соответсвие и отдача команды на выполнение задачи 
             * EU Checking for compliance and issuing a command to complete the task
             */
+
             ActionHandler handler = ActionHandler.get_instance();
             if (Hello.contains(arg))
             {
