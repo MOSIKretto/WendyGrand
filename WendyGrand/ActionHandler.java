@@ -22,9 +22,12 @@ public class ActionHandler
     public static ActionHandler get_instance()
     {
         if(instance == null)
+        {
             instance = new ActionHandler();
+        }
         return instance;
     }
+
     public void CallFunction(String FunctionName)
     {
         System.out.println("Here");
