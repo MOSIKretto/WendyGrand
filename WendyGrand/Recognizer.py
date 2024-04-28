@@ -12,8 +12,11 @@ import sys
 import subprocess
 from AudioHelper.HelloVoice import hello
 from AudioHelper.ByeVoice import bye
+from config import SOURCE_DIR
+import os
 
 r = sr.Recognizer()
+
 
 def listen():
     with sr.Microphone() as source:
@@ -27,7 +30,7 @@ def listen():
                 bye()
                 sys.exit(0)
             elif (text[0:5] == "венди") or (text[0:5] == "среда"):
-                subprocess.run(["java", "./Java_Dictionary.java", text[6:]], stdout=sys.stdout)
+                subprocess.run(["java", SOURCE_DIR + "Java_Dictionary.java", text[6:]], stdout=sys.stdout, cwd=os.getcwd())
                 print(text)
             else:
                 pass
@@ -37,6 +40,5 @@ def listen():
 
 
 hello()
-
 while True:
     listen()

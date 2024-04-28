@@ -6,17 +6,23 @@
  * 
 */
 
+import java.io.File;
 import java.io.IOException;
+import io.github.cdimascio.dotenv.Dotenv;
 
 public class Main
 {
     public static void main(String[] args)
     {
         // Запуск Recognizer.py
-        ProcessBuilder processBuilder1 = new ProcessBuilder("python3", "./WendyGrand/Recognizer.py");
+        Dotenv dotenv = Dotenv.configure().load();
+        ProcessBuilder processBuilder = new ProcessBuilder("python3", dotenv.get("SOURCE_DIR")+"Recognizer.py");
+        File log = new File("Main.log");
+        processBuilder.redirectOutput(ProcessBuilder.Redirect.appendTo(log));
+//        processBuilder.redirectError(ProcessBuilder.Redirect.appendTo(log));
         try
         {
-            processBuilder1.start();
+            processBuilder.start();
         } 
         catch (IOException e)
         {

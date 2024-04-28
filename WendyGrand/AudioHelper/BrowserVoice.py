@@ -5,14 +5,18 @@
 *-------------------------------
 *En Activates audio files
 '''
+import sys
+
 from playsound import playsound
+import sys
+sys.path.append("./..")
 from config import AUDIO_DIR
 from random import *
 
 class ActionsVoiceover:
 
     @staticmethod
-    def browser_voiceover():
+    def CallBrowserVoiceover():
         
         executive_voice = randint(0, 5)
 
@@ -28,3 +32,7 @@ class ActionsVoiceover:
             playsound(AUDIO_DIR + 'OpeningBrowser.mp3')
         else:
             playsound(AUDIO_DIR + "OpenItNow.mp3")
+
+
+print("MESSAGE")
+eval("ActionsVoiceover."+sys.argv[1]+"()")

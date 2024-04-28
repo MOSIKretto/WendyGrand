@@ -12,12 +12,11 @@ import static java.util.Map.entry;
 
 public class Java_Dictionary 
 {
-
     public static void main(String[] args)
     {
         for (String arg : args) 
         {
-
+            System.out.println(System.getProperty("user.dir"));
             /*
             * RU Словари с командами 
             * EU Dictionaries with commands

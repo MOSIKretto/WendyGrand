@@ -21,3 +21,4 @@ out/
 .idea/
 venv/
 *.iml
+*.log
