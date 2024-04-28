@@ -1,4 +1,4 @@
-/* *ActionsHandler*
+/* *ActionHandler*
  *
  * RU Обработчик команд полученныйх с Java_Dictionary
  * --------------------------------------------------------
@@ -13,10 +13,19 @@ import io.github.cdimascio.dotenv.Dotenv;
 
 import Actions.*;
 
-public class ActionsHandler
+public class ActionHandler
 {
+    private static ActionHandler instance;
 
-    public static void CallFunction(String FunctionName)
+    private ActionHandler(){}
+
+    public static ActionHandler get_instance()
+    {
+        if(instance == null)
+            instance = new ActionHandler();
+        return instance;
+    }
+    public void CallFunction(String FunctionName)
     {
         System.out.println("Here");
         Dotenv dotenv = Dotenv.configure().load();
@@ -36,7 +45,7 @@ public class ActionsHandler
         }
         try
         {
-            Method method = ActionsHandler.class.getDeclaredMethod(FunctionName);
+            Method method = this.getClass().getDeclaredMethod(FunctionName);
             method.invoke(null);
         }
         catch (NoSuchMethodException ignored)
@@ -49,15 +58,15 @@ public class ActionsHandler
         }
     }
 
-    private static void CallBrowser()
+    private void CallBrowser()
     {
         BrowserManager.startBrowser();
     }
-    private static void CallTelegram()
+    private void CallTelegram()
     {
         TelegramManager.startTelegram();
     }
-    private static void CallVScode()
+    private void CallVScode()
     {
         VScodeManager.startVScode();
     }

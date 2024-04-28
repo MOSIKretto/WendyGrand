@@ -52,7 +52,7 @@ public class Java_Dictionary
             * RU Проверка на соответсвие и отдача команды на выполнение задачи 
             * EU Checking for compliance and issuing a command to complete the task
             */
-
+            ActionHandler handler = ActionHandler.get_instance();
             if (Hello.contains(arg))
             {
                 System.out.println("Привет, User!");
@@ -65,16 +65,17 @@ public class Java_Dictionary
             //--------------------------------------------------------------------------------------------------------------
             if (Browser.contains(arg))
             {
-                ActionsHandler.CallFunction(FunctionsDictionary.get("Browser"));
+
+                handler.CallFunction(FunctionsDictionary.get("Browser"));
             }
             //--------------------------------------------------------------------------------------------------------------
             if (Telegram.contains(arg))
             {
-                ActionsHandler.CallFunction(FunctionsDictionary.get("Telegram"));
+                handler.CallFunction(FunctionsDictionary.get("Telegram"));
             }
             if (VScode.contains(arg))
             {
-                ActionsHandler.CallFunction(FunctionsDictionary.get("VScode"));
+                handler.CallFunction(FunctionsDictionary.get("VScode"));
             }
         }
     }

@@ -19,7 +19,7 @@ public class Main
         ProcessBuilder processBuilder = new ProcessBuilder("python3", dotenv.get("SOURCE_DIR")+"Recognizer.py");
         File log = new File("Main.log");
         processBuilder.redirectOutput(ProcessBuilder.Redirect.appendTo(log));
-//        processBuilder.redirectError(ProcessBuilder.Redirect.appendTo(log));
+        processBuilder.redirectError(ProcessBuilder.Redirect.appendTo(log));
         try
         {
             processBuilder.start();
