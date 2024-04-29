@@ -16,6 +16,7 @@ public class Java_Dictionary
     {
         for (String arg : args) 
         {
+            System.out.println(arg);
             System.out.println(System.getProperty("user.dir"));
             /*
             * RU Словари с командами 
@@ -52,7 +53,6 @@ public class Java_Dictionary
             * RU Проверка на соответсвие и отдача команды на выполнение задачи 
             * EU Checking for compliance and issuing a command to complete the task
             */
-            ActionHandler handler = ActionHandler.get_instance();
             if (Hello.contains(arg))
             {
                 System.out.println("Привет, User!");
@@ -66,16 +66,16 @@ public class Java_Dictionary
             if (Browser.contains(arg))
             {
 
-                handler.CallFunction(FunctionsDictionary.get("Browser"));
+                ActionHandler.CallFunction(FunctionsDictionary.get("Browser"));
             }
             //--------------------------------------------------------------------------------------------------------------
             if (Telegram.contains(arg))
             {
-                handler.CallFunction(FunctionsDictionary.get("Telegram"));
+                ActionHandler.CallFunction(FunctionsDictionary.get("Telegram"));
             }
             if (VScode.contains(arg))
             {
-                handler.CallFunction(FunctionsDictionary.get("VScode"));
+                ActionHandler.CallFunction(FunctionsDictionary.get("VScode"));
             }
         }
     }

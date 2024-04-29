@@ -2,6 +2,7 @@ import random
 from playsound import playsound
 from config import AUDIO_DIR
 
+
 def bye():
     executive_voice = random.randint(0, 2)
 

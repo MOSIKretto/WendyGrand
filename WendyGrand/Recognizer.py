@@ -30,7 +30,9 @@ def listen():
                 bye()
                 sys.exit(0)
             elif (text[0:5] == "венди") or (text[0:5] == "среда"):
-                subprocess.run(["java", SOURCE_DIR + "Java_Dictionary.java", text[6:]], stdout=sys.stdout, cwd=os.getcwd())
+                complite = subprocess.run(["java", SOURCE_DIR + "Java_Dictionary.java", text[6:]], stdout=sys.stdout,
+                                           cwd=os.getcwd())
+                print(complite)
                 print(text)
             else:
                 pass

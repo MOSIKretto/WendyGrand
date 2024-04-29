@@ -10,7 +10,6 @@ import sys
 from playsound import playsound
 import sys
 import os
-sys.path.append(os.getcwd()+"/WendyGrand/")
 from config import AUDIO_DIR
 from random import *
 
@@ -37,4 +36,5 @@ class ActionsVoiceover:
 
 
 print("MESSAGE")
+print("ActionsVoiceover."+sys.argv[1]+"()")
 eval("ActionsVoiceover."+sys.argv[1]+"()")

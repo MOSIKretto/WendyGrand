@@ -15,17 +15,7 @@ import Actions.*;
 
 public class ActionHandler
 {
-    private static ActionHandler instance;
-
-    private ActionHandler(){}
-
-    public static ActionHandler get_instance()
-    {
-        if(instance == null)
-            instance = new ActionHandler();
-        return instance;
-    }
-    public void CallFunction(String FunctionName)
+    public static void CallFunction(String FunctionName)
     {
         System.out.println("Here");
         Dotenv dotenv = Dotenv.configure().load();
@@ -45,7 +35,7 @@ public class ActionHandler
         }
         try
         {
-            Method method = this.getClass().getDeclaredMethod(FunctionName);
+            Method method = ActionHandler.class.getDeclaredMethod(FunctionName);
             method.invoke(null);
         }
         catch (NoSuchMethodException ignored)
@@ -56,18 +46,5 @@ public class ActionHandler
         {
             e.printStackTrace(System.err);
         }
-    }
-
-    private void CallBrowser()
-    {
-        BrowserManager.startBrowser();
-    }
-    private void CallTelegram()
-    {
-        TelegramManager.startTelegram();
-    }
-    private void CallVScode()
-    {
-        VScodeManager.startVScode();
     }
 }
