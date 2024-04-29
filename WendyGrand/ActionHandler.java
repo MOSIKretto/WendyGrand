@@ -36,7 +36,7 @@ public class ActionHandler
         try
         {
             Method method = ActionHandler.class.getDeclaredMethod(FunctionName);
-            method.invoke();
+            method.invoke(null);
         }
         catch (NoSuchMethodException ignored)
         {
@@ -48,15 +48,15 @@ public class ActionHandler
         }
     }
 
-    private void CallBrowser()
+    private static void CallBrowser()
     {
         BrowserManager.startBrowser();
     }
-    private void CallTelegram()
+    private static void CallTelegram()
     {
         TelegramManager.startTelegram();
     }
-    private void CallVScode()
+    private static void CallVScode()
     {
         VScodeManager.startVScode();
     }
