@@ -36,7 +36,7 @@ public class ActionHandler
         try
         {
             Method method = ActionHandler.class.getDeclaredMethod(FunctionName);
-            method.invoke(null);
+            method.invoke();
         }
         catch (NoSuchMethodException ignored)
         {
