@@ -5,14 +5,12 @@
 *-------------------------------
 *En Activates audio files
 '''
-import sys
 
 from playsound import playsound
 import sys
 import os
 from config import AUDIO_DIR
 from random import *
-
 
 class ActionsVoiceover:
 

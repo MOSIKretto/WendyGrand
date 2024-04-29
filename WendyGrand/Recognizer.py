@@ -17,7 +17,6 @@ import os
 
 r = sr.Recognizer()
 
-
 def listen():
     with sr.Microphone() as source:
         r.adjust_for_ambient_noise(source)
@@ -42,5 +41,6 @@ def listen():
 
 
 hello()
+
 while True:
     listen()

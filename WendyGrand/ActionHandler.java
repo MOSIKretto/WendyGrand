@@ -47,4 +47,17 @@ public class ActionHandler
             e.printStackTrace(System.err);
         }
     }
+
+    private void CallBrowser()
+    {
+        BrowserManager.startBrowser();
+    }
+    private void CallTelegram()
+    {
+        TelegramManager.startTelegram();
+    }
+    private void CallVScode()
+    {
+        VScodeManager.startVScode();
+    }
 }
