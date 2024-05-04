@@ -75,6 +75,7 @@ public class Java_Dictionary
             {
                 ActionHandler.CallFunction(FunctionsDictionary.get("Telegram"));
             }
+            //--------------------------------------------------------------------------------------------------------------
             if (VScode.contains(arg))
             {
                 ActionHandler.CallFunction(FunctionsDictionary.get("VScode"));
