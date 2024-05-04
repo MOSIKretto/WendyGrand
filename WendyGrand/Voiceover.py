@@ -7,16 +7,36 @@
 '''
 
 from playsound import playsound
-import sys
-import os
 from config import AUDIO_DIR
 from random import *
 
 class ActionsVoiceover:
 
     @staticmethod
+    def HelloVoiceover():
+
+        executive_voice = randint(0, 1)
+
+        if executive_voice == 0:
+            playsound(AUDIO_DIR + "LaunchScriptsAndReadyToWork.mp3")
+        else:
+            playsound(AUDIO_DIR + "HellowStartWork.mp3")
+
+    @staticmethod
+    def ByeVoiceover():
+
+        executive_voice = randint(0, 2)
+
+        if executive_voice == 0:
+            playsound(AUDIO_DIR + "ByeBye.mp3")
+        elif executive_voice == 1:
+            playsound(AUDIO_DIR + "GladToHelp.mp3")
+        else:
+            playsound(AUDIO_DIR + "Goodbye.mp3")
+
+    @staticmethod
     def CallBrowserVoiceover():
-        
+
         executive_voice = randint(0, 5)
 
         if executive_voice == 0:
@@ -31,7 +51,6 @@ class ActionsVoiceover:
             playsound(AUDIO_DIR + 'OpeningBrowser.mp3')
         else:
             playsound(AUDIO_DIR + "OpenItNow.mp3")
-
 
 print("MESSAGE")
 print("ActionsVoiceover."+sys.argv[1]+"()")

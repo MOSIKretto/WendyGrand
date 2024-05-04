@@ -10,8 +10,7 @@
 import speech_recognition as sr
 import sys
 import subprocess
-from AudioHelper.HelloVoice import hello
-from AudioHelper.ByeVoice import bye
+from Voiceover import ActionsVoiceover
 from config import SOURCE_DIR
 import os
 
@@ -27,11 +26,12 @@ def listen():
             text = str(r.recognize_google(audio, language="ru-RU")).lower()
 
             if (text[0:10] == "венди пока") or (text[0:10] == "среда пока"):
-                bye()
+                ActionsVoiceover.ByeVoiceover()
                 sys.exit(0)
             elif (text[0:5] == "венди") or (text[0:5] == "среда"):
-                complite = subprocess.run(["java", SOURCE_DIR[2:-1] + ".Java_Dictionary", text[6:]], stdout=sys.stdout,
-                                           cwd=os.getcwd())
+                print(os.getcwd())
+                complite = subprocess.run(["java", "Java_Dictionary.java", text[6:]], stdout=sys.stdout,
+                                          stderr=sys.stdout, cwd=os.getcwd())
                 print(complite)
                 print(text)
             else:
@@ -41,7 +41,7 @@ def listen():
             pass
 
 
-hello()
+ActionsVoiceover.HelloVoiceover()
 
 while True:
     listen()

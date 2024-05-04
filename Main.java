@@ -15,8 +15,7 @@ public class Main
     public static void main(String[] args)
     {
         // Запуск Recognizer.py
-        Dotenv dotenv = Dotenv.configure().load();
-        ProcessBuilder processBuilder = new ProcessBuilder("python3", dotenv.get("SOURCE_DIR")+"Recognizer.py");
+        ProcessBuilder processBuilder = new ProcessBuilder("python3", "Recognizer.py");
         File log = new File("Main.log");
         processBuilder.redirectOutput(ProcessBuilder.Redirect.appendTo(log));
         processBuilder.redirectError(ProcessBuilder.Redirect.appendTo(log));
