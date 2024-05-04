@@ -5,6 +5,7 @@
  * EN Handler for commands received from Java_Dictionary
  *
  */
+
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -46,15 +47,15 @@ public class ActionHandler
         }
     }
 
-    private static void CallBrowser()
+    public static void CallBrowser()
     {
         BrowserManager.startBrowser();
     }
-    private static void CallTelegram()
+    public static void CallTelegram()
     {
         TelegramManager.startTelegram();
     }
-    private static void CallVScode()
+    public static void CallVScode()
     {
         VScodeManager.startVScode();
     }
