@@ -1,7 +1,6 @@
 package Actions;
 
 import java.io.IOException;
-import javax.sound.sampled.AudioSystem;
 
 public class BrowserManager 
 {
