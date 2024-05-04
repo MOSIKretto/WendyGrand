@@ -11,7 +11,6 @@ import speech_recognition as sr
 import sys
 import subprocess
 from Voiceover import ActionsVoiceover
-from config import SOURCE_DIR
 import os
 
 r = sr.Recognizer()

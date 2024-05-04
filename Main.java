@@ -8,7 +8,6 @@
 
 import java.io.File;
 import java.io.IOException;
-import io.github.cdimascio.dotenv.Dotenv;
 
 public class Main
 {
