@@ -1,9 +1,10 @@
 '''
-* *voiceover*
+* *Voiceover*
 *
 *RU Активирует звуковые файлы
 *-------------------------------
 *En Activates audio files
+*
 '''
 
 from playsound import playsound
@@ -54,6 +55,43 @@ class ActionsVoiceover:
         else:
             playsound(AUDIO_DIR + "OpenItNow.mp3")
 
+    @staticmethod
+    def CallTelegramVoiceover():
+
+        executive_voice = randint(0, 5)
+
+        if executive_voice == 0:
+            playsound(AUDIO_DIR + "OpenTelegram.mp3")
+        elif executive_voice == 1:
+            playsound(AUDIO_DIR + 'Doing.mp3')
+        elif executive_voice == 2:
+            playsound(AUDIO_DIR + 'OneMoment.mp3')
+        elif executive_voice == 3:
+            playsound(AUDIO_DIR + 'Second.mp3')
+        elif executive_voice == 4:
+            playsound(AUDIO_DIR + 'TelegramIsOpen.mp3')
+        else:
+            playsound(AUDIO_DIR + "OpenItNow.mp3")
+
+    @staticmethod
+    def CallVScodeVoiceover():
+
+        executive_voice = randint(0, 5)
+
+        if executive_voice == 0:
+            playsound(AUDIO_DIR + "GoodLuckToTheJob.mp3")
+        elif executive_voice == 1:
+            playsound(AUDIO_DIR + 'Doing.mp3')
+        elif executive_voice == 2:
+            playsound(AUDIO_DIR + 'OneMoment.mp3')
+        elif executive_voice == 3:
+            playsound(AUDIO_DIR + 'Second.mp3')
+        elif executive_voice == 4:
+            playsound(AUDIO_DIR + 'IOpenVScode.mp3')
+        elif executive_voice == 5:
+            playsound(AUDIO_DIR + 'VScodeIsOpen.mp3')
+        else:
+            playsound(AUDIO_DIR + "OpenItNow.mp3")
 
 print("MESSAGE")
 if len(sys.argv) > 1:

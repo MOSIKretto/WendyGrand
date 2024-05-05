@@ -15,7 +15,6 @@ import os
 
 r = sr.Recognizer()
 
-
 def listen():
     with sr.Microphone() as source:
         r.adjust_for_ambient_noise(source)
@@ -29,16 +28,14 @@ def listen():
                 sys.exit(0)
             elif (text[0:5] == "венди") or (text[0:5] == "среда"):
                 print(os.getcwd())
-                complite = subprocess.run(["java", "Java_Dictionary.java", text[6:]], stdout=sys.stdout,
-                                          stderr=sys.stdout, cwd=os.getcwd())
-                print(complite)
+                subprocess.run(["java", "Java_Dictionary.java", text[6:]], stdout=sys.stdout, 
+                               stderr=sys.stdout, cwd=os.getcwd())
                 print(text)
             else:
                 pass
 
         except sr.UnknownValueError:
             pass
-
 
 ActionsVoiceover.HelloVoiceover()
 
