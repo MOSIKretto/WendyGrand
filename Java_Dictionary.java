@@ -28,7 +28,8 @@ public class Java_Dictionary
             Map <String, String> FunctionsDictionary = Map.ofEntries(
                 entry("Browser", "CallBrowser"), 
                 entry("Telegram", "CallTelegram"),
-                entry("VScode", "CallVScode")
+                entry("VScode", "CallVScode"),
+                entry("Stores", "CallStores")
             );
 
             ArrayList <String> Hello = new ArrayList<String>(
@@ -49,6 +50,10 @@ public class Java_Dictionary
 
             ArrayList <String> VScode = new ArrayList<String>(
                 Arrays.asList("открой vs code", "открой vs код", "vs", "vs code", "vs код")
+            );
+
+            ArrayList <String> Stores = new ArrayList<String>(
+                Arrays.asList("открой магазин", "магазин", "открой стор", "стор", "store", "открой store")
             );
 
             /*
@@ -79,6 +84,11 @@ public class Java_Dictionary
             if (VScode.contains(arg))
             {
                 ActionHandler.CallFunction(FunctionsDictionary.get("VScode"));
+            }
+            //--------------------------------------------------------------------------------------------------------------
+            if (Stores.contains(arg))
+            {
+                ActionHandler.CallFunction(FunctionsDictionary.get("Stores"));
             }
         }
     }

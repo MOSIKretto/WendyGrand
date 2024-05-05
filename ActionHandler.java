@@ -59,4 +59,8 @@ public class ActionHandler
     {
         VScodeManager.startVScode();
     }
+    public static void CallStores()
+    {
+        StoresManager.startStores();
+    }
 }
