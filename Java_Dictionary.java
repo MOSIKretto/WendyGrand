@@ -61,7 +61,7 @@ public class Java_Dictionary
 
             ArrayList <String> Telegram = new ArrayList<String>(
                 Arrays.asList("открой телеграм", "открой telegram", "телеграм", "telegram", "телега",
-                "открой телегу", "телегу", "открой телеграмма", "открой телеграма"
+                "открой телегу", "телегу", "открой телеграмма", "открой телеграма", "телеграмм"
                 )
             );
 
