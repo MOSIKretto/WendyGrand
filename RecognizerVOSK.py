@@ -36,9 +36,13 @@ with sd.RawInputStream(samplerate=samplerate, blocksize = 16000, device=device[0
     rec = vosk.KaldiRecognizer(model, samplerate)
 
     while True:
+
         data = q.get()
+        
         if rec.AcceptWaveform(data):
+
             data = (rec.Result())[14:-3]
+
             if (data[0:10] == "венди пока") or (data[0:10] == "среда пока") or (data[0:10] == "вэнди пока"):
                 ActionsVoiceover.ByeVoiceover()
                 sys.exit(0)
