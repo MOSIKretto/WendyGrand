@@ -49,18 +49,18 @@ public class ActionHandler
 
     public static void CallBrowser()
     {
-        BrowserManager.startBrowser();
+        WebManager.startWeb("firefox" /*,"google-chrome"*/);
     }
     public static void CallTelegram()
     {
-        TelegramManager.startTelegram();
+        AppManager.startApp("telegram-desktop");
     }
     public static void CallVScode()
     {
-        VScodeManager.startVScode();
+        AppManager.startApp("code");
     }
     public static void CallStores()
     {
-        StoresManager.startStores();
+        AppManager.startApp("snap-store" /*,"gnome-software"*/);
     }
 }

@@ -96,7 +96,7 @@ class ActionsVoiceover:
     @staticmethod
     def CallStoresVoiceover():
 
-        executive_voice = randint(0, 5)
+        executive_voice = randint(0, 4)
 
         if executive_voice == 0:
             playsound(AUDIO_DIR + 'Doing.mp3')
@@ -112,3 +112,4 @@ print("MESSAGE")
 if len(sys.argv) > 1:
     print("ActionsVoiceover." + sys.argv[1] + "()")
     eval("ActionsVoiceover." + sys.argv[1] + "()")
+    

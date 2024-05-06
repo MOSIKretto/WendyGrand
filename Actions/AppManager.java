@@ -2,18 +2,18 @@ package Actions;
 
 import java.io.IOException;
 
-public class TelegramManager
+public class AppManager
 {
-    public static void startTelegram()
+    public static void startApp(String App)
     {
         String os = System.getProperty("os.name").toLowerCase();
         Runtime runtime = Runtime.getRuntime();
-    
+
         if (os.contains("nux")) 
         {
-            try 
+            try
             {
-                runtime.exec("telegram-desktop");
+                runtime.exec(App);
             } 
             catch (IOException ignored) 
             {
