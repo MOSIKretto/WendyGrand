@@ -43,7 +43,7 @@ with sd.RawInputStream(samplerate=samplerate, blocksize = 16000, device=device[0
                 ActionsVoiceover.ByeVoiceover()
                 sys.exit(0)
             elif (data[0:5] == "венди") or (data[0:5] == "среда") or (data[0:5] == "вэнди"):
-                print(data)
+                print("RecognizerVOSK:", data)
                 subprocess.run(["java", "Java_Dictionary.java", data[6:]], stdout=sys.stdout,
                                stderr=sys.stdout, cwd=os.getcwd())
             else:

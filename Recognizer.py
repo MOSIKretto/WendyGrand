@@ -27,7 +27,7 @@ def listen():
                 ActionsVoiceover.ByeVoiceover()
                 sys.exit(0)
             elif (text[0:5] == "венди") or (text[0:5] == "среда"):
-                print(text)
+                print("Recognizer:", text)
                 subprocess.run(["java", "Java_Dictionary.java", text[6:]], stdout=sys.stdout, 
                                stderr=sys.stdout, cwd=os.getcwd())
             else:

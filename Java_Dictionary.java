@@ -25,13 +25,16 @@ public class Java_Dictionary
             */
 
             ArrayList <String> Remove = new ArrayList<String>(
-                Arrays.asList("пожалуйста", "ладно", "давай", "сейчас", "типо", "типа", "будь", "добра", "ну", "что-то")
+                Arrays.asList(
+                    "пожалуйста", "ладно", "давай", "сейчас", "типо", "типа", "будь", "добра", "ну", 
+                    "что-то", "открой", "что", "то"
+                )
             );
             
             String ClearText = Arrays.stream(arg.split("\\s+"))
                 .filter(word -> !Remove.contains(word))
                 .collect(Collectors.joining(" "));
-            System.out.println(ClearText);
+            System.out.println("Java_Dictionary: " + ClearText);
     
             /*
             * RU Словари с командами 
@@ -54,27 +57,19 @@ public class Java_Dictionary
             );
 
             ArrayList <String> Browser = new ArrayList<String>(
-                Arrays.asList("открой браузер", "открой браузера", "браузер", "интернет", "открой интернет", 
-                "браузера"
-                )
+                Arrays.asList("браузер", "браузера", "интернет")
             );
 
             ArrayList <String> Telegram = new ArrayList<String>(
-                Arrays.asList("открой телеграм", "открой telegram", "телеграм", "telegram", "телега",
-                "открой телегу", "телегу", "открой телеграмма", "открой телеграма", "телеграмм"
-                )
+                Arrays.asList("telegram", "телеграм", "телега", "телегу", "телеграмма", "телеграма", "телеграмм")
             );
 
             ArrayList <String> VScode = new ArrayList<String>(
-                Arrays.asList("открой vs code", "открой vs код", "vs", "vs code", "vs код", "vs кода", 
-                "открой vs кода"
-                )
+                Arrays.asList("vs code", "vs код", "vs", "vs кода")
             );
 
             ArrayList <String> Stores = new ArrayList<String>(
-                Arrays.asList("открой магазин", "магазин", "открой стор", "стор", "store", "открой store", 
-                "открой магазина", "магазина", "открой стора"
-                )
+                Arrays.asList("магазин", "стор", "store", "магазина", "стора")
             );
             
             /*
