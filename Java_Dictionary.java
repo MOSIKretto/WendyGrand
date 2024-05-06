@@ -9,6 +9,8 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
+import java.util.stream.Collectors;
+
 import static java.util.Map.entry;
 
 public class Java_Dictionary 
@@ -17,9 +19,20 @@ public class Java_Dictionary
     {
         for (String arg : args) 
         {
-            System.out.println(arg);
-            System.out.println(System.getProperty("user.dir"));
+            /*
+            * RU Ненужный мусор во фразах и его удаление 
+            * EU Unnecessary garbage in phrases and its removal
+            */
 
+            ArrayList <String> Remove = new ArrayList<String>(
+                Arrays.asList("пожалуйста", "ладно", "давай", "сейчас", "типо", "типа", "будь", "добра", "ну")
+            );
+            
+            String ClearText = Arrays.stream(arg.split("\\s+"))
+                .filter(word -> !Remove.contains(word))
+                .collect(Collectors.joining(" "));
+            System.out.println(ClearText);
+    
             /*
             * RU Словари с командами 
             * EU Dictionaries with commands
@@ -45,7 +58,7 @@ public class Java_Dictionary
             );
 
             ArrayList <String> Telegram = new ArrayList<String>(
-                Arrays.asList("открой телеграм", "открой telegram", "телеграм", "telegram", "телега","открой телегу")
+                Arrays.asList("открой телеграм", "открой telegram", "телеграм", "telegram", "телега", "открой телегу", "телегу")
             );
 
             ArrayList <String> VScode = new ArrayList<String>(
@@ -55,41 +68,42 @@ public class Java_Dictionary
             ArrayList <String> Stores = new ArrayList<String>(
                 Arrays.asList("открой магазин", "магазин", "открой стор", "стор", "store", "открой store")
             );
-
+            
             /*
             * RU Проверка на соответсвие и отдача команды на выполнение задачи 
             * EU Checking for compliance and issuing a command to complete the task
             */
 
-            if (Hello.contains(arg))
+            if (Hello.contains(ClearText))
             {
                 System.out.println("Привет, User!");
             }
             //--------------------------------------------------------------------------------------------------------------
-            if (HowYou.contains(arg))
+            if (HowYou.contains(ClearText))
             {
                 System.out.println("Хорошо! Надеюсь у вас еще лучше, User!");
             }
             //--------------------------------------------------------------------------------------------------------------
-            if (Browser.contains(arg))
+            if (Browser.contains(ClearText))
             {
                 ActionHandler.CallFunction(FunctionsDictionary.get("Browser"));
             }
             //--------------------------------------------------------------------------------------------------------------
-            if (Telegram.contains(arg))
+            if (Telegram.contains(ClearText))
             {
                 ActionHandler.CallFunction(FunctionsDictionary.get("Telegram"));
             }
             //--------------------------------------------------------------------------------------------------------------
-            if (VScode.contains(arg))
+            if (VScode.contains(ClearText))
             {
                 ActionHandler.CallFunction(FunctionsDictionary.get("VScode"));
             }
             //--------------------------------------------------------------------------------------------------------------
-            if (Stores.contains(arg))
+            if (Stores.contains(ClearText))
             {
                 ActionHandler.CallFunction(FunctionsDictionary.get("Stores"));
             }
+            //--------------------------------------------------------------------------------------------------------------
         }
     }
 }

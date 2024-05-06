@@ -17,7 +17,6 @@ public class ActionHandler
 {
     public static void CallFunction(String FunctionName)
     {
-        System.out.println("Here");
         ProcessBuilder builder = new ProcessBuilder("python3", "Voiceover.py", FunctionName + "Voiceover");
         File log = new File("Handler.log");
         File cwd = new File(System.getProperty("user.dir"));
