@@ -10,10 +10,10 @@ public class StoresManager
         Runtime runtime = Runtime.getRuntime();
 
         if (os.contains("nux")) 
-        { 
+        {
             try
             {
-                runtime.exec("snap-store");
+                runtime.exec("snap-store" /*,"gnome-software"*/);
             } 
             catch (IOException ignored) 
             {

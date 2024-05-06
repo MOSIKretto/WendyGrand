@@ -7,7 +7,7 @@ public class BrowserManager
     public static void startBrowser()
     {
 
-        String[] browsers = {"firefox"};
+        String[] browsers = {"firefox" /*,"google-chrome"*/};
         String os = System.getProperty("os.name").toLowerCase();
         Runtime runtime = Runtime.getRuntime();
 
