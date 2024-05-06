@@ -25,7 +25,7 @@ public class Java_Dictionary
             */
 
             ArrayList <String> Remove = new ArrayList<String>(
-                Arrays.asList("пожалуйста", "ладно", "давай", "сейчас", "типо", "типа", "будь", "добра", "ну")
+                Arrays.asList("пожалуйста", "ладно", "давай", "сейчас", "типо", "типа", "будь", "добра", "ну", "что-то")
             );
             
             String ClearText = Arrays.stream(arg.split("\\s+"))
@@ -54,19 +54,27 @@ public class Java_Dictionary
             );
 
             ArrayList <String> Browser = new ArrayList<String>(
-                Arrays.asList("открой браузер", "браузер", "интернет", "открой интернет")
+                Arrays.asList("открой браузер", "открой браузера", "браузер", "интернет", "открой интернет", 
+                "браузера"
+                )
             );
 
             ArrayList <String> Telegram = new ArrayList<String>(
-                Arrays.asList("открой телеграм", "открой telegram", "телеграм", "telegram", "телега", "открой телегу", "телегу")
+                Arrays.asList("открой телеграм", "открой telegram", "телеграм", "telegram", "телега",
+                "открой телегу", "телегу", "открой телеграмма", "открой телеграма"
+                )
             );
 
             ArrayList <String> VScode = new ArrayList<String>(
-                Arrays.asList("открой vs code", "открой vs код", "vs", "vs code", "vs код")
+                Arrays.asList("открой vs code", "открой vs код", "vs", "vs code", "vs код", "vs кода", 
+                "открой vs кода"
+                )
             );
 
             ArrayList <String> Stores = new ArrayList<String>(
-                Arrays.asList("открой магазин", "магазин", "открой стор", "стор", "store", "открой store")
+                Arrays.asList("открой магазин", "магазин", "открой стор", "стор", "store", "открой store", 
+                "открой магазина", "магазина", "открой стора"
+                )
             );
             
             /*
