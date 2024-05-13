@@ -42,16 +42,17 @@ public class Java_Dictionary
             */
 
             Map <String, String> FunctionsDictionary = Map.ofEntries(
+                entry("Hello", "CallHello"),
                 entry("Browser", "CallBrowser"), 
                 entry("Telegram", "CallTelegram"),
                 entry("VScode", "CallVScode"),
                 entry("Stores", "CallStores")
             );
-
+            
             ArrayList <String> Hello = new ArrayList<String>(
                 Arrays.asList("привет", "здравствуй", "ты тут")
             );
-
+            /*Сделать*/
             ArrayList <String> HowYou = new ArrayList<String>(
                 Arrays.asList("как дела", "как ты")
             );
@@ -79,7 +80,7 @@ public class Java_Dictionary
 
             if (Hello.contains(ClearText))
             {
-                System.out.println("Привет, User!");
+                ActionHandler.CallFunction(FunctionsDictionary.get("Hello"));
             }
             //--------------------------------------------------------------------------------------------------------------
             if (HowYou.contains(ClearText))

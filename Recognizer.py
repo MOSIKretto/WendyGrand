@@ -7,10 +7,10 @@
 *
 '''
 
-import speech_recognition as sr
-import sys
-import subprocess
 from Voiceover import ActionsVoiceover
+import speech_recognition as sr
+import subprocess
+import sys
 import os
 
 r = sr.Recognizer()

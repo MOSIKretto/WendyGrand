@@ -37,10 +37,25 @@ class ActionsVoiceover:
         else:
             playsound(AUDIO_DIR + "Goodbye.mp3")
 
+
+    #CallFunctionName
+
+    @staticmethod
+    def CallHelloVoiceover():
+
+        executive_voice = randint(0, 2)
+
+        if executive_voice == 0:
+            playsound(AUDIO_DIR + 'HiHowCanIHelp.mp3')
+        elif executive_voice == 1:
+            playsound(AUDIO_DIR + 'ImHere.mp3')
+        else:
+            playsound(AUDIO_DIR + 'Hello.mp3')
+
     @staticmethod
     def CallBrowserVoiceover():
 
-        executive_voice = randint(0, 5)
+        executive_voice = randint(0, 4)
 
         if executive_voice == 0:
             playsound(AUDIO_DIR + "BrowserOpen.mp3")
@@ -49,8 +64,6 @@ class ActionsVoiceover:
         elif executive_voice == 2:
             playsound(AUDIO_DIR + 'OneMoment.mp3')
         elif executive_voice == 3:
-            playsound(AUDIO_DIR + 'Second.mp3')
-        elif executive_voice == 4:
             playsound(AUDIO_DIR + 'OpeningBrowser.mp3')
         else:
             playsound(AUDIO_DIR + "OpenItNow.mp3")
@@ -58,25 +71,21 @@ class ActionsVoiceover:
     @staticmethod
     def CallTelegramVoiceover():
 
-        executive_voice = randint(0, 5)
+        executive_voice = randint(0, 3)
 
         if executive_voice == 0:
             playsound(AUDIO_DIR + "OpenTelegram.mp3")
         elif executive_voice == 1:
-            playsound(AUDIO_DIR + 'Doing.mp3')
-        elif executive_voice == 2:
             playsound(AUDIO_DIR + 'OneMoment.mp3')
-        elif executive_voice == 3:
+        elif executive_voice == 2:
             playsound(AUDIO_DIR + 'Second.mp3')
-        elif executive_voice == 4:
-            playsound(AUDIO_DIR + 'TelegramIsOpen.mp3')
         else:
-            playsound(AUDIO_DIR + "OpenItNow.mp3")
+            playsound(AUDIO_DIR + 'TelegramIsOpen.mp3')
 
     @staticmethod
     def CallVScodeVoiceover():
 
-        executive_voice = randint(0, 6)
+        executive_voice = randint(0, 5)
 
         if executive_voice == 0:
             playsound(AUDIO_DIR + "GoodLuckToTheJob.mp3")
@@ -85,10 +94,8 @@ class ActionsVoiceover:
         elif executive_voice == 2:
             playsound(AUDIO_DIR + 'OneMoment.mp3')
         elif executive_voice == 3:
-            playsound(AUDIO_DIR + 'Second.mp3')
-        elif executive_voice == 4:
             playsound(AUDIO_DIR + 'IOpenVScode.mp3')
-        elif executive_voice == 5:
+        elif executive_voice == 4:
             playsound(AUDIO_DIR + 'VScodeIsOpen.mp3')
         else:
             playsound(AUDIO_DIR + "OpenItNow.mp3")
@@ -96,14 +103,18 @@ class ActionsVoiceover:
     @staticmethod
     def CallStoresVoiceover():
 
-        executive_voice = randint(0, 4)
+        executive_voice = randint(0, 5)
 
         if executive_voice == 0:
-            playsound(AUDIO_DIR + 'Doing.mp3')
-        elif executive_voice == 1:
             playsound(AUDIO_DIR + "OpenItNow.mp3")
-        elif executive_voice == 2:
+        elif executive_voice == 1:
             playsound(AUDIO_DIR + 'OneMoment.mp3')
+        elif executive_voice == 2:
+            playsound(AUDIO_DIR + 'FindSomthing.mp3')
+        elif executive_voice == 3:
+            playsound(AUDIO_DIR + 'OpeningStore.mp3')
+        elif executive_voice == 4:
+            playsound(AUDIO_DIR + 'TheStoreIsOpen.mp3')
         else:
             playsound(AUDIO_DIR + 'Second.mp3')
         
