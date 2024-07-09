@@ -43,41 +43,45 @@ public class Java_Dictionary
 
             Map <String, String> FunctionsDictionary = Map.ofEntries(
                 entry("Hello", "CallHello"),
-                entry("Browser", "CallBrowser"), 
+                entry("Browser", "CallBrowser"),
                 entry("Telegram", "CallTelegram"),
                 entry("VScode", "CallVScode"),
                 entry("Stores", "CallStores")
             );
             
             ArrayList <String> Hello = new ArrayList<String>(
-                Arrays.asList("привет", "здравствуй", "ты тут")
+                Arrays.asList("привет", "здравствуй", "ты тут", "")
             );
-            /*Сделать*/
+                /*Сделать*/
             ArrayList <String> HowYou = new ArrayList<String>(
                 Arrays.asList("как дела", "как ты")
             );
-
+                    
             ArrayList <String> Browser = new ArrayList<String>(
                 Arrays.asList("браузер", "браузера", "интернет")
             );
 
+            /*ArrayList <String> BrowserSearch = new ArrayList<String>(
+                Arrays.asList("найди", "что такое", "как", "когда", "где", "кто такой", "кто такая")
+            );*/
+                
             ArrayList <String> Telegram = new ArrayList<String>(
                 Arrays.asList("telegram", "телеграм", "телега", "телегу", "телеграмма", "телеграма", "телеграмм")
             );
-
+            
             ArrayList <String> VScode = new ArrayList<String>(
                 Arrays.asList("vs code", "vs код", "vs", "vs кода", "код", "кода")
             );
-
+            
             ArrayList <String> Stores = new ArrayList<String>(
                 Arrays.asList("магазин", "стор", "store", "магазина", "стора", "стара")
             );
-            
+                
             /*
             * RU Проверка на соответсвие и отдача команды на выполнение задачи 
             * EU Checking for compliance and issuing a command to complete the task
             */
-
+                
             if (Hello.contains(ClearText))
             {
                 ActionHandler.CallFunction(FunctionsDictionary.get("Hello"));

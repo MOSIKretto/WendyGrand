@@ -12,8 +12,8 @@ public class WebManager
         if (os.contains("nux")) 
         {
             try 
-            {                  //Ссылка
-                runtime.exec(Web + "");
+            {
+                runtime.exec(Web);
             } 
             catch (IOException ignored) 
             {
