@@ -44,6 +44,7 @@ public class Java_Dictionary
             Map <String, String> FunctionsDictionary = Map.ofEntries(
                 entry("Hello", "CallHello"),
                 entry("Browser", "CallBrowser"),
+                entry("Https", "CallHttps"),
                 entry("Telegram", "CallTelegram"),
                 entry("VScode", "CallVScode"),
                 entry("Stores", "CallStores")
@@ -95,6 +96,12 @@ public class Java_Dictionary
             if (Browser.contains(ClearText))
             {
                 ActionHandler.CallFunction(FunctionsDictionary.get("Browser"));
+            }
+            //--------------------------------------------------------------------------------------------------------------
+            if (ClearText.startsWith("найди"))
+            {
+                ActionHandler.CallFunction(FunctionsDictionary.get("Https"));
+                ActionHandler.CallHttps(ClearText);
             }
             //--------------------------------------------------------------------------------------------------------------
             if (Telegram.contains(ClearText))

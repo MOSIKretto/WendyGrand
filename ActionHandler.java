@@ -50,6 +50,10 @@ public class ActionHandler
     {
         WebManager.startWeb("firefox" /*,"google-chrome"*/);
     }
+    public static void CallHttps(String https)
+    {
+        HttpsManager.startHttps(https);
+    }
     public static void CallTelegram()
     {
         AppManager.startApp("telegram-desktop");

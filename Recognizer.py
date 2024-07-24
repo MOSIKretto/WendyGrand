@@ -23,10 +23,10 @@ def listen():
         try:
             text = str(r.recognize_google(audio, language="ru-RU")).lower()
 
-            if (text[0:10] == "венди пока") or (text[0:10] == "среда пока"):
+            if (text.startswith("венди пока")) or (text.startswith("среда пока")):
                 ActionsVoiceover.ByeVoiceover()
                 sys.exit(0)
-            elif (text[0:5] == "венди") or (text[0:5] == "среда"):
+            elif (text.startswith("венди")) or (text.startswith("среда")):
                 print("Recognizer:", text)
                 subprocess.run(["java", "Java_Dictionary.java", text[6:]], stdout=sys.stdout, 
                                stderr=sys.stdout, cwd=os.getcwd())
