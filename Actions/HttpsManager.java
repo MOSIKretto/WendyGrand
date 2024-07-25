@@ -1,6 +1,7 @@
 package Actions;
 
 import java.io.IOException;
+import java.text.MessageFormat;
 
 public class HttpsManager
 {
@@ -13,7 +14,8 @@ public class HttpsManager
         {
             try 
             {
-                runtime.exec("firefox https://duckduckgo.com/?q=" + https);
+                System.err.println(https);
+                runtime.exec(MessageFormat.format("firefox https://duckduckgo.com/?q={0}", https));
             } 
             catch (IOException ignored) 
             {

@@ -61,10 +61,6 @@ public class Java_Dictionary
             ArrayList <String> Browser = new ArrayList<String>(
                 Arrays.asList("браузер", "браузера", "интернет")
             );
-
-            /*ArrayList <String> BrowserSearch = new ArrayList<String>(
-                Arrays.asList("найди", "что такое", "как", "когда", "где", "кто такой", "кто такая")
-            );*/
                 
             ArrayList <String> Telegram = new ArrayList<String>(
                 Arrays.asList("telegram", "телеграм", "телега", "телегу", "телеграмма", "телеграма", "телеграмм")
@@ -98,10 +94,20 @@ public class Java_Dictionary
                 ActionHandler.CallFunction(FunctionsDictionary.get("Browser"));
             }
             //--------------------------------------------------------------------------------------------------------------
-            if (ClearText.startsWith("найди"))
+            if (ClearText.startsWith("найди") || ClearText.startsWith("найди в интернете") || ClearText.startsWith("ищи") || 
+            ClearText.startsWith("что такое") || ClearText.startsWith("как") || ClearText.startsWith("когда") || 
+            ClearText.startsWith("где") || ClearText.startsWith("кто такой") || ClearText.startsWith("кто такая")) 
             {
+                ArrayList <String> RemoveHttps  = new ArrayList<String>(
+                    Arrays.asList("найди", "найди", "в", "интернете", "ищи")
+                );
+
+                String ClearTextHttps = Arrays.stream(arg.split("\\s+"))
+                    .filter(word -> !RemoveHttps.contains(word))
+                    .collect(Collectors.joining(" "));
+
                 ActionHandler.CallFunction(FunctionsDictionary.get("Https"));
-                ActionHandler.CallHttps(ClearText);
+                ActionHandler.CallHttps(ClearTextHttps);
             }
             //--------------------------------------------------------------------------------------------------------------
             if (Telegram.contains(ClearText))
