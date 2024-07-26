@@ -14,7 +14,6 @@ public class HttpsManager
         {
             try 
             {
-                System.err.println(https);
                 runtime.exec(MessageFormat.format("firefox https://duckduckgo.com/?q={0}", https));
             } 
             catch (IOException ignored) 

@@ -96,15 +96,16 @@ public class Java_Dictionary
             //--------------------------------------------------------------------------------------------------------------
             if (ClearText.startsWith("найди") || ClearText.startsWith("найди в интернете") || ClearText.startsWith("ищи") || 
             ClearText.startsWith("что такое") || ClearText.startsWith("как") || ClearText.startsWith("когда") || 
-            ClearText.startsWith("где") || ClearText.startsWith("кто такой") || ClearText.startsWith("кто такая")) 
+            ClearText.startsWith("в каком году") || ClearText.startsWith("где") || ClearText.startsWith("кто такой") || 
+            ClearText.startsWith("кто") || ClearText.startsWith("кто такая")) 
             {
                 ArrayList <String> RemoveHttps  = new ArrayList<String>(
-                    Arrays.asList("найди", "найди", "в", "интернете", "ищи")
+                    Arrays.asList("найди", "в", "интернете", "ищи")
                 );
 
                 String ClearTextHttps = Arrays.stream(arg.split("\\s+"))
                     .filter(word -> !RemoveHttps.contains(word))
-                    .collect(Collectors.joining(" "));
+                    .collect(Collectors.joining("%20"));
 
                 ActionHandler.CallFunction(FunctionsDictionary.get("Https"));
                 ActionHandler.CallHttps(ClearTextHttps);
