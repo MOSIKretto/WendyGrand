@@ -28,7 +28,9 @@ def listen():
                 sys.exit(0)
             elif (text.startswith("венди")) or (text.startswith("среда")):
                 print("Recognizer:", text)
-                subprocess.run(["java", "Java_Dictionary.java", text[6:]], stdout=sys.stdout, 
+                text = text.replace("венди", "")
+                text = text.replace("среда", "")
+                subprocess.run(["java", "Java_Dictionary.java", text.strip()], stdout=sys.stdout, 
                                stderr=sys.stdout, cwd=os.getcwd())
             else:
                 pass

@@ -95,9 +95,9 @@ public class Java_Dictionary
             }
             //--------------------------------------------------------------------------------------------------------------
             if (ClearText.startsWith("найди") || ClearText.startsWith("найди в интернете") || ClearText.startsWith("ищи") || 
-            ClearText.startsWith("что такое") || ClearText.startsWith("как") || ClearText.startsWith("когда") || 
-            ClearText.startsWith("в каком году") || ClearText.startsWith("где") || ClearText.startsWith("кто такой") || 
-            ClearText.startsWith("кто") || ClearText.startsWith("кто такая")) 
+            ClearText.startsWith("что такое") || ClearText.startsWith("когда") || ClearText.startsWith("в каком году") || 
+            ClearText.startsWith("где") || ClearText.startsWith("кто такой") || ClearText.startsWith("кто") || 
+            ClearText.startsWith("кто такая")) 
             {
                 ArrayList <String> RemoveHttps  = new ArrayList<String>(
                     Arrays.asList("найди", "в", "интернете", "ищи")
