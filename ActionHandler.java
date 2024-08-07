@@ -36,10 +36,7 @@ public class ActionHandler
             Method method = ActionHandler.class.getDeclaredMethod(FunctionName);
             method.invoke(null);
         }
-        catch (NoSuchMethodException ignored)
-        {
-            System.out.println("No " + FunctionName);
-        }
+        catch (NoSuchMethodException ignored){}
         catch (InvocationTargetException | IllegalAccessException e)
         {
             e.printStackTrace(System.err);
