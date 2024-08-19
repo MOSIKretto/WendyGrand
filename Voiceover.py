@@ -69,7 +69,7 @@ class ActionsVoiceover:
             playsound(AUDIO_DIR + "OpenItNow.mp3")
 
     @staticmethod
-    def CallHttpsVoiceover():
+    def CallWebSearchVoiceover():
             
             executive_voice = randint(0, 5)
 
@@ -85,6 +85,24 @@ class ActionsVoiceover:
                 playsound(AUDIO_DIR + 'WillFindIt.mp3')
             else:
                 playsound(AUDIO_DIR + 'LookingForYourRequestOnTheInternet.mp3')
+
+    @staticmethod
+    def CallYouTubeSearchVoiceover():
+            
+            executive_voice = randint(0, 5)
+
+            if executive_voice == 0:
+                playsound(AUDIO_DIR + 'OneMoment.mp3')
+            elif executive_voice == 1:
+                playsound(AUDIO_DIR + 'Second.mp3')
+            elif executive_voice == 2:
+                playsound(AUDIO_DIR + 'Doing.mp3')
+            elif executive_voice == 3:
+                playsound(AUDIO_DIR + 'LookingForYourYouTubeRequest.mp3')
+            elif executive_voice == 4:
+                playsound(AUDIO_DIR + 'WillFindIt.mp3')
+            else:
+                playsound(AUDIO_DIR + 'TryingToFindYourYouTubeRequest.mp3')
 
     @staticmethod
     def CallTelegramVoiceover():

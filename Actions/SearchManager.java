@@ -3,9 +3,9 @@ package Actions;
 import java.io.IOException;
 import java.text.MessageFormat;
 
-public class HttpsManager
+public class SearchManager
 {
-    public static void startHttps(String https)
+    public static void startSearch(String https, String search)
     {
         String os = System.getProperty("os.name").toLowerCase();
         Runtime runtime = Runtime.getRuntime();
@@ -14,7 +14,7 @@ public class HttpsManager
         {
             try 
             {
-                runtime.exec(MessageFormat.format("firefox https://duckduckgo.com/?q={0}", https));
+                runtime.exec(MessageFormat.format("firefox {0}{1}", https, search));
             } 
             catch (IOException ignored) 
             {

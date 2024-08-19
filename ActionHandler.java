@@ -47,9 +47,13 @@ public class ActionHandler
     {
         WebManager.startWeb("firefox" /*,"google-chrome"*/);
     }
-    public static void CallHttps(String https)
+    public static void CallWebSearch(String https, String search)
     {
-        HttpsManager.startHttps(https);
+        SearchManager.startSearch(https, search);
+    }
+    public static void CallYouTubeSearch(String https, String search)
+    {
+        SearchManager.startSearch(https, search);
     }
     public static void CallTelegram()
     {

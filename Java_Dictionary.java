@@ -44,7 +44,8 @@ public class Java_Dictionary
             Map <String, String> FunctionsDictionary = Map.ofEntries(
                 entry("Hello", "CallHello"),
                 entry("Browser", "CallBrowser"),
-                entry("Https", "CallHttps"),
+                entry("WebSearch", "CallWebSearch"),
+                entry("YouTubeSearch", "CallYouTubeSearch"),
                 entry("Telegram", "CallTelegram"),
                 entry("VScode", "CallVScode"),
                 entry("Stores", "CallStores")
@@ -99,16 +100,35 @@ public class Java_Dictionary
             ClearText.startsWith("где") || ClearText.startsWith("кто такой") || ClearText.startsWith("кто") || 
             ClearText.startsWith("кто такая")) 
             {
-                ArrayList <String> RemoveHttps  = new ArrayList<String>(
-                    Arrays.asList("найди", "в", "интернете", "ищи")
-                );
+                if (ClearText.contains("найди на ютубе") || ClearText.contains("ищи на ютубе") || 
+                ClearText.contains("найди на ютуб") || ClearText.contains("ищи на ютуб") || 
+                ClearText.contains("найди на youtube") || ClearText.contains("ищи на youtube"))
+                {
+                    ArrayList <String> RemoveYouTubeSearch  = new ArrayList<String>(
+                        Arrays.asList("найди", "на", "ютубе", "ищи", "youtube", "ютуби")
+                    );
 
-                String ClearTextHttps = Arrays.stream(arg.split("\\s+"))
-                    .filter(word -> !RemoveHttps.contains(word))
-                    .collect(Collectors.joining("%20"));
+                    String ClearTextYouTubeSearch = Arrays.stream(arg.split("\\s+"))
+                        .filter(word -> !RemoveYouTubeSearch.contains(word))
+                        .collect(Collectors.joining("%20"));
 
-                ActionHandler.CallFunction(FunctionsDictionary.get("Https"));
-                ActionHandler.CallHttps(ClearTextHttps);
+                    ActionHandler.CallFunction(FunctionsDictionary.get("YouTubeSearch"));
+                    ActionHandler.CallYouTubeSearch("https://www.youtube.com/results?search_query=", ClearTextYouTubeSearch);
+                }
+                else
+                {
+
+                    ArrayList <String> RemoveWebSearch  = new ArrayList<String>(
+                        Arrays.asList("найди", "в", "интернете", "ищи")
+                    );
+
+                    String ClearTextWebSearch = Arrays.stream(arg.split("\\s+"))
+                        .filter(word -> !RemoveWebSearch.contains(word))
+                        .collect(Collectors.joining("%20"));
+
+                    ActionHandler.CallFunction(FunctionsDictionary.get("WebSearch"));
+                    ActionHandler.CallWebSearch("https://duckduckgo.com/?q=", ClearTextWebSearch);
+                }
             }
             //--------------------------------------------------------------------------------------------------------------
             if (Telegram.contains(ClearText))
