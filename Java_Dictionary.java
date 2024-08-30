@@ -117,7 +117,6 @@ public class Java_Dictionary
                 }
                 else
                 {
-
                     ArrayList <String> RemoveWebSearch  = new ArrayList<String>(
                         Arrays.asList("найди", "в", "интернете", "ищи")
                     );
