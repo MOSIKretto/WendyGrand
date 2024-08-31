@@ -7,7 +7,7 @@
 *
 '''
 
-from playsound import playsound
+from playsound3 import playsound
 import sys
 from config import AUDIO_DIR
 from random import *
