@@ -21,3 +21,4 @@ out/
 .idea/
 *.iml
 *.log
+*.cfg
