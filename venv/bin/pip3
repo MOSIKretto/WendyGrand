@@ -1,6 +1,4 @@
-#!/bin/sh
-'''exec' "/home/lazaretto/Рабочий стол/WendyGrand/venv/bin/python3" "$0" "$@"
-' '''
+#!/home/lazaretto/venv/bin/python
 # -*- coding: utf-8 -*-
 import re
 import sys
