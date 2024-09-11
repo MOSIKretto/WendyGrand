@@ -1,12 +1,13 @@
 '''
-* *voiceover*
+* *Voiceover*
 *
 *RU Активирует звуковые файлы
 *-------------------------------
 *En Activates audio files
+*
 '''
 
-from playsound import playsound
+from playsound3 import playsound
 import sys
 from config import AUDIO_DIR
 from random import *
@@ -36,10 +37,25 @@ class ActionsVoiceover:
         else:
             playsound(AUDIO_DIR + "Goodbye.mp3")
 
+
+    #CallFunctionName
+
+    @staticmethod
+    def CallHelloVoiceover():
+
+        executive_voice = randint(0, 2)
+
+        if executive_voice == 0:
+            playsound(AUDIO_DIR + 'HiHowCanIHelp.mp3')
+        elif executive_voice == 1:
+            playsound(AUDIO_DIR + 'ImHere.mp3')
+        else:
+            playsound(AUDIO_DIR + 'Hello.mp3')
+
     @staticmethod
     def CallBrowserVoiceover():
 
-        executive_voice = randint(0, 5)
+        executive_voice = randint(0, 4)
 
         if executive_voice == 0:
             playsound(AUDIO_DIR + "BrowserOpen.mp3")
@@ -48,14 +64,99 @@ class ActionsVoiceover:
         elif executive_voice == 2:
             playsound(AUDIO_DIR + 'OneMoment.mp3')
         elif executive_voice == 3:
-            playsound(AUDIO_DIR + 'Second.mp3')
-        elif executive_voice == 4:
             playsound(AUDIO_DIR + 'OpeningBrowser.mp3')
         else:
             playsound(AUDIO_DIR + "OpenItNow.mp3")
 
+    @staticmethod
+    def CallWebSearchVoiceover():
+            
+            executive_voice = randint(0, 5)
+
+            if executive_voice == 0:
+                playsound(AUDIO_DIR + 'OneMoment.mp3')
+            elif executive_voice == 1:
+                playsound(AUDIO_DIR + 'Second.mp3')
+            elif executive_voice == 2:
+                playsound(AUDIO_DIR + 'Doing.mp3')
+            elif executive_voice == 3:
+                playsound(AUDIO_DIR + 'AskingOnTheInternet.mp3')
+            elif executive_voice == 4:
+                playsound(AUDIO_DIR + 'WillFindIt.mp3')
+            else:
+                playsound(AUDIO_DIR + 'LookingForYourRequestOnTheInternet.mp3')
+
+    @staticmethod
+    def CallYouTubeSearchVoiceover():
+            
+            executive_voice = randint(0, 5)
+
+            if executive_voice == 0:
+                playsound(AUDIO_DIR + 'OneMoment.mp3')
+            elif executive_voice == 1:
+                playsound(AUDIO_DIR + 'Second.mp3')
+            elif executive_voice == 2:
+                playsound(AUDIO_DIR + 'Doing.mp3')
+            elif executive_voice == 3:
+                playsound(AUDIO_DIR + 'LookingForYourYouTubeRequest.mp3')
+            elif executive_voice == 4:
+                playsound(AUDIO_DIR + 'WillFindIt.mp3')
+            else:
+                playsound(AUDIO_DIR + 'TryingToFindYourYouTubeRequest.mp3')
+
+    @staticmethod
+    def CallTelegramVoiceover():
+
+        executive_voice = randint(0, 3)
+
+        if executive_voice == 0:
+            playsound(AUDIO_DIR + "OpenTelegram.mp3")
+        elif executive_voice == 1:
+            playsound(AUDIO_DIR + 'OneMoment.mp3')
+        elif executive_voice == 2:
+            playsound(AUDIO_DIR + 'Second.mp3')
+        else:
+            playsound(AUDIO_DIR + 'TelegramIsOpen.mp3')
+
+    @staticmethod
+    def CallVScodeVoiceover():
+
+        executive_voice = randint(0, 5)
+
+        if executive_voice == 0:
+            playsound(AUDIO_DIR + "GoodLuckToTheJob.mp3")
+        elif executive_voice == 1:
+            playsound(AUDIO_DIR + 'Doing.mp3')
+        elif executive_voice == 2:
+            playsound(AUDIO_DIR + 'OneMoment.mp3')
+        elif executive_voice == 3:
+            playsound(AUDIO_DIR + 'IOpenVScode.mp3')
+        elif executive_voice == 4:
+            playsound(AUDIO_DIR + 'VScodeIsOpen.mp3')
+        else:
+            playsound(AUDIO_DIR + "OpenItNow.mp3")
+
+    @staticmethod
+    def CallStoresVoiceover():
+
+        executive_voice = randint(0, 5)
+
+        if executive_voice == 0:
+            playsound(AUDIO_DIR + "OpenItNow.mp3")
+        elif executive_voice == 1:
+            playsound(AUDIO_DIR + 'OneMoment.mp3')
+        elif executive_voice == 2:
+            playsound(AUDIO_DIR + 'FindSomthing.mp3')
+        elif executive_voice == 3:
+            playsound(AUDIO_DIR + 'OpeningStore.mp3')
+        elif executive_voice == 4:
+            playsound(AUDIO_DIR + 'TheStoreIsOpen.mp3')
+        else:
+            playsound(AUDIO_DIR + 'Second.mp3')
+        
 
 print("MESSAGE")
 if len(sys.argv) > 1:
     print("ActionsVoiceover." + sys.argv[1] + "()")
     eval("ActionsVoiceover." + sys.argv[1] + "()")
+    

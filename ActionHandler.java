@@ -17,7 +17,6 @@ public class ActionHandler
 {
     public static void CallFunction(String FunctionName)
     {
-        System.out.println("Here");
         ProcessBuilder builder = new ProcessBuilder("python3", "Voiceover.py", FunctionName + "Voiceover");
         File log = new File("Handler.log");
         File cwd = new File(System.getProperty("user.dir"));
@@ -37,10 +36,7 @@ public class ActionHandler
             Method method = ActionHandler.class.getDeclaredMethod(FunctionName);
             method.invoke(null);
         }
-        catch (NoSuchMethodException ignored)
-        {
-            System.out.println("No " + FunctionName);
-        }
+        catch (NoSuchMethodException ignored){}
         catch (InvocationTargetException | IllegalAccessException e)
         {
             e.printStackTrace(System.err);
@@ -49,14 +45,26 @@ public class ActionHandler
 
     public static void CallBrowser()
     {
-        BrowserManager.startBrowser();
+        WebManager.startWeb("firefox" /*,"google-chrome"*/);
+    }
+    public static void CallWebSearch(String https, String search)
+    {
+        SearchManager.startSearch(https, search);
+    }
+    public static void CallYouTubeSearch(String https, String search)
+    {
+        SearchManager.startSearch(https, search);
     }
     public static void CallTelegram()
     {
-        TelegramManager.startTelegram();
+        AppManager.startApp("telegram-desktop");
     }
     public static void CallVScode()
     {
-        VScodeManager.startVScode();
+        AppManager.startApp("code");
+    }
+    public static void CallStores()
+    {
+        AppManager.startApp("snap-store" /*,"gnome-software"*/);
     }
 }

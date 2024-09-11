@@ -7,14 +7,13 @@
 *
 '''
 
-import speech_recognition as sr
-import sys
-import subprocess
 from Voiceover import ActionsVoiceover
+import speech_recognition as sr
+import subprocess
+import sys
 import os
 
 r = sr.Recognizer()
-
 
 def listen():
     with sr.Microphone() as source:
@@ -24,21 +23,20 @@ def listen():
         try:
             text = str(r.recognize_google(audio, language="ru-RU")).lower()
 
-            if (text[0:10] == "венди пока") or (text[0:10] == "среда пока"):
+            if (text.startswith("венди пока")) or (text.startswith("среда пока")):
                 ActionsVoiceover.ByeVoiceover()
                 sys.exit(0)
-            elif (text[0:5] == "венди") or (text[0:5] == "среда"):
-                print(os.getcwd())
-                complite = subprocess.run(["java", "Java_Dictionary.java", text[6:]], stdout=sys.stdout,
-                                          stderr=sys.stdout, cwd=os.getcwd())
-                print(complite)
-                print(text)
+            elif (text.startswith("венди")) or (text.startswith("среда")):
+                print("Recognizer:", text)
+                text = text.replace("венди", "")
+                text = text.replace("среда", "")
+                subprocess.run(["java", "Java_Dictionary.java", text.strip()], stdout=sys.stdout, 
+                               stderr=sys.stdout, cwd=os.getcwd())
             else:
                 pass
 
         except sr.UnknownValueError:
             pass
-
 
 ActionsVoiceover.HelloVoiceover()
 
