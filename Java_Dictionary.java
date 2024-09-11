@@ -27,7 +27,7 @@ public class Java_Dictionary
             ArrayList <String> Remove = new ArrayList<String>(
                 Arrays.asList(
                     "пожалуйста", "ладно", "давай", "сейчас", "типо", "типа", "будь", "добра", "ну", 
-                    "что-то",  "что", "то", "открой"
+                    "что-то",  "что", "то", "открой", "блять"
                 )
             );
             
