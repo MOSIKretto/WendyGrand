@@ -48,7 +48,8 @@ public class Java_Dictionary
                 entry("YouTubeSearch", "CallYouTubeSearch"),
                 entry("Telegram", "CallTelegram"),
                 entry("VScode", "CallVScode"),
-                entry("Stores", "CallStores")
+                entry("Stores", "CallStores"),
+                entry("Obsidian", "CallObsidian")
             );
             
             ArrayList <String> Hello = new ArrayList<String>(
@@ -66,7 +67,11 @@ public class Java_Dictionary
             ArrayList <String> Telegram = new ArrayList<String>(
                 Arrays.asList("telegram", "телеграм", "телега", "телегу", "телеграмма", "телеграма", "телеграмм")
             );
-            
+
+            ArrayList <String> Obsidian = new ArrayList<String>(
+                Arrays.asList("Obsidian", "обсидиан")
+            );
+
             ArrayList <String> VScode = new ArrayList<String>(
                 Arrays.asList("vs code", "vs код", "vs", "vs кода", "код", "кода")
             );
@@ -133,6 +138,11 @@ public class Java_Dictionary
             if (Telegram.contains(ClearText))
             {
                 ActionHandler.CallFunction(FunctionsDictionary.get("Telegram"));
+            }
+            //--------------------------------------------------------------------------------------------------------------
+            if (Obsidian.contains(ClearText))
+            {
+                ActionHandler.CallFunction(FunctionsDictionary.get("Obsidian"));
             }
             //--------------------------------------------------------------------------------------------------------------
             if (VScode.contains(ClearText))

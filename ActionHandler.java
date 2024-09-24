@@ -59,12 +59,16 @@ public class ActionHandler
     {
         AppManager.startApp("telegram-desktop");
     }
+    public static void CallObsidian()
+    {
+        AppManager.startApp("md.obsidian.Obsidian");
+    }
     public static void CallVScode()
     {
         AppManager.startApp("code");
     }
     public static void CallStores()
     {
-        AppManager.startApp("snap-store" /*,"gnome-software"*/);
+        AppManager.startApp("pamac-manager" /* "snap-store", "gnome-software" */);
     }
 }
