@@ -65,11 +65,11 @@ public class Java_Dictionary
             );
                 
             ArrayList <String> Telegram = new ArrayList<String>(
-                Arrays.asList("telegram", "телеграм", "телега", "телегу", "телеграмма", "телеграма", "телеграмм")
+                Arrays.asList("телеграм", "телега", "телегу", "телеграмма", "телеграма", "телеграмм")
             );
 
             ArrayList <String> Obsidian = new ArrayList<String>(
-                Arrays.asList("Obsidian", "обсидиан")
+                Arrays.asList("обсидиан")
             );
 
             ArrayList <String> VScode = new ArrayList<String>(
@@ -77,7 +77,7 @@ public class Java_Dictionary
             );
             
             ArrayList <String> Stores = new ArrayList<String>(
-                Arrays.asList("магазин", "стор", "store", "магазина", "стора", "стара")
+                Arrays.asList("магазин", "стор", "магазина", "стора", "стара")
             );
                 
             /*
@@ -103,14 +103,14 @@ public class Java_Dictionary
             if (ClearText.startsWith("найди") || ClearText.startsWith("найди в интернете") || ClearText.startsWith("ищи") || 
             ClearText.startsWith("что такое") || ClearText.startsWith("когда") || ClearText.startsWith("в каком году") || 
             ClearText.startsWith("где") || ClearText.startsWith("кто такой") || ClearText.startsWith("кто") || 
-            ClearText.startsWith("кто такая")) 
+            ClearText.startsWith("кто такая") || ClearText.startsWith("найти") || ClearText.startsWith("найти в интернете")) 
             {
-                if (ClearText.contains("найди на ютубе") || ClearText.contains("ищи на ютубе") || 
-                ClearText.contains("найди на ютуб") || ClearText.contains("ищи на ютуб") || 
-                ClearText.contains("найди на youtube") || ClearText.contains("ищи на youtube"))
+                if (ClearText.contains("найди на ютубе") || ClearText.contains("ищи на ютубе") || ClearText.contains("найти на ютубе") || 
+                ClearText.contains("найди на ютуб") || ClearText.contains("ищи на ютуб") || ClearText.contains("найти на ютуб")||
+                ClearText.contains("найди на ютюбе") || ClearText.contains("ищи на ютюбе") || ClearText.contains("найти на ютюбе"))
                 {
                     ArrayList <String> RemoveYouTubeSearch  = new ArrayList<String>(
-                        Arrays.asList("найди", "на", "ютубе", "ищи", "youtube", "ютуби")
+                        Arrays.asList("найди", "найти", "на", "ищи", "ютубе", "ютюбе", "ютуб")
                     );
 
                     String ClearTextYouTubeSearch = Arrays.stream(arg.split("\\s+"))
@@ -123,7 +123,7 @@ public class Java_Dictionary
                 else
                 {
                     ArrayList <String> RemoveWebSearch  = new ArrayList<String>(
-                        Arrays.asList("найди", "в", "интернете", "ищи")
+                        Arrays.asList("найди", "найти", "в", "интернете", "ищи")
                     );
 
                     String ClearTextWebSearch = Arrays.stream(arg.split("\\s+"))
