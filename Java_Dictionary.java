@@ -21,7 +21,7 @@ public class Java_Dictionary
         {
             /*
             * RU Ненужный мусор во фразах и его удаление 
-            * EU Unnecessary garbage in phrases and its removal
+            * EU Unnecessary garbage in phrases and it's removal
             */
 
             ArrayList <String> Remove = new ArrayList<String>(
