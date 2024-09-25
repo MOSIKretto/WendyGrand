@@ -27,7 +27,7 @@ public class Java_Dictionary
             ArrayList <String> Remove = new ArrayList<String>(
                 Arrays.asList(
                     "пожалуйста", "ладно", "давай", "сейчас", "типо", "типа", "будь", "добра", "ну", 
-                    "что-то",  "что", "то", "открой", "блять"
+                    "что-то",  "что", "то", "открой", "блять", "нахуй", "сука"
                 )
             );
             
@@ -73,11 +73,11 @@ public class Java_Dictionary
             );
 
             ArrayList <String> VScode = new ArrayList<String>(
-                Arrays.asList("в скот", "в скод", "вс кот", "вс код", "вс кода", "вс кота", "код", "кода")
+                Arrays.asList("в скотт", "в скот", "вес скотт","вы скотт", "скотт", "код", "вес код")
             );
             
             ArrayList <String> Stores = new ArrayList<String>(
-                Arrays.asList("магазин", "магазина", "стор", "стора", "стара")
+                Arrays.asList("магазин", "стор")
             );
                 
             /*
