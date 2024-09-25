@@ -12,6 +12,16 @@ import sys
 from config import AUDIO_DIR
 from random import *
 
+'''
+Универсальные файлы озвучкиб которые подайдут к большенсву функций:
+###################################################################
+Doing.mp3
+Done.mp3
+OneMoment.mp3
+OpenItNow.mp3
+Second.mp3
+AlwaysAPleasure.mp3
+'''
 
 class ActionsVoiceover:
 
@@ -62,7 +72,7 @@ class ActionsVoiceover:
         elif executive_voice == 1:
             playsound(AUDIO_DIR + 'Doing.mp3')
         elif executive_voice == 2:
-            playsound(AUDIO_DIR + 'OneMoment.mp3')
+            playsound(AUDIO_DIR + 'AlwaysAPleasure.mp3.mp3')
         elif executive_voice == 3:
             playsound(AUDIO_DIR + 'OpeningBrowser.mp3')
         else:
@@ -78,7 +88,7 @@ class ActionsVoiceover:
             elif executive_voice == 1:
                 playsound(AUDIO_DIR + 'Second.mp3')
             elif executive_voice == 2:
-                playsound(AUDIO_DIR + 'Doing.mp3')
+                playsound(AUDIO_DIR + 'Done.mp3')
             elif executive_voice == 3:
                 playsound(AUDIO_DIR + 'AskingOnTheInternet.mp3')
             elif executive_voice == 4:
@@ -92,7 +102,7 @@ class ActionsVoiceover:
             executive_voice = randint(0, 5)
 
             if executive_voice == 0:
-                playsound(AUDIO_DIR + 'OneMoment.mp3')
+                playsound(AUDIO_DIR + 'OpenItNow.mp3')
             elif executive_voice == 1:
                 playsound(AUDIO_DIR + 'Second.mp3')
             elif executive_voice == 2:
@@ -117,6 +127,22 @@ class ActionsVoiceover:
             playsound(AUDIO_DIR + 'Second.mp3')
         else:
             playsound(AUDIO_DIR + 'TelegramIsOpen.mp3')
+
+    @staticmethod
+    def CallObsidianVoiceover():
+
+        executive_voice = randint(0, 4)
+
+        if executive_voice == 0:
+            playsound(AUDIO_DIR + "ObsidianIsOpen.mp3")
+        elif executive_voice == 1:
+            playsound(AUDIO_DIR + 'GoodLuckToTheJob.mp3')
+        elif executive_voice == 2:
+            playsound(AUDIO_DIR + 'Done.mp3')
+        elif executive_voice == 3:
+            playsound(AUDIO_DIR + 'OpenItNow.mp3')
+        else:
+            playsound(AUDIO_DIR + 'OpeningObsidian.mp3')
 
     @staticmethod
     def CallVScodeVoiceover():

@@ -73,11 +73,11 @@ public class Java_Dictionary
             );
 
             ArrayList <String> VScode = new ArrayList<String>(
-                Arrays.asList("vs code", "vs код", "vs", "vs кода", "код", "кода")
+                Arrays.asList("в скот", "в скод", "вс кот", "вс код", "вс кода", "вс кота", "код", "кода")
             );
             
             ArrayList <String> Stores = new ArrayList<String>(
-                Arrays.asList("магазин", "стор", "магазина", "стора", "стара")
+                Arrays.asList("магазин", "магазина", "стор", "стора", "стара")
             );
                 
             /*
