@@ -45,7 +45,7 @@ public class ActionHandler
 
     public static void CallBrowser()
     {
-        WebManager.startWeb("firefox" /*,"google-chrome"*/);
+        AppManager.startApp("firefox" /*,"google-chrome"*/);
     }
     public static void CallWebSearch(String https, String search)
     {

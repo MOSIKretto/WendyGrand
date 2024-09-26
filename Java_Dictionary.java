@@ -107,7 +107,8 @@ public class Java_Dictionary
             {
                 if (ClearText.contains("найди на ютубе") || ClearText.contains("ищи на ютубе") || ClearText.contains("найти на ютубе") || 
                 ClearText.contains("найди на ютуб") || ClearText.contains("ищи на ютуб") || ClearText.contains("найти на ютуб")||
-                ClearText.contains("найди на ютюбе") || ClearText.contains("ищи на ютюбе") || ClearText.contains("найти на ютюбе"))
+                ClearText.contains("найди на ютюбе") || ClearText.contains("ищи на ютюбе") || ClearText.contains("найти на ютюбе") ||
+                ClearText.contains("найди на ютюб") || ClearText.contains("ищи на ютюб") || ClearText.contains("найти на ютюб"))
                 {
                     ArrayList <String> RemoveYouTubeSearch  = new ArrayList<String>(
                         Arrays.asList("найди", "найти", "на", "ищи", "ютубе", "ютюбе", "ютуб")
