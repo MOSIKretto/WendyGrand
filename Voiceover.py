@@ -179,6 +179,16 @@ class ActionsVoiceover:
             playsound(AUDIO_DIR + 'TheStoreIsOpen.mp3')
         else:
             playsound(AUDIO_DIR + 'Second.mp3')
+
+    @staticmethod
+    def CallRebootVoiceover():
+
+        executive_voice = randint(0, 1)
+
+        if executive_voice == 0:
+            playsound(AUDIO_DIR + 'OpenItNow.mp3')
+        else:
+            playsound(AUDIO_DIR + 'OneMoment.mp3')
         
 
 print("MESSAGE")

@@ -42,18 +42,11 @@ public class ActionHandler
             e.printStackTrace(System.err);
         }
     }
-
+    
+    //Вызов приложений
     public static void CallBrowser()
     {
         AppManager.startApp("firefox" /*,"google-chrome"*/);
-    }
-    public static void CallWebSearch(String https, String search)
-    {
-        SearchManager.startSearch(https, search);
-    }
-    public static void CallYouTubeSearch(String https, String search)
-    {
-        SearchManager.startSearch(https, search);
     }
     public static void CallTelegram()
     {
@@ -70,5 +63,21 @@ public class ActionHandler
     public static void CallStores()
     {
         AppManager.startApp("pamac-manager" /* "snap-store", "gnome-software" */);
+    }
+
+    //Системный выход
+    public static void CallReboot()
+    {
+        SystemOut.restartSystem();
+    }
+
+    //Поиск
+    public static void CallWebSearch(String https, String search)
+    {
+        SearchManager.startSearch(https, search);
+    }
+    public static void CallYouTubeSearch(String https, String search)
+    {
+        SearchManager.startSearch(https, search);
     }
 }

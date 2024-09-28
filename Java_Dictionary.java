@@ -49,7 +49,8 @@ public class Java_Dictionary
                 entry("Telegram", "CallTelegram"),
                 entry("VScode", "CallVScode"),
                 entry("Stores", "CallStores"),
-                entry("Obsidian", "CallObsidian")
+                entry("Obsidian", "CallObsidian"),
+                entry("Reboot", "CallReboot")
             );
             
             ArrayList <String> Hello = new ArrayList<String>(
@@ -79,6 +80,10 @@ public class Java_Dictionary
             ArrayList <String> Stores = new ArrayList<String>(
                 Arrays.asList("магазин", "стор")
             );
+
+            ArrayList <String> Reboot = new ArrayList<String>(
+                Arrays.asList("ребут", "перезапуск")
+            );
                 
             /*
             * RU Проверка на соответсвие и отдача команды на выполнение задачи 
@@ -98,6 +103,31 @@ public class Java_Dictionary
             if (Browser.contains(ClearText))
             {
                 ActionHandler.CallFunction(FunctionsDictionary.get("Browser"));
+            }
+            //--------------------------------------------------------------------------------------------------------------
+            if (Telegram.contains(ClearText))
+            {
+                ActionHandler.CallFunction(FunctionsDictionary.get("Telegram"));
+            }
+            //--------------------------------------------------------------------------------------------------------------
+            if (Obsidian.contains(ClearText))
+            {
+                ActionHandler.CallFunction(FunctionsDictionary.get("Obsidian"));
+            }
+            //--------------------------------------------------------------------------------------------------------------
+            if (VScode.contains(ClearText))
+            {
+                ActionHandler.CallFunction(FunctionsDictionary.get("VScode"));
+            }
+            //--------------------------------------------------------------------------------------------------------------
+            if (Stores.contains(ClearText))
+            {
+                ActionHandler.CallFunction(FunctionsDictionary.get("Stores"));
+            }
+            //--------------------------------------------------------------------------------------------------------------
+            if (Reboot.contains(ClearText))
+            {
+                ActionHandler.CallFunction(FunctionsDictionary.get("Reboot"));
             }
             //--------------------------------------------------------------------------------------------------------------
             if (ClearText.startsWith("найди") || ClearText.startsWith("найди в интернете") || ClearText.startsWith("ищи") || 
@@ -134,26 +164,6 @@ public class Java_Dictionary
                     ActionHandler.CallFunction(FunctionsDictionary.get("WebSearch"));
                     ActionHandler.CallWebSearch("https://duckduckgo.com/?q=", ClearTextWebSearch);
                 }
-            }
-            //--------------------------------------------------------------------------------------------------------------
-            if (Telegram.contains(ClearText))
-            {
-                ActionHandler.CallFunction(FunctionsDictionary.get("Telegram"));
-            }
-            //--------------------------------------------------------------------------------------------------------------
-            if (Obsidian.contains(ClearText))
-            {
-                ActionHandler.CallFunction(FunctionsDictionary.get("Obsidian"));
-            }
-            //--------------------------------------------------------------------------------------------------------------
-            if (VScode.contains(ClearText))
-            {
-                ActionHandler.CallFunction(FunctionsDictionary.get("VScode"));
-            }
-            //--------------------------------------------------------------------------------------------------------------
-            if (Stores.contains(ClearText))
-            {
-                ActionHandler.CallFunction(FunctionsDictionary.get("Stores"));
             }
             //--------------------------------------------------------------------------------------------------------------
         }
