@@ -68,7 +68,11 @@ public class ActionHandler
     //Системный выход
     public static void CallReboot()
     {
-        SystemOut.restartSystem();
+        SystemSettingsWendy.restart_shutdown_System("-r");
+    }
+    public static void CallShutdown()
+    {
+        SystemSettingsWendy.restart_shutdown_System("-h");
     }
 
     //Поиск

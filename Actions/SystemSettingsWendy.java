@@ -2,14 +2,14 @@ package Actions;
 
 import java.io.IOException;
 
-public class SystemOut 
+public class SystemSettingsWendy
 {
-    public static void restartSystem()
+    public static void restart_shutdown_System(String arg)
     {
 
-        System.out.println("Система будет перезагружена через 15секунд...");
+        System.out.println("Система будет перезагружена через 10секунд...");
         
-        for (int i = 15; i >= 0; i--)
+        for (int i = 10; i >= 0; i--)
         {
             System.out.println(i);
             try
@@ -22,7 +22,7 @@ public class SystemOut
         try 
         {
             // Команда для перезагрузки системы
-            ProcessBuilder processBuilder = new ProcessBuilder("shutdown", "-r", "now");
+            ProcessBuilder processBuilder = new ProcessBuilder("shutdown", arg, "now");
             Process process = processBuilder.start();
             process.waitFor(); // Ожидание завершения процесса
         } 

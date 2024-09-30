@@ -185,9 +185,15 @@ class ActionsVoiceover:
 
         executive_voice = randint(0, 1)
 
-        if executive_voice == 0:
-            playsound(AUDIO_DIR + 'OpenItNow.mp3')
-        else:
+        if executive_voice == 0 or 1:
+            playsound(AUDIO_DIR + 'OneMoment.mp3')
+
+    @staticmethod
+    def CallShutdownVoiceover():
+
+        executive_voice = randint(0, 1)
+
+        if executive_voice == 0 or 1:
             playsound(AUDIO_DIR + 'OneMoment.mp3')
         
 

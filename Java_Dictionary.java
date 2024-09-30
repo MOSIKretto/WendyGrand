@@ -50,7 +50,8 @@ public class Java_Dictionary
                 entry("VScode", "CallVScode"),
                 entry("Stores", "CallStores"),
                 entry("Obsidian", "CallObsidian"),
-                entry("Reboot", "CallReboot")
+                entry("Reboot", "CallReboot"),
+                entry("Shutdown", "CallShutdown")
             );
             
             ArrayList <String> Hello = new ArrayList<String>(
@@ -83,6 +84,10 @@ public class Java_Dictionary
 
             ArrayList <String> Reboot = new ArrayList<String>(
                 Arrays.asList("ребут", "перезапуск")
+            );
+
+            ArrayList <String> Shutdown = new ArrayList<String>(
+                Arrays.asList("выключения", "выключение")
             );
                 
             /*
@@ -128,6 +133,11 @@ public class Java_Dictionary
             if (Reboot.contains(ClearText))
             {
                 ActionHandler.CallFunction(FunctionsDictionary.get("Reboot"));
+            }
+            //--------------------------------------------------------------------------------------------------------------
+            if (Shutdown.contains(ClearText))
+            {
+                ActionHandler.CallFunction(FunctionsDictionary.get("Shutdown"));
             }
             //--------------------------------------------------------------------------------------------------------------
             if (ClearText.startsWith("найди") || ClearText.startsWith("найди в интернете") || ClearText.startsWith("ищи") || 
