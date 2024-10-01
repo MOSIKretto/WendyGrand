@@ -7,7 +7,7 @@ public class SystemSettingsWendy
     public static void restart_shutdown_System(String arg)
     {
 
-        System.out.println("Система будет перезагружена через 10секунд...");
+        System.out.println("Система будет перезагружена через 10 секунд...");
         
         for (int i = 10; i >= 0; i--)
         {

@@ -94,7 +94,8 @@ public class Java_Dictionary
             * RU Проверка на соответсвие и отдача команды на выполнение задачи 
             * EU Checking for compliance and issuing a command to complete the task
             */
-                
+            
+            //Озвучка фраз не требующей функционала
             if (Hello.contains(ClearText))
             {
                 ActionHandler.CallFunction(FunctionsDictionary.get("Hello"));
@@ -105,6 +106,8 @@ public class Java_Dictionary
                 System.out.println("Хорошо! Надеюсь у вас еще лучше, User!");
             }
             //--------------------------------------------------------------------------------------------------------------
+
+            //Вызов приложений
             if (Browser.contains(ClearText))
             {
                 ActionHandler.CallFunction(FunctionsDictionary.get("Browser"));
@@ -130,6 +133,8 @@ public class Java_Dictionary
                 ActionHandler.CallFunction(FunctionsDictionary.get("Stores"));
             }
             //--------------------------------------------------------------------------------------------------------------
+
+            //Работа с системой
             if (Reboot.contains(ClearText))
             {
                 ActionHandler.CallFunction(FunctionsDictionary.get("Reboot"));
@@ -140,6 +145,8 @@ public class Java_Dictionary
                 ActionHandler.CallFunction(FunctionsDictionary.get("Shutdown"));
             }
             //--------------------------------------------------------------------------------------------------------------
+
+            //Поиск
             if (ClearText.startsWith("найди") || ClearText.startsWith("найди в интернете") || ClearText.startsWith("ищи") || 
             ClearText.startsWith("что такое") || ClearText.startsWith("когда") || ClearText.startsWith("в каком году") || 
             ClearText.startsWith("где") || ClearText.startsWith("кто такой") || ClearText.startsWith("кто") || 

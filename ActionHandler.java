@@ -65,7 +65,7 @@ public class ActionHandler
         AppManager.startApp("pamac-manager" /* "snap-store", "gnome-software" */);
     }
 
-    //Системный выход
+    //Работа с системой
     public static void CallReboot()
     {
         SystemSettingsWendy.restart_shutdown_System("-r");
