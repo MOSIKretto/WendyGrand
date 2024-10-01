@@ -83,11 +83,11 @@ public class Java_Dictionary
             );
 
             ArrayList <String> Reboot = new ArrayList<String>(
-                Arrays.asList("ребут", "перезапуск")
+                Arrays.asList("перезапуск")
             );
 
             ArrayList <String> Shutdown = new ArrayList<String>(
-                Arrays.asList("выключения", "выключение")
+                Arrays.asList("выключения", "выключение", "выключение компьютера", "выключи компьютер")
             );
                 
             /*
