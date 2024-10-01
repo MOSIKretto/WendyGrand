@@ -9,7 +9,6 @@
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.io.File;
 
 import Actions.*;
 
@@ -18,11 +17,6 @@ public class ActionHandler
     public static void CallFunction(String FunctionName)
     {
         ProcessBuilder builder = new ProcessBuilder("python3", "Voiceover.py", FunctionName + "Voiceover");
-        File log = new File("Handler.log");
-        File cwd = new File(System.getProperty("user.dir"));
-        builder.redirectOutput(ProcessBuilder.Redirect.appendTo(log));
-        builder.redirectError(ProcessBuilder.Redirect.appendTo(log));
-        builder.directory(cwd.getAbsoluteFile());
         try
         {
             builder.start();
