@@ -5,10 +5,15 @@
 *----------------------------------------------
 *En Running Sh Scripts
 '''
-def ShStart():
 
-    import subprocess
+import sys
 
-    subprocess.call(['./Glava.sh'], cwd = "../WendyGrand/Sh/")
+class SH():
 
-ShStart()
+    def ShStart():
+        import subprocess
+        subprocess.call(['./Glava.sh'], "../WendyGrand/Sh/")
+
+if len(sys.argv) > 1:
+    print("SH." + sys.argv[1] + "()")
+    eval("SH." + sys.argv[1] + "()")

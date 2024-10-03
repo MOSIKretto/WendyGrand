@@ -38,8 +38,10 @@ with sd.RawInputStream(samplerate=samplerate, blocksize = 16000, device=device[0
             data = q.get()
             if rec.AcceptWaveform(data):
                 text = rec.Result()[14:-3]
+                #text = str(input()) #Тесты с клавиатуры
                 if (text.startswith("венди пока")) or (text.startswith("среда пока")) or (text.startswith("вэнди пока")):
                     ActionsVoiceover.ByeVoiceover()
+                    subprocess.run(["pkill", "glava"])
                     sys.exit(0)
                 elif (text.startswith("венди")) or (text.startswith("среда")) or (text.startswith("вэнди")):
                     print("Recognizer:", text)

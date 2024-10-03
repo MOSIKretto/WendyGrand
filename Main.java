@@ -6,7 +6,6 @@
  * 
 */
 
-import java.io.File;
 import java.io.IOException;
 
 public class Main
@@ -14,13 +13,20 @@ public class Main
     public static void main(String[] args)
     {
         // Запуск Recognizer.py
-        ProcessBuilder processBuilder = new ProcessBuilder("python3", "Recognizer.py");
-        File log = new File("Main.log");
-        processBuilder.redirectOutput(ProcessBuilder.Redirect.appendTo(log));
-        processBuilder.redirectError(ProcessBuilder.Redirect.appendTo(log));
+        ProcessBuilder processBuilderRecognizer = new ProcessBuilder("python3", "Recognizer.py");
         try
         {
-            processBuilder.start();
+            processBuilderRecognizer.start();
+        } 
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+
+        ProcessBuilder processBuilderShHelper = new ProcessBuilder("python3", "ShHelper.py", "Sh" + "Start");
+        try
+        {
+            processBuilderShHelper.start();
         } 
         catch (IOException e)
         {

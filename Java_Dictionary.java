@@ -158,7 +158,7 @@ public class Java_Dictionary
                 ClearText.contains("найди на ютюб") || ClearText.contains("ищи на ютюб") || ClearText.contains("найти на ютюб"))
                 {
                     ArrayList <String> RemoveYouTubeSearch  = new ArrayList<String>(
-                        Arrays.asList("найди", "найти", "на", "ищи", "ютубе", "ютюбе", "ютуб")
+                        Arrays.asList("найди", "найти", "на", "ищи", "ютубе", "ютюбе", "ютуб", "ютюб")
                     );
 
                     String ClearTextYouTubeSearch = Arrays.stream(arg.split("\\s+"))
