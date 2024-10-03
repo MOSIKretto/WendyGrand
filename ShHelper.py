@@ -5,10 +5,32 @@
 *----------------------------------------------
 *En Running Sh Scripts
 '''
-def ShStart():
+import subprocess
+import multiprocessing
+import sys
 
-    import subprocess
 
-    subprocess.call(['./Glava.sh'], cwd = "../WendyGrand/Sh/")
+class SH():
 
-ShStart()
+    @staticmethod
+    def ShStart():
+        """Запускает скрипты Recognizer.sh и Glava.sh в параллельных процессах."""
+        def run_script(script_path):
+            """Запускает один скрипт."""
+            subprocess.call(['./' + script_path], cwd = "../WendyGrand/Sh/")
+
+        # Создаем два процесса
+        process_recognizer = multiprocessing.Process(target=run_script, args=("Recognizer.sh",))
+        process_glava = multiprocessing.Process(target=run_script, args=("Glava.sh",))
+
+        # Запускаем процессы
+        process_recognizer.start()
+        process_glava.start()
+
+        # Ожидаем завершения процессов
+        process_recognizer.join()
+        process_glava.join()
+
+if len(sys.argv) > 1:
+    print("SH." + sys.argv[1] + "()")
+    eval("SH." + sys.argv[1] + "()")

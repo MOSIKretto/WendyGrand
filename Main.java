@@ -12,18 +12,7 @@ public class Main
 {
     public static void main(String[] args)
     {
-        // Запуск Recognizer.py
-        ProcessBuilder processBuilderRecognizer = new ProcessBuilder("python3", "Recognizer.py");
-        try
-        {
-            processBuilderRecognizer.start();
-        } 
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
-
-        ProcessBuilder processBuilderShHelper = new ProcessBuilder("python3", "ShHelper.py", "Sh" + "Start");
+        ProcessBuilder processBuilderShHelper = new ProcessBuilder("python3", "ShHelper.py", "ShStart");
         try
         {
             processBuilderShHelper.start();
