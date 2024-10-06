@@ -14,9 +14,10 @@ class SH():
 
     @staticmethod
     def ShStart():
-        """Запускает скрипты Recognizer.sh и Glava.sh в параллельных процессах."""
+
+        #Запускает скрипты Recognizer.sh и Glava.sh в параллельных процессах."""
         def run_script(script_path):
-            """Запускает один скрипт."""
+            
             subprocess.call(['./' + script_path], cwd = "../WendyGrand/Sh/")
 
         # Создаем два процесса
