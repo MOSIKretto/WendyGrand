@@ -19,6 +19,7 @@ valgrind_log.txt
 out/
 *.class
 .idea/
+venv/
 *.iml
 *.log
 *.cfg
