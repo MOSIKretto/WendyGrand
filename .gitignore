@@ -15,9 +15,11 @@
 *.lastbuildstate
 *.pdf
 valgrind_log.txt
-WendyGrand/__pycache__/
+**/__pycache__/
 out/
 *.class
 .idea/
 venv/
 *.iml
+*.log
+*.cfg
