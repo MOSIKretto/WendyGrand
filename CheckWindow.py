@@ -13,10 +13,10 @@ from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QVBoxLayout, QPushBut
 from PyQt5.QtCore import Qt
 
 class Check(QWidget):
+
     def __init__(self):
         super().__init__()
         self.initGui()
-
 
     def initGui(self):
         self.setFixedSize(400, 150)
@@ -44,7 +44,7 @@ class Check(QWidget):
             "   border-radius: 10px;"
             "}"
             "QCheckBox:indicator:checked {"
-            "   background-color: #4caf50;"
+            "   background-color: #FFFFFF;"
             "}"
         )
         self.checkbox.stateChanged.connect(self.git_select)
@@ -60,8 +60,6 @@ class Check(QWidget):
         
         self.setLayout(layout)
         self.center()  # Централизуем окно
-
-
 
     def center(self):
         """Централизует окно на экране."""
@@ -87,6 +85,7 @@ class Check(QWidget):
         else:
             # здесь прописываем при НЕ помеченном чек боксе
             return False
+
 
 app = QApplication(sys.argv)
 window = Check()
