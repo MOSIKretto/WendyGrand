@@ -1,21 +1,11 @@
-'''
-* *Check_window*
-*
-*RU Второе окно после инсталлера, настройка параметров установки
-*-------------------------------------------------------------
-*En The second window after the installer, setting the installation parameters
-*
-'''
-
-
 import sys
 from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QVBoxLayout, QPushButton, QCheckBox, QDesktopWidget
 from PyQt5.QtCore import Qt
 
 class Check(QWidget):
 
-    def __init__(self):
-        super().__init__()
+    def __init__(self):  # Исправлено на __init__
+        super().__init__()  # Исправлено на __init__
         self.initGui()
 
     def initGui(self):
@@ -28,7 +18,7 @@ class Check(QWidget):
         self.label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.label.setStyleSheet("color: white;")
 
-        self.checkbox = QCheckBox("Удалить Git после установки",self)
+        self.checkbox = QCheckBox("Удалить Git после установки", self)
         self.checkbox.setStyleSheet(
             "QCheckBox {"
             "   border: 2px solid #2a2a2a;"
@@ -56,8 +46,7 @@ class Check(QWidget):
         layout.addWidget(self.label)
         layout.addWidget(self.checkbox)
         layout.addWidget(self.button)
-        
-        
+
         self.setLayout(layout)
         self.center()  # Централизуем окно
 
@@ -69,27 +58,23 @@ class Check(QWidget):
         self.move(qr.topLeft())  # Устанавливаем новое положение окна
 
     def install(self):
-        if self.git_select == True:
-            print(1)
-            # здесь пишешь алгоритм, если галка поставлена
-            pass
+        # Получаем состояние чекбокса
+        is_checked = self.checkbox.isChecked()
+        if is_checked:
+            print("Git будет удалён после установки.")
+            # Здесь пишите алгоритм, если галка поставлена
         else:
-            print(0)
-            # здесь пишешь алгоритм, если галки нет, жаль галку:(....
-            pass
+            print("Git не будет удалён.")
+            # Здесь пишите алгоритм, если галки нет
 
     def git_select(self):
-        if self.checkbox.isChecked:
-            # здесь прописываем, что делать при помеченном чек боксе 
-            return True
+        # обновляем метод на простой вывод состояния чекбокса (необязательно)
+        if self.checkbox.isChecked():
+            print("Чекбокс отмечен.")
         else:
-            # здесь прописываем при НЕ помеченном чек боксе
-            return False
-
+            print("Чекбокс не отмечен.")
 
 app = QApplication(sys.argv)
 window = Check()
 window.show()
 sys.exit(app.exec())
-
-
