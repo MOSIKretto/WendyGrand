@@ -1,6 +1,7 @@
 import sys
 from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QVBoxLayout, QPushButton, QDesktopWidget
 from PyQt5.QtCore import Qt
+import SmartManager
 
 class Installer(QWidget):
     # Настройка окна, тут уже НЕ ТРОГАТЬ!!!!
@@ -54,9 +55,11 @@ class Installer(QWidget):
             self.isDragging = False  # Завершаем перетаскивание
             self.startPos = None
 
-    # Здесь уже можешь делать всё что хочешь, print поставил, чтобы спокойно тесты проводить
+    
     def install(self):
-        print('Начинается аля установка')
+        #Добавить вызов окна с установкой Git
+        SmartManager.SmartManager()
+
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
