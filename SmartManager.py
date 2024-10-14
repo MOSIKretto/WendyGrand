@@ -1,5 +1,6 @@
 
 #ДОДЕЛАТЬ!!!
+#СДЕЛАТЬ ОКНО
 
 import subprocess
 import GitInstaller

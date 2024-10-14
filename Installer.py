@@ -1,10 +1,10 @@
 
 #ГОТОВО!!!
 
-import sys
 from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QVBoxLayout, QPushButton, QDesktopWidget
 from PyQt5.QtCore import Qt
 import subprocess
+import sys
 
 class Installer(QWidget):
     
@@ -25,7 +25,7 @@ class Installer(QWidget):
         self.install_button.setStyleSheet("background-color: white;") 
         self.install_button.clicked.connect(self.install)
         self.layout.addWidget(self.install_button)
-        self.center()
+        self.center() 
 
     def center(self):
         qr = self.frameGeometry()
@@ -52,8 +52,8 @@ class Installer(QWidget):
         subprocess.run(["java", "Translator.java", "CheckWindow.py"])
         sys.exit(0)
 
-if __name__ == "__main__":
-    app = QApplication(sys.argv)
-    window = Installer()
-    window.show()
-    sys.exit(app.exec())
+
+app = QApplication(sys.argv)
+window = Installer()
+window.show()
+sys.exit(app.exec())

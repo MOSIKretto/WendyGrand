@@ -1,3 +1,6 @@
+
+#ГОТОВО!!!
+
 import subprocess
 
 def is_git_installed():
@@ -15,6 +18,3 @@ def is_git_installed():
     except FileNotFoundError:
         print("Git не установлен.")
         return False
-
-if __name__ == "__main__":
-    is_git_installed()

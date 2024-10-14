@@ -9,10 +9,10 @@ public class Translator
     {
         for (String arg : args)
         {
-            ProcessBuilder processBuilderShHelper = new ProcessBuilder("python3", arg);
+            ProcessBuilder processBuilder = new ProcessBuilder("python3", arg);
             try
             {
-                processBuilderShHelper.start();
+                processBuilder.start();
             } 
             catch (IOException e)
             {

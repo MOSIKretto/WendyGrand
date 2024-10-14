@@ -1,11 +1,12 @@
 
-#ГОТОВО!!!
+#ДОДЕЛАТЬ!!!
+#БАГ НА ДВИЖЕНИЕ ОКНА
+#НЕ КЛОНИРУЕТ РЕПОЗИТОРИЙ
 
 import sys
 import subprocess
 from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QLabel, QPushButton, QDesktopWidget
 from PyQt5.QtCore import Qt
-from CheckWindow import Flag
 import GitRemuver
 
 class Ready(QWidget):
@@ -33,7 +34,9 @@ class Ready(QWidget):
         self.move(qr.topLeft())
 
     def install(self):
+        #ГАВНО!!!!
         subprocess.call(['./WendyClone.sh'])
+        #ГАВНО!!!!
         if Flag == True:
 
             def check_package_manager(manager):
@@ -53,8 +56,7 @@ class Ready(QWidget):
             if installed_managers:
                 GitRemuver.RemuverGit(installed_managers)
 
-if __name__ == "__main__":
-    app = QApplication(sys.argv)
-    window = Ready()
-    window.show()
-    exit(app.exec())
+app = QApplication(sys.argv)
+window = Ready()
+window.show()
+exit(app.exec())

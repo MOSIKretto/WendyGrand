@@ -1,5 +1,7 @@
 
 #ДОДЕЛАТЬ!!!
+#БАГ НА ДВИЖЕНИЕ ОКНА
+#ОБОЗНАЧИТЬ ФЛАГИ НА ГИТ
 
 import sys
 from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QVBoxLayout, QPushButton, QCheckBox, QDesktopWidget, QHBoxLayout
@@ -10,7 +12,6 @@ import subprocess
 
 class Check(QWidget):
 
-    
     def __init__(self):  # Исправлено на __init__
         super().__init__()  # Исправлено на __init__
         self.initGui()
@@ -77,21 +78,18 @@ class Check(QWidget):
     def install(self):
         # Получаем состояние чекбокса
         is_checked = self.checkbox.isChecked()
+        ###################################
+        #         СДЕЛАТЬ ФЛАГИ!!!        #
+        ###################################
         if is_checked:
-            # Здесь пишите алгоритм, если галка поставлена
-            global Flag
-            Flag = True
+            # Здесь пишите алгоритм, если галка поставлена 
             print("Git будет удалён после установки")
             SmartManager.SmartManager()
-            subprocess.run(["java", "Translator.java", "Ready.py"])
             sys.exit(0)
         else:
             # Здесь пишите алгоритм, если галки нет
-            global Flag
-            Flag = True
             print("Git не будет удалён")
             SmartManager.SmartManager()
-            subprocess.run(["java", "Translator.java", "Ready.py"])
             sys.exit(0)
             
     def git_select(self):
@@ -104,8 +102,6 @@ class Check(QWidget):
     def has_git(self):
         GitChecker.is_git_installed()
         if GitChecker.is_git_installed() == True:
-            global Flag
-            Flag = True
             subprocess.run(["java", "Translator.java", "Ready.py"])
             sys.exit(0)
         else:
@@ -114,8 +110,8 @@ class Check(QWidget):
             ###################################
             print("У вас нет git в системе")
         
-if __name__ == "__main__":
-    app = QApplication(sys.argv)
-    window = Check()
-    window.show()
-    sys.exit(app.exec())
+
+app = QApplication(sys.argv)
+window = Check()
+window.show()
+sys.exit(app.exec())

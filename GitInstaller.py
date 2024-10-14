@@ -15,5 +15,9 @@ def InstallGit(manager):
         try:
             subprocess.run(["pkexec"] + command, check=True)
             print("Git успешно установлен.")
+            ReadyWindow()
         except subprocess.CalledProcessError as e:
             print(f"Ошибка установки Git: {e}")
+
+def ReadyWindow():
+    subprocess.run(["java", "Translator.java", "Ready.py"])
