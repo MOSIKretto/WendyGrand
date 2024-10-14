@@ -1,15 +1,6 @@
-'''
-* *Installer*
-*
-*RU Устанавливает Венди
-*-------------------------------------------------------------
-*En Installs Wendy
-*
-'''
-
 import sys
-from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QVBoxLayout, QPushButton
-from PyQt5.QtCore import Qt, QPoint
+from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QVBoxLayout, QPushButton, QDesktopWidget
+from PyQt5.QtCore import Qt
 
 class Installer(QWidget):
     # Настройка окна, тут уже НЕ ТРОГАТЬ!!!!
@@ -21,7 +12,6 @@ class Installer(QWidget):
         self.isDragging = False  # Флаг для отслеживания состояния перетаскивания
 
         self.layout = QVBoxLayout(self)
-        
         # Установка цвета фона окна на черный
         self.setStyleSheet("background-color: black;")
 
@@ -34,10 +24,19 @@ class Installer(QWidget):
         self.label.setStyleSheet("color: white;")
 
         self.install_button = QPushButton("Установить", self)
-        # Установка цвета книпки на белый
+        # Установка цвета кнопки на белый
         self.install_button.setStyleSheet("background-color: white;") 
         self.install_button.clicked.connect(self.install)
         self.layout.addWidget(self.install_button)
+
+        self.center()  # Централизуем окно
+
+    def center(self):
+        """Централизует окно на экране."""
+        qr = self.frameGeometry()  # Получаем геометрию окна
+        cp = QDesktopWidget().availableGeometry().center()  # Получаем центр экрана
+        qr.moveCenter(cp)  # Перемещаем окно к центру
+        self.move(qr.topLeft())  # Устанавливаем новое положение окна
 
     def mousePressEvent(self, event):
         if event.button() == Qt.LeftButton:
@@ -59,11 +58,8 @@ class Installer(QWidget):
     def install(self):
         print('Начинается аля установка')
 
-
-
-
-
-app = QApplication(sys.argv)
-window = Installer()
-window.show()
-sys.exit(app.exec())
+if __name__ == "__main__":
+    app = QApplication(sys.argv)
+    window = Installer()
+    window.show()
+    sys.exit(app.exec())
