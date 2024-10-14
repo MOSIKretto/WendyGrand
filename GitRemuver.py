@@ -3,12 +3,12 @@
 
 import subprocess
 
-def InstallGit(manager):
+def RemuverGit(manager):
     command_map = {
-        'pacman': ["pacman", "-S", "--noconfirm", "git"],
-        'apt': ["apt", "install", "-y", "git"],
-        'dnf': ["dnf", "install", "-y", "git"],
-        'yum': ["yum", "install", "-y", "git"]
+        'pacman': ["pacman", "-R", "--noconfirm", "git"],
+        'apt': ["apt", "remove", "-y", "git"],
+        'dnf': ["dnf", "remove", "-y", "git"],
+        'yum': ["yum", "remove", "-y", "git"]
     }
     command = command_map.get(manager[0])
     if command:

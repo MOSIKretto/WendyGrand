@@ -1,9 +1,16 @@
+
+#ДОДЕЛАТЬ!!!
+
 import sys
-from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QVBoxLayout, QPushButton, QCheckBox, QDesktopWidget
+from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QVBoxLayout, QPushButton, QCheckBox, QDesktopWidget, QHBoxLayout
 from PyQt5.QtCore import Qt
+import SmartManager
+import GitChecker
+import subprocess
 
 class Check(QWidget):
 
+    
     def __init__(self):  # Исправлено на __init__
         super().__init__()  # Исправлено на __init__
         self.initGui()
@@ -39,13 +46,23 @@ class Check(QWidget):
         )
         self.checkbox.stateChanged.connect(self.git_select)
 
-        self.button = QPushButton("Установить Wendy", self)
-        self.button.setStyleSheet("background-color: white;")
-        self.button.clicked.connect(self.install)
+        # Создаем горизонтальный layout для кнопок
+        button_layout = QHBoxLayout()
+
+        self.install_button = QPushButton("Установить Git", self)
+        self.install_button.setStyleSheet("background-color: white;")
+        self.install_button.clicked.connect(self.install)
+        
+        self.has_git_button = QPushButton("У меня есть Git", self)
+        self.has_git_button.setStyleSheet("background-color: white;")
+        self.has_git_button.clicked.connect(self.has_git)
+
+        button_layout.addWidget(self.install_button)
+        button_layout.addWidget(self.has_git_button)
 
         layout.addWidget(self.label)
         layout.addWidget(self.checkbox)
-        layout.addWidget(self.button)
+        layout.addLayout(button_layout)  # Добавляем горизонтальный layout с кнопками
 
         self.setLayout(layout)
         self.center()  # Централизуем окно
@@ -61,20 +78,44 @@ class Check(QWidget):
         # Получаем состояние чекбокса
         is_checked = self.checkbox.isChecked()
         if is_checked:
-            print("Git будет удалён после установки.")
             # Здесь пишите алгоритм, если галка поставлена
+            global Flag
+            Flag = True
+            print("Git будет удалён после установки")
+            SmartManager.SmartManager()
+            subprocess.run(["java", "Translator.java", "Ready.py"])
+            sys.exit(0)
         else:
-            print("Git не будет удалён.")
             # Здесь пишите алгоритм, если галки нет
-
+            global Flag
+            Flag = True
+            print("Git не будет удалён")
+            SmartManager.SmartManager()
+            subprocess.run(["java", "Translator.java", "Ready.py"])
+            sys.exit(0)
+            
     def git_select(self):
         # обновляем метод на простой вывод состояния чекбокса (необязательно)
         if self.checkbox.isChecked():
-            print("Чекбокс отмечен.")
+            print("Чекбокс отмечен")
         else:
-            print("Чекбокс не отмечен.")
-
-app = QApplication(sys.argv)
-window = Check()
-window.show()
-sys.exit(app.exec())
+            print("Чекбокс не отмечен")
+    
+    def has_git(self):
+        GitChecker.is_git_installed()
+        if GitChecker.is_git_installed() == True:
+            global Flag
+            Flag = True
+            subprocess.run(["java", "Translator.java", "Ready.py"])
+            sys.exit(0)
+        else:
+            ###################################
+            #         СДЕЛАТЬ ОКНО!!!         #
+            ###################################
+            print("У вас нет git в системе")
+        
+if __name__ == "__main__":
+    app = QApplication(sys.argv)
+    window = Check()
+    window.show()
+    sys.exit(app.exec())

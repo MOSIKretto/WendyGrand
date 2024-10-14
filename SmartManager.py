@@ -1,3 +1,6 @@
+
+#ДОДЕЛАТЬ!!!
+
 import subprocess
 import GitInstaller
 
@@ -12,7 +15,7 @@ def check_package_manager(manager):
         return False
 
 def SmartManager():
-    package_managers = ["pacman", "apt", "dnf"]
+    package_managers = ["pacman", "apt", "dnf", "yum"]
     installed_managers = []
 
     for manager in package_managers:
@@ -22,5 +25,7 @@ def SmartManager():
     if installed_managers:
         GitInstaller.InstallGit(installed_managers)
     else:
-        #Если не найдены выводить в окно
-        print("Пакетные менеджеры не найдены")
+        ###################################
+        #         СДЕЛАТЬ ОКНО!!!         #
+        ###################################
+        print("Упс, похоже, мой создатель забыл включить Ваш пакетный менаджер в установщик")
