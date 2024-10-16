@@ -5,7 +5,7 @@ import subprocess
 
 def RemuverGit(manager):
     command_map = {
-        'pacman': ["pacman", "-R", "--noconfirm", "git"],
+        'pacman': ["pacman", "-Rns", "--noconfirm", "git"],
         'apt': ["apt", "remove", "-y", "git"],
         'dnf': ["dnf", "remove", "-y", "git"],
         'yum': ["yum", "remove", "-y", "git"]
@@ -14,6 +14,6 @@ def RemuverGit(manager):
     if command:
         try:
             subprocess.run(["pkexec"] + command, check=True)
-            print("Git успешно установлен.")
+            print("Git успешно удален.")
         except subprocess.CalledProcessError as e:
-            print(f"Ошибка установки Git: {e}")
+            print(f"Ошибка удаления Git: {e}")

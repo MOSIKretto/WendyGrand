@@ -1,6 +1,5 @@
 
 #ДОДЕЛАТЬ!!!
-#БАГ НА ДВИЖЕНИЕ ОКНА
 #НЕ КЛОНИРУЕТ РЕПОЗИТОРИЙ
 
 import sys
@@ -32,6 +31,21 @@ class Ready(QWidget):
         cp = QDesktopWidget().availableGeometry().center()
         qr.moveCenter(cp)
         self.move(qr.topLeft())
+
+    def mousePressEvent(self, event):
+        if event.button() == Qt.LeftButton:
+            self.isDragging = True
+            self.startPos = event.pos()
+
+    def mouseMoveEvent(self, event):
+        if self.isDragging:
+            delta = event.pos() - self.startPos
+            self.move(self.pos() + delta)
+
+    def mouseReleaseEvent(self, event):
+        if event.button() == Qt.LeftButton:
+            self.isDragging = False
+            self.startPos = None
 
     def install(self):
         #ГАВНО!!!!

@@ -1,6 +1,5 @@
 
 #ДОДЕЛАТЬ!!!
-#БАГ НА ДВИЖЕНИЕ ОКНА
 #ОБОЗНАЧИТЬ ФЛАГИ НА ГИТ
 
 import sys
@@ -9,6 +8,8 @@ from PyQt5.QtCore import Qt
 import SmartManager
 import GitChecker
 import subprocess
+
+global Flag; Flag = 0
 
 class Check(QWidget):
 
@@ -75,6 +76,21 @@ class Check(QWidget):
         qr.moveCenter(cp)  # Перемещаем окно к центру
         self.move(qr.topLeft())  # Устанавливаем новое положение окна
 
+    def mousePressEvent(self, event):
+        if event.button() == Qt.LeftButton:
+            self.isDragging = True
+            self.startPos = event.pos()
+
+    def mouseMoveEvent(self, event):
+        if self.isDragging:
+            delta = event.pos() - self.startPos
+            self.move(self.pos() + delta)
+
+    def mouseReleaseEvent(self, event):
+        if event.button() == Qt.LeftButton:
+            self.isDragging = False
+            self.startPos = None
+
     def install(self):
         # Получаем состояние чекбокса
         is_checked = self.checkbox.isChecked()
@@ -84,6 +100,7 @@ class Check(QWidget):
         if is_checked:
             # Здесь пишите алгоритм, если галка поставлена 
             print("Git будет удалён после установки")
+            Flag = 1
             SmartManager.SmartManager()
             sys.exit(0)
         else:
