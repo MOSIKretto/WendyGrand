@@ -20,4 +20,4 @@ def InstallGit(manager):
             print(f"Ошибка установки Git: {e}")
 
 def ReadyWindow():
-    subprocess.run(["java", "Translator.java", "Ready.py"])
+    subprocess.run(["java", "Translator.java", "ReadyWindow.py"])

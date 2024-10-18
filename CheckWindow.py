@@ -1,6 +1,6 @@
 
 #ДОДЕЛАТЬ!!!
-#ОБОЗНАЧИТЬ ФЛАГИ НА ГИТ
+#СОЗДАТЬ ОКНО
 
 import sys
 from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QVBoxLayout, QPushButton, QCheckBox, QDesktopWidget, QHBoxLayout
@@ -8,16 +8,9 @@ from PyQt5.QtCore import Qt
 import SmartManager
 import GitChecker
 import subprocess
-
-
+import os
+        
 class Check(QWidget):
-
-    def const(self):
-        flag = self.checkbox.isChecked()
-        if flag:
-            return 1
-        else:
-            return 0
 
     def __init__(self):  # Исправлено на __init__
         super().__init__()  # Исправлено на __init__
@@ -100,17 +93,19 @@ class Check(QWidget):
     def install(self):
         # Получаем состояние чекбокса
         is_checked = self.checkbox.isChecked()
-        ###################################
-        #         СДЕЛАТЬ ФЛАГИ!!!        #
-        ###################################
         if is_checked:
             # Здесь пишите алгоритм, если галка поставлена 
             print("Git будет удалён после установки")
+            with open("const.txt", "w") as file:
+                print(1, file=file)
             SmartManager.SmartManager()
             sys.exit(0)
         else:
             # Здесь пишите алгоритм, если галки нет
             print("Git не будет удалён")
+            with open("const.txt", "w") as file:
+                print(1, file=file)
+            os.remove('const.txt')
             SmartManager.SmartManager()
             sys.exit(0)
             
@@ -122,8 +117,10 @@ class Check(QWidget):
             print("Чекбокс не отмечен")
     
     def has_git(self):
-        GitChecker.is_git_installed()
         if GitChecker.is_git_installed() == True:
+            with open("const.txt", "w") as file:
+                print(1, file=file)
+            os.remove('const.txt') 
             subprocess.run(["java", "Translator.java", "ReadyWindow.py"])
             sys.exit(0)
         else:
