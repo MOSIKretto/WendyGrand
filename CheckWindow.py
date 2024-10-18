@@ -9,9 +9,15 @@ import SmartManager
 import GitChecker
 import subprocess
 
-global Flag; Flag = 0
 
 class Check(QWidget):
+
+    def const(self):
+        flag = self.checkbox.isChecked()
+        if flag:
+            return 1
+        else:
+            return 0
 
     def __init__(self):  # Исправлено на __init__
         super().__init__()  # Исправлено на __init__
@@ -100,7 +106,6 @@ class Check(QWidget):
         if is_checked:
             # Здесь пишите алгоритм, если галка поставлена 
             print("Git будет удалён после установки")
-            Flag = 1
             SmartManager.SmartManager()
             sys.exit(0)
         else:
@@ -119,7 +124,7 @@ class Check(QWidget):
     def has_git(self):
         GitChecker.is_git_installed()
         if GitChecker.is_git_installed() == True:
-            subprocess.run(["java", "Translator.java", "Ready.py"])
+            subprocess.run(["java", "Translator.java", "ReadyWindow.py"])
             sys.exit(0)
         else:
             ###################################

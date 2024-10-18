@@ -7,7 +7,7 @@ public class Main
 {
     public static void main(String[] args)
     {
-        ProcessBuilder processBuilderShHelper = new ProcessBuilder("python3", "Installer.py");
+        ProcessBuilder processBuilderShHelper = new ProcessBuilder("python3", "InstallerWindow.py");
         try
         {
             processBuilderShHelper.start();
