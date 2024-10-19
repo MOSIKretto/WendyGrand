@@ -7,6 +7,8 @@
 import sys
 from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QLabel, QVBoxLayout, QDesktopWidget
 from PyQt5.QtCore import Qt
+import subprocess
+import GitRemuver
 
 class End(QWidget):
     def __init__(self):
@@ -17,7 +19,7 @@ class End(QWidget):
         self.startPos = None
         self.isDragging = False
         layout = QVBoxLayout()
-        self.label = QLabel("Wendy успешно установлена, можете начать использование", self)
+        self.label = QLabel("Wendy успешно установлена, можете начать использование!", self)
         self.label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.label.setStyleSheet("color: white;")
         self.start_btn = QPushButton("Запустить Wendy", self)
@@ -58,7 +60,33 @@ class End(QWidget):
         print('Wendy запускается')
 
     def closing(self):
-        sys.exit(0)
+        try:
+            file = open("const.txt", "r")
+            if file: # Проверяем наличие файла const.txt
+                print("Удалить Git!")
+                self.check_and_remove_git() # Вызываем функцию проверки и удаления Git
+                sys.exit(0)
+        except:        
+                print("Git не будет удален.")
+                sys.exit(0)
+
+    def check_and_remove_git(self):
+        def check_package_manager(manager):
+            try:
+                subprocess.run([manager, '--version'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=True)
+                return True
+            except subprocess.CalledProcessError:
+                return False
+            except FileNotFoundError:
+                return False
+
+        package_managers = ["pacman", "apt", "dnf", "yum"]
+        installed_managers = []
+        for manager in package_managers:
+            if check_package_manager(manager):
+                installed_managers.append(manager)
+        if installed_managers:
+            GitRemuver.RemuverGit(installed_managers)
 
 app = QApplication(sys.argv)
 window = End()

@@ -1,7 +1,5 @@
-
-# Окно по пункту 2 из ТЗ на 19.10.2024
-
 import sys
+import subprocess
 from PyQt5.QtWidgets import QApplication, QWidget, QDesktopWidget, QLabel, QPushButton, QVBoxLayout
 from PyQt5.QtCore import Qt
 
@@ -17,7 +15,7 @@ class CuteLabel(QWidget):
         self.label = QLabel('', self)
         self.label.setStyleSheet("color: white;")
         self.label.setAlignment(Qt.AlignmentFlag.AlignHCenter)
-        self.button = QPushButton('Какая-то кнопка', self)
+        self.button = QPushButton('<-- Назад', self)
         self.button.setStyleSheet("background-color: white;")
         self.button.clicked.connect(self.function)
         layout.addWidget(self.label)
@@ -49,6 +47,8 @@ class CuteLabel(QWidget):
     def function(self):
         # здесь действия при нажатии кнопки
         print('Кнопка нажата')
+        subprocess.run(["java", "Translator.java", "CheckWindow.py"])
+        sys.exit(0)
     
     def changeText(self, text): # этот метод отвечает за смену текста в строке
         self.label.setText(text)

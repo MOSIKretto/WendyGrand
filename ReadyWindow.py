@@ -48,32 +48,9 @@ class Ready(QWidget):
             self.startPos = None
 
     def install(self):
-        #Прописать установку с гита
-        file = open("const.txt", "r")
-        if bool(file): # Проверяем наличие файла const.txt
-            print("Удалить Git!")
-            self.check_and_remove_git() # Вызываем функцию проверки и удаления Git
-        else:
-            print("Git не будет удален.")
-
-    def check_and_remove_git(self):
-        def check_package_manager(manager):
-            try:
-                subprocess.run([manager, '--version'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=True)
-                return True
-            except subprocess.CalledProcessError:
-                return False
-            except FileNotFoundError:
-                return False
-
-        package_managers = ["pacman", "apt", "dnf", "yum"]
-        installed_managers = []
-        for manager in package_managers:
-            if check_package_manager(manager):
-                installed_managers.append(manager)
-        if installed_managers:
-            GitRemuver.RemuverGit(installed_managers)
-
+        #Сделать установку венди
+        subprocess.run(["java", "Translator.java", "EndingWindow.py"])
+        sys.exit(0)
     
 app = QApplication(sys.argv)
 window = Ready()

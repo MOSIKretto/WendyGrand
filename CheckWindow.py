@@ -1,7 +1,3 @@
-
-#ДОДЕЛАТЬ!!!
-#СОЗДАТЬ ОКНО
-
 import sys
 from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QVBoxLayout, QPushButton, QCheckBox, QDesktopWidget, QHBoxLayout
 from PyQt5.QtCore import Qt
@@ -125,11 +121,8 @@ class Check(QWidget):
             subprocess.run(["java", "Translator.java", "ReadyWindow.py"])
             sys.exit(0)
         else:
-            ###################################
-            #         СДЕЛАТЬ ОКНО!!!         #
-            ###################################
-            print("У вас нет git в системе")
-        
+            from PointTwoWindow import CuteLabel as CL
+            CL.changeText("У вас нет git в системе")
 
 app = QApplication(sys.argv)
 window = Check()

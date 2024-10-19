@@ -1,7 +1,3 @@
-
-#ДОДЕЛАТЬ!!!
-#СДЕЛАТЬ ОКНО
-
 import subprocess
 import GitInstaller
 
@@ -26,7 +22,5 @@ def SmartManager():
     if installed_managers:
         GitInstaller.InstallGit(installed_managers)
     else:
-        ###################################
-        #         СДЕЛАТЬ ОКНО!!!         #
-        ###################################
-        print("Упс, похоже, мой создатель забыл включить Ваш пакетный менаджер в установщик")
+        from PointTwoWindow import CuteLabel as CL
+        CL.changeText("Упс, похоже, мой создатель забыл включить Ваш пакетный менаджер в установщик")
