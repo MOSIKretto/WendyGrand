@@ -13,7 +13,7 @@ import GitRemuver
 class End(QWidget):
     def __init__(self):
         super().__init__()
-        self.setFixedSize(450,125)
+        self.setFixedSize(450,100)
         self.setWindowTitle("Wendy's installer")
         self.setStyleSheet("background-color: black;")
         self.startPos = None
@@ -22,14 +22,10 @@ class End(QWidget):
         self.label = QLabel("Wendy успешно установлена, можете начать использование!", self)
         self.label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.label.setStyleSheet("color: white;")
-        self.start_btn = QPushButton("Запустить Wendy", self)
-        self.start_btn.setStyleSheet("background-color: white;")
         self.close_btn = QPushButton("Выйти из установщика", self)
         self.close_btn.setStyleSheet("background-color: white;")
-        self.start_btn.clicked.connect(self.start)
         self.close_btn.clicked.connect(self.closing)
         layout.addWidget(self.label)
-        layout.addWidget(self.start_btn)
         layout.addWidget(self.close_btn)
         self.setLayout(layout)
         self.center()
@@ -54,10 +50,6 @@ class End(QWidget):
         if event.button() == Qt.LeftButton:
             self.isDragging = False
             self.startPos = None
-
-    def start(self):
-        #  прописываем запуск венди
-        print('Wendy запускается')
 
     def closing(self):
         try:
