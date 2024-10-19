@@ -19,6 +19,7 @@ class Check(QWidget):
     def initGui(self):
         self.setFixedSize(400, 150)
         self.setStyleSheet("background-color: black;")
+        self.setWindowTitle("Wendy's Installer")
 
         layout = QVBoxLayout()
 

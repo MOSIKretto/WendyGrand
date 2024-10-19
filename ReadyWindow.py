@@ -12,6 +12,7 @@ class Ready(QWidget):
 
     def initGui(self):
         self.setFixedSize(290, 125)
+        self.setWindowTitle("Wendy's Installer")
         self.setStyleSheet("background-color: black;")
         layout = QVBoxLayout()
         self.label = QLabel("Всё готово для установки Wendy!", self)
