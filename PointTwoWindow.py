@@ -4,7 +4,9 @@ from PyQt5.QtWidgets import QApplication, QWidget, QDesktopWidget, QLabel, QPush
 from PyQt5.QtCore import Qt
 
 class CuteLabel(QWidget):
+
     def __init__(self):
+
         super().__init__()
         self.setWindowTitle("Wendy's installer")
         self.setStyleSheet("background-color: black;")
@@ -24,34 +26,39 @@ class CuteLabel(QWidget):
         self.center()
 
     def center(self):
+
         qr = self.frameGeometry()
         cp = QDesktopWidget().availableGeometry().center()
         qr.moveCenter(cp)
         self.move(qr.topLeft())
 
     def mousePressEvent(self, event):
+
         if event.button() == Qt.LeftButton:
             self.isDragging = True
             self.startPos = event.pos()
 
     def mouseMoveEvent(self, event):
+
         if self.isDragging:
             delta = event.pos() - self.startPos
             self.move(self.pos() + delta)
 
     def mouseReleaseEvent(self, event):
+
         if event.button() == Qt.LeftButton:
             self.isDragging = False
             self.startPos = None
 
     def function(self):
-        # здесь действия при нажатии кнопки
-        print('Кнопка нажата')
+
         subprocess.run(["java", "Translator.java", "CheckWindow.py"])
         sys.exit(0)
     
-    def changeText(self, text): # этот метод отвечает за смену текста в строке
+    def changeText(self, text):
+
         self.label.setText(text)
+
 
 app = QApplication(sys.argv)
 window = CuteLabel()
