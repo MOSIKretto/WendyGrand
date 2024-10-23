@@ -3,18 +3,19 @@ import subprocess
 from PyQt5.QtWidgets import QApplication, QWidget, QDesktopWidget, QLabel, QPushButton, QVBoxLayout
 from PyQt5.QtCore import Qt
 
-class CuteLabel(QWidget):
+class CuteLabel(QWidget): 
 
     def __init__(self):
 
         super().__init__()
         self.setWindowTitle("Wendy's installer")
         self.setStyleSheet("background-color: black;")
-        self.setFixedSize(300, 150)
+        self.setFixedSize(450, 75)
         self.startPos = None
         self.isDragging = False
         layout = QVBoxLayout()
-        self.label = QLabel('', self)
+        f = list(open("error.txt", "r"))
+        self.label = QLabel(f[0], self)
         self.label.setStyleSheet("color: white;")
         self.label.setAlignment(Qt.AlignmentFlag.AlignHCenter)
         self.button = QPushButton('<-- Назад', self)
@@ -54,10 +55,6 @@ class CuteLabel(QWidget):
 
         subprocess.run(["java", "Translator.java", "CheckWindow.py"])
         sys.exit(0)
-    
-    def changeText(self, text):
-
-        self.label.setText(text)
 
 
 app = QApplication(sys.argv)

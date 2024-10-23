@@ -121,8 +121,10 @@ class Check(QWidget):
             sys.exit(0)
 
         else:
-            from PointTwoWindow import CuteLabel as CL
-            CL.changeText("У вас нет git в системе")
+            with open("error.txt", "w") as file:
+                print("У вас нет Git в системе :( Пожалуйста, установите его.", file=file)
+            subprocess.run(["java", "Translator.java", "PointTwoWindow.py"])
+            sys.exit(0)
 
     #Создание флага
     def Flag(self):
