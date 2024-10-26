@@ -57,17 +57,7 @@ class Ready(QWidget):
     #Запуск следущего окна
     def install(self):
 
-        from InternetCheck import InternetCheck
-
-        if InternetCheck():
-            #Сделать установку венди
-            subprocess.run(["java", "Translator.java", "ProgressBar.py"])
-
-        else:
-            with open("error.txt", "w") as file:
-                print("Дисконект! Проверьте подключение к интернету :(", file=file)
-
-            subprocess.run(["java", "Translator.java", "PointTwoWindow.py"])
+        subprocess.run(["java", "Translator.java", "ProgressBar.py"])
         sys.exit(0)
     
 

@@ -117,8 +117,19 @@ class Check(QWidget):
         if GitChecker.is_git_installed() == True:
             self.Flag()
             os.remove('const.txt') 
-            subprocess.run(["java", "Translator.java", "ReadyWindow.py"])
-            sys.exit(0)
+
+            from InternetCheck import InternetCheck
+
+            if InternetCheck():
+                subprocess.run(["java", "Translator.java", "ReadyWindow.py"])
+                sys.exit(0)
+                
+            else:
+                with open("error.txt", "w") as file:
+                    print("Дисконект! Проверьте подключение к интернету :(", file=file)
+
+                subprocess.run(["java", "Translator.java", "PointTwoWindow.py"])
+                sys.exit(0)
 
         else:
             with open("error.txt", "w") as file:
