@@ -12,7 +12,7 @@ class Ready(QWidget):
     #Отрисовка окна
     def initGui(self):
 
-        self.setFixedSize(290, 125)
+        self.setFixedSize(290, 100)
         self.setWindowTitle("Wendy's Installer")
         self.setStyleSheet("background-color: black;")
         layout = QVBoxLayout()

@@ -10,7 +10,7 @@ class Installer(QWidget):
 
         super().__init__()
         self.setWindowTitle("Wendy's Installer")
-        self.setFixedSize(350, 75)
+        self.setFixedSize(350, 100)
         self.startPos = None
         self.isDragging = False
         self.layout = QVBoxLayout(self)
