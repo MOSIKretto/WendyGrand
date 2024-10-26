@@ -61,7 +61,7 @@ class Ready(QWidget):
 
         if InternetCheck():
             #Сделать установку венди
-            subprocess.run(["java", "Translator.java", "EndingWindow.py"])
+            subprocess.run(["java", "Translator.java", "ProgressBar.py"])
 
         else:
             with open("error.txt", "w") as file:

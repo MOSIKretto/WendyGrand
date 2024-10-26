@@ -37,6 +37,6 @@ def SmartManager():
         
     else:
         with open("error.txt", "w") as file:
-                    print("Дисконект! Проверьте подключение к интернету :(", file=file)
+            print("Дисконект! Проверьте подключение к интернету :(", file=file)
                     
         subprocess.run(["java", "Translator.java", "PointTwoWindow.py"])
