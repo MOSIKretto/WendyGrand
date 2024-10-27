@@ -45,12 +45,12 @@ ascii_picture_eight = r"""
 ~  ~
 ~~~~
 """
-ascii_picture_ten = r"""
+ascii_picture_nine = r"""
 ~~Ɔ~
 @  ~
 ~~~~
 """
-ascii_picture_eleven = r"""
+ascii_picture_ten = r"""
 ~Ɔ~~
 ~  ~
 @~~~
@@ -117,6 +117,10 @@ class Progress(QWidget):
                 self.art.setText(f"<pre style='font-family:Courier; background-color: black; font-size:12pt; color: #FFFFFF;'>{ascii_picture_seven}</pre")
             case 8:
                 self.art.setText(f"<pre style='font-family:Courier; background-color: black; font-size:12pt; color: #FFFFFF;'>{ascii_picture_eight}</pre")
+            case 9:
+                self.art.setText(f"<pre style='font-family:Courier; background-color: black; font-size:12pt; color: #FFFFFF;'>{ascii_picture_nine}</pre")
+            case 10:
+                self.art.setText(f"<pre style='font-family:Courier; background-color: black; font-size:12pt; color: #FFFFFF;'>{ascii_picture_ten}</pre")
             case other:
                 self.art.setText("OUTPUT ART ERROR!!!")
 
