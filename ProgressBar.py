@@ -3,7 +3,6 @@ from PyQt5.QtCore import Qt, QThread, pyqtSignal
 import subprocess
 import sys
 import ProgressHandler
-import time  # Временная хрень
 
 ascii_picture_one = r"""
 ∩~~~
@@ -64,7 +63,7 @@ class CloneThread(QThread):
         self.finished.emit()
 
     def Clone(self):
-        time.sleep(20)  # Временная хрень
+        subprocess.run(["sh", "WendyClone.sh"])
         subprocess.run(["java", "Translator.java", "EndingWindow.py"])
 
 class Progress(QWidget):
@@ -83,7 +82,7 @@ class Progress(QWidget):
         self.art.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.art.setStyleSheet("color: white;")
         self.label = QLabel(self)
-        self.label.setText("Копирование репозитория...")
+        self.label.setText("Копирование репозитория...\n \n We love Arch, BTW :)")
         self.label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.layout.addWidget(self.label)
         self.label.setStyleSheet("color: white;")
