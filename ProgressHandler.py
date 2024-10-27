@@ -4,7 +4,7 @@ from time import sleep
 class ProgressHandler(QtCore.QThread): # Для анимации загрузки
     signal = QtCore.pyqtSignal(int)
     def run(self):
-        for step in range(1,9):
+        for step in range(10):
             self.signal.emit(step)
-            sleep(0.1)
+            sleep(0.3)
         self.run()

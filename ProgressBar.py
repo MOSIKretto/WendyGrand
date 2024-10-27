@@ -1,48 +1,52 @@
 from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QVBoxLayout, QDesktopWidget
 from PyQt5.QtCore import Qt, QThread, pyqtSignal
-from PyQt5 import QtCore
 import subprocess
 import sys
 import ProgressHandler
 import time  # Временная хрень
 
 ascii_picture_one = r"""
-@~~~
-@  ~
-@~~~
+∩~~~
+~  ~
+~@~~
 """
 ascii_picture_two = r"""
 ~~~~
-@  ~
-@@~~
+∩  ~
+~~@~
 """
 ascii_picture_three = r"""
 ~~~~
 ~  ~
-@@@~
+C~~@
 """
 ascii_picture_four = r"""
 ~~~~
 ~  @
-~~@@
+~C~~
 """
 ascii_picture_five = r"""
 ~~~@
-~  @
-~~~@
+~  ~
+~~C~
 """
 ascii_picture_six = r"""
-~~@@
-~  @
-~~~~
+~~@~
+~  ~
+~~~U
 """
 ascii_picture_seven = r"""
-~@@@
-~  ~
+~@~~
+~  U
 ~~~~
 """
 ascii_picture_eight = r"""
-@@~~
+@~~Ɔ
+~  ~
+~~~~
+"""
+ascii_picture_ten = r"""
+~~Ɔ~
 @  ~
 ~~~~
 """
@@ -55,7 +59,7 @@ class CloneThread(QThread):
         self.finished.emit()
 
     def Clone(self):
-        time.sleep(5)  # Временная хрень
+        time.sleep(20)  # Временная хрень
         subprocess.run(["java", "Translator.java", "EndingWindow.py"])
 
 class Progress(QWidget):
@@ -65,7 +69,7 @@ class Progress(QWidget):
 
         super().__init__()
         self.setWindowTitle("Wendy's cloning...")
-        self.setFixedSize(300, 100)
+        self.setFixedSize(250, 200)
         self.startPos = None
         self.isDragging = False
         self.layout = QVBoxLayout(self)
