@@ -50,6 +50,11 @@ ascii_picture_ten = r"""
 @  ~
 ~~~~
 """
+ascii_picture_eleven = r"""
+~Ɔ~~
+~  ~
+@~~~
+"""
 
 class CloneThread(QThread):
     finished = pyqtSignal()
