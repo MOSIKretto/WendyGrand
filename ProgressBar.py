@@ -3,6 +3,7 @@ from PyQt5.QtCore import Qt, QThread, pyqtSignal
 from PyQt5 import QtCore
 import subprocess
 import sys
+import ProgressHandler
 import time  # Временная хрень
 
 ascii_picture_one = r"""
@@ -57,14 +58,6 @@ class CloneThread(QThread):
         time.sleep(5)  # Временная хрень
         subprocess.run(["java", "Translator.java", "EndingWindow.py"])
 
-class ProgressHandler(QtCore.QThread): # Для анимации загрузки
-    signal = QtCore.pyqtSignal(int)
-    def run(self):
-        for step in range(1,9):
-            self.signal.emit(step)
-            time.sleep(0.1)
-        self.run()
-
 class Progress(QWidget):
 
     # Отрисовка окна
@@ -90,7 +83,7 @@ class Progress(QWidget):
 
         # Запуск потока
         self.clone_thread = CloneThread()
-        self.handler = ProgressHandler()
+        self.handler = ProgressHandler.ProgressHandler()
         self.handler.signal.connect(self.start_animation)
         self.clone_thread.finished.connect(self.close)
         self.clone_thread.start()
