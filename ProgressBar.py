@@ -64,7 +64,13 @@ class CloneThread(QThread):
 
     def Clone(self):
         subprocess.run(["sh", "WendyClone.sh"])
-        subprocess.run(["java", "Translator.java", "EndingWindow.py"])
+        
+        import threading
+        def run_checkwindow():
+            subprocess.call(["python3", "EndingWindow.py"])
+        thread = threading.Thread(target=run_checkwindow)
+        thread.start()
+        self.close()
 
 class Progress(QWidget):
 

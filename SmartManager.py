@@ -21,8 +21,12 @@ def SmartManager():
         else:
             with open("error.txt", "w") as file:
                 print("Не удалось найти ваш пакетный менаджер :(", file=file)
-            subprocess.run(["java", "Translator.java", "PointTwoWindow.py"])
-            sys.exit(0)
+            import threading
+            def window():
+                subprocess.run(["python3", "PointTwoWindow.py"])
+            thread = threading.Thread(target=window)
+            thread.start()
+            thread.close()
 
 
         try:
@@ -38,5 +42,9 @@ def SmartManager():
     else:
         with open("error.txt", "w") as file:
             print("Дисконект! Проверьте подключение к интернету :(", file=file)
-                    
-        subprocess.run(["java", "Translator.java", "PointTwoWindow.py"])
+        import threading
+        def window():
+            subprocess.run(["python3", "PointTwoWindow.py"])
+        thread = threading.Thread(target=window)
+        thread.start()
+        thread.close()

@@ -52,9 +52,13 @@ class CuteLabel(QWidget):
             self.startPos = None
 
     def function(self):
-
-        subprocess.run(["java", "Translator.java", "CheckWindow.py"])
-        sys.exit(0)
+        
+        import threading
+        def run_checkwindow():
+            subprocess.call(["python3", "CheckWindow.py"])
+        thread = threading.Thread(target=run_checkwindow)
+        thread.start()
+        self.close()
 
 
 app = QApplication(sys.argv)

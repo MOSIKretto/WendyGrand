@@ -55,9 +55,15 @@ class Installer(QWidget):
 
     #Запуск следущего окна 
     def install(self):
+        import threading
+        def run_checkwindow():
+            subprocess.call(["python3", "CheckWindow.py"])
 
-        subprocess.run(["java", "Translator.java", "CheckWindow.py"])
-        sys.exit(0)
+        thread = threading.Thread(target=run_checkwindow)
+        thread.start()
+
+        # Закрываем текущее окно
+        self.close()
 
 
 app = QApplication(sys.argv)

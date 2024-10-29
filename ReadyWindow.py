@@ -57,8 +57,12 @@ class Ready(QWidget):
     #Запуск следущего окна
     def install(self):
 
-        subprocess.run(["java", "Translator.java", "ProgressBar.py"])
-        sys.exit(0)
+        import threading
+        def window():
+            subprocess.call(["python3", "ProgressBar.py"])
+        thread = threading.Thread(target=window)
+        thread.start()
+        self.close()
     
 
 app = QApplication(sys.argv)

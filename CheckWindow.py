@@ -121,21 +121,35 @@ class Check(QWidget):
             from InternetCheck import InternetCheck
 
             if InternetCheck():
-                subprocess.run(["java", "Translator.java", "ReadyWindow.py"])
-                sys.exit(0)
+
+                import threading
+                def window():
+                    subprocess.run(["python3", "ReadyWindow.py"])
+                thread = threading.Thread(target=window)
+                thread.start()
+                self.close()
                 
             else:
                 with open("error.txt", "w") as file:
                     print("Дисконект! Проверьте подключение к интернету :(", file=file)
 
-                subprocess.run(["java", "Translator.java", "PointTwoWindow.py"])
-                sys.exit(0)
+                import threading
+                def window():
+                    subprocess.run(["python3", "PointTwoWindow.py"])
+                thread = threading.Thread(target=window)
+                thread.start()
+                self.close()
 
         else:
             with open("error.txt", "w") as file:
                 print("У вас нет Git в системе :( Пожалуйста, установите его.", file=file)
-            subprocess.run(["java", "Translator.java", "PointTwoWindow.py"])
-            sys.exit(0)
+                
+            import threading
+            def window():
+                subprocess.run(["python3", "PointTwoWindow.py"])
+            thread = threading.Thread(target=window)
+            thread.start()
+            self.close()
 
     #Создание флага
     def Flag(self):

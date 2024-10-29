@@ -101,8 +101,13 @@ class End(QWidget):
                 return False
 
     def retry_install(self):
-        subprocess.run(["java", "Translator.java", "ProgressBar.py"])
-        sys.exit(0)
+        
+        import threading
+        def run_checkwindow():
+            subprocess.call(["python3", "ProgressBar.py"])
+        thread = threading.Thread(target=run_checkwindow)
+        thread.start()
+        self.close()
 
 app = QApplication(sys.argv)
 window = End()
