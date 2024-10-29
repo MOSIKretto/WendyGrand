@@ -40,6 +40,7 @@ with sd.RawInputStream(samplerate=samplerate, blocksize = 16000, device=device[0
                 text = rec.Result()[14:-3]
                 #text = str(input()) #Тесты с клавиатуры
                 if (text.startswith("венди пока")) or (text.startswith("среда пока")) or (text.startswith("вэнди пока")):
+                    print("Recognizer:", text)
                     ActionsVoiceover.ByeVoiceover()
                     subprocess.run(["pkill", "glava"])
                     sys.exit(0)
