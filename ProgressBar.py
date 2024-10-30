@@ -63,7 +63,7 @@ class CloneThread(QThread):
         self.finished.emit()
 
     def Clone(self):
-        subprocess.run(["sh", "WendyClone.sh"])
+        subprocess.run(["bash", "WendyClone.sh"])
         
         import threading
         def run_checkwindow():
