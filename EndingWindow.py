@@ -27,7 +27,7 @@ class End(QWidget):
         button_layout.addWidget(self.close_btn)
 
         layout = QVBoxLayout()
-        self.label = QLabel("Wendy успешно установлена, можете начать использование!\n \n \n Warning!!!\n Если это окно появилось моментально и папка ''WendyGrand'' не была создалась,\n возможно, у вас проблемы с интернетом или не удалось подключится к GitHub.\n\n Попробуйте еще раз!", self)
+        self.label = QLabel("Wendy успешно установлена, можете начать использование!\n \n \n Warning!!!\n Если это окно появилось моментально или папка ''WendyGrand'' не была создана,\n возможно, у вас проблемы с интернетом или не удалось подключиться к GitHub.\n\n Попробуйте еще раз!", self)
         self.label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.label.setStyleSheet("color: white;")
 
