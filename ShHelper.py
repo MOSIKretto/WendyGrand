@@ -28,9 +28,11 @@ class SH():
         with open("path.txt", 'w') as f:
             f.write(now_dir)
 
+        print("прошлый путь", last_path)
+        print("новый путь", now_dir)
+
         if now_dir != last_path:
-        
-            subprocess.run(['./Libs.sh'], cwd="../WendyGrand/Sh/")
+            subprocess.run(['./Rebuild_Libs.sh'], cwd="../WendyGrand/")
             subprocess.run(['./Start.sh'], cwd="../WendyGrand/")
             
         SH.ShStart()
