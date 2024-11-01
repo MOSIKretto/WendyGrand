@@ -55,7 +55,7 @@ public class Java_Dictionary
             );
             
             ArrayList <String> Hello = new ArrayList<String>(
-                Arrays.asList("привет", "здравствуй", "ты тут", "")
+                Arrays.asList("привет", "здравствуй", "ты тут")
             );
                 /*Сделать*/
             ArrayList <String> HowYou = new ArrayList<String>(
@@ -75,7 +75,7 @@ public class Java_Dictionary
             );
 
             ArrayList <String> VScode = new ArrayList<String>(
-                Arrays.asList("в скотт", "в скот", "вес скотт","вы скотт", "скотт", "код", "вес код")
+                Arrays.asList("в скотт", "в скот", "вес скотт","вы скотт", "скотт", "код", "вес код", "вы скот")
             );
             
             ArrayList <String> Stores = new ArrayList<String>(

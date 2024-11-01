@@ -28,7 +28,6 @@ last_command = ""
 command_timer = 0
 
 def callback(indata, frames, time, status):
-    """Обработчик аудиоданных."""
     q.put(bytes(indata))
 
 with sd.RawInputStream(samplerate=samplerate, blocksize=16000, device=device[0], dtype='int16', 
@@ -40,20 +39,26 @@ with sd.RawInputStream(samplerate=samplerate, blocksize=16000, device=device[0],
         if rec.AcceptWaveform(data):
             text = rec.Result()[14:-3]
             
+            '''ДОЛЖНА БЫТЬ ПЕРЕСТРОЕНА ЛОГИКА'''
+
             if text.startswith(("венди пока", "среда пока", "вэнди пока")):
-                print("Recognizer:", text)
+                #print("Recognizer:", text)
                 ActionsVoiceover.ByeVoiceover()
                 subprocess.run(["pkill", "glava"])
                 sys.exit(0)
             elif text.startswith(("венди", "среда", "вэнди")):
-                print("Recognizer:", text)
-                last_command = text
-                command_timer = time.time()
-                text = re.sub(r"венди|среда|вэнди", "", text)
-                subprocess.run(["java", "Java_Dictionary.java", text.strip()])
-            elif last_command and time.time() - command_timer <= 10:
-                text = re.sub(r"чем могу помочь|я могу помочь|могу помочь", "", text)
+                if len(text) != 5:
+                    #print("Recognizer:", text)
+                    text = re.sub(r"венди|среда|вэнди", "", text)
+                    subprocess.run(["java", "Java_Dictionary.java", text.strip()])
+                else:
+                    last_command = text
+                    command_timer = time.time()
+                    #print("Recognizer:", text)
+                    ActionsVoiceover.CallHelloVoiceover()
+            elif last_command and text != "" and time.time() - command_timer <= 10:
+                text = re.sub(r"привет чем могу помочь|чем могу помочь|я могу помочь|могу помочь|здравствуйте|я здесь|привет|здесь", "", text)
                 if text != "":
-                    print("Recognizer:", text)
+                    #print("Recognizer:", text)
                     subprocess.run(["java", "Java_Dictionary.java", text.strip()])
                     last_command = ""
