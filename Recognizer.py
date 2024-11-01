@@ -14,6 +14,7 @@ import queue
 import vosk
 import time
 import sys
+import re
 
 
 ActionsVoiceover.HelloVoiceover()
@@ -48,10 +49,10 @@ with sd.RawInputStream(samplerate=samplerate, blocksize=16000, device=device[0],
                 print("Recognizer:", text)
                 last_command = text
                 command_timer = time.time()
-                text = text.replace("венди", "").replace("среда", "").replace("вэнди", "")
+                text = re.sub(r"венди|среда|вэнди", "", text)
                 subprocess.run(["java", "Java_Dictionary.java", text.strip()])
             elif last_command and time.time() - command_timer <= 10:
-                text = text.replace("чем могу помочь", "").replace("я могу помочь", "")
+                text = re.sub(r"чем могу помочь|я могу помочь|могу помочь", "", text)
                 if text != "":
                     print("Recognizer:", text)
                     subprocess.run(["java", "Java_Dictionary.java", text.strip()])
