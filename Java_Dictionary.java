@@ -161,7 +161,7 @@ public class Java_Dictionary
                         Arrays.asList("найди", "найти", "на", "ищи", "ютубе", "ютюбе", "ютуб", "ютюб")
                     );
 
-                    String ClearTextYouTubeSearch = Arrays.stream(arg.split("\\s+"))
+                    String ClearTextYouTubeSearch = Arrays.stream(ClearText.split("\\s+"))
                         .filter(word -> !RemoveYouTubeSearch.contains(word))
                         .collect(Collectors.joining("%20"));
 
@@ -174,7 +174,7 @@ public class Java_Dictionary
                         Arrays.asList("найди", "найти", "в", "интернете", "ищи")
                     );
 
-                    String ClearTextWebSearch = Arrays.stream(arg.split("\\s+"))
+                    String ClearTextWebSearch = Arrays.stream(ClearText.split("\\s+"))
                         .filter(word -> !RemoveWebSearch.contains(word))
                         .collect(Collectors.joining("%20"));
 
