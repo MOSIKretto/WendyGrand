@@ -62,11 +62,11 @@ public class ActionHandler
     //Работа с системой
     public static void CallReboot()
     {
-        SystemSettingsWendy.systemWithdrawal("-r", "перезапущена");
+        SystemSettingsWendy.systemWithdrawal("-r", " перезапущена ");
     }
     public static void CallShutdown()
     {
-        SystemSettingsWendy.systemWithdrawal("-h", "выключена");
+        SystemSettingsWendy.systemWithdrawal("-h", " выключена ");
     }
 
     //Поиск
