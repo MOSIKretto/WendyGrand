@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.stream.Collectors;
-
 import static java.util.Map.entry;
 
 public class Java_Dictionary 
@@ -34,7 +33,6 @@ public class Java_Dictionary
             String ClearText = Arrays.stream(arg.split("\\s+"))
                 .filter(word -> !Remove.contains(word))
                 .collect(Collectors.joining(" "));
-            System.out.println("Java_Dictionary: " + ClearText);
     
             /*
             * RU Словари с командами 

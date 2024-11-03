@@ -4,10 +4,10 @@ import java.io.IOException;
 
 public class SystemSettingsWendy
 {
-    public static void restart_shutdown_System(String arg)
+    public static void systemWithdrawal(String arg, String message)
     {
 
-        System.out.println("Система будет перезагружена через 10 секунд...");
+        System.out.println("Система будет" + message + "через 10 секунд...");
         
         for (int i = 10; i >= 0; i--)
         {

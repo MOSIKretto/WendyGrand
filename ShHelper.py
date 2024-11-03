@@ -15,7 +15,6 @@ class SH():
 
     @staticmethod
     def run_dir():
-        import subprocess
         current_file_path = os.path.abspath(__file__)
         now_dir = os.path.dirname(current_file_path)
 
@@ -46,8 +45,8 @@ class SH():
             subprocess.call(['./' + script_path], cwd = "../WendyGrand/Sh/")
 
         # Создаем два процесса
-        process_recognizer = multiprocessing.Process(target=run_script, args=("Recognizer.sh",))
-        process_glava = multiprocessing.Process(target=run_script, args=("Glava.sh",))
+        process_recognizer = multiprocessing.Process(target=run_script, args=("Recognizer.sh"))
+        process_glava = multiprocessing.Process(target=run_script, args=("Glava.sh"))
 
         # Запускаем процессы
         process_recognizer.start()
