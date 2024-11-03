@@ -5,8 +5,8 @@
 *----------------------------------------------
 *En Running Sh Scripts
 '''
-import subprocess
 import multiprocessing
+import subprocess
 import sys
 import os
 
@@ -15,7 +15,7 @@ class SH():
 
     @staticmethod
     def run_dir():
-        import subprocess
+        
         current_file_path = os.path.abspath(__file__)
         now_dir = os.path.dirname(current_file_path)
 
@@ -39,7 +39,6 @@ class SH():
 
     @staticmethod
     def ShStart():
-
         #Запускает скрипты Recognizer.sh и Glava.sh в параллельных процессах."""
         def run_script(script_path):
             

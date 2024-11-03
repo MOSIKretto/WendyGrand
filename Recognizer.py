@@ -1,5 +1,5 @@
 '''
-* *Recognizer*
+• *Recognizer*
 *
 *RU Слушает и передает значение в Java_Dictionary
 *-------------------------------------------------------------
@@ -7,49 +7,75 @@
 *
 '''
 
-
 from Voiceover import ActionsVoiceover
-import vosk 
 import sounddevice as sd
-import queue
 import subprocess
+import threading
+import queue
+import vosk
+import time
 import sys
-import os
+import re
 
 
 ActionsVoiceover.HelloVoiceover()
 
-
 q = queue.Queue()
-model = vosk.Model('model_small')
+model = vosk.Model("model_small")
 device = sd.default.device
 samplerate = int(sd.query_devices(device[0], 'input')['default_samplerate'])
+last_command = ""
+command_timer = 0
+
+
+def Checking(text):
+    global last_command, command_timer
+
+    if text.startswith(("венди пока", "среда пока", "вэнди пока")):
+        print("Recognizer:", text)
+        ActionsVoiceover.ByeVoiceover()
+        subprocess.run(["pkill", "glava"])
+        sys.exit(0)
+
+    elif text.startswith(("венди", "среда", "вэнди")):
+        if len(text) != 5:
+            print("Recognizer:", text)
+            text = re.sub(r"венди|среда|вэнди", "", text).strip()
+            subprocess.run(["java", "Java_Dictionary.java", text])
+            last_command = text
+            command_timer = time.time()
+        else:
+            '''Если было сказано только "венди", "среда", "вэнди" следущее слово расценивается, как команда'''
+            print("Recognizer:", text)
+            last_command = text
+            command_timer = time.time()
+            ActionsVoiceover.CallHelloVoiceover()
+
+    elif last_command and time.time() - command_timer <= 10:
+        text = re.sub(r"привет|чем|могу|помочь|я|здравствуйте|здесь", "", text).strip()
+        if text:
+            print("Recognizer:", text)
+            subprocess.run(["java", "Java_Dictionary.java", text])
+            last_command = ""
+
+
+def Recognizer():
+    rec = vosk.KaldiRecognizer(model, samplerate)
+
+    while True:
+        data = q.get()
+        if rec.AcceptWaveform(data):
+            text = rec.Result()[14:-3]
+            if text:
+                Checking(text)
 
 
 def callback(indata, frames, time, status):
     q.put(bytes(indata))
 
+Recognizer_thread = threading.Thread(target=Recognizer, daemon=True)
+Recognizer_thread.start()
 
-with sd.RawInputStream(samplerate=samplerate, blocksize = 16000, device=device[0], dtype='int16', 
-                       channels=1, callback=callback):
-        rec = vosk.KaldiRecognizer(model, samplerate)
-
-        while True:
-            data = q.get()
-            if rec.AcceptWaveform(data):
-                text = rec.Result()[14:-3]
-                #text = str(input()) #Тесты с клавиатуры
-                if (text.startswith("венди пока")) or (text.startswith("среда пока")) or (text.startswith("вэнди пока")):
-                    print("Recognizer:", text)
-                    ActionsVoiceover.ByeVoiceover()
-                    subprocess.run(["pkill", "glava"])
-                    sys.exit(0)
-                elif (text.startswith("венди")) or (text.startswith("среда")) or (text.startswith("вэнди")):
-                    print("Recognizer:", text)
-                    text = text.replace("венди", "")
-                    text = text.replace("среда", "")
-                    text = text.replace("вэнди", "")
-                    subprocess.run(["java", "Java_Dictionary.java", text.strip()], stdout=sys.stdout, 
-                                stderr=sys.stdout, cwd=os.getcwd())
-                else:
-                    pass
+with sd.RawInputStream(samplerate=samplerate, blocksize=16000, device=device[0], dtype='int16',
+                        channels=1, callback=callback):
+    Recognizer_thread.join()

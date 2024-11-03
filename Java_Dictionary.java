@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.stream.Collectors;
-
 import static java.util.Map.entry;
 
 public class Java_Dictionary 
@@ -34,7 +33,6 @@ public class Java_Dictionary
             String ClearText = Arrays.stream(arg.split("\\s+"))
                 .filter(word -> !Remove.contains(word))
                 .collect(Collectors.joining(" "));
-            System.out.println("Java_Dictionary: " + ClearText);
     
             /*
             * RU Словари с командами 
@@ -55,7 +53,7 @@ public class Java_Dictionary
             );
             
             ArrayList <String> Hello = new ArrayList<String>(
-                Arrays.asList("привет", "здравствуй", "ты тут", "")
+                Arrays.asList("привет", "здравствуй", "ты тут")
             );
                 /*Сделать*/
             ArrayList <String> HowYou = new ArrayList<String>(
@@ -75,7 +73,7 @@ public class Java_Dictionary
             );
 
             ArrayList <String> VScode = new ArrayList<String>(
-                Arrays.asList("в скотт", "в скот", "вес скотт","вы скотт", "скотт", "код", "вес код")
+                Arrays.asList("в скотт", "в скот", "вес скотт","вы скотт", "скотт", "код", "вес код", "вы скот")
             );
             
             ArrayList <String> Stores = new ArrayList<String>(
@@ -161,7 +159,7 @@ public class Java_Dictionary
                         Arrays.asList("найди", "найти", "на", "ищи", "ютубе", "ютюбе", "ютуб", "ютюб")
                     );
 
-                    String ClearTextYouTubeSearch = Arrays.stream(arg.split("\\s+"))
+                    String ClearTextYouTubeSearch = Arrays.stream(ClearText.split("\\s+"))
                         .filter(word -> !RemoveYouTubeSearch.contains(word))
                         .collect(Collectors.joining("%20"));
 
@@ -174,7 +172,7 @@ public class Java_Dictionary
                         Arrays.asList("найди", "найти", "в", "интернете", "ищи")
                     );
 
-                    String ClearTextWebSearch = Arrays.stream(arg.split("\\s+"))
+                    String ClearTextWebSearch = Arrays.stream(ClearText.split("\\s+"))
                         .filter(word -> !RemoveWebSearch.contains(word))
                         .collect(Collectors.joining("%20"));
 
