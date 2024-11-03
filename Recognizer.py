@@ -53,8 +53,7 @@ def Checking(text):
             ActionsVoiceover.CallHelloVoiceover()
 
     elif last_command and text and time.time() - command_timer <= 10:
-        text = re.sub(
-            r"привет чем могу помочь|чем могу помочь|я могу помочь|могу помочь|здравствуйте|я здесь|привет|здесь|помочь", "", text).strip()
+        text = re.sub(r"привет чем могу помочь|чем могу помочь|я могу помочь|могу помочь|здравствуйте|я здесь|привет|здесь|помочь", "", text).strip()
         if text:
             #print("Recognizer:", text)
             subprocess.run(["java", "Java_Dictionary.java", text])
@@ -68,7 +67,8 @@ def Recognizer():
         data = q.get()
         if rec.AcceptWaveform(data):
             text = rec.Result()[14:-3]
-            Checking(text)
+            if text:
+                Checking(text)
 
 
 def callback(indata, frames, time, status):
