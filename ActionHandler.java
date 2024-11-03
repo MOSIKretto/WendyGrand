@@ -9,7 +9,6 @@
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.io.File;
 
 import Actions.*;
 
@@ -17,15 +16,10 @@ public class ActionHandler
 {
     public static void CallFunction(String FunctionName)
     {
-        ProcessBuilder builder = new ProcessBuilder("python3", "Voiceover.py", FunctionName + "Voiceover");
-        File log = new File("Handler.log");
-        File cwd = new File(System.getProperty("user.dir"));
-        builder.redirectOutput(ProcessBuilder.Redirect.appendTo(log));
-        builder.redirectError(ProcessBuilder.Redirect.appendTo(log));
-        builder.directory(cwd.getAbsoluteFile());
+        ProcessBuilder builderVoiceover = new ProcessBuilder("python3", "Voiceover.py", FunctionName + "Voiceover");
         try
         {
-            builder.start();
+            builderVoiceover.start();
         }
         catch (IOException e)
         {
@@ -42,22 +36,19 @@ public class ActionHandler
             e.printStackTrace(System.err);
         }
     }
-
+    
+    //Вызов приложений
     public static void CallBrowser()
     {
-        WebManager.startWeb("firefox" /*,"google-chrome"*/);
-    }
-    public static void CallWebSearch(String https, String search)
-    {
-        SearchManager.startSearch(https, search);
-    }
-    public static void CallYouTubeSearch(String https, String search)
-    {
-        SearchManager.startSearch(https, search);
+        AppManager.startApp("firefox" /*,"google-chrome"*/);
     }
     public static void CallTelegram()
     {
         AppManager.startApp("telegram-desktop");
+    }
+    public static void CallObsidian()
+    {
+        AppManager.startApp("md.obsidian.Obsidian");
     }
     public static void CallVScode()
     {
@@ -65,6 +56,26 @@ public class ActionHandler
     }
     public static void CallStores()
     {
-        AppManager.startApp("snap-store" /*,"gnome-software"*/);
+        AppManager.startApp("pamac-manager" /* "snap-store", "gnome-software" */);
+    }
+
+    //Работа с системой
+    public static void CallReboot()
+    {
+        SystemSettingsWendy.systemWithdrawal("-r", " перезапущена ");
+    }
+    public static void CallShutdown()
+    {
+        SystemSettingsWendy.systemWithdrawal("-h", " выключена ");
+    }
+
+    //Поиск
+    public static void CallWebSearch(String https, String search)
+    {
+        SearchManager.startSearch(https, search);
+    }
+    public static void CallYouTubeSearch(String https, String search)
+    {
+        SearchManager.startSearch(https, search);
     }
 }

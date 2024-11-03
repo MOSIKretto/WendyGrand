@@ -23,3 +23,5 @@ venv/
 *.iml
 *.log
 *.cfg
+*.jar
+*.txt

@@ -6,21 +6,16 @@
  * 
 */
 
-import java.io.File;
 import java.io.IOException;
 
 public class Main
 {
     public static void main(String[] args)
     {
-        // Запуск Recognizer.py
-        ProcessBuilder processBuilder = new ProcessBuilder("python3", "Recognizer.py");
-        File log = new File("Main.log");
-        processBuilder.redirectOutput(ProcessBuilder.Redirect.appendTo(log));
-        processBuilder.redirectError(ProcessBuilder.Redirect.appendTo(log));
+        ProcessBuilder processBuilderShHelper = new ProcessBuilder("python3", "ShHelper.py", "run_dir");
         try
         {
-            processBuilder.start();
+            processBuilderShHelper.start();
         } 
         catch (IOException e)
         {
