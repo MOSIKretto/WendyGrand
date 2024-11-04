@@ -29,7 +29,7 @@ command_timer = 0
 lock = False
 
 def Checking(text):
-    global last_command, command_timer
+    global last_command, command_timer, Recognizer_thread
 
     if text.startswith(("венди пока", "среда пока", "вэнди пока")):
         print("Recognizer:", text)
@@ -54,7 +54,7 @@ def Checking(text):
     elif last_command and time.time() - command_timer <= 10:
         text = re.sub(r"привет|чем|могу|помочь|я|здравствуйте|здесь", "", text).strip()
         if text:
-            print("Recognizer:", text)
+            print("Recognizer", text)
             subprocess.run(["java", "Java_Dictionary.java", text])
             last_command = ""
 

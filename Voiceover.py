@@ -62,7 +62,6 @@ class ActionsVoiceover:
         else:
             playsound(AUDIO_DIR + 'Hello.mp3')
 
-
     @staticmethod
     def CallBrowserVoiceover():
 
