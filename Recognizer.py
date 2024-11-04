@@ -26,10 +26,9 @@ device = sd.default.device
 samplerate = int(sd.query_devices(device[0], 'input')['default_samplerate'])
 last_command = ""
 command_timer = 0
-lock = False
 
 def Checking(text):
-    global last_command, command_timer, Recognizer_thread
+    global last_command, command_timer
 
     if text.startswith(("венди пока", "среда пока", "вэнди пока")):
         print("Recognizer:", text)
