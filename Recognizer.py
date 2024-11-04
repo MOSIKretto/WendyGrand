@@ -1,5 +1,5 @@
 '''
-• *Recognizer*
+* *Recognizer*
 *
 *RU Слушает и передает значение в Java_Dictionary
 *-------------------------------------------------------------
@@ -27,7 +27,6 @@ samplerate = int(sd.query_devices(device[0], 'input')['default_samplerate'])
 last_command = ""
 command_timer = 0
 
-
 def Checking(text):
     global last_command, command_timer
 
@@ -54,7 +53,7 @@ def Checking(text):
     elif last_command and time.time() - command_timer <= 10:
         text = re.sub(r"привет|чем|могу|помочь|я|здравствуйте|здесь", "", text).strip()
         if text:
-            print("Recognizer:", text)
+            print("Recognizer", text)
             subprocess.run(["java", "Java_Dictionary.java", text])
             last_command = ""
 
@@ -66,8 +65,7 @@ def Recognizer():
         data = q.get()
         if rec.AcceptWaveform(data):
             text = rec.Result()[14:-3]
-            if text:
-                Checking(text)
+            Checking(text)
 
 
 def callback(indata, frames, time, status):

@@ -5,6 +5,8 @@
 *----------------------------------------------
 *En Running Sh Scripts
 '''
+
+from config import SH_DIR, SOURCE_DIR
 import multiprocessing
 import subprocess
 import sys
@@ -28,31 +30,25 @@ class SH():
         with open("path.txt", 'w') as f:
             f.write(now_dir)
 
-        print("прошлый путь", last_path)
-        print("новый путь", now_dir)
-
         if now_dir != last_path:
-            subprocess.run(['./Rebuild_Libs.sh'], cwd="../WendyGrand/")
-            subprocess.run(['./Start.sh'], cwd="../WendyGrand/")
+            subprocess.run(['./Rebuild_Libs.sh'], cwd=SOURCE_DIR)
+            subprocess.run(['./Start.sh'], cwd=SOURCE_DIR)
             
         SH.ShStart()
 
     @staticmethod
     def ShStart():
-        #Запускает скрипты Recognizer.sh и Glava.sh в параллельных процессах."""
+        #Запускает скрипты Recognizer.sh и Glava.sh в параллельных процессах.
         def run_script(script_path):
             
-            subprocess.call(['./' + script_path], cwd = "../WendyGrand/Sh/")
+            subprocess.call(['./' + script_path], cwd=SH_DIR)
 
-        # Создаем два процесса
         process_recognizer = multiprocessing.Process(target=run_script, args=("Recognizer.sh",))
         process_glava = multiprocessing.Process(target=run_script, args=("Glava.sh",))
 
-        # Запускаем процессы
         process_recognizer.start()
         process_glava.start()
 
-        # Ожидаем завершения процессов
         process_recognizer.join()
         process_glava.join()
 

@@ -8,9 +8,9 @@
 '''
 
 from playsound3 import playsound
-import sys
 from config import AUDIO_DIR
 from random import *
+import sys
 
 '''
 Универсальные файлы озвучкиб которые подайдут к большенсву функций:

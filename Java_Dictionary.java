@@ -4,7 +4,7 @@
  * ---------------------------------------------------------------------
  * EN Looks for a match in dictionaries and issues a command to execute
  * 
- */
+*/
 
 import java.util.ArrayList;
 import java.util.Arrays;
