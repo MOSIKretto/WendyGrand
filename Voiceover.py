@@ -8,9 +8,9 @@
 '''
 
 from playsound3 import playsound
-import sys
 from config import AUDIO_DIR
 from random import *
+import sys
 
 '''
 Универсальные файлы озвучкиб которые подайдут к большенсву функций:
@@ -61,6 +61,7 @@ class ActionsVoiceover:
             playsound(AUDIO_DIR + 'ImHere.mp3')
         else:
             playsound(AUDIO_DIR + 'Hello.mp3')
+
 
     @staticmethod
     def CallBrowserVoiceover():

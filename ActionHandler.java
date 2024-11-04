@@ -4,7 +4,7 @@
  * --------------------------------------------------------
  * EN Handler for commands received from Java_Dictionary
  *
- */
+*/
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
