@@ -49,7 +49,8 @@ public class Java_Dictionary
                 entry("Stores", "CallStores"),
                 entry("Obsidian", "CallObsidian"),
                 entry("Reboot", "CallReboot"),
-                entry("Shutdown", "CallShutdown")
+                entry("Shutdown", "CallShutdown"),
+                entry("Upgrade", "CallUpgrade")
             );
             
             ArrayList <String> Hello = new ArrayList<String>(
@@ -86,6 +87,10 @@ public class Java_Dictionary
 
             ArrayList <String> Shutdown = new ArrayList<String>(
                 Arrays.asList("выключения", "выключение", "выключение компьютера", "выключи компьютер")
+            );
+
+            ArrayList <String> Upgrade = new ArrayList<String>(
+                Arrays.asList("обнови систему")
             );
                 
             /*
@@ -141,6 +146,11 @@ public class Java_Dictionary
             if (Shutdown.contains(ClearText))
             {
                 ActionHandler.CallFunction(FunctionsDictionary.get("Shutdown"));
+            }
+            //--------------------------------------------------------------------------------------------------------------
+            if (Upgrade.contains(ClearText))
+            {
+                ActionHandler.CallFunction(FunctionsDictionary.get("Upgrade"));
             }
             //--------------------------------------------------------------------------------------------------------------
 

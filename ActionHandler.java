@@ -68,6 +68,10 @@ public class ActionHandler
     {
         SystemSettingsWendy.systemWithdrawal("-h", " выключена ");
     }
+    public static void CallUpgrade()
+    {
+        ShHelper.StartSh("Upgrade.sh");
+    }
 
     //Поиск
     public static void CallWebSearch(String https, String search)

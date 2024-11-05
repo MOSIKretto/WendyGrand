@@ -12,10 +12,10 @@ public class Main
 {
     public static void main(String[] args)
     {
-        ProcessBuilder processBuilderShHelper = new ProcessBuilder("python3", "ShHelper.py", "run_dir");
+        ProcessBuilder processBuilderShStarter = new ProcessBuilder("python3", "ShStarter.py", "run_dir");
         try
         {
-            processBuilderShHelper.start();
+            processBuilderShStarter.start();
         } 
         catch (IOException e)
         {

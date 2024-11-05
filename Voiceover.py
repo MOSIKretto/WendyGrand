@@ -195,6 +195,14 @@ class ActionsVoiceover:
 
         if executive_voice == 0 or 1:
             playsound(AUDIO_DIR + 'OneMoment.mp3')
+
+    @staticmethod
+    def CallUpgradeVoiceover():
+
+        executive_voice = randint(0, 1)
+
+        if executive_voice == 0 or 1:
+            playsound(AUDIO_DIR + 'OneMoment.mp3')
         
 
 print("MESSAGE")

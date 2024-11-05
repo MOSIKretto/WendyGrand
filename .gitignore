@@ -25,3 +25,4 @@ venv/
 *.cfg
 *.jar
 *.txt
+*.conf
