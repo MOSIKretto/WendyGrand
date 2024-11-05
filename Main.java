@@ -79,7 +79,7 @@ public class Main
             Process process = processBuilder.start();
             process.waitFor();
         } 
-        catch (IOException | InterruptedException e){e.printStackTrace();}
+        catch (IOException | InterruptedException e){}
     }
 
     private static void StartShSilent(String scriptName) 
@@ -94,6 +94,6 @@ public class Main
             Process process = processBuilder.start();
             process.waitFor();
         } 
-        catch (IOException | InterruptedException e){e.printStackTrace();}
+        catch (IOException | InterruptedException e){}
     }
 }
