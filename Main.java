@@ -86,9 +86,8 @@ public class Main
     {
         ProcessBuilder processBuilder = new ProcessBuilder("sh", "./Sh/Start/" + scriptName);
         
-        // Перенаправляем вывод в null
-        processBuilder.redirectOutput(ProcessBuilder.Redirect.to(new File("/dev/null"))); // Для Linux/Mac
-        processBuilder.redirectError(ProcessBuilder.Redirect.to(new File("/dev/null"))); // Для Linux/Mac
+        processBuilder.redirectOutput(ProcessBuilder.Redirect.to(new File("/dev/null")));
+        processBuilder.redirectError(ProcessBuilder.Redirect.to(new File("/dev/null")));
 
         try 
         {
