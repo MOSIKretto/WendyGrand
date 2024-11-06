@@ -109,6 +109,7 @@ public class Java_Dictionary
             //Озвучка фраз не требующей функционала
             if (Hello.contains(ClearText))
             {
+                youSay(arg);
                 ActionHandler.CallFunction(FunctionsDictionary.get("Hello"));
             }
             //--------------------------------------------------------------------------------------------------------------
@@ -116,26 +117,31 @@ public class Java_Dictionary
             //Вызов приложений
             if (Browser.contains(ClearText))
             {
+                youSay(arg);
                 ActionHandler.CallFunction(FunctionsDictionary.get("Browser"));
             }
             //--------------------------------------------------------------------------------------------------------------
             if (Telegram.contains(ClearText))
             {
+                youSay(arg);
                 ActionHandler.CallFunction(FunctionsDictionary.get("Telegram"));
             }
             //--------------------------------------------------------------------------------------------------------------
             if (Obsidian.contains(ClearText))
             {
+                youSay(arg);
                 ActionHandler.CallFunction(FunctionsDictionary.get("Obsidian"));
             }
             //--------------------------------------------------------------------------------------------------------------
             if (VScode.contains(ClearText))
             {
+                youSay(arg);
                 ActionHandler.CallFunction(FunctionsDictionary.get("VScode"));
             }
             //--------------------------------------------------------------------------------------------------------------
             if (Stores.contains(ClearText))
             {
+                youSay(arg);
                 ActionHandler.CallFunction(FunctionsDictionary.get("Stores"));
             }
             //--------------------------------------------------------------------------------------------------------------
@@ -143,16 +149,19 @@ public class Java_Dictionary
             //Работа с системой
             if (Reboot.contains(ClearText))
             {
+                youSay(arg);
                 ActionHandler.CallFunction(FunctionsDictionary.get("Reboot"));
             }
             //--------------------------------------------------------------------------------------------------------------
             if (Shutdown.contains(ClearText))
             {
+                youSay(arg);
                 ActionHandler.CallFunction(FunctionsDictionary.get("Shutdown"));
             }
             //--------------------------------------------------------------------------------------------------------------
             if (Upgrade.contains(ClearText))
             {
+                youSay(arg);
                 ActionHandler.CallFunction(FunctionsDictionary.get("Upgrade"));
             }
             //--------------------------------------------------------------------------------------------------------------
@@ -177,6 +186,7 @@ public class Java_Dictionary
                         .collect(Collectors.joining("%20"));
 
                     ActionHandler.CallFunction(FunctionsDictionary.get("YouTubeSearch"));
+                    youSay(arg);
                     ActionHandler.CallYouTubeSearch("https://www.youtube.com/results?search_query=", ClearTextYouTubeSearch);
                 }
                 else
@@ -190,10 +200,16 @@ public class Java_Dictionary
                         .collect(Collectors.joining("%20"));
 
                     ActionHandler.CallFunction(FunctionsDictionary.get("WebSearch"));
+                    youSay(arg);
                     ActionHandler.CallWebSearch("https://duckduckgo.com/?q=", ClearTextWebSearch);
                 }
             }
             //--------------------------------------------------------------------------------------------------------------
         }
+    }
+
+    private static void youSay(String message)
+    {
+        System.out.println("Распознано: " + message);
     }
 }

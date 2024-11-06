@@ -31,21 +31,20 @@ def Checking(text):
     global last_command, command_timer
 
     if text.startswith(("венди пока", "среда пока", "вэнди пока")):
-        print("Recognizer:", text)
+        print("Распознано:", text)
         ActionsVoiceover.ByeVoiceover()
         subprocess.run(["pkill", "glava"])
         sys.exit(0)
 
     elif text.startswith(("венди", "среда", "вэнди")):
         if len(text) != 5:
-            print("Recognizer:", text)
             text = re.sub(r"венди|среда|вэнди", "", text).strip()
             subprocess.run(["java", "Java_Dictionary.java", text])
             last_command = text
             command_timer = time.time()
         else:
             '''Если было сказано только "венди", "среда", "вэнди" следущее слово расценивается, как команда'''
-            print("Recognizer:", text)
+            print("Распознано:", text)
             last_command = text
             command_timer = time.time()
             ActionsVoiceover.CallHelloVoiceover()
@@ -53,7 +52,6 @@ def Checking(text):
     elif last_command and time.time() - command_timer <= 10:
         text = re.sub(r"привет|чем|могу|помочь|я|здравствуйте|здесь", "", text).strip()
         if text:
-            print("Recognizer:", text)
             subprocess.run(["java", "Java_Dictionary.java", text])
             last_command = ""
 

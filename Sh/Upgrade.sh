@@ -2,8 +2,10 @@
 
 #Вызов окна подтверждения
 if [ "$(id -u)" -ne 0 ]; then
-    exec pkexec "$0" "$@"
+    echo "\"Wendy will upgrade your system\"" 
+    exec pkexec "$0"
 fi
+
 
 #Обновление системы
 update_system() {
