@@ -1,7 +1,7 @@
 package Actions;
 
-import java.io.IOException;
 import java.text.MessageFormat;
+import java.io.IOException;
 
 public class SearchManager
 {

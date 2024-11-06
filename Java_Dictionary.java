@@ -6,11 +6,11 @@
  * 
 */
 
+import java.util.stream.Collectors;
+import static java.util.Map.entry;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
-import java.util.stream.Collectors;
-import static java.util.Map.entry;
 
 public class Java_Dictionary 
 {

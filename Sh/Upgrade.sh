@@ -1,5 +1,6 @@
 #!/bin/bash
 
+#Вызов окна подтверждения
 if [ "$(id -u)" -ne 0 ]; then
     exec pkexec "$0" "$@"
 fi

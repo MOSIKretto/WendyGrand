@@ -6,12 +6,12 @@
  * 
 */
 
-import java.io.File;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.io.File;
 
 public class Main 
 {
@@ -69,29 +69,29 @@ public class Main
         executor.shutdown();
     }
 
-    private static void StartSh(String scriptName) 
+    private static void StartSh(String scriptRecognizer) 
     {
-        ProcessBuilder processBuilder = new ProcessBuilder("sh", "./Sh/Start/" + scriptName);
-        processBuilder.inheritIO(); // Чтобы видеть вывод скрипта в консоли
+        ProcessBuilder builderRecognizer = new ProcessBuilder("sh", "./Sh/Start/" + scriptRecognizer);
+        builderRecognizer.inheritIO(); // Чтобы видеть вывод скрипта в консоли
 
         try 
         {
-            Process process = processBuilder.start();
+            Process process = builderRecognizer.start();
             process.waitFor();
         } 
         catch (IOException | InterruptedException e){}
     }
 
-    private static void StartShSilent(String scriptName) 
+    private static void StartShSilent(String scriptGlava) 
     {
-        ProcessBuilder processBuilder = new ProcessBuilder("sh", "./Sh/Start/" + scriptName);
+        ProcessBuilder builderGlava = new ProcessBuilder("sh", "./Sh/Start/" + scriptGlava);
         
-        processBuilder.redirectOutput(ProcessBuilder.Redirect.to(new File("/dev/null")));
-        processBuilder.redirectError(ProcessBuilder.Redirect.to(new File("/dev/null")));
+        builderGlava.redirectOutput(ProcessBuilder.Redirect.to(new File("/dev/null")));
+        builderGlava.redirectError(ProcessBuilder.Redirect.to(new File("/dev/null")));
 
         try 
         {
-            Process process = processBuilder.start();
+            Process process = builderGlava.start();
             process.waitFor();
         } 
         catch (IOException | InterruptedException e){}
