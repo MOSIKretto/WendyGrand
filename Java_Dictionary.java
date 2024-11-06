@@ -26,7 +26,7 @@ public class Java_Dictionary
             ArrayList <String> Remove = new ArrayList<String>(
                 Arrays.asList(
                     "пожалуйста", "ладно", "давай", "сейчас", "типо", "типа", "будь", "добра", "ну", 
-                    "что-то",  "что", "то", "открой", "блять", "нахуй", "сука"
+                    "что-то",  "что", "то", "открой", "да", "блять", "нахуй", "сука"
                 )
             );
             
@@ -75,7 +75,7 @@ public class Java_Dictionary
                     "вес скотт", "вес код", 
                     "вы скотт", "вы скот", "вы и скотт",
                     "скотт", "код"
-                    )
+                )
             );
             
             ArrayList <String> Stores = new ArrayList<String>(
@@ -91,7 +91,7 @@ public class Java_Dictionary
                     "выключения", "выключение", 
                     "выключения компьютера", "выключкение компьютера", 
                     "выключи компьютер", "выключить компьютер"
-                    )
+                )
             );
 
             ArrayList <String> Upgrade = new ArrayList<String>(
