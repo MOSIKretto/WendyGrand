@@ -86,11 +86,18 @@ public class Java_Dictionary
             );
 
             ArrayList <String> Shutdown = new ArrayList<String>(
-                Arrays.asList("выключения", "выключение", "выключение компьютера", "выключи компьютер")
+                Arrays.asList(
+                    "выключения", "выключение", 
+                    "выключения компьютера", "выключкение компьютера", 
+                    "выключи компьютер", "выключить компьютер"
+                    )
             );
 
             ArrayList <String> Upgrade = new ArrayList<String>(
-                Arrays.asList("обнови систему")
+                Arrays.asList(
+                    "обнови систему", "обнови системы", 
+                    "обновить систему", "обновить системы"
+                    )
             );
                 
             /*
