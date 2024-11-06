@@ -88,7 +88,7 @@ public class Java_Dictionary
 
             ArrayList <String> Shutdown = new ArrayList<String>(
                 Arrays.asList(
-                    "выключения", "выключение", 
+                    "выключения", "выключение", "выключени",
                     "выключения компьютера", "выключкение компьютера", 
                     "выключи компьютер", "выключить компьютер"
                 )
