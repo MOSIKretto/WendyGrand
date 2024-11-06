@@ -56,17 +56,13 @@ public class Java_Dictionary
             ArrayList <String> Hello = new ArrayList<String>(
                 Arrays.asList("привет", "здравствуй", "ты тут")
             );
-                /*Сделать*/
-            ArrayList <String> HowYou = new ArrayList<String>(
-                Arrays.asList("как дела", "как ты")
-            );
                     
             ArrayList <String> Browser = new ArrayList<String>(
                 Arrays.asList("браузер", "браузера", "интернет")
             );
                 
             ArrayList <String> Telegram = new ArrayList<String>(
-                Arrays.asList("телеграм", "телега", "телегу", "телеграмма", "телеграма", "телеграмм")
+                Arrays.asList("телеграм", "телеграмм", "телега", "телегу", "телеграма", "телеграмма", "телеграммы", "телеграмму")
             );
 
             ArrayList <String> Obsidian = new ArrayList<String>(
@@ -74,7 +70,12 @@ public class Java_Dictionary
             );
 
             ArrayList <String> VScode = new ArrayList<String>(
-                Arrays.asList("в скотт", "в скот", "вес скотт","вы скотт", "скотт", "код", "вес код", "вы скот")
+                Arrays.asList(
+                    "в скотт", "в скот", 
+                    "вес скотт", "вес код", 
+                    "вы скотт", "вы скот", "вы и скотт",
+                    "скотт", "код"
+                    )
             );
             
             ArrayList <String> Stores = new ArrayList<String>(
@@ -82,7 +83,7 @@ public class Java_Dictionary
             );
 
             ArrayList <String> Reboot = new ArrayList<String>(
-                Arrays.asList("перезапуск")
+                Arrays.asList("перезапуск", "перезапусти компьютер")
             );
 
             ArrayList <String> Shutdown = new ArrayList<String>(
@@ -109,11 +110,6 @@ public class Java_Dictionary
             if (Hello.contains(ClearText))
             {
                 ActionHandler.CallFunction(FunctionsDictionary.get("Hello"));
-            }
-            //--------------------------------------------------------------------------------------------------------------
-            if (HowYou.contains(ClearText))
-            {
-                System.out.println("Хорошо! Надеюсь у вас еще лучше, User!");
             }
             //--------------------------------------------------------------------------------------------------------------
 
