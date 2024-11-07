@@ -53,7 +53,7 @@ class ActionsVoiceover:
     @staticmethod
     def CallHelloVoiceover():
 
-        executive_voice = randint(0, 2)
+        executive_voice = randint(0, 1)
 
         if executive_voice == 0:
             playsound(AUDIO_DIR + 'Hello.mp3')

@@ -38,8 +38,7 @@ def Checking(text):
 
     elif text.startswith(("венди", "среда", "вэнди")):
         if len(text) != 5:
-            text = re.sub(r"венди|среда|вэнди", "", text).strip()
-            subprocess.run(["java", "Java_Dictionary.java", text])
+            kill_or_start("java", "Java_Dictionary.java", text)
             last_command = text
             command_timer = time.time()
         else:
@@ -50,11 +49,14 @@ def Checking(text):
             ActionsVoiceover.CallHelloVoiceover()
 
     elif last_command and time.time() - command_timer <= 10:
-        text = re.sub(r"привет|чем|могу|помочь|я|здравствуйте|здесь", "", text).strip()
-        if text:
-            subprocess.run(["java", "Java_Dictionary.java", text])
+        text = re.sub(r"привет|чем|могу|помочь|я|здравствуйте|здесь|естественно", "", text).strip()
+        if text and not(text.startswith(("венди", "среда", "вэнди"))):
+            print("Распознано хз:", text)
+            kill_or_start("java", "Java_Dictionary.java", text)
             last_command = ""
 
+    def kill_or_start(arg, name, text):
+        subprocess.run([f"{arg}", f"{name}", text])
 
 def Recognizer():
     rec = vosk.KaldiRecognizer(model, samplerate)
@@ -64,6 +66,8 @@ def Recognizer():
         if rec.AcceptWaveform(data):
             text = rec.Result()[14:-3]
             Checking(text)
+        else:
+            rec.PartialResult()
 
 
 def callback(indata, frames, time, status):
@@ -72,6 +76,6 @@ def callback(indata, frames, time, status):
 Recognizer_thread = threading.Thread(target=Recognizer, daemon=True)
 Recognizer_thread.start()
 
-with sd.RawInputStream(samplerate=samplerate, blocksize=16000, device=device[0], dtype='int16',
+with sd.RawInputStream(samplerate=samplerate, blocksize=12000, device=device[0], dtype='int16',
                         channels=1, callback=callback):
     Recognizer_thread.join()
