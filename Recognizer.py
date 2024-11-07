@@ -1,12 +1,3 @@
-'''
-* *Recognizer*
-*
-*RU Слушает и передает значение в Java_Dictionary
-*-------------------------------------------------------------
-*En Listens and passes the value to Java_Dictionary
-*
-'''
-
 from Voiceover import ActionsVoiceover
 import sounddevice as sd
 import subprocess
@@ -17,7 +8,6 @@ import time
 import sys
 import re
 
-
 ActionsVoiceover.HelloVoiceover()
 
 q = queue.Queue()
@@ -26,6 +16,8 @@ device = sd.default.device
 samplerate = int(sd.query_devices(device[0], 'input')['default_samplerate'])
 last_command = ""
 command_timer = 0
+remove_word = re.compile(r"привет|чем|могу|помочь|я|здравствуйте|здесь")
+
 
 def Checking(text):
     global last_command, command_timer
@@ -38,25 +30,20 @@ def Checking(text):
 
     elif text.startswith(("венди", "среда", "вэнди")):
         if len(text) != 5:
-            kill_or_start("java", "Java_Dictionary.java", text)
+            subprocess.run(["java", "Java_Dictionary.java", text])
             last_command = text
             command_timer = time.time()
         else:
-            '''Если было сказано только "венди", "среда", "вэнди" следущее слово расценивается, как команда'''
             print("Распознано:", text)
             last_command = text
             command_timer = time.time()
             ActionsVoiceover.CallHelloVoiceover()
 
     elif last_command and time.time() - command_timer <= 10:
-        text = re.sub(r"привет|чем|могу|помочь|я|здравствуйте|здесь|естественно", "", text).strip()
-        if text and not(text.startswith(("венди", "среда", "вэнди"))):
-            print("Распознано хз:", text)
-            kill_or_start("java", "Java_Dictionary.java", text)
+        text = remove_word.sub("", text).strip()
+        if text:
+            subprocess.run(["java", "Java_Dictionary.java", text])
             last_command = ""
-
-    def kill_or_start(arg, name, text):
-        subprocess.run([f"{arg}", f"{name}", text])
 
 def Recognizer():
     rec = vosk.KaldiRecognizer(model, samplerate)
