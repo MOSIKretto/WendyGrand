@@ -16,9 +16,7 @@ public class SearchManager
             {
                 runtime.exec(MessageFormat.format("firefox {0}{1}", https, search));
             } 
-            catch (IOException ignored) 
-            {
-            }
+            catch (IOException ignored){}
         }
     }
 }

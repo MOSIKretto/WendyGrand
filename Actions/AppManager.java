@@ -11,13 +11,8 @@ public class AppManager
 
         if (os.contains("nux")) 
         {
-            try
-            {
-                runtime.exec(App);
-            } 
-            catch (IOException ignored) 
-            {
-            }
+            try{runtime.exec(App);} 
+            catch (IOException ignored){}
         }
     }
 }

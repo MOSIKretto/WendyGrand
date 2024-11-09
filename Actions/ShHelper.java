@@ -30,13 +30,7 @@ public class ShHelper
 
             process.waitFor();
         } 
-        catch (IOException e) 
-        {
-            e.printStackTrace();
-        } 
-        catch (InterruptedException e) 
-        {
-            Thread.currentThread().interrupt();
-        }
+        catch (IOException e){} 
+        catch (InterruptedException e){}
     }
 }

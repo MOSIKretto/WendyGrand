@@ -16,7 +16,7 @@ public class SystemSettingsWendy
             {
                 Thread.sleep(1000);
             }
-            catch(InterruptedException e){e.printStackTrace();}
+            catch(InterruptedException e){}
         }
 
         try 
@@ -25,9 +25,6 @@ public class SystemSettingsWendy
             Process process = processBuilder.start();
             process.waitFor();
         } 
-        catch (IOException | InterruptedException e) 
-        {
-            e.printStackTrace();
-        }
+        catch (IOException | InterruptedException e){}
     }
 }
