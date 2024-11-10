@@ -62,11 +62,15 @@ public class ActionHandler
     //Работа с системой
     public static void CallReboot()
     {
-        SystemSettingsWendy.systemWithdrawal("-r", " перезапущена ");
+        SystemShutdown.systemShutdown("-r", " перезапущена ");
     }
     public static void CallShutdown()
     {
-        SystemSettingsWendy.systemWithdrawal("-h", " выключена ");
+        SystemShutdown.systemShutdown("-h", " выключена ");
+    }
+    public static void CallSleep()
+    {
+        SystemShutdown.systemSleep("systemctl suspend", " переведена в спящий режим ");
     }
     public static void CallUpgrade()
     {

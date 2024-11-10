@@ -52,6 +52,7 @@ public class Java_Dictionary
                 entry("Obsidian", "CallObsidian"),
                 entry("Reboot", "CallReboot"),
                 entry("Shutdown", "CallShutdown"),
+                entry("Sleep", "CallSleep"),
                 entry("Upgrade", "CallUpgrade")
             );
             
@@ -92,8 +93,13 @@ public class Java_Dictionary
                 Arrays.asList(
                     "выключения", "выключение", "выключени",
                     "выключения компьютера", "выключкение компьютера", 
-                    "выключи компьютер", "выключить компьютер"
+                    "выключи компьютер", "выключить компьютер", 
+                    "занавес"
                 )
+            );
+
+            ArrayList <String> Sleep = new ArrayList<String>(
+                Arrays.asList("спящий режим", "спать", "антракт")
             );
 
             ArrayList <String> Upgrade = new ArrayList<String>(
@@ -159,6 +165,12 @@ public class Java_Dictionary
             {
                 youSay(arg);
                 ActionHandler.CallFunction(FunctionsDictionary.get("Shutdown"));
+            }
+            //--------------------------------------------------------------------------------------------------------------
+            if (Sleep.contains(ClearText))
+            {
+                youSay(arg);
+                ActionHandler.CallFunction(FunctionsDictionary.get("Sleep"));
             }
             //--------------------------------------------------------------------------------------------------------------
             if (Upgrade.contains(ClearText))
