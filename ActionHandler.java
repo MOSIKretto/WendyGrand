@@ -19,9 +19,9 @@ public class ActionHandler
         ProcessBuilder builderVoiceover = new ProcessBuilder("python3", "Voiceover.py", FunctionName + "Voiceover");
         try
         {
-            builderVoiceover.start();
+            builderVoiceover.start().waitFor();
         }
-        catch (IOException e)
+        catch (IOException | InterruptedException e)
         {
             e.printStackTrace();
         }

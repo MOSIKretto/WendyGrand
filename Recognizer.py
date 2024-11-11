@@ -8,6 +8,7 @@ import time
 import sys
 import re
 
+
 ActionsVoiceover.HelloVoiceover()
 
 q = queue.Queue()
@@ -16,7 +17,7 @@ device = sd.default.device
 samplerate = int(sd.query_devices(device[0], 'input')['default_samplerate'])
 last_command = ""
 command_timer = 0
-remove_word = re.compile(r"привет|чем|могу|помочь|я|здравствуйте|здесь")
+remove_word = re.compile(r"привет|чем|могу|помочь|я|здравствуйте|здесь|естественно")
 
 
 def Checking(text):
@@ -30,6 +31,7 @@ def Checking(text):
 
     elif text.startswith(("венди", "среда", "вэнди")):
         if len(text) != 5:
+            print("Распознано:", text)
             subprocess.run(["java", "Java_Dictionary.java", text])
             last_command = text
             command_timer = time.time()
@@ -42,6 +44,7 @@ def Checking(text):
     elif last_command and time.time() - command_timer <= 10:
         text = remove_word.sub("", text).strip()
         if text:
+            print("Распознано:", text)
             subprocess.run(["java", "Java_Dictionary.java", text])
             last_command = ""
 

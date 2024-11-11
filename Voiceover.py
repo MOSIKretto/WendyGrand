@@ -209,10 +209,24 @@ class ActionsVoiceover:
 
         if executive_voice == 0 or 1:
             playsound(AUDIO_DIR + 'OneMoment.mp3')
+
+    @staticmethod
+    def Standard():
+
+        executive_voice = randint(0, 4)
+
+        if executive_voice == 0:
+            playsound(AUDIO_DIR + 'OneMoment.mp3')
+        elif executive_voice == 1:
+            playsound(AUDIO_DIR + 'Doing.mp3')
+        elif executive_voice == 2:
+            playsound(AUDIO_DIR + 'Done.mp3')
+        elif executive_voice == 3:
+            playsound(AUDIO_DIR + 'AlwaysAPleasure.mp3')
+        else:
+            playsound(AUDIO_DIR + 'Second.mp3')
         
 
 print("MESSAGE")
 if len(sys.argv) > 1:
-    print("ActionsVoiceover." + sys.argv[1] + "()")
     eval("ActionsVoiceover." + sys.argv[1] + "()")
-    
