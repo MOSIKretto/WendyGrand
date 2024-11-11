@@ -1,3 +1,0 @@
-офис=office.java
-ютуб=youtube.py
-ютюб=youtube.py
