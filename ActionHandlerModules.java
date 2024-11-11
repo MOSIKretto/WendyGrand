@@ -12,7 +12,7 @@ public class ActionHandlerModules
 
         try 
         {
-            BufferedReader reader = new BufferedReader(new FileReader("../WendyGrand/YourModules/Dictionary.txt"));
+            BufferedReader reader = new BufferedReader(new FileReader("../WendyGrand/Modules/Dictionary.txt"));
             String line;
 
             while ((line = reader.readLine()) != null) 
