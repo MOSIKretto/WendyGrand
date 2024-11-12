@@ -1,7 +1,7 @@
 import subprocess
 import time
 
-constTime = 1
+constTime = 0.3
 
 subprocess.Popen(["flatpak", "run", "md.obsidian.Obsidian"])
 time.sleep(constTime)

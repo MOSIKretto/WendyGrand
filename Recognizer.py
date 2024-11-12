@@ -20,14 +20,17 @@ command_timer = 0
 remove_word = re.compile(r"привет|чем|могу|помочь|я|здравствуйте|здесь|естественно")
 
 
+def goodbye(text):
+    print("Распознано:", text)
+    ActionsVoiceover.ByeVoiceover()
+    subprocess.run(["pkill", "glava"])
+    sys.exit(0)
+
 def Checking(text):
     global last_command, command_timer
 
     if text.startswith(("венди пока", "среда пока", "вэнди пока")):
-        print("Распознано:", text)
-        ActionsVoiceover.ByeVoiceover()
-        subprocess.run(["pkill", "glava"])
-        sys.exit(0)
+        goodbye(text)
 
     elif text.startswith(("венди", "среда", "вэнди")):
         if len(text) != 5:
@@ -44,9 +47,12 @@ def Checking(text):
     elif last_command and time.time() - command_timer <= 10:
         text = remove_word.sub("", text).strip()
         if text:
-            print("Распознано:", text)
-            subprocess.run(["java", "Java_Dictionary.java", text])
-            last_command = ""
+            if text == "пока":
+                goodbye(text)
+            else:
+                print("Распознано:", text)
+                subprocess.run(["java", "Java_Dictionary.java", text])
+                last_command = ""
 
 def Recognizer():
     rec = vosk.KaldiRecognizer(model, samplerate)

@@ -6,8 +6,6 @@
  * 
 */
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -47,19 +45,11 @@ public class Main
                     Files.write(Paths.get("path.conf"), nowPath.getBytes());
                 } 
                 catch (Exception writeException){}
-                runScriptsAsync();
+                StartSh("Recognizer.sh", "Glava.sh");
             } 
             catch (IOException | InterruptedException e){}
         }
-        else{runScriptsAsync();}
-    }
-
-    private static void runScriptsAsync() 
-    {
-        ExecutorService executor = Executors.newFixedThreadPool(1);
-
-        executor.submit(() -> StartSh("Recognizer.sh", "Glava.sh"));
-        executor.shutdown();
+        else{StartSh("Recognizer.sh", "Glava.sh");}
     }
 
     private static void StartSh(String scriptRecognizer, String scriptGlava) 

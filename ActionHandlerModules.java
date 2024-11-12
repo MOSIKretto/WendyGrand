@@ -6,8 +6,6 @@
  *
 */
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.FileReader;
@@ -26,11 +24,7 @@ public class ActionHandlerModules
                 if (line.startsWith(word)) 
                 {
                     String function = line.split("=")[1];
-                    
-                    ExecutorService executor = Executors.newFixedThreadPool(2);
-                    executor.submit(() -> functionStart(function));
-                    executor.submit(() -> voiceoverStart());
-                    executor.shutdown();
+                    functionStart(function);
                 }
             }
 
@@ -43,20 +37,12 @@ public class ActionHandlerModules
     private static void functionStart(String function)
     {
         System.out.println("Активация модуля: " + function);
+        ProcessBuilder builderVoiceover = new ProcessBuilder("python3", "../WendyGrand/Voiceover.py", "Standard");
         ProcessBuilder builderFunction = new ProcessBuilder("python3", "../WendyGrand/runModules.py", function);
         try
         {
-            builderFunction.start().waitFor();
-        }
-        catch (IOException | InterruptedException e){}
-    }
-
-    private static void voiceoverStart()
-    {
-        ProcessBuilder builderVoiceover = new ProcessBuilder("python3", "../WendyGrand/Voiceover.py", "Standard");
-        try
-        {
             builderVoiceover.start().waitFor();
+            builderFunction.start().waitFor();
         }
         catch (IOException | InterruptedException e){}
     }
