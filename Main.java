@@ -103,10 +103,9 @@ public class Main
     private static void StartGui(String scriptGui)
     {
         ProcessBuilder builderGui = new ProcessBuilder("sh", "./Sh/Start/" + scriptGui);
-        builderGui.inheritIO(); // Чтобы видеть вывод скрипта в консоли
         
-        //builderGui.redirectOutput(ProcessBuilder.Redirect.to(new File("/dev/null")));
-        //builderGui.redirectError(ProcessBuilder.Redirect.to(new File("/dev/null")));
+        builderGui.redirectOutput(ProcessBuilder.Redirect.to(new File("/dev/null")));
+        builderGui.redirectError(ProcessBuilder.Redirect.to(new File("/dev/null")));
 
         try 
         {
