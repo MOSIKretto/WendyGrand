@@ -57,50 +57,37 @@ public class Main
 
     private static void runScriptsAsync() 
     {
-        ExecutorService executor = Executors.newFixedThreadPool(2);
+        ExecutorService executor = Executors.newFixedThreadPool(1);
 
-        // Запускаем Recognizer.sh
-        executor.submit(() -> StartSh("Recognizer.sh"));
-
-        // Запускаем Glava.sh, перенаправляя его вывод в null
-        executor.submit(() -> StartShSilent("Glava.sh"));
-
-        // Завершаем работу пула потоков
+        executor.submit(() -> StartSh("Recognizer.sh", "Glava.sh"));
         executor.shutdown();
     }
 
-    private static void StartSh(String scriptRecognizer) 
+    private static void StartSh(String scriptRecognizer, String scriptGlava) 
     {
+        //Процесс для Recognizer
         ProcessBuilder builderRecognizer = new ProcessBuilder("bash", "./Sh/Start/" + scriptRecognizer);
         builderRecognizer.inheritIO(); // Чтобы видеть вывод скрипта в консоли
 
+        //Процесс для MW_Window
         ProcessBuilder builderGui = new ProcessBuilder("python3", "MW_Window.py");
+
+        //Процесс для Glava
+        ProcessBuilder builderGlava = new ProcessBuilder("bash", "./Sh/Start/" + scriptGlava);
 
         try 
         {
             Process processRec = builderRecognizer.start();
             Process processGui = builderGui.start();
+            Process processGlava = builderGlava.start();
 
             int Rec = processRec.waitFor();
 
             if (Rec == 0) 
             {
-                processGui.destroy(); 
+                processGui.destroy();
+                processGlava.destroy();
             }
-        } 
-        catch (IOException | InterruptedException e){}
-    }
-
-    private static void StartShSilent(String scriptGlava) 
-    {
-        ProcessBuilder builderGlava = new ProcessBuilder("bash", "./Sh/Start/" + scriptGlava);
-        
-        builderGlava.redirectOutput(ProcessBuilder.Redirect.to(new File("/dev/null")));
-        builderGlava.redirectError(ProcessBuilder.Redirect.to(new File("/dev/null")));
-
-        try 
-        {
-            builderGlava.start().waitFor();
         } 
         catch (IOException | InterruptedException e){}
     }

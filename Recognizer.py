@@ -26,8 +26,6 @@ def Checking(text):
     if text.startswith(("венди пока", "среда пока", "вэнди пока")):
         print("Распознано:", text)
         ActionsVoiceover.ByeVoiceover()
-        subprocess.run(["pkill", "glava"])
-        subprocess.run(["pkill", "Gui.sh"])
         sys.exit(0)
 
     elif text.startswith(("венди", "среда", "вэнди")):
