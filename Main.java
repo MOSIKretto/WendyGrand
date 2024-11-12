@@ -78,14 +78,13 @@ public class Main
         {
             Process processRec = builderRecognizer.start();
             Process processGui = builderGui.start();
-            Process processGlava = builderGlava.start();
+            builderGlava.start();
 
             int Rec = processRec.waitFor();
 
             if (Rec == 0) 
             {
                 processGui.destroy();
-                processGlava.destroy();
             }
         } 
         catch (IOException | InterruptedException e){}
