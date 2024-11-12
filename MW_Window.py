@@ -22,25 +22,25 @@ ascii_art = r"""
 class GUI(QWidget):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle('Wendy')
+        self.setWindowTitle('Wendy_Grand')
         self.setFixedSize(380, 568)
         #self.setWindowFlags(self.windowFlags() | Qt.FramelessWindowHint)
-        self.setStyleSheet("background-color: #BEBEBE;")
+        self.setStyleSheet("background-color: #3B1E54;")
         self.startPos = None
         self.isDragging = False
 
         layout = QVBoxLayout()
         self.label = QLabel(self)
-        self.label.setText(f"<pre style='font-family:Courier; font-size:12pt; color: #FFFFFF;'>{ascii_art}</pre>")
-        self.label.setStyleSheet("background-color: #404040;")
+        self.label.setText(f"<pre style='font-family:Courier; font-size:12pt; color: #E1D7C6;'>{ascii_art}</pre>")
+        self.label.setStyleSheet("background-color: #1A1A1D;")
         self.label.setAlignment(Qt.AlignmentFlag.AlignVCenter)
 
         self.chat_area = QTextEdit(self)
         self.chat_area.setReadOnly(True)
-        self.chat_area.setStyleSheet("background-color: #404040; color: white;")
+        self.chat_area.setStyleSheet("background-color: #1A1A1D; color: #E1D7C6;")
 
         self.button = QPushButton("SETTINGS                                               ⚙️", self)
-        self.button.setStyleSheet("background-color: #404040; color: white;")
+        self.button.setStyleSheet("background-color: #1A1A1D; color: #E1D7C6;")
         self.button.clicked.connect(self.settings)
 
         layout.addWidget(self.label)
@@ -74,7 +74,7 @@ class GUI(QWidget):
     def settings(self):
         self.button.setText('Я пока не работаю')  # Обратная связь о состоянии кнопки
         self.button.setEnabled(False)  # Отключение кнопки
-        subprocess.run(['python', 'settings.py'])  # Открытие другого скрипта
+        subprocess.run(['python', 'SW_Window.py'])  # Открытие другого скрипта
 
     def wendy_output(self, text):
         self.chat_area.append(f"Wendy: {text}.")
