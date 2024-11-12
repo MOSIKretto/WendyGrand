@@ -57,10 +57,13 @@ public class Main
 
     private static void runScriptsAsync() 
     {
-        ExecutorService executor = Executors.newFixedThreadPool(2);
+        ExecutorService executor = Executors.newFixedThreadPool(3);
 
         // Запускаем Recognizer.sh
         executor.submit(() -> StartSh("Recognizer.sh"));
+
+        // Запускаем Gui.sh
+        executor.submit(() -> StartGui("Gui.sh"));
 
         // Запускаем Glava.sh, перенаправляя его вывод в null
         executor.submit(() -> StartShSilent("Glava.sh"));
@@ -95,5 +98,20 @@ public class Main
             process.waitFor();
         } 
         catch (IOException | InterruptedException e){}
+    }
+
+    private static void StartGui(String scriptGui)
+    {
+        ProcessBuilder builderGui = new ProcessBuilder("sh", "./Sh/Start/" + scriptGui);
+        
+        builderGui.redirectOutput(ProcessBuilder.Redirect.to(new File("/dev/null")));
+        builderGui.redirectError(ProcessBuilder.Redirect.to(new File("/dev/null")));
+
+        try 
+        {
+            Process process = builderGui.start();
+            process.waitFor();
+        } 
+        catch (IOException | InterruptedException e) {}
     }
 }
