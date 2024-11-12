@@ -6,10 +6,8 @@ import java.util.concurrent.Executors;
 
 public class ActionHandlerModules 
 {
-
     public static void TXTreader(String word)
     {
-
         try 
         {
             BufferedReader reader = new BufferedReader(new FileReader("../WendyGrand/Modules/Dictionary.txt"));
