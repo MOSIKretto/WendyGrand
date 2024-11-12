@@ -1,3 +1,4 @@
+from config import MODULES_PATH
 import subprocess
 import sys
 import os
@@ -6,9 +7,10 @@ import os
 def slice_until_period(input_string):
     period_index = input_string.rfind('.')
     if period_index != -1:
+        print(input_string[period_index + 1:])
         return input_string[period_index + 1:]
     else:
-        print('К сожалению, я не могу найти точку в строке')
+        print('К сожалению, я не могу запустить ваш файл')
         return None
 
 # Для C/C++
@@ -20,11 +22,12 @@ def compile_and_run_cpp(source_file):
     subprocess.run([f"./{executable_path}"])
 
 
-res = slice_until_period(str(sys.argv[1]))
+arg = sys.argv[1]
+res = slice_until_period(str(arg))
 
 if res == "py":
-    subprocess.run(["python3", "../WendyGrand/Modules/YourModules/" + sys.argv[1]])
+    subprocess.run(["python3", MODULES_PATH + arg])
 elif res == "cpp" or res == "c":
-    compile_and_run_cpp("../WendyGrand/Modules/YourModules/" + sys.argv[1])
-elif res == "java":
-    subprocess.run([res, "../WendyGrand/Modules/YourModules/" + sys.argv[1]])
+    compile_and_run_cpp(MODULES_PATH + arg)
+elif res:
+    subprocess.run([res, MODULES_PATH + arg])

@@ -71,7 +71,7 @@ public class Main
 
     private static void StartSh(String scriptRecognizer) 
     {
-        ProcessBuilder builderRecognizer = new ProcessBuilder("sh", "./Sh/Start/" + scriptRecognizer);
+        ProcessBuilder builderRecognizer = new ProcessBuilder("bash", "./Sh/Start/" + scriptRecognizer);
         builderRecognizer.inheritIO(); // Чтобы видеть вывод скрипта в консоли
 
         try 
@@ -84,7 +84,7 @@ public class Main
 
     private static void StartShSilent(String scriptGlava) 
     {
-        ProcessBuilder builderGlava = new ProcessBuilder("sh", "./Sh/Start/" + scriptGlava);
+        ProcessBuilder builderGlava = new ProcessBuilder("bash", "./Sh/Start/" + scriptGlava);
         
         builderGlava.redirectOutput(ProcessBuilder.Redirect.to(new File("/dev/null")));
         builderGlava.redirectError(ProcessBuilder.Redirect.to(new File("/dev/null")));

@@ -1,12 +1,3 @@
-'''
-* *Voiceover*
-*
-*RU Активирует звуковые файлы
-*-------------------------------
-*En Activates audio files
-*
-'''
-
 from playsound3 import playsound
 from config import AUDIO_DIR
 from random import *

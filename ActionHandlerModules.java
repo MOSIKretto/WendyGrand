@@ -1,8 +1,16 @@
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+/* *ActionHandler*
+ *
+ * RU Альтернативный обработчик команд полученныйх с Java_Dictionary для модулей
+ * -------------------------------------------------------------------------------
+ * EN Alternative command handler received from Java_Dictionary for modules
+ *
+*/
+
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.FileReader;
 
 public class ActionHandlerModules 
 {
