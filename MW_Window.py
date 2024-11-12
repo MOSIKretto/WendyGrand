@@ -82,8 +82,8 @@ class GUI(QWidget):
     def user_input(self, text):
         self.chat_area.append(f"Вы: {text}.")
 
-if __name__ == '__main__':
-    app = QApplication(sys.argv)
-    window = GUI()
-    window.show()
-    sys.exit(app.exec())
+
+app = QApplication(sys.argv)
+window = GUI()
+window.show()
+sys.exit(app.exec())

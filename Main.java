@@ -57,13 +57,10 @@ public class Main
 
     private static void runScriptsAsync() 
     {
-        ExecutorService executor = Executors.newFixedThreadPool(3);
+        ExecutorService executor = Executors.newFixedThreadPool(2);
 
         // Запускаем Recognizer.sh
         executor.submit(() -> StartSh("Recognizer.sh"));
-
-        // Запускаем Gui.sh
-        executor.submit(() -> StartGui("Gui.sh"));
 
         // Запускаем Glava.sh, перенаправляя его вывод в null
         executor.submit(() -> StartShSilent("Glava.sh"));
@@ -77,10 +74,19 @@ public class Main
         ProcessBuilder builderRecognizer = new ProcessBuilder("bash", "./Sh/Start/" + scriptRecognizer);
         builderRecognizer.inheritIO(); // Чтобы видеть вывод скрипта в консоли
 
+        ProcessBuilder builderGui = new ProcessBuilder("python3", "MW_Window.py");
+
         try 
         {
-            Process process = builderRecognizer.start();
-            process.waitFor();
+            Process processRec = builderRecognizer.start();
+            Process processGui = builderGui.start();
+
+            int Rec = processRec.waitFor();
+
+            if (Rec == 0) 
+            {
+                processGui.destroy(); 
+            }
         } 
         catch (IOException | InterruptedException e){}
     }
@@ -94,24 +100,8 @@ public class Main
 
         try 
         {
-            Process process = builderGlava.start();
-            process.waitFor();
+            builderGlava.start().waitFor();
         } 
         catch (IOException | InterruptedException e){}
-    }
-
-    private static void StartGui(String scriptGui)
-    {
-        ProcessBuilder builderGui = new ProcessBuilder("sh", "./Sh/Start/" + scriptGui);
-        
-        builderGui.redirectOutput(ProcessBuilder.Redirect.to(new File("/dev/null")));
-        builderGui.redirectError(ProcessBuilder.Redirect.to(new File("/dev/null")));
-
-        try 
-        {
-            Process process = builderGui.start();
-            process.waitFor();
-        } 
-        catch (IOException | InterruptedException e) {}
     }
 }
