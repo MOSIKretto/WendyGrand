@@ -1,7 +1,9 @@
 Спасибо за участвуете в Alpha релизе WendyGrand.
+
 Лицензия проекта: GPLv3
 
-Разработчики на данный момент: Max (MOSIKretto) и Viacheslav (VenTurchik) 
+Разработчики на данный момент: Max (MOSIKretto) и Viacheslav (VenTurchik)
+
 Благодарности: Bugakov Ivan (PajiloyLis) 
 
 Старт:
