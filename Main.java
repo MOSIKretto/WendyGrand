@@ -58,25 +58,14 @@ public class Main
         ProcessBuilder builderRecognizer = new ProcessBuilder("bash", "./Sh/Start/" + scriptRecognizer);
         builderRecognizer.inheritIO(); // Чтобы видеть вывод скрипта в консоли
 
-        //Процесс для MW_Window
-        ProcessBuilder builderGui = new ProcessBuilder("python3", "MW_Window.py");
-
         //Процесс для Glava
         ProcessBuilder builderGlava = new ProcessBuilder("bash", "./Sh/Start/" + scriptGlava);
 
         try 
         {
-            Process processRec = builderRecognizer.start();
-            Process processGui = builderGui.start();
+            builderRecognizer.start();
             builderGlava.start();
-
-            int Rec = processRec.waitFor();
-
-            if (Rec == 0) 
-            {
-                processGui.destroy();
-            }
         } 
-        catch (IOException | InterruptedException e){}
+        catch (IOException e){}
     }
 }

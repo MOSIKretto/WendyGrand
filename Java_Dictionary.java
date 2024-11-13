@@ -22,7 +22,7 @@ public class Java_Dictionary
             ArrayList <String> Remove = new ArrayList<String>(
                 Arrays.asList(
                     "пожалуйста", "ладно", "давай", "прямо", "сейчас", "типо", "типа", "будь", "добра", "ну", 
-                    "что-то",  "что", "то", "открой", "да", "блять", "нахуй", "сука", 
+                    "что-то", "открой", "да", "блять", "нахуй", "сука",
                     //Имя
                     "венди", "среда", "вэнди"
                 )
@@ -207,7 +207,7 @@ public class Java_Dictionary
             //Модульность 
             else
             {
-                ActionHandlerModules.TXTreader(ClearText);
+                if (!ClearText.equals("")){ActionHandlerModules.TXTreader(ClearText);}
             }
         }
     }

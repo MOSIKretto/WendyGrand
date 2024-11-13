@@ -1,4 +1,5 @@
 #!/bin/bash
+javac Java_Dictionary.java
 python -m venv venv
 source venv/bin/activate
 pip install --upgrade pip
