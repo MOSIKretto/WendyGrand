@@ -72,8 +72,6 @@ class GUI(QWidget):
             self.startPos = None
 
     def settings(self):
-        self.button.setText('Я пока не работаю')  # Обратная связь о состоянии кнопки
-        self.button.setEnabled(False)  # Отключение кнопки
         subprocess.run(['python', 'SW_Window.py'])  # Открытие другого скрипта
 
     def wendy_output(self, text):
