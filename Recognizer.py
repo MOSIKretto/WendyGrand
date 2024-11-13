@@ -47,7 +47,7 @@ def Checking(text):
     elif last_command and time.time() - command_timer <= 10:
         text = remove_word.sub("", text).strip()
         if text:
-            if text == "пока":
+            if (text == "пока") or (text == "закройс"):
                 goodbye(text)
             else:
                 print("Распознано:", text)

@@ -202,7 +202,7 @@ class ActionsVoiceover:
             playsound(AUDIO_DIR + 'OneMoment.mp3')
 
     @staticmethod
-    def Standard():
+    def StandardModule():
 
         executive_voice = randint(0, 4)
 
@@ -216,6 +216,17 @@ class ActionsVoiceover:
             playsound(AUDIO_DIR + 'AlwaysAPleasure.mp3')
         else:
             playsound(AUDIO_DIR + 'Second.mp3')
+
+    @staticmethod
+    def ErrModule():
+
+        executive_voice = randint(0, 1)
+
+        if executive_voice == 0:
+            playsound(AUDIO_DIR + 'CouldntFindYouModuleMaybeYouDidntAddItToYourModues.mp3')
+        else:
+            playsound(AUDIO_DIR + 'SorryICouldntFindYourModule.mp3')
+
         
 
 print("MESSAGE")
