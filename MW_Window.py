@@ -1,22 +1,23 @@
 from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QPushButton, QTextEdit, QLabel, QDesktopWidget
+from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import Qt
 import subprocess
 import sys
 
 ascii_art = r""" 
-      ;dl      ;xkdooooooooookOc       
-      'dk;     'xk;         ,xk,       
-       :ko      :Oo'        cOl        
-       .ok;     'dko;      ,xx,        
-        ;kd'     lKKo      cOc         
-        .oO:    'xNNO;    ,xx'         
-         ;kd'   cOxoOd'   lOc.         
-         .lOc. ,kx,'oO: .,kd'          
-          ,kx'.lOc. ;kd'.oO:           
-          .lOc;kd'  .lOc;kd'           
-           ,xkxO:    ,kkxk:            
-           .c0Xd'    .lKXo.            
-            'ld;      'lo,             
+   ;dl      ;xkdooooooooookOc       
+   'dk;     'xk;         ,xk,       
+    :ko      :Oo'        cOl        
+    .ok;     'dko;      ,xx,        
+     ;kd'     lKKo      cOc         
+     .oO:    'xNNO;    ,xx'         
+      ;kd'   cOxoOd'   lOc.         
+      .lOc. ,kx,'oO: .,kd'          
+       ,kx'.lOc. ;kd'.oO:           
+       .lOc;kd'  .lOc;kd'           
+        ,xkxO:    ,kkxk:            
+        .c0Xd'    .lKXo.            
+         'ld;      'lo,             
 """
 
 class GUI(QWidget):
@@ -31,7 +32,7 @@ class GUI(QWidget):
 
         layout = QVBoxLayout()
         self.label = QLabel(self)
-        self.label.setText(f"<pre style='font-family:Courier; font-size:12pt; color: #E1D7C6;'>{ascii_art}</pre>")
+        self.label.setText(f"<pre style='font-family:Courier; font-size:14.5pt; color: #E1D7C6;'>{ascii_art}</pre>")
         self.label.setStyleSheet("background-color: #1A1A1D;")
         self.label.setAlignment(Qt.AlignmentFlag.AlignVCenter)
 
