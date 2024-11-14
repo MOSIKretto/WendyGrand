@@ -23,7 +23,6 @@ remove_word = re.compile(r"привет|чем|могу|помочь|я|здра
 def goodbye(text):
     print("Распознано:", text)
     ActionsVoiceover.ByeVoiceover()
-    subprocess.run(["pkill", "glava"])
     sys.exit(0)
 
 def Checking(text):
