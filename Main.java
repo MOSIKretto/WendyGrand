@@ -9,6 +9,8 @@
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.io.File;
 
 public class Main 
@@ -45,27 +47,53 @@ public class Main
                     Files.write(Paths.get("path.conf"), nowPath.getBytes());
                 } 
                 catch (Exception writeException){}
-                StartSh("Recognizer.sh", "Glava.sh");
+                Start();
             } 
             catch (IOException | InterruptedException e){}
         }
-        else{StartSh("Recognizer.sh", "Glava.sh");}
+        else{Start();}
     }
 
-    private static void StartSh(String scriptRecognizer, String scriptGlava) 
-    {
-        //Процесс для Recognizer
-        ProcessBuilder builderRecognizer = new ProcessBuilder("bash", "./Sh/Start/" + scriptRecognizer);
-        builderRecognizer.inheritIO(); // Чтобы видеть вывод скрипта в консоли
 
-        //Процесс для Glava
-        ProcessBuilder builderGlava = new ProcessBuilder("bash", "./Sh/Start/" + scriptGlava);
+    private static void Start() 
+    {   
+        // Процесс для MW_Window
+        ProcessBuilder builderGui = new ProcessBuilder("python3", "../WendyGrand/GUI/MW_Window.py");
+
+        // Создаем для Recognizer
+        ProcessBuilder builderRecognizer = new ProcessBuilder("bash", "-c", "source venv/bin/activate; python3 Recognizer.py");
+        builderRecognizer.inheritIO();
+
+        // Процесс для Glava
+        ProcessBuilder builderGlava = new ProcessBuilder("bash", "-c", "glava --desktop --force-mod=bars");
+
+        ExecutorService executor = Executors.newFixedThreadPool(3);
 
         try 
         {
-            builderRecognizer.start();
-            builderGlava.start();
+            Process processRecognizer = builderRecognizer.start();
+            Process processGui = builderGui.start();
+            Process processGlava = builderGlava.start();
+
+            executor.submit(() -> waitForKill(processRecognizer, processGui, processGlava));
+            executor.submit(() -> waitForKill(processGui, processRecognizer, processGlava));
+
+            executor.shutdown();
         } 
         catch (IOException e){}
+    }
+
+    private static void waitForKill(Process mainProcess, Process processToKill1, Process processToKill2) 
+    {
+        try 
+        {
+            int exitCode = mainProcess.waitFor();
+            if (exitCode == 0) 
+            {
+                processToKill1.destroy();
+                processToKill2.destroy();
+            }
+        } 
+        catch (InterruptedException e){}
     }
 }
