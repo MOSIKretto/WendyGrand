@@ -51,6 +51,8 @@ class GUI(QWidget):
         self.setLayout(layout)
         self.center()
 
+        self.process = None  # Ссылка на процесс
+
     def center(self):
         qr = self.frameGeometry()
         cp = QDesktopWidget().availableGeometry().center()
@@ -73,7 +75,16 @@ class GUI(QWidget):
             self.startPos = None
 
     def settings(self):
-        subprocess.run(['python3', '../WendyGrand/GUI/SW_Window.py'])  # Открытие другого скрипта
+        # Запускаем процесс и сохраняем его в атрибуте
+        self.process = subprocess.Popen(['python3', '../WendyGrand/GUI/SW_Window.py'])
+
+    def closeEvent(self, event):
+        # Проверяем, запущен ли процесс
+        if self.process is not None:
+            self.process.terminate()  # Завершаем процесс
+            self.process.wait()  # Ждем завершения процесса
+            self.process = None  # Обнуляем ссылку на процесс
+        event.accept()  # Закрываем окно
 
     def wendy_output(self, text):
         self.chat_area.append(f"Wendy: {text}.")
