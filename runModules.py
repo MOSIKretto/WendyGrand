@@ -7,7 +7,6 @@ import os
 def slice_until_period(input_string):
     period_index = input_string.rfind('.')
     if period_index != -1:
-        print(input_string[period_index + 1:])
         return input_string[period_index + 1:]
     else:
         print('К сожалению, я не могу запустить ваш файл')

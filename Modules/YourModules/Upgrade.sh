@@ -1,13 +1,12 @@
 #!/bin/bash
 
-#Вызов окна подтверждения
+# Вызов окна подтверждения
 if [ "$(id -u)" -ne 0 ]; then
     echo "\"Wendy will upgrade your system\"" 
     exec pkexec "$0"
 fi
 
-
-#Обновление системы
+# Обновление системы
 update_system() {
     # (Debian/Ubuntu)
     if command -v apt >/dev/null 2>&1; then
@@ -29,12 +28,20 @@ update_system() {
         echo "Обновление системы с использованием pacman..."
         pacman -Syu --noconfirm
 
+    # (Void Linux)
+    elif command -v xbps-install >/dev/null 2>&1; then
+        echo "Обновление системы с использованием xbps-install..."
+        xbps-install -Suvy
+
+    # (NixOS)
+    elif command -v nix >/dev/null 2>&1; then
+        echo "Обновление системы с использованием nix..."
+        nixpkgs.stable --no-outdated --no-reorder nixos-rebuild switch -y
+
     else
         echo "Неизвестный дистрибутив. Пожалуйста, обновите систему вручную."
         exit 1
     fi
 }
 
-
 update_system
-

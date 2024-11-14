@@ -58,6 +58,10 @@ public class ActionHandler
     {
         AppManager.startApp("pamac-manager" /* "snap-store", "gnome-software" */);
     }
+    public static void CallOffice()
+    {
+        AppManager.startApp("libreoffice");
+    }
 
     //Работа с системой
     public static void CallReboot()
@@ -71,10 +75,6 @@ public class ActionHandler
     public static void CallSleep()
     {
         SystemShutdown.systemSleep("systemctl suspend", " переведена в спящий режим ");
-    }
-    public static void CallUpgrade()
-    {
-        ShHelper.StartSh("Upgrade.sh");
     }
 
     //Поиск

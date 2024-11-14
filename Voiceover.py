@@ -170,6 +170,24 @@ class ActionsVoiceover:
             playsound(AUDIO_DIR + 'Second.mp3')
 
     @staticmethod
+    def CallOfficeVoiceover():
+
+        executive_voice = randint(0, 5)
+
+        if executive_voice == 0:
+            playsound(AUDIO_DIR + 'OpenItNow.mp3')
+        elif executive_voice == 1:
+            playsound(AUDIO_DIR + 'OneMoment.mp3')
+        elif executive_voice == 2:
+            playsound(AUDIO_DIR + 'FindSomthing.mp3')
+        elif executive_voice == 3:
+            playsound(AUDIO_DIR + 'LibreOfficeIsOpen.mp3')
+        elif executive_voice == 4:
+            playsound(AUDIO_DIR + 'OpeningLibreOffice.mp3')
+        else:
+            playsound(AUDIO_DIR + 'Second.mp3')
+
+    @staticmethod
     def CallRebootVoiceover():
 
         executive_voice = randint(0, 1)
@@ -228,7 +246,5 @@ class ActionsVoiceover:
             playsound(AUDIO_DIR + 'SorryICouldntFindYourModule.mp3')
 
         
-
-print("MESSAGE")
 if len(sys.argv) > 1:
     eval("ActionsVoiceover." + sys.argv[1] + "()")
