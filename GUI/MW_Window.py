@@ -73,7 +73,7 @@ class GUI(QWidget):
             self.startPos = None
 
     def settings(self):
-        subprocess.run(['python', 'SW_Window.py'])  # Открытие другого скрипта
+        subprocess.run(['python3', '../WendyGrand/GUI/SW_Window.py'])  # Открытие другого скрипта
 
     def wendy_output(self, text):
         self.chat_area.append(f"Wendy: {text}.")

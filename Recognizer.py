@@ -28,7 +28,7 @@ def goodbye(text):
 def Checking(text):
     global last_command, command_timer
 
-    if text.startswith(("венди пока", "среда пока", "вэнди пока")):
+    if text.startswith(("венди пока", "среда пока", "вэнди пока", "вэнди закройся", "венди закройся", "среда закройся")):
         goodbye(text)
 
     elif text.startswith(("венди", "среда", "вэнди")):

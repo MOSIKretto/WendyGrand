@@ -22,7 +22,7 @@ public class Java_Dictionary
             ArrayList <String> Remove = new ArrayList<String>(
                 Arrays.asList(
                     "пожалуйста", "ладно", "давай", "прямо", "сейчас", "типо", "типа", "будь", "добра", "ну", 
-                    "что-то", "открой", "да", "блять", "нахуй", "сука",
+                    "что-то", "открой", "блять", "нахуй", "сука",
                     //Имя
                     "венди", "среда", "вэнди"
                 )
@@ -45,11 +45,11 @@ public class Java_Dictionary
                 entry("Telegram", "CallTelegram"),
                 entry("VScode", "CallVScode"),
                 entry("Stores", "CallStores"),
+                entry("Office", "CallOffice"),
                 entry("Obsidian", "CallObsidian"),
                 entry("Reboot", "CallReboot"),
                 entry("Shutdown", "CallShutdown"),
-                entry("Sleep", "CallSleep"),
-                entry("Upgrade", "CallUpgrade")
+                entry("Sleep", "CallSleep")
             );
             
             ArrayList <String> Hello = new ArrayList<String>(
@@ -81,6 +81,10 @@ public class Java_Dictionary
                 Arrays.asList("магазин", "стор")
             );
 
+            ArrayList <String> Office = new ArrayList<String>(
+                Arrays.asList("офис")
+            );
+
             ArrayList <String> Reboot = new ArrayList<String>(
                 Arrays.asList("перезапуск", "перезапусти компьютер")
             );
@@ -98,13 +102,7 @@ public class Java_Dictionary
                 Arrays.asList("спящий режим", "спать", "антракт")
             );
 
-            ArrayList <String> Upgrade = new ArrayList<String>(
-                Arrays.asList(
-                    "обнови систему", "обнови системы", 
-                    "обновить систему", "обновить системы"
-                    )
-            );
-                
+
             /*
             * RU Проверка на соответсвие и отдача команды на выполнение задачи 
             * EU Checking for compliance and issuing a command to complete the task
@@ -143,6 +141,11 @@ public class Java_Dictionary
                 ActionHandler.CallFunction(FunctionsDictionary.get("Stores"));
             }
             //--------------------------------------------------------------------------------------------------------------
+            if (Office.contains(ClearText))
+            {
+                ActionHandler.CallFunction(FunctionsDictionary.get("Office"));
+            }
+            //--------------------------------------------------------------------------------------------------------------
 
             //Работа с системой
             if (Reboot.contains(ClearText))
@@ -158,11 +161,6 @@ public class Java_Dictionary
             if (Sleep.contains(ClearText))
             {
                 ActionHandler.CallFunction(FunctionsDictionary.get("Sleep"));
-            }
-            //--------------------------------------------------------------------------------------------------------------
-            if (Upgrade.contains(ClearText))
-            {
-                ActionHandler.CallFunction(FunctionsDictionary.get("Upgrade"));
             }
             //--------------------------------------------------------------------------------------------------------------
 

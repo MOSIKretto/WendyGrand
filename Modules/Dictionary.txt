@@ -1,2 +1,5 @@
-офис=office.java
 создатель=creator.cpp
+обнови систему=Upgrade.sh
+обнови системы=Upgrade.sh
+обновить систему=Upgrade.sh
+обновить системы=Upgrade.sh
