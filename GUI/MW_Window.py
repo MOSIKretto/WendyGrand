@@ -1,8 +1,11 @@
-from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QPushButton, QTextEdit, QLabel, QDesktopWidget
+from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QPushButton, QTextEdit, QLabel, QDesktopWidget, QLineEdit
 from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import Qt
-import subprocess
 import sys
+
+
+browser_text = 'Select a browser:'
+app_store = 'Select the app store'
 
 ascii_art = r""" 
    ;dl      ;xkdooooooooookOc       
@@ -20,12 +23,14 @@ ascii_art = r"""
          'ld;      'lo,             
 """
 
-class GUI(QWidget):
+
+
+class Main_Window(QWidget):
+    
     def __init__(self):
         super().__init__()
         self.setWindowTitle('Wendy_Grand')
         self.setFixedSize(380, 568)
-        #self.setWindowFlags(self.windowFlags() | Qt.FramelessWindowHint)
         self.setStyleSheet("background-color: #3B1E54;")
         self.startPos = None
         self.isDragging = False
@@ -51,7 +56,7 @@ class GUI(QWidget):
         self.setLayout(layout)
         self.center()
 
-        self.process = None  # Ссылка на процесс
+        self.settings_window = None
 
     def center(self):
         qr = self.frameGeometry()
@@ -75,25 +80,65 @@ class GUI(QWidget):
             self.startPos = None
 
     def settings(self):
-        # Запускаем процесс и сохраняем его в атрибуте
-        self.process = subprocess.Popen(['python3', '../WendyGrand/GUI/SW_Window.py'])
+        self.settings_window = Settings_Window(self)
+        self.settings_window.show()
 
     def closeEvent(self, event):
-        # Проверяем, запущен ли процесс
-        if self.process is not None:
-            self.process.terminate()  # Завершаем процесс
-            self.process.wait()  # Ждем завершения процесса
-            self.process = None  # Обнуляем ссылку на процесс
-        event.accept()  # Закрываем окно
-
+        if self.settings_window is not None:
+            self.settings_window = None
+        event.accept()
+        
     def wendy_output(self, text):
         self.chat_area.append(f"Wendy: {text}.")
 
     def user_input(self, text):
-        self.chat_area.append(f"Вы: {text}.")
+        self.chat_area.append(f"You: {text}.")
 
 
-app = QApplication(sys.argv)
-window = GUI()
-window.show()
-sys.exit(app.exec())
+
+class Settings_Window(QWidget):
+
+    def __init__(self, SeparateWindow, parent=None):
+        super().__init__(parent)
+
+        self.setWindowTitle("Wendy's settings")
+        self.setStyleSheet("background-color: #BEBEBE")
+        self.setFixedSize(400, 300)
+        self.setWindowIcon(QIcon('WGui.ico'))
+
+        self.layout = QVBoxLayout(self)
+
+        # Создание и настройка строки
+        self.text_browser = QLabel(self)
+        self.text_browser.setText(f"<pre style='font-family:Courier; font-size:12pt; color: black;'>{browser_text}</pre>")
+        self.layout.addWidget(self.text_browser, alignment=Qt.AlignmentFlag.AlignCenter)
+
+        # Создание и настройка поля ввода для данных браузера, которые пойдут в конфиг
+        self.name_browser_input = QLineEdit(self)
+        self.name_browser_input.setStyleSheet("font-size:12pt;  font-family:Courier; color: black")
+
+        self.layout.addWidget(self.name_browser_input)
+
+        # Добавьте кнопку для сохранения настроек
+        self.save_button = QPushButton("Save", self)
+        self.save_button.setStyleSheet("font-size:12pt; font-family:Courier; color: black")
+        self.save_button.clicked.connect(self.save_settings)
+        self.layout.addWidget(self.save_button)
+
+        # Добавьте кнопку для закрытия окна
+        self.close_button = QPushButton("Close", self)
+        self.close_button.clicked.connect(self.close)
+        self.layout.addWidget(self.close_button)
+
+    def save_settings(self):  # Функция для обработки сохранения настроек
+        browser_choice = self.name_browser_input.text()
+        if browser_choice:
+            print(f"Browser selection saved: {browser_choice}")  # Замена с фактической логикой сохранения настроек
+
+
+
+if __name__ == '__main__':
+    app = QApplication(sys.argv)
+    first_window = Main_Window()
+    first_window.show()
+    sys.exit(app.exec_())
