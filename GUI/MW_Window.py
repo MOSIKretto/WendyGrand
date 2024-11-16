@@ -112,7 +112,6 @@ class Settings_Window(QWidget):
         self.text_browser.setText(f"<pre style='font-family:Courier; font-size:12pt; color: black;'>{browser_text}</pre>")
         self.layout.addWidget(self.text_browser, alignment=Qt.AlignmentFlag.AlignCenter)
 
-        # Создание и настройка поля ввода для данных браузера, которые пойдут в конфиг
         self.name_browser_input = QLineEdit(self)
         self.name_browser_input.setStyleSheet("font-size:12pt;  font-family:Courier; color: black")
 
