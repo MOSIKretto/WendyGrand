@@ -93,8 +93,8 @@ class Main_Window(QWidget):
         self.settings_window.show()
 
     def edit_venv(self):
-        print('твоя кнопочка')
-        pass # твоя кнопочка
+        self.venv_editor = VenvEditor_Window(self)
+        self.venv_editor.show()
 
     def closeEvent(self, event):
         if self.settings_window is not None:
@@ -196,12 +196,12 @@ class Settings_Window(QWidget):
         sys.exit(app.exec())
 
     def browser_select(self): # передает данные в конфиг
-        send = self.name_browser_input.text()
+        send = self.browser_input.text()
         if send:
             pass # передача данных в конфиг
 
     def app_store_select(self): # передает данные в конфиг
-        send = self.name_app_store_input.text()
+        send = self.app_input.text()
         if send:
             pass # передача данных в конфиг
     
