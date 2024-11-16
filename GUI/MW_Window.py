@@ -66,6 +66,7 @@ class Main_Window(QWidget):
         self.center()
 
         self.settings_window = None
+        self.venv_editor = None
 
     def center(self):
         qr = self.frameGeometry()
@@ -100,6 +101,10 @@ class Main_Window(QWidget):
         if self.settings_window is not None:
             self.settings_window = None
         event.accept()
+        if self.venv_editor is not None:
+            self.venv_editor = None
+        event.accept()
+
         
     def wendy_output(self, text):
         self.chat_area.append(f"Wendy: {text}.")
@@ -256,14 +261,15 @@ class VenvEditor_Window(QWidget):
         self.output_label.setStyleSheet("font-family:Courier; font-size:12pt; color: white;")
         layout.addWidget(self.output_label)
 
-        self.exit_button = QPushButton('Закрыть', self)
-        self.exit_button.setStyleSheet("font-size:12pt; background-color: #1A1A1D; color: #E1D7C6;")
-        self.exit_button.clicked.connect(self.exit_window)
-        layout.addWidget(self.exit_button)
+
+        self.close_button = QPushButton('Закрыть', self)
+        self.close_button.setStyleSheet("font-size:12pt; background-color: #1A1A1D; color: #E1D7C6;")
+        self.close_button.clicked.connect(self.close)
+        layout.addWidget(self.close_button)
 
         self.setLayout(layout)
 
-    def exit_window(self): # Закрытие окна настроек
+    def exit(self): # Закрытие окна настроек
         sys.exit(app.exec())
 
     def center(self):
