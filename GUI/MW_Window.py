@@ -35,7 +35,7 @@ class Main_Window(QWidget):
         self.setStyleSheet("background-color: #3B1E54;")
         self.startPos = None
         self.isDragging = False
-        self.setWindowIcon(QIcon('Лого.png'))
+        self.setWindowIcon(QIcon('icon.png'))
         layout = QVBoxLayout()
         button_layout = QHBoxLayout()
         self.label = QLabel(self)
@@ -119,7 +119,7 @@ class Settings_Window(QWidget):
         self.setFixedSize(400, 300)
         self.startPos = None
         self.isDragging = False
-        self.setWindowIcon(QIcon('Лого.png'))
+        self.setWindowIcon(QIcon('icon.png'))
         main_layout = QVBoxLayout()
         level1_layout = QHBoxLayout()
         level2_layout = QHBoxLayout()
@@ -224,7 +224,7 @@ class VenvEditor_Window(QWidget):
 
         self.setWindowTitle('Text Input Window')
         self.setFixedSize(400, 300)  # Увеличиваем высоту окна
-        self.setWindowIcon(QIcon('Лого.png'))
+        self.setWindowIcon(QIcon('icon.png'))
 
         layout = QVBoxLayout()
 
