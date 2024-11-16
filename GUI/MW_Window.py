@@ -51,7 +51,7 @@ class Main_Window(QWidget):
         self.button.setStyleSheet("background-color: #1A1A1D; color: #E1D7C6;")
         self.button.clicked.connect(self.settings)
 
-        self.edit_button = QPushButton('Edit Venv Modules 🐍', self)
+        self.edit_button = QPushButton('VENV MODULES 🐍', self)
         self.edit_button.setStyleSheet("background-color: #1A1A1D; color: #E1D7C6;")
         self.edit_button.clicked.connect(self.edit_venv)
 
