@@ -35,8 +35,9 @@ class Main_Window(QWidget):
         self.setStyleSheet("background-color: #3B1E54;")
         self.startPos = None
         self.isDragging = False
-
+        self.setWindowIcon(QIcon('icon.png'))
         layout = QVBoxLayout()
+        button_layout = QHBoxLayout()
         self.label = QLabel(self)
         self.label.setText(f"<pre style='font-family:Courier; font-size:14.5pt; color: #E1D7C6;'>{ascii_art}</pre>")
         self.label.setStyleSheet("background-color: #1A1A1D;")
@@ -46,13 +47,20 @@ class Main_Window(QWidget):
         self.chat_area.setReadOnly(True)
         self.chat_area.setStyleSheet("background-color: #1A1A1D; color: #E1D7C6;")
 
-        self.button = QPushButton("SETTINGS                                               ⚙️", self)
+        self.button = QPushButton("SETTINGS               ⚙️", self)
         self.button.setStyleSheet("background-color: #1A1A1D; color: #E1D7C6;")
         self.button.clicked.connect(self.settings)
 
+        self.edit_button = QPushButton('Edit Venv Modules 🐍', self)
+        self.edit_button.setStyleSheet("background-color: #1A1A1D; color: #E1D7C6;")
+        self.edit_button.clicked.connect(self.edit_venv)
+
+        button_layout.addWidget(self.edit_button)
+        button_layout.addWidget(self.button)
+
         layout.addWidget(self.label)
         layout.addWidget(self.chat_area)
-        layout.addWidget(self.button)
+        layout.addLayout(button_layout)
 
         self.setLayout(layout)
         self.center()
@@ -84,6 +92,10 @@ class Main_Window(QWidget):
         self.settings_window = Settings_Window(self)
         self.settings_window.show()
 
+    def edit_venv(self):
+        print('твоя кнопочка')
+        pass # твоя кнопочка
+
     def closeEvent(self, event):
         if self.settings_window is not None:
             self.settings_window = None
@@ -105,10 +117,9 @@ class Settings_Window(QWidget):
         self.setWindowTitle("Wendy's settings")
         self.setStyleSheet("background-color: #BEBEBE")
         self.setFixedSize(400, 300)
-        self.setWindowIcon(QIcon('WGui.ico'))
         self.startPos = None
         self.isDragging = False
-        #self.setWindowIcon(QIcon('WGui.ico'))
+        self.setWindowIcon(QIcon('icon.png'))
         main_layout = QVBoxLayout()
         level1_layout = QHBoxLayout()
         level2_layout = QHBoxLayout()
@@ -213,6 +224,7 @@ class VenvEditor_Window(QWidget):
 
         self.setWindowTitle('Text Input Window')
         self.setFixedSize(400, 300)  # Увеличиваем высоту окна
+        self.setWindowIcon(QIcon('icon.png'))
 
         layout = QVBoxLayout()
 
