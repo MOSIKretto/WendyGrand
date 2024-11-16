@@ -108,12 +108,10 @@ class Settings_Window(QWidget):
 
         self.layout = QVBoxLayout(self)
 
-        # Создание и настройка строки
         self.text_browser = QLabel(self)
         self.text_browser.setText(f"<pre style='font-family:Courier; font-size:12pt; color: black;'>{browser_text}</pre>")
         self.layout.addWidget(self.text_browser, alignment=Qt.AlignmentFlag.AlignCenter)
 
-        # Создание и настройка поля ввода для данных браузера, которые пойдут в конфиг
         self.name_browser_input = QLineEdit(self)
         self.name_browser_input.setStyleSheet("font-size:12pt;  font-family:Courier; color: black")
 
@@ -130,10 +128,87 @@ class Settings_Window(QWidget):
         self.close_button.clicked.connect(self.close)
         self.layout.addWidget(self.close_button)
 
+    def center(self):
+        qr = self.frameGeometry()
+        cp = QDesktopWidget().availableGeometry().center()
+        qr.moveCenter(cp)
+        self.move(qr.topLeft())
+
+    def mousePressEvent(self, event):
+        if event.button() == Qt.LeftButton:
+            self.isDragging = True
+            self.startPos = event.pos()
+
+    def mouseMoveEvent(self, event):
+        if self.isDragging:
+            delta = event.pos() - self.startPos
+            self.move(self.pos() + delta)
+
+    def mouseReleaseEvent(self, event):
+        if event.button() == Qt.LeftButton:
+            self.isDragging = False
+            self.startPos = None
+
     def save_settings(self):  # Функция для обработки сохранения настроек
         browser_choice = self.name_browser_input.text()
         if browser_choice:
             print(f"Browser selection saved: {browser_choice}")  # Замена с фактической логикой сохранения настроек
+
+
+
+class VenvEditor_Window(QWidget):
+
+    def __init__(self, SeparateWindow, parent=None):
+        super().__init__(parent)
+
+        self.setWindowTitle('Text Input Window')
+        self.setFixedSize(400, 300)  # Увеличиваем высоту окна
+
+        layout = QVBoxLayout()
+
+        self.label = QLabel('Введите текст:')
+        layout.addWidget(self.label)
+
+        # Многострочное поле для ввода текста
+        self.text_input = QTextEdit(self)
+        layout.addWidget(self.text_input)
+
+        # Кнопка для подтверждения ввода
+        self.submit_button = QPushButton('Подтвердить', self)
+        self.submit_button.clicked.connect(self.display_text)  # Подключаем к функции
+        layout.addWidget(self.submit_button)
+
+        # Метка для отображения введенного текста
+        self.output_label = QLabel('', self)
+        layout.addWidget(self.output_label)
+
+        self.setLayout(layout)
+
+    def center(self):
+        qr = self.frameGeometry()
+        cp = QDesktopWidget().availableGeometry().center()
+        qr.moveCenter(cp)
+        self.move(qr.topLeft())
+
+    def mousePressEvent(self, event):
+        if event.button() == Qt.LeftButton:
+            self.isDragging = True
+            self.startPos = event.pos()
+
+    def mouseMoveEvent(self, event):
+        if self.isDragging:
+            delta = event.pos() - self.startPos
+            self.move(self.pos() + delta)
+
+    def mouseReleaseEvent(self, event):
+        if event.button() == Qt.LeftButton:
+            self.isDragging = False
+            self.startPos = None
+
+    def display_text(self):
+        # Получаем текст из многострочного поля ввода и отображаем его в метке
+        entered_text = self.text_input.toPlainText()  # Используем toPlainText для получения текста
+        self.output_label.setText(f'Вы ввели:{entered_text}')
 
 
 
