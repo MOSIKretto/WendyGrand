@@ -1,11 +1,12 @@
-from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QPushButton, QTextEdit, QLabel, QDesktopWidget, QLineEdit
-from PyQt5.QtGui import QIcon
-from PyQt5.QtCore import Qt
+from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QHBoxLayout, QPushButton, QTextEdit, QLabel, QDesktopWidget, QLineEdit # type: ignore
+from PyQt5.QtGui import QIcon # type: ignore
+from PyQt5.QtCore import Qt # type: ignore
 import sys
 
 
-browser_text = 'Select a browser:'
-app_store = 'Select the app store'
+browser_text = 'Браузер: '
+app_store = 'Стор: '
+themes = 'Тема: '
 
 ascii_art = r""" 
    ;dl      ;xkdooooooooookOc       
@@ -105,28 +106,59 @@ class Settings_Window(QWidget):
         self.setStyleSheet("background-color: #BEBEBE")
         self.setFixedSize(400, 300)
         self.setWindowIcon(QIcon('WGui.ico'))
+        self.startPos = None
+        self.isDragging = False
+        #self.setWindowIcon(QIcon('WGui.ico'))
+        main_layout = QVBoxLayout()
+        level1_layout = QHBoxLayout()
+        level2_layout = QHBoxLayout()
+        level3_layout = QHBoxLayout()
+        level4_layout = QHBoxLayout()
 
-        self.layout = QVBoxLayout(self)
+        self.label1 = QLabel(self)
+        self.label1.setText(f"<pre style='font-family:Courier; font-size:12pt; color: black;'>{browser_text}</pre>")
+        self.browser_input = QLineEdit(self)
+        self.browser_input.setStyleSheet("font-size:12pt;  font-family:Courier; color: black")
+        self.browser_Button = QPushButton('Сохранить', self)
+        self.browser_Button.setStyleSheet("font-size:12pt; font-family:Courier; color: black")
+        self.browser_Button.clicked.connect(self.browser_select)
+        level1_layout.addWidget(self.label1)
+        level1_layout.addWidget(self.browser_input)
+        level1_layout.addWidget(self.browser_Button)
 
-        self.text_browser = QLabel(self)
-        self.text_browser.setText(f"<pre style='font-family:Courier; font-size:12pt; color: black;'>{browser_text}</pre>")
-        self.layout.addWidget(self.text_browser, alignment=Qt.AlignmentFlag.AlignCenter)
+        self.label2 = QLabel(self)
+        self.label2.setText(f"<pre style='font-family:Courier; font-size:12pt; color: black;'>{app_store}</pre>")
+        self.app_input = QLineEdit(self)
+        self.app_input.setStyleSheet("font-size:12pt;  font-family:Courier; color: black")
+        self.app_button = QPushButton('Сохранить', self)
+        self.app_button.setStyleSheet("font-size:12pt;  font-family:Courier; color: black")
+        self.app_button.clicked.connect(self.app_store_select)
+        level2_layout.addWidget(self.label2)
+        level2_layout.addWidget(self.app_input)
+        level2_layout.addWidget(self.app_button)
 
-        self.name_browser_input = QLineEdit(self)
-        self.name_browser_input.setStyleSheet("font-size:12pt;  font-family:Courier; color: black")
+        self.label3 = QLabel(self)
+        self.label3.setText(f"<pre style='font-family:Courier; font-size:12pt; color: black;'>{themes}</pre>")
+        self.themes_input = QLineEdit(self)
+        self.themes_input.setStyleSheet("font-size:12pt;  font-family:Courier; color: black")
+        self.themes_button = QPushButton('Сохранить',self)
+        self.themes_button.setStyleSheet("font-size:12pt; font-family:Courier; color: black")
+        self.themes_button.clicked.connect(self.themes_select)
+        level3_layout.addWidget(self.label3)
+        level3_layout.addWidget(self.themes_input)
+        level3_layout.addWidget(self.themes_button)
 
-        self.layout.addWidget(self.name_browser_input)
-
-        # Добавьте кнопку для сохранения настроек
-        self.save_button = QPushButton("Save", self)
-        self.save_button.setStyleSheet("font-size:12pt; font-family:Courier; color: black")
-        self.save_button.clicked.connect(self.save_settings)
-        self.layout.addWidget(self.save_button)
-
-        # Добавьте кнопку для закрытия окна
-        self.close_button = QPushButton("Close", self)
+        self.close_button = QPushButton('Выйти из настроек', self)
+        self.close_button.setStyleSheet("font-size:12pt;  font-family:Courier; color: black")
         self.close_button.clicked.connect(self.close)
-        self.layout.addWidget(self.close_button)
+        level4_layout.addWidget(self.close_button)
+
+        main_layout.addLayout(level1_layout)
+        main_layout.addLayout(level2_layout)
+        main_layout.addLayout(level3_layout)
+        main_layout.addLayout(level4_layout)
+        self.setLayout(main_layout)
+        self.center()
 
     def center(self):
         qr = self.frameGeometry()
@@ -148,6 +180,24 @@ class Settings_Window(QWidget):
         if event.button() == Qt.LeftButton:
             self.isDragging = False
             self.startPos = None
+    
+    def exit(self): # Закрытие окна настроек
+        sys.exit(app.exec())
+
+    def browser_select(self): # передает данные в конфиг
+        send = self.name_browser_input.text()
+        if send:
+            pass # передача данных в конфиг
+
+    def app_store_select(self): # передает данные в конфиг
+        send = self.name_app_store_input.text()
+        if send:
+            pass # передача данных в конфиг
+    
+    def themes_select(self):
+        send = self.themes_input.text()
+        if send:
+            pass # передача данных в конфиг
 
     def save_settings(self):  # Функция для обработки сохранения настроек
         browser_choice = self.name_browser_input.text()
