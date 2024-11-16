@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QHBoxLayout, QPushButton, QTextEdit, QLabel, QDesktopWidget, QLineEdit # type: ignore
+from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QHBoxLayout, QPushButton, QTextEdit, QLabel, QDesktopWidget, QLineEdit, QComboBox # type: ignore
 from PyQt5.QtGui import QIcon # type: ignore
 from PyQt5.QtCore import Qt # type: ignore
 import sys
@@ -115,7 +115,7 @@ class Settings_Window(QWidget):
         super().__init__(parent)
 
         self.setWindowTitle("Wendy's settings")
-        self.setStyleSheet("background-color: #BEBEBE")
+        self.setStyleSheet("background-color: #3B1E54;")
         self.setFixedSize(400, 300)
         self.startPos = None
         self.isDragging = False
@@ -127,40 +127,43 @@ class Settings_Window(QWidget):
         level4_layout = QHBoxLayout()
 
         self.label1 = QLabel(self)
-        self.label1.setText(f"<pre style='font-family:Courier; font-size:12pt; color: black;'>{browser_text}</pre>")
+        self.label1.setText(f"<pre style='font-family:Courier; font-size:12pt; color: #E1D7C6;'>{browser_text}</pre>")
         self.browser_input = QLineEdit(self)
-        self.browser_input.setStyleSheet("font-size:12pt;  font-family:Courier; color: black")
+        self.browser_input.setStyleSheet("font-size:12pt; color: #E1D7C6; background-color: #1A1A1D;")
         self.browser_Button = QPushButton('Сохранить', self)
-        self.browser_Button.setStyleSheet("font-size:12pt; font-family:Courier; color: black")
+        self.browser_Button.setStyleSheet("background-color: #1A1A1D; color: #E1D7C6;")
         self.browser_Button.clicked.connect(self.browser_select)
         level1_layout.addWidget(self.label1)
         level1_layout.addWidget(self.browser_input)
         level1_layout.addWidget(self.browser_Button)
 
         self.label2 = QLabel(self)
-        self.label2.setText(f"<pre style='font-family:Courier; font-size:12pt; color: black;'>{app_store}</pre>")
+        self.label2.setText(f"<pre style='font-family:Courier; font-size:12pt; color: #E1D7C6;'>{app_store}</pre>")
         self.app_input = QLineEdit(self)
-        self.app_input.setStyleSheet("font-size:12pt;  font-family:Courier; color: black")
+        self.app_input.setStyleSheet("font-size:12pt; color: #E1D7C6; background-color: #1A1A1D;")
         self.app_button = QPushButton('Сохранить', self)
-        self.app_button.setStyleSheet("font-size:12pt;  font-family:Courier; color: black")
+        self.app_button.setStyleSheet("font-size:12pt; background-color: #1A1A1D; color: #E1D7C6;")
         self.app_button.clicked.connect(self.app_store_select)
         level2_layout.addWidget(self.label2)
         level2_layout.addWidget(self.app_input)
         level2_layout.addWidget(self.app_button)
 
         self.label3 = QLabel(self)
-        self.label3.setText(f"<pre style='font-family:Courier; font-size:12pt; color: black;'>{themes}</pre>")
-        self.themes_input = QLineEdit(self)
-        self.themes_input.setStyleSheet("font-size:12pt;  font-family:Courier; color: black")
+        self.label3.setText(f"<pre style='font-family:Courier; font-size:12pt; color: #E1D7C6;'>{themes}</pre>")
+        self.themes_input = QComboBox(self)
+        self.themes_input.addItem('Тёмная')
+        self.themes_input.addItem('Светлая')
+        self.themes_input.currentIndexChanged.connect(self.update_themes)
+        self.themes_input.setStyleSheet("font-size:12pt; color: #E1D7C6 ; background-color: #1A1A1D;")
         self.themes_button = QPushButton('Сохранить',self)
-        self.themes_button.setStyleSheet("font-size:12pt; font-family:Courier; color: black")
+        self.themes_button.setStyleSheet("font-size:12pt; background-color: #1A1A1D; color: #E1D7C6;")
         self.themes_button.clicked.connect(self.themes_select)
         level3_layout.addWidget(self.label3)
         level3_layout.addWidget(self.themes_input)
         level3_layout.addWidget(self.themes_button)
 
         self.close_button = QPushButton('Выйти из настроек', self)
-        self.close_button.setStyleSheet("font-size:12pt;  font-family:Courier; color: black")
+        self.close_button.setStyleSheet("font-size:12pt; background-color: #1A1A1D; color: #E1D7C6;")
         self.close_button.clicked.connect(self.close)
         level4_layout.addWidget(self.close_button)
 
@@ -209,6 +212,10 @@ class Settings_Window(QWidget):
         send = self.themes_input.text()
         if send:
             pass # передача данных в конфиг
+    def update_themes(self):
+        select_item = self.themes_input.currentText()
+        print(f"Выбрана: {select_item} тема!")
+        # тут пропись в какой-то буфер
 
     def save_settings(self):  # Функция для обработки сохранения настроек
         browser_choice = self.name_browser_input.text()
@@ -225,26 +232,39 @@ class VenvEditor_Window(QWidget):
         self.setWindowTitle('Text Input Window')
         self.setFixedSize(400, 300)  # Увеличиваем высоту окна
         self.setWindowIcon(QIcon('icon.png'))
+        self.setStyleSheet("background-color: #3B1E54;")
 
         layout = QVBoxLayout()
 
         self.label = QLabel('Введите текст:')
+        self.label.setStyleSheet("color: #E1D7C6;")
         layout.addWidget(self.label)
 
         # Многострочное поле для ввода текста
         self.text_input = QTextEdit(self)
+        self.text_input.setStyleSheet("background-color: #1A1A1D; color: #E1D7C6;")
         layout.addWidget(self.text_input)
 
         # Кнопка для подтверждения ввода
         self.submit_button = QPushButton('Подтвердить', self)
         self.submit_button.clicked.connect(self.display_text)  # Подключаем к функции
+        self.submit_button.setStyleSheet("font-size:12pt; background-color: #1A1A1D; color: #E1D7C6;")
         layout.addWidget(self.submit_button)
 
         # Метка для отображения введенного текста
         self.output_label = QLabel('', self)
+        self.output_label.setStyleSheet("font-family:Courier; font-size:12pt; color: white;")
         layout.addWidget(self.output_label)
 
+        self.exit_button = QPushButton('Закрыть', self)
+        self.exit_button.setStyleSheet("font-size:12pt; background-color: #1A1A1D; color: #E1D7C6;")
+        self.exit_button.clicked.connect(self.exit_window)
+        layout.addWidget(self.exit_button)
+
         self.setLayout(layout)
+
+    def exit_window(self): # Закрытие окна настроек
+        sys.exit(app.exec())
 
     def center(self):
         qr = self.frameGeometry()
