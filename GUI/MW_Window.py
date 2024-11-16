@@ -108,7 +108,6 @@ class Settings_Window(QWidget):
 
         self.layout = QVBoxLayout(self)
 
-        # Создание и настройка строки
         self.text_browser = QLabel(self)
         self.text_browser.setText(f"<pre style='font-family:Courier; font-size:12pt; color: black;'>{browser_text}</pre>")
         self.layout.addWidget(self.text_browser, alignment=Qt.AlignmentFlag.AlignCenter)
