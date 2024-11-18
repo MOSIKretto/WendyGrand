@@ -1,6 +1,6 @@
-from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QHBoxLayout, QPushButton, QTextEdit, QLabel, QDesktopWidget, QLineEdit, QComboBox # type: ignore
-from PyQt5.QtGui import QIcon # type: ignore
-from PyQt5.QtCore import Qt # type: ignore
+from PyQt6.QtWidgets import QApplication, QWidget, QVBoxLayout, QHBoxLayout, QPushButton, QTextEdit, QLabel, QLineEdit, QComboBox # type: ignore
+from PyQt6.QtGui import QIcon # type: ignore
+from PyQt6.QtCore import Qt # type: ignore
 import sys
 
 
@@ -70,7 +70,8 @@ class Main_Window(QWidget):
 
     def center(self):
         qr = self.frameGeometry()
-        cp = QDesktopWidget().availableGeometry().center()
+        screen = QApplication.primaryScreen()
+        cp = screen.availableGeometry().center()
         qr.moveCenter(cp)
         self.move(qr.topLeft())
 
@@ -181,7 +182,8 @@ class Settings_Window(QWidget):
 
     def center(self):
         qr = self.frameGeometry()
-        cp = QDesktopWidget().availableGeometry().center()
+        screen = QApplication.primaryScreen()
+        cp = screen.availableGeometry().center()
         qr.moveCenter(cp)
         self.move(qr.topLeft())
 
@@ -214,8 +216,8 @@ class Settings_Window(QWidget):
             pass # передача данных в конфиг
     
     def themes_select(self):
-        send = self.themes_input.text()
-        if send:
+        #send = self.themes_input.text()
+        #if send:
             pass # передача данных в конфиг
     def update_themes(self):
         select_item = self.themes_input.currentText()
@@ -274,7 +276,8 @@ class VenvEditor_Window(QWidget):
 
     def center(self):
         qr = self.frameGeometry()
-        cp = QDesktopWidget().availableGeometry().center()
+        screen = QApplication.primaryScreen()
+        cp = screen.availableGeometry().center()
         qr.moveCenter(cp)
         self.move(qr.topLeft())
 
@@ -304,4 +307,4 @@ if __name__ == '__main__':
     app = QApplication(sys.argv)
     first_window = Main_Window()
     first_window.show()
-    sys.exit(app.exec_())
+    sys.exit(app.exec())

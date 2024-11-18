@@ -58,7 +58,7 @@ public class Main
     private static void Start() 
     {   
         // Процесс для MW_Window
-        ProcessBuilder builderGui = new ProcessBuilder("python3", "../WendyGrand/GUI/MW_Window.py");
+        ProcessBuilder builderGui = new ProcessBuilder("bash", "-c", "source venv/bin/activate; python3 ../WendyGrand/GUI/MW_Window.py");
 
         // Создаем для Recognizer
         ProcessBuilder builderRecognizer = new ProcessBuilder("bash", "-c", "source venv/bin/activate; python3 Recognizer.py");
