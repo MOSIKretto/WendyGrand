@@ -10,7 +10,7 @@ def listFoldersInCurrentDirectory(path):
         return folders
     except Exception:
         return []
-
+    
 def sliceUntilPeriod(input_string):
     period_index = input_string.rfind('.')
     if period_index != -1:
@@ -18,16 +18,6 @@ def sliceUntilPeriod(input_string):
     else:
         print('К сожалению, я не могу запустить ваш файл')
         return None
-
-def compileAndRunCpp(source_file):
-    base_name = os.path.splitext(os.path.basename(source_file))[0]
-    executable_path = os.path.join(os.path.dirname(source_file), base_name)
-    
-    try:
-        subprocess.run(["g++", source_file, "-o", executable_path])
-        subprocess.run([f"./{executable_path}"])
-    except subprocess.CalledProcessError as e:
-        print(f"Ошибка компиляции или выполнения C++ файла: {e}")
 
 arg = sys.argv[1]
 res = sliceUntilPeriod(arg)
@@ -45,6 +35,9 @@ if res == "py":
         except:
             print("У вас нет виртуального окружения.")
 elif res in ["cpp", "c"]:
-    compileAndRunCpp(os.path.join(current_directory, arg))
+    base_name = os.path.splitext(os.path.basename(arg))[0]
+    executable_path = os.path.join(current_directory, base_name)
+    subprocess.run(["g++", os.path.join(current_directory, arg), "-o", executable_path])
+    subprocess.run([f"./{executable_path}"])
 elif res:
     subprocess.run([res, os.path.join(current_directory, arg)])
