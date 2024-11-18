@@ -86,4 +86,13 @@ public class ActionHandler
     {
         SearchManager.startSearch(https, search);
     }
+    public static void CallAI_Chat()
+    {
+        ProcessBuilder builderAI_Chat = new ProcessBuilder("bash", "-c", "source venv/bin/activate; python3 ../WendyGrand/Actions/AI_Chat.py");
+        try 
+        {
+            builderAI_Chat.start();
+        } 
+        catch (IOException e){}
+    }
 }
