@@ -3,3 +3,4 @@
 обнови системы=Upgrade.sh
 обновить систему=Upgrade.sh
 обновить системы=Upgrade.sh
+умный чат=AI_Chat.py
