@@ -31,24 +31,28 @@ class ChatWindow(QMainWindow):
 
         self.setWindowTitle("AI_Chat")
         self.setGeometry(100, 100, 400, 500)
+        self.setStyleSheet("background-color: #3B1E54;")
 
         self.layout = QVBoxLayout()
 
         self.text_area = QTextEdit(self)
         self.text_area.setReadOnly(True)
-        self.text_area.setStyleSheet("font-size: 15px;")
+        self.text_area.setStyleSheet("font-size: 15px; background-color: #1A1A1D; color: #E1D7C6;")
         self.layout.addWidget(self.text_area)
 
         self.input_field = QTextEdit(self)
         self.input_field.setPlaceholderText("Введите ваше сообщение...")
         self.input_field.setFixedHeight(6 * 25)
+        self.input_field.setStyleSheet("font-size: 15px; background-color: #1A1A1D; color: #E1D7C6;")
         self.layout.addWidget(self.input_field)
 
         self.send_button = QPushButton("Отправить", self)
+        self.send_button.setStyleSheet("background-color: #1A1A1D; color: #E1D7C6;")
         self.send_button.clicked.connect(self.send_message)
         self.layout.addWidget(self.send_button)
 
         self.exit_button = QPushButton("Выход", self)
+        self.exit_button.setStyleSheet("background-color: #1A1A1D; color: #E1D7C6;")
         self.exit_button.clicked.connect(self.exit_application)
         self.layout.addWidget(self.exit_button)
 
