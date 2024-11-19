@@ -1,4 +1,5 @@
 # Developer: Lazaretto (Wendy`s primary developer)
+# Assistant: VenTurn
 # Date: 18.11.2024
 # Task: AI_Chat - Artificial Intelligence Window
 
@@ -17,15 +18,16 @@ class Worker(QThread):
     def run(self):
         try:
             response = g4f.ChatCompletion.create(
-                model="gpt-4o", #Здесь можно изменить модель, почитайте доку g4f
+                model="gpt-4o",  # Здесь можно изменить модель, почитайте доку g4f
                 messages=[{"role": "user", "content": self.user_input}]
             )
             ai_response = response['choices'][0]['message']['content'] if isinstance(response, dict) else response
-            self.update_text.emit("AI: " + ai_response + "\n\n")
+            self.update_text.emit(f'<strong>AI:</strong> {ai_response}<br>')
         except Exception as e:
             self.update_text.emit(f"AI: Произошла ошибка: {str(e)}. Попробуйте позже.\n\n")
 
 class ChatWindow(QMainWindow):
+    
     def __init__(self):
         super().__init__()
 
@@ -63,13 +65,11 @@ class ChatWindow(QMainWindow):
     def send_message(self):
         user_input = self.input_field.toPlainText().strip()
         if user_input:
-            self.display_user_message(user_input)
+            formatted_user_message = self.format_message(f'<strong>Вы:</strong> {user_input}<br>')
+            self.text_area.insertHtml(formatted_user_message + "<br>")
             self.input_field.clear()
             self.text_area.append("AI готовит ответ...\n\n")
             self.start_worker(user_input)
-
-    def display_user_message(self, user_input):
-        self.text_area.append("Вы: " + user_input + "\n")
 
     def start_worker(self, user_input):
         self.worker = Worker(user_input)
@@ -81,11 +81,12 @@ class ChatWindow(QMainWindow):
 
     def update_chat(self, message):
         formatted_message = self.format_message(message)
-        self.text_area.insertHtml(formatted_message + "<br>")
+        self.text_area.insertHtml(formatted_message)
+        self.text_area.insertHtml("<hr style='border: 1px solid #E1D7C6;'>" + "<br>")
 
     def format_message(self, message):
-        if '``' in message:
-            parts = message.split('``')
+        if '```' in message:
+            parts = message.split('```')
             formatted_message = ""
             for i, part in enumerate(parts):
                 if i % 2 == 0:

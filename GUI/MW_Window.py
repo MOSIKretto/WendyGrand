@@ -82,22 +82,7 @@ class Main_Window(QWidget):
         cp = screen.availableGeometry().center()
         qr.moveCenter(cp)
         self.move(qr.topLeft())
-
-    def mousePressEvent(self, event):
-        if event.button() == Qt.MouseButton.LeftButton:
-            self.isDragging = True
-            self.startPos = event.position().toPoint()  
-
-    def mouseMoveEvent(self, event):
-        if self.isDragging:
-            delta = event.position().toPoint() - self.startPos  
-            self.move(self.pos() + delta)  
-
-    def mouseReleaseEvent(self, event):
-        if event.button() == Qt.MouseButton.LeftButton:
-            self.isDragging = False
-            self.startPos = None
-
+    
     def settings(self):
         self.settings_window = Settings_Window(self)
         self.settings_window.show()
@@ -196,21 +181,6 @@ class Settings_Window(QWidget):
         cp = screen.availableGeometry().center()
         qr.moveCenter(cp)
         self.move(qr.topLeft())
-
-    def mousePressEvent(self, event):
-        if event.button() == Qt.MouseButton.LeftButton:
-            self.isDragging = True
-            self.startPos = event.position().toPoint()  # Получаем позицию мыши как QPoint
-
-    def mouseMoveEvent(self, event):
-        if self.isDragging:
-            delta = event.position().toPoint() - self.startPos  # Рассчитываем смещение
-            self.move(self.pos() + delta)  # Перемещаем окно
-
-    def mouseReleaseEvent(self, event):
-        if event.button() == Qt.MouseButton.LeftButton:
-            self.isDragging = False
-            self.startPos = None
     
     def exit(self): # Закрытие окна настроек
         sys.exit(app.exec())
@@ -295,21 +265,6 @@ class VenvEditor_Window(QWidget):
         cp = screen.availableGeometry().center()
         qr.moveCenter(cp)
         self.move(qr.topLeft())
-
-    def mousePressEvent(self, event):
-        if event.button() == Qt.MouseButton.LeftButton:
-            self.isDragging = True
-            self.startPos = event.position().toPoint()  # Получаем позицию мыши как QPoint
-
-    def mouseMoveEvent(self, event):
-        if self.isDragging:
-            delta = event.position().toPoint() - self.startPos  # Рассчитываем смещение
-            self.move(self.pos() + delta)  # Перемещаем окно
-
-    def mouseReleaseEvent(self, event):
-        if event.button() == Qt.MouseButton.LeftButton:
-            self.isDragging = False
-            self.startPos = None
 
     def display_text(self):
         # Получаем текст из многострочного поля ввода и отображаем его в метке
