@@ -1,11 +1,3 @@
-/* *Main*
- *
- * RU Запуск Sh скриптов необходимых для пересборки venv и запуска
- * ----------------------------------------------------------------
- * En Running Sh scripts required to rebuild venv and run
- * 
-*/
-
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.io.IOException;

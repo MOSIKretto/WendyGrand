@@ -1,11 +1,3 @@
-/* *Java_Dictionary*
- *
- * RU Ищет соответствие по словарям и отдает команду на выполнение 
- * ---------------------------------------------------------------------
- * EN Looks for a match in dictionaries and issues a command to execute
- * 
-*/
-
 import java.util.stream.Collectors;
 import static java.util.Map.entry;
 import java.util.ArrayList;

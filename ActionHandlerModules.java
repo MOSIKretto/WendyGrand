@@ -1,12 +1,3 @@
-/* *ActionHandler*
- *
- * RU Альтернативный обработчик команд полученныйх с Java_Dictionary для модулей
- * -------------------------------------------------------------------------------
- * EN Alternative command handler received from Java_Dictionary for modules
- *
-*/
-
-import java.io.InputStreamReader;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.FileReader;
@@ -45,30 +36,22 @@ public class ActionHandlerModules
         if (files != null && ModulesCheck.exists()) 
         {
             System.out.println("Активация модуля: " + function);
-            executePythonScript("../WendyGrand/Voiceover.py", "StandardModule");
-            executePythonScript("../WendyGrand/runModules.py", function);
+            VoiceoverScript("../WendyGrand/Voiceover.py", "StandardModule");
+            runModules.run(function);
         }
         else
         {
-            executePythonScript("../WendyGrand/Voiceover.py", "ErrModule");
+            VoiceoverScript("../WendyGrand/Voiceover.py", "ErrModule");
         }
     }
 
-    private static void executePythonScript(String scriptPath, String arg) 
+    private static void VoiceoverScript(String scriptPath, String arg) 
     {
         ProcessBuilder builder = new ProcessBuilder("python3", scriptPath, arg);
-        builder.redirectErrorStream(true);
         try 
         {
-            Process process = builder.start();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-            String line;
-            while ((line = reader.readLine()) != null) 
-            {
-                System.out.println(line);
-            }
-            process.waitFor();
+            builder.start();
         } 
-        catch (IOException | InterruptedException e){}
+        catch (IOException e){}
     }
 }

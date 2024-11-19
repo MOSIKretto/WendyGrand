@@ -1,11 +1,3 @@
-/* *ActionHandler*
- *
- * RU Обработчик команд полученныйх с Java_Dictionary
- * --------------------------------------------------------
- * EN Handler for commands received from Java_Dictionary
- *
-*/
-
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.io.IOException;

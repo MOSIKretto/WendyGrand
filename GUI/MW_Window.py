@@ -1,6 +1,6 @@
-from PyQt6.QtWidgets import QApplication, QWidget, QVBoxLayout, QHBoxLayout, QPushButton, QTextEdit, QLabel, QLineEdit, QComboBox # type: ignore
-from PyQt6.QtGui import QIcon # type: ignore
-from PyQt6.QtCore import Qt # type: ignore
+from PyQt6.QtWidgets import QApplication, QWidget, QVBoxLayout, QHBoxLayout, QPushButton, QTextEdit, QLabel, QLineEdit, QComboBox, QSystemTrayIcon, QMenu
+from PyQt6.QtGui import QIcon, QFont
+from PyQt6.QtCore import Qt
 import sys
 
 
@@ -35,9 +35,11 @@ class Main_Window(QWidget):
         self.setStyleSheet("background-color: #3B1E54;")
         self.startPos = None
         self.isDragging = False
-        self.setWindowIcon(QIcon('icon.png'))
+        self.setWindowIcon(QIcon('../WendyGrand/GUI/icon.ico'))
+
         layout = QVBoxLayout()
         button_layout = QHBoxLayout()
+
         self.label = QLabel(self)
         self.label.setText(f"<pre style='font-family:Courier; font-size:14.5pt; color: #E1D7C6;'>{ascii_art}</pre>")
         self.label.setStyleSheet("background-color: #1A1A1D;")
@@ -47,12 +49,17 @@ class Main_Window(QWidget):
         self.chat_area.setReadOnly(True)
         self.chat_area.setStyleSheet("background-color: #1A1A1D; color: #E1D7C6;")
 
-        self.button = QPushButton("SETTINGS               ⚙️", self)
+        # Установка общего шрифта для кнопок
+        button_font = QFont("Noto Color Emoji", 11, QFont.Weight.Bold)
+
+        self.button = QPushButton("SETTINGS ⚙️", self)
         self.button.setStyleSheet("background-color: #1A1A1D; color: #E1D7C6;")
+        self.button.setFont(button_font)
         self.button.clicked.connect(self.settings)
 
-        self.edit_button = QPushButton('VENV MODULES 🐍', self)
+        self.edit_button = QPushButton("VENV CREATOR 🐍", self)
         self.edit_button.setStyleSheet("background-color: #1A1A1D; color: #E1D7C6;")
+        self.edit_button.setFont(button_font)
         self.edit_button.clicked.connect(self.edit_venv)
 
         button_layout.addWidget(self.edit_button)
@@ -67,6 +74,7 @@ class Main_Window(QWidget):
 
         self.settings_window = None
         self.venv_editor = None
+
 
     def center(self):
         qr = self.frameGeometry()
@@ -125,7 +133,9 @@ class Settings_Window(QWidget):
         self.setFixedSize(400, 300)
         self.startPos = None
         self.isDragging = False
-        self.setWindowIcon(QIcon('icon.png'))
+
+        self.setWindowIcon(QIcon('../WendyGrand/GUI/icon.ico'))
+
         main_layout = QVBoxLayout()
         level1_layout = QHBoxLayout()
         level2_layout = QHBoxLayout()
@@ -219,6 +229,7 @@ class Settings_Window(QWidget):
         #send = self.themes_input.text()
         #if send:
             pass # передача данных в конфиг
+
     def update_themes(self):
         select_item = self.themes_input.currentText()
         print(f"Выбрана: {select_item} тема!")
@@ -236,9 +247,11 @@ class VenvEditor_Window(QWidget):
     def __init__(self, SeparateWindow, parent=None):
         super().__init__(parent)
 
-        self.setWindowTitle('Text Input Window')
-        self.setFixedSize(400, 300)  # Увеличиваем высоту окна
-        self.setWindowIcon(QIcon('icon.png'))
+        self.setWindowTitle('Venv creator')
+        self.setFixedSize(400, 300)
+
+        self.setWindowIcon(QIcon('../WendyGrand/GUI/icon.ico'))
+        
         self.setStyleSheet("background-color: #3B1E54;")
 
         layout = QVBoxLayout()
@@ -305,6 +318,22 @@ class VenvEditor_Window(QWidget):
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    first_window = Main_Window()
-    first_window.show()
+    main_window = Main_Window()
+    main_window.show()
+
+    tray_icon = QSystemTrayIcon(QIcon('../WendyGrand/GUI/icon.ico'), parent=app)
+    menu = QMenu()
+
+    exit_action = menu.addAction("Закрыть Wendy")
+    exit_action.triggered.connect(app.quit)
+
+    settings_action = menu.addAction("Открыть Настройки")
+    settings_action.triggered.connect(main_window.settings)
+
+    settings_action = menu.addAction("Открыть Venv creator")
+    settings_action.triggered.connect(main_window.edit_venv)
+    
+    tray_icon.setContextMenu(menu)
+    tray_icon.setVisible(True)
+
     sys.exit(app.exec())
