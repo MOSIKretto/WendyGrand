@@ -41,8 +41,7 @@ public class Java_Dictionary
                 entry("Obsidian", "CallObsidian"),
                 entry("Reboot", "CallReboot"),
                 entry("Shutdown", "CallShutdown"),
-                entry("Sleep", "CallSleep"),
-                entry("AI_Chat", "CallAI_Chat")
+                entry("Sleep", "CallSleep")
             );
             
             ArrayList <String> Hello = new ArrayList<String>(
@@ -93,14 +92,6 @@ public class Java_Dictionary
 
             ArrayList <String> Sleep = new ArrayList<String>(
                 Arrays.asList("спящий режим", "спать", "антракт")
-            );
-
-            ArrayList <String> AI_Chat = new ArrayList<String>(
-                Arrays.asList(
-                    "умный чат", "умные чат", 
-                    "умный чад", "умные чад", 
-                    "и и чат", "и и чад"
-                )
             );
 
 
@@ -202,12 +193,7 @@ public class Java_Dictionary
                 }
             }
             //--------------------------------------------------------------------------------------------------------------
-            if (AI_Chat.contains(ClearText))
-            {
-                ActionHandler.CallFunction(FunctionsDictionary.get("AI_Chat"));
-            }
-            //--------------------------------------------------------------------------------------------------------------
-
+            
             //Модульность 
             else
             {

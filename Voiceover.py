@@ -104,18 +104,6 @@ class ActionsVoiceover:
             playsound(AUDIO_DIR + 'TryingToFindYourYouTubeRequest.mp3')
 
     @staticmethod
-    def CallAI_ChatVoiceover():
-            
-        executive_voice = randint(0, 2)
-
-        if executive_voice == 0:
-            playsound(AUDIO_DIR + 'OpenItNow.mp3')
-        elif executive_voice == 1:
-            playsound(AUDIO_DIR + 'AlwaysAPleasure.mp3')
-        else:
-            playsound(AUDIO_DIR + 'Doing.mp3')
-
-    @staticmethod
     def CallTelegramVoiceover():
 
         executive_voice = randint(0, 3)
