@@ -9,7 +9,7 @@ public class AppManager
         String os = System.getProperty("os.name").toLowerCase();
         Runtime runtime = Runtime.getRuntime();
 
-        if (os.contains("nux")) 
+        if (os.contains("nux") || os.contains("nix")) 
         {
             try{runtime.exec(App);} 
             catch (IOException ignored){}

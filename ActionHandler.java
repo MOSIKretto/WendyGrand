@@ -32,27 +32,39 @@ public class ActionHandler
     //Вызов приложений
     public static void CallBrowser()
     {
-        AppManager.startApp("firefox" /*,"google-chrome"*/);
+        AppManager.startApp("firefox");
     }
-    public static void CallTelegram()
+    public static void CallConductor()
     {
-        AppManager.startApp("telegram-desktop");
+        AppManager.startApp("nautilus");
     }
-    public static void CallObsidian()
+    public static void CallTerminal()
     {
-        AppManager.startApp("md.obsidian.Obsidian");
-    }
-    public static void CallVScode()
-    {
-        AppManager.startApp("code");
+        AppManager.startApp("gnome-terminal");
     }
     public static void CallStores()
     {
-        AppManager.startApp("pamac-manager" /* "snap-store", "gnome-software" */);
+        AppManager.startApp("pamac-manager");
     }
     public static void CallOffice()
     {
         AppManager.startApp("libreoffice");
+    }
+    public static void CallMessenger()
+    {
+        AppManager.startApp("telegram-desktop");
+    }
+    public static void CallSocialNetwork()
+    {
+        AppManager.startApp("telegram-desktop");
+    }
+    public static void CallNotes()
+    {
+        AppManager.startApp("md.obsidian.Obsidian");
+    }
+    public static void CallCodeEditor()
+    {
+        AppManager.startApp("code");
     }
 
     //Работа с системой

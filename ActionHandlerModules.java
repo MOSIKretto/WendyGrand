@@ -36,7 +36,7 @@ public class ActionHandlerModules
         if (files != null && ModulesCheck.exists()) 
         {
             System.out.println("Активация модуля: " + function);
-            VoiceoverScript("../WendyGrand/Voiceover.py", "StandardModule");
+            VoiceoverScript("../WendyGrand/Voiceover.py", "StandardModule_StandardResponse");
             runModules.run(function);
         }
         else

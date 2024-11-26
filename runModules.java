@@ -85,9 +85,6 @@ public class runModules
                 pb.start().waitFor();
             }
         } 
-        catch (IOException | InterruptedException e) 
-        {
-            System.out.println("Ошибка при выполнении команды: " + e.getMessage());
-        }
+        catch (IOException | InterruptedException e){}
     }
 }

@@ -30,45 +30,48 @@ public class Java_Dictionary
             */
 
             Map <String, String> FunctionsDictionary = Map.ofEntries(
-                entry("Hello", "CallHello"),
-                entry("Browser", "CallBrowser"),
-                entry("WebSearch", "CallWebSearch"),
-                entry("YouTubeSearch", "CallYouTubeSearch"),
-                entry("Telegram", "CallTelegram"),
-                entry("VScode", "CallVScode"),
+
+                entry("Hello", "CallHello"), 
+                
+                entry("Browser", "CallBrowser"), 
+                entry("Conductor", "CallConductor"), 
+                entry("Terminal", "CallTerminal"),
                 entry("Stores", "CallStores"),
                 entry("Office", "CallOffice"),
-                entry("Obsidian", "CallObsidian"),
+
+                entry("Messenger", "CallMessenger"),
+                entry("SocialNetwork", "CallSocialNetwork"),
+
+                entry("Notes", "CallNotes"),
+                entry("CodeEditor", "CallCodeEditor"),
+
                 entry("Reboot", "CallReboot"),
                 entry("Shutdown", "CallShutdown"),
-                entry("Sleep", "CallSleep")
+                entry("Sleep", "CallSleep"),
+
+                entry("WebSearch", "CallWebSearch"),
+                entry("YouTubeSearch", "CallYouTubeSearch")
             );
             
+
+
             ArrayList <String> Hello = new ArrayList<String>(
                 Arrays.asList("привет", "здравствуй", "ты тут")
             );
-                    
+            
+
             ArrayList <String> Browser = new ArrayList<String>(
                 Arrays.asList("браузер", "браузера", "интернет")
             );
-                
-            ArrayList <String> Telegram = new ArrayList<String>(
-                Arrays.asList("телеграм", "телеграмм", "телега", "телегу", "телеграма", "телеграмма", "телеграммы", "телеграмму")
+             
+            ArrayList <String> Conductor = new ArrayList<String>(
+                Arrays.asList("проводник")
             );
 
-            ArrayList <String> Obsidian = new ArrayList<String>(
-                Arrays.asList("обсидиан")
+            ArrayList <String> Terminal = new ArrayList<String>(
+                Arrays.asList("терминал")
             );
 
-            ArrayList <String> VScode = new ArrayList<String>(
-                Arrays.asList(
-                    "в скотт", "в скот", 
-                    "вес скотт", "вес код", 
-                    "вы скотт", "вы скот", "вы и скотт",
-                    "скотт", "код"
-                )
-            );
-            
             ArrayList <String> Stores = new ArrayList<String>(
                 Arrays.asList("магазин", "стор")
             );
@@ -76,6 +79,25 @@ public class Java_Dictionary
             ArrayList <String> Office = new ArrayList<String>(
                 Arrays.asList("офис")
             );
+
+
+            ArrayList <String> Messenger = new ArrayList<String>(
+                Arrays.asList("мессенджер", "телега", "телеграмм")
+            );
+
+            ArrayList <String> SocialNetwork = new ArrayList<String>(
+                Arrays.asList("соц сеть", "социальная сеть")
+            );
+
+
+            ArrayList <String> Notes = new ArrayList<String>(
+                Arrays.asList("заметки")
+            );
+
+            ArrayList <String> CodeEditor = new ArrayList<String>(
+                Arrays.asList("редактор кода", "код")
+            );
+            
 
             ArrayList <String> Reboot = new ArrayList<String>(
                 Arrays.asList("перезапуск", "перезапусти компьютер")
@@ -113,19 +135,14 @@ public class Java_Dictionary
                 ActionHandler.CallFunction(FunctionsDictionary.get("Browser"));
             }
             //--------------------------------------------------------------------------------------------------------------
-            if (Telegram.contains(ClearText))
+            if (Conductor.contains(ClearText))
             {
-                ActionHandler.CallFunction(FunctionsDictionary.get("Telegram"));
+                ActionHandler.CallFunction(FunctionsDictionary.get("Conductor"));
             }
             //--------------------------------------------------------------------------------------------------------------
-            if (Obsidian.contains(ClearText))
+            if (Terminal.contains(ClearText))
             {
-                ActionHandler.CallFunction(FunctionsDictionary.get("Obsidian"));
-            }
-            //--------------------------------------------------------------------------------------------------------------
-            if (VScode.contains(ClearText))
-            {
-                ActionHandler.CallFunction(FunctionsDictionary.get("VScode"));
+                ActionHandler.CallFunction(FunctionsDictionary.get("Terminal"));
             }
             //--------------------------------------------------------------------------------------------------------------
             if (Stores.contains(ClearText))
@@ -136,6 +153,26 @@ public class Java_Dictionary
             if (Office.contains(ClearText))
             {
                 ActionHandler.CallFunction(FunctionsDictionary.get("Office"));
+            }
+            //--------------------------------------------------------------------------------------------------------------
+            if (Messenger.contains(ClearText))
+            {
+                ActionHandler.CallFunction(FunctionsDictionary.get("Messenger"));
+            }
+            //--------------------------------------------------------------------------------------------------------------
+            if (SocialNetwork.contains(ClearText))
+            {
+                ActionHandler.CallFunction(FunctionsDictionary.get("SocialNetwork"));
+            }
+            //--------------------------------------------------------------------------------------------------------------
+            if (Notes.contains(ClearText))
+            {
+                ActionHandler.CallFunction(FunctionsDictionary.get("Notes"));
+            }
+            //--------------------------------------------------------------------------------------------------------------
+            if (CodeEditor.contains(ClearText))
+            {
+                ActionHandler.CallFunction(FunctionsDictionary.get("CodeEditor"));
             }
             //--------------------------------------------------------------------------------------------------------------
 
