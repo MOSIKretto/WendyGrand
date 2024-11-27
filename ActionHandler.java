@@ -80,6 +80,10 @@ public class ActionHandler
     {
         SystemShutdown.systemSleep("systemctl suspend", " переведена в спящий режим ");
     }
+    public static void CallVolume(String arg)
+    {
+        VolumeControl.VolumeArgs(arg);
+    }
 
     //Поиск
     public static void CallWebSearch(String https, String search)

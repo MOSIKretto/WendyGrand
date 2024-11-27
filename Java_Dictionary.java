@@ -1,5 +1,7 @@
 import java.util.stream.Collectors;
 import static java.util.Map.entry;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
@@ -48,6 +50,7 @@ public class Java_Dictionary
                 entry("Reboot", "CallReboot"),
                 entry("Shutdown", "CallShutdown"),
                 entry("Sleep", "CallSleep"),
+                entry("Volume", "CallVolume"),
 
                 entry("WebSearch", "CallWebSearch"),
                 entry("YouTubeSearch", "CallYouTubeSearch")
@@ -115,6 +118,7 @@ public class Java_Dictionary
             ArrayList <String> Sleep = new ArrayList<String>(
                 Arrays.asList("спящий режим", "спать", "антракт")
             );
+
 
 
             /*
@@ -190,6 +194,48 @@ public class Java_Dictionary
             if (Sleep.contains(ClearText))
             {
                 ActionHandler.CallFunction(FunctionsDictionary.get("Sleep"));
+            }
+            //--------------------------------------------------------------------------------------------------------------
+            if (ClearText.startsWith("увеличь громкость") || ClearText.startsWith("уменьши громкость") ||
+            ClearText.startsWith("увеличить громкость") || ClearText.startsWith("уменьшить громкость") ||
+            ClearText.startsWith("громкость больше") || ClearText.startsWith("громкость меньше") ||
+            ClearText.startsWith("выключи звук") || ClearText.startsWith("включи звук") ||
+            ClearText.startsWith("громкость на") || ClearText.startsWith("громкость мне") || ClearText.startsWith("громкость"))
+            {
+                ArrayList <String> VolumeClear  = new ArrayList<String>(
+                    Arrays.asList("громкость", "на", "мне", "процента", "процент", "процентов")
+                );
+
+                String ClearTextVolume = Arrays.stream(ClearText.split("\\s+"))
+                    .filter(word -> !VolumeClear.contains(word))
+                    .collect(Collectors.joining(" "));
+
+                ProcessBuilder builder = new ProcessBuilder("python3", "../WendyGrand/Voiceover.py", "StandardModule_StandardResponse");
+                try 
+                {
+                    builder.start();
+                } 
+                catch (IOException e){}
+
+                try 
+                {
+                    Thread.sleep(1500);
+                } 
+                catch (InterruptedException e){}
+
+                if (ClearTextVolume.startsWith("увеличь") || ClearTextVolume.startsWith("уменьши") ||
+                ClearTextVolume.startsWith("увеличить") || ClearTextVolume.startsWith("уменьшить"))
+                {
+                    ActionHandler.CallVolume(ClearTextVolume + " громкость");
+                }
+                else if (ClearTextVolume.startsWith("больше") || ClearTextVolume.startsWith("меньше"))
+                {
+                    ActionHandler.CallVolume("громкость " + ClearTextVolume);
+                }
+                else
+                {
+                    ActionHandler.CallVolume(ClearTextVolume);
+                }
             }
             //--------------------------------------------------------------------------------------------------------------
 
