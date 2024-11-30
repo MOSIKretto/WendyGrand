@@ -63,9 +63,9 @@ class ActionsVoiceover:
     def CallConductorVoiceover():
         executive_voice = randint(0, 2)
         if executive_voice == 0:
-            playsound(AUDIO_DIR + 'GuideForSystemOpen.mp3')  # Замените на реальный путь
+            playsound(AUDIO_DIR + 'GuideForSystemOpen.mp3')
         elif executive_voice == 1:
-            playsound(AUDIO_DIR + 'OpeningGuideForSystem.mp3')  # Замените на реальный путь
+            playsound(AUDIO_DIR + 'OpeningGuideForSystem.mp3')
         else:
             ActionsVoiceover.StandardModule_StandardResponse()
 
@@ -73,9 +73,9 @@ class ActionsVoiceover:
     def CallTerminalVoiceover():
         executive_voice = randint(0, 2)
         if executive_voice == 0:
-            playsound(AUDIO_DIR + 'TerminalOpen.mp3')  # Замените на реальный путь
+            playsound(AUDIO_DIR + 'TerminalOpen.mp3')
         elif executive_voice == 1:
-            playsound(AUDIO_DIR + 'OpeningTerminal.mp3')  # Замените на реальный путь
+            playsound(AUDIO_DIR + 'OpeningTerminal.mp3')
         else:
             ActionsVoiceover.StandardModule_StandardResponse()
 
@@ -95,9 +95,9 @@ class ActionsVoiceover:
     def CallOfficeVoiceover():
         executive_voice = randint(0, 2)
         if executive_voice == 0:
-            playsound(AUDIO_DIR + 'OfficeOpen.mp3')  # Замените на реальный путь
+            playsound(AUDIO_DIR + 'OfficeOpen.mp3')
         elif executive_voice == 1:
-            playsound(AUDIO_DIR + 'OpeningOffice.mp3')  # Замените на реальный путь
+            playsound(AUDIO_DIR + 'OpeningOffice.mp3')
         else:
             ActionsVoiceover.StandardModule_StandardResponse()
 
@@ -107,9 +107,9 @@ class ActionsVoiceover:
     def CallMessengerVoiceover():
         executive_voice = randint(0, 2)
         if executive_voice == 0:
-            playsound(AUDIO_DIR + 'MessengerOpen.mp3')  # Замените на реальный путь
+            playsound(AUDIO_DIR + 'MessengerOpen.mp3')
         elif executive_voice == 1:
-            playsound(AUDIO_DIR + 'OpeningMessenger.mp3')  # Замените на реальный путь
+            playsound(AUDIO_DIR + 'OpeningMessenger.mp3')
         else:
             ActionsVoiceover.StandardModule_StandardResponse()
 
@@ -117,9 +117,9 @@ class ActionsVoiceover:
     def CallSocialNetworkVoiceover():
         executive_voice = randint(0, 2)
         if executive_voice == 0:
-            playsound(AUDIO_DIR + 'SocialNetworkOpen.mp3')  # Замените на реальный путь
+            playsound(AUDIO_DIR + 'SocialNetworkOpen.mp3')
         elif executive_voice == 1:
-            playsound(AUDIO_DIR + 'OpeningSocialNetwork.mp3')  # Замените на реальный путь
+            playsound(AUDIO_DIR + 'OpeningSocialNetwork.mp3')
         else:
             ActionsVoiceover.StandardModule_StandardResponse()
 
@@ -129,11 +129,11 @@ class ActionsVoiceover:
     def CallNotesVoiceover():
         executive_voice = randint(0, 3)
         if executive_voice == 0:
-            playsound(AUDIO_DIR + 'NotesOpen.mp3')  # Замените на реальный путь
+            playsound(AUDIO_DIR + 'NotesOpen.mp3')
         elif executive_voice == 1:
             playsound(AUDIO_DIR + 'GoodLuckToTheJob.mp3')
         elif executive_voice == 2:
-            playsound(AUDIO_DIR + 'OpeningNotes.mp3')  # Замените на реальный путь
+            playsound(AUDIO_DIR + 'OpeningNotes.mp3')
         else:
             ActionsVoiceover.StandardModule_StandardResponse()
 
@@ -143,9 +143,9 @@ class ActionsVoiceover:
         if executive_voice == 0:
             playsound(AUDIO_DIR + 'GoodLuckToTheJob.mp3')
         elif executive_voice == 1:
-            playsound(AUDIO_DIR + 'OpeningCodeEditor.mp3')  # Замените на реальный путь
+            playsound(AUDIO_DIR + 'OpeningCodeEditor.mp3')
         elif executive_voice == 2:
-            playsound(AUDIO_DIR + 'CodeEditorOpen.mp3')  # Замените на реальный путь
+            playsound(AUDIO_DIR + 'CodeEditorOpen.mp3')
         else:
             ActionsVoiceover.StandardModule_StandardResponse()
 
@@ -155,7 +155,7 @@ class ActionsVoiceover:
     def CallRebootVoiceover():
         executive_voice = randint(0, 1)
         if executive_voice == 0:
-            playsound(AUDIO_DIR + 'Rebooting.mp3')  # Замените на реальный путь
+            playsound(AUDIO_DIR + 'Rebooting.mp3')
         else:
             ActionsVoiceover.StandardModule_StandardResponse()
 
@@ -163,7 +163,7 @@ class ActionsVoiceover:
     def CallShutdownVoiceover():
         executive_voice = randint(0, 1)
         if executive_voice == 0:
-            playsound(AUDIO_DIR + 'ShuttingDown.mp3')  # Замените на реальный путь
+            playsound(AUDIO_DIR + 'ShuttingDown.mp3')
         else:
             ActionsVoiceover.StandardModule_StandardResponse()
 
@@ -171,7 +171,7 @@ class ActionsVoiceover:
     def CallSleepVoiceover():
         executive_voice = randint(0, 1)
         if executive_voice == 0:
-            playsound(AUDIO_DIR + 'Sleeping.mp3')  # Замените на реальный путь
+            playsound(AUDIO_DIR + 'Sleeping.mp3')
         else:
             ActionsVoiceover.StandardModule_StandardResponse()
 

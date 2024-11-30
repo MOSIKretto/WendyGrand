@@ -13,20 +13,14 @@ public class ActionHandler
         {
             builderVoiceover.start().waitFor();
         }
-        catch (IOException | InterruptedException e)
-        {
-            e.printStackTrace();
-        }
+        catch (IOException | InterruptedException e){}
         try
         {
             Method method = ActionHandler.class.getDeclaredMethod(FunctionName);
             method.invoke(null);
         }
         catch (NoSuchMethodException ignored){}
-        catch (InvocationTargetException | IllegalAccessException e)
-        {
-            e.printStackTrace(System.err);
-        }
+        catch (InvocationTargetException | IllegalAccessException e){}
     }
     
     //Вызов приложений

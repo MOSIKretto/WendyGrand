@@ -10,7 +10,7 @@ import re
 ActionsVoiceover.HelloVoiceover()
 
 # Инициализация очереди и модели Vosk
-q = asyncio.Queue(maxsize=100)
+q = asyncio.Queue(maxsize=500)
 model = vosk.Model("model_small")
 device = sd.default.device
 samplerate = int(sd.query_devices(device[0], 'input')['default_samplerate'])
