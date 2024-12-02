@@ -43,6 +43,7 @@ public class runModules
 
     public static void run(String arg) 
     {
+        
         String extension = sliceUntilPeriod(arg);
         String currentDirectory = "../WendyGrand/Modules/YourModules/";
         List<String> currentFolders = listFoldersInCurrentDirectory(currentDirectory);
@@ -77,7 +78,13 @@ public class runModules
                 ProcessBuilder runPb = new ProcessBuilder("./" + executablePath);
                 runPb.inheritIO();
                 runPb.start().waitFor();
-            } 
+            }
+            else if ("go".equals(extension)) 
+            {
+                ProcessBuilder pb = new ProcessBuilder("go", "run", Paths.get(currentDirectory, arg).toString());
+                pb.inheritIO();
+                pb.start().waitFor();
+            }
             else if (extension != null) 
             {
                 ProcessBuilder pb = new ProcessBuilder(extension, Paths.get(currentDirectory, arg).toString());
