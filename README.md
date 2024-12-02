@@ -1,4 +1,4 @@
-# WendyGrand
+# Wendy - Голосовой помощник для Linux
 
 <p align="center">
   <img src="https://github.com/MOSIKretto/WendyGrand/blob/develop/GUI/icon.ico" alt="WendyGrand Logo" width="150" height="150">
