@@ -34,11 +34,7 @@ public class runModules
         {
             return inputString.substring(periodIndex + 1);
         }
-        else 
-        {
-            System.out.println("К сожалению, я не могу запустить ваш файл");
-            return null;
-        }
+        else{return null;}
     }
 
     public static void run(String arg) 
@@ -90,6 +86,12 @@ public class runModules
                 ProcessBuilder pb = new ProcessBuilder(extension, Paths.get(currentDirectory, arg).toString());
                 pb.inheritIO();
                 pb.start().waitFor();
+            }
+            else if (new File(Paths.get(currentDirectory, arg).toString()).canExecute() && extension == null) 
+            {   
+                ProcessBuilder runPb = new ProcessBuilder("./" + currentDirectory + arg);
+                runPb.inheritIO();
+                runPb.start().waitFor();
             }
         } 
         catch (IOException | InterruptedException e){}
