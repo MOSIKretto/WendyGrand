@@ -66,15 +66,15 @@ public class runModules
             }
         } 
         else if ("cpp".equals(extension) || "c".equals(extension)) 
-            {
-                String baseName = new File(arg).getName().replaceFirst("[.][^.]+$", "");
-                String executablePath = Paths.get(currentDirectory, baseName).toString();
-                ProcessBuilder compilePb = new ProcessBuilder("g++", Paths.get(currentDirectory, arg).toString(), "-o", executablePath);
-                compilePb.inheritIO();
-                compilePb.start().waitFor();
+        {
+            String baseName = new File(arg).getName().replaceFirst("[.][^.]+$", "");
+            String executablePath = Paths.get(currentDirectory, baseName).toString();
+            ProcessBuilder compilePb = new ProcessBuilder("g++", Paths.get(currentDirectory, arg).toString(), "-o", executablePath);
+            compilePb.inheritIO();
+            compilePb.start().waitFor();
 
-                startModules("./" + executablePath);
-            }
+            startModules("./" + executablePath);
+        }
         else if ("go".equals(extension)) 
         {
             startModules("go", "run", Paths.get(currentDirectory, arg).toString());
