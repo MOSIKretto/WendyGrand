@@ -6,25 +6,22 @@ import vosk
 import time
 import re
 
-# Инициализация Voiceover
+
 ActionsVoiceover.HelloVoiceover()
 
-# Инициализация очереди и модели Vosk
-q = asyncio.Queue(maxsize=500)
+q = asyncio.Queue(maxsize=1000)
 model = vosk.Model("model_small")
 device = sd.default.device
 samplerate = int(sd.query_devices(device[0], 'input')['default_samplerate'])
 last_command = ""
 command_timer = 0
-remove_word = re.compile(r"\b(привет|чем|могу|помочь|я|здравствуйте|здесь|естественно)\b")
+remove_word = re.compile(r"\b(привет|чем|могу|помочь|я|здравствуйте|здесь|естественно)\b", re.IGNORECASE)
 
-# Функция для завершения работы
 def goodbye(text):
     print("Распознано:", text)
     ActionsVoiceover.ByeVoiceover()
     raise asyncio.CancelledError("Program finished")
 
-# Функция для проверки распознанного текста
 def Checking(text):
     global last_command, command_timer
 
@@ -53,7 +50,6 @@ def Checking(text):
                 subprocess.run(["java", "-cp", ".", "Java_Dictionary", text])
                 last_command = ""
 
-# Асинхронная функция для распознавания речи
 async def Recognizer(q):
     rec = vosk.KaldiRecognizer(model, samplerate)
 
@@ -65,17 +61,19 @@ async def Recognizer(q):
         else:
             rec.PartialResult()
 
-# Асинхронная функция для захвата аудио
 async def capture_audio(q):
     def callback(indata, frames, time, status):
-        q.put_nowait(bytes(indata))
+        try:
+            q.put_nowait(bytes(indata))
+        except asyncio.QueueFull:
+            pass
 
     with sd.RawInputStream(samplerate=samplerate, blocksize=3000, device=device[0], dtype='int16',
                            channels=1, callback=callback):
         while True:
-            await asyncio.sleep(0.05)  # Уменьшаем задержку для более быстрой обработки
+            await asyncio.sleep(0.05)
 
-# Запуск асинхронных задач
+
 async def main():
     recognizer_task = asyncio.create_task(Recognizer(q))
     capture_task = asyncio.create_task(capture_audio(q))
@@ -87,5 +85,4 @@ async def main():
         capture_task.cancel()
         await asyncio.gather(recognizer_task, capture_task, return_exceptions=True)
 
-# Запуск асинхронного цикла
 asyncio.run(main())

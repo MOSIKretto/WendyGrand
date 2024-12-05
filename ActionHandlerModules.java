@@ -1,32 +1,28 @@
 import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.FileReader;
 import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 
 public class ActionHandlerModules 
 {
-    public static void TXTreader(String word)
+    public static void TXTreader(String word) throws IOException, InterruptedException
     {
-        try 
+        BufferedReader reader = new BufferedReader(new FileReader("../WendyGrand/Modules/Dictionary.txt"));
+        String line;
+
+        while ((line = reader.readLine()) != null) 
         {
-            BufferedReader reader = new BufferedReader(new FileReader("../WendyGrand/Modules/Dictionary.txt"));
-            String line;
-
-            while ((line = reader.readLine()) != null) 
+            if (line.startsWith(word)) 
             {
-                if (line.startsWith(word)) 
-                {
-                    String function = line.split("=")[1];
-                    functionStart(function);
-                }
+                String function = line.split("=")[1];
+                functionStart(function);
             }
-
-            reader.close();
         }
-        catch (IOException e){}
+
+        reader.close();
     }
 
-    private static void functionStart(String function)
+    private static void functionStart(String function) throws IOException, InterruptedException
     {
         File Modules = new File("../WendyGrand/Modules/YourModules/");
         File[] files = Modules.listFiles();
@@ -36,6 +32,7 @@ public class ActionHandlerModules
         if (files != null && ModulesCheck.exists()) 
         {
             System.out.println("Активация модуля: " + function);
+        
             VoiceoverScript("../WendyGrand/Voiceover.py", "StandardModule_StandardResponse");
             runModules.run(function);
         }
@@ -45,13 +42,9 @@ public class ActionHandlerModules
         }
     }
 
-    private static void VoiceoverScript(String scriptPath, String arg) 
+    private static void VoiceoverScript(String... scriptPath) throws IOException
     {
-        ProcessBuilder builder = new ProcessBuilder("python3", scriptPath, arg);
-        try 
-        {
-            builder.start();
-        } 
-        catch (IOException e){}
+        ProcessBuilder builder = new ProcessBuilder("python3", scriptPath[0], scriptPath[1]);
+        builder.start();
     }
 }

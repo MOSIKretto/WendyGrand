@@ -6,6 +6,7 @@ import java.util.List;
 
 public class runModules 
 {
+    //для Python на наличие venv
     private static List<String> listFoldersInCurrentDirectory(String path) 
     {
         List<String> folders = new ArrayList<>();
@@ -27,6 +28,7 @@ public class runModules
         return folders;
     }
 
+    //определение языка
     private static String sliceUntilPeriod(String inputString) 
     {
         int periodIndex = inputString.lastIndexOf('.');
@@ -37,33 +39,33 @@ public class runModules
         else{return null;}
     }
 
-    public static void run(String arg) 
+    //запуск модуля
+    private static void startModules(String... command) throws IOException, InterruptedException 
     {
-        
-        String extension = sliceUntilPeriod(arg);
-        String currentDirectory = "../WendyGrand/Modules/YourModules/";
-        List<String> currentFolders = listFoldersInCurrentDirectory(currentDirectory);
+        ProcessBuilder pb = new ProcessBuilder(command);
+        pb.inheritIO();
+        pb.start();
+    }
 
-        try 
+    //проверка на язык
+    private static void executeModule(String extension, String arg, String currentDirectory) throws IOException, InterruptedException 
+    {
+        if ("py".equals(extension)) 
         {
-            if ("py".equals(extension)) 
+            List<String> currentFolders = listFoldersInCurrentDirectory(currentDirectory);
+
+            if (currentFolders.contains("venv")) 
             {
-                if (currentFolders.contains("venv")) 
-                {
-                    String venvActivateScript = Paths.get(currentDirectory, "venv", "bin", "activate").toString();
-                    String command = String.format("source %s && python3 %s", venvActivateScript, Paths.get(currentDirectory, arg).toString());
-                    ProcessBuilder pb = new ProcessBuilder("bash", "-c", command);
-                    pb.inheritIO();
-                    pb.start().waitFor();
-                } 
-                else 
-                {
-                    ProcessBuilder pb = new ProcessBuilder("python3", Paths.get(currentDirectory, arg).toString());
-                    pb.inheritIO();
-                    pb.start().waitFor();
-                }
+                String venvActivateScript = Paths.get(currentDirectory, "venv", "bin", "activate").toString();
+                String command = String.format("source %s && python3 %s", venvActivateScript, Paths.get(currentDirectory, arg).toString());
+                startModules("bash", "-c", command);
             } 
-            else if ("cpp".equals(extension) || "c".equals(extension)) 
+            else 
+            {
+                startModules("python3", Paths.get(currentDirectory, arg).toString());
+            }
+        } 
+        else if ("cpp".equals(extension) || "c".equals(extension)) 
             {
                 String baseName = new File(arg).getName().replaceFirst("[.][^.]+$", "");
                 String executablePath = Paths.get(currentDirectory, baseName).toString();
@@ -71,29 +73,27 @@ public class runModules
                 compilePb.inheritIO();
                 compilePb.start().waitFor();
 
-                ProcessBuilder runPb = new ProcessBuilder("./" + executablePath);
-                runPb.inheritIO();
-                runPb.start().waitFor();
+                startModules("./" + executablePath);
             }
-            else if ("go".equals(extension)) 
-            {
-                ProcessBuilder pb = new ProcessBuilder("go", "run", Paths.get(currentDirectory, arg).toString());
-                pb.inheritIO();
-                pb.start().waitFor();
-            }
-            else if (extension != null) 
-            {
-                ProcessBuilder pb = new ProcessBuilder(extension, Paths.get(currentDirectory, arg).toString());
-                pb.inheritIO();
-                pb.start().waitFor();
-            }
-            else if (new File(Paths.get(currentDirectory, arg).toString()).canExecute() && extension == null) 
-            {   
-                ProcessBuilder runPb = new ProcessBuilder("./" + currentDirectory + arg);
-                runPb.inheritIO();
-                runPb.start().waitFor();
-            }
-        } 
-        catch (IOException | InterruptedException e){}
+        else if ("go".equals(extension)) 
+        {
+            startModules("go", "run", Paths.get(currentDirectory, arg).toString());
+        }
+        else if (extension != null) 
+        {
+            startModules(extension, Paths.get(currentDirectory, arg).toString());
+        }
+        else if (new File(Paths.get(currentDirectory, arg).toString()).canExecute() && extension == null) 
+        {   
+            startModules("./" + Paths.get(currentDirectory, arg).toString());
+        }
+    }
+
+    public static void run(String arg) throws IOException, InterruptedException
+    {
+        String extension = sliceUntilPeriod(arg);
+        String currentDirectory = "../WendyGrand/Modules/YourModules/";
+
+        executeModule(extension, arg, currentDirectory);
     }
 }

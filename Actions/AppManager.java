@@ -12,7 +12,7 @@ public class AppManager
         if (os.contains("nux") || os.contains("nix")) 
         {
             try{runtime.exec(App);} 
-            catch (IOException ignored){}
+            catch (IOException e){}
         }
     }
 }

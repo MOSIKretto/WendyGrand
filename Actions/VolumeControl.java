@@ -118,6 +118,10 @@ public class VolumeControl
         numberMap.put("уменьшить громкость", -3);
         numberMap.put("увеличить громкость", -2);
         numberMap.put("уменьшить громкость", -3);
+        numberMap.put("громкость больше", -2);
+        numberMap.put("громкость меньше", -3);
+        numberMap.put("звук больше", -2);
+        numberMap.put("звук меньше", -3);
     }
 
     public static void VolumeArgs(String volumeText) 

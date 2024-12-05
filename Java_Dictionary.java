@@ -2,13 +2,14 @@ import java.util.stream.Collectors;
 import static java.util.Map.entry;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
 
 public class Java_Dictionary 
 {
-    public static void main(String[] args)
+    public static void main(String[] args) throws IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException, InterruptedException
     {
         for (String arg : args) 
         {
@@ -16,7 +17,7 @@ public class Java_Dictionary
             ArrayList <String> Remove = new ArrayList<String>(
                 Arrays.asList(
                     "пожалуйста", "ладно", "давай", "прямо", "сейчас", "типо", "типа", "будь", "добра", "ну", 
-                    "что-то", "открой", "блять", "нахуй", "сука",
+                    "что-то", "открой", "откройте", "блять", "нахуй", "сука",
                     //Имя
                     "венди", "среда", "вэнди"
                 )
@@ -119,8 +120,6 @@ public class Java_Dictionary
                 Arrays.asList("спящий режим", "спать", "антракт")
             );
 
-
-
             /*
             * RU Проверка на соответсвие и отдача команды на выполнение задачи 
             * EU Checking for compliance and issuing a command to complete the task
@@ -200,6 +199,7 @@ public class Java_Dictionary
             ClearText.startsWith("увеличить громкость") || ClearText.startsWith("уменьшить громкость") ||
             ClearText.startsWith("громкость больше") || ClearText.startsWith("громкость меньше") ||
             ClearText.startsWith("выключи звук") || ClearText.startsWith("включи звук") ||
+            ClearText.startsWith("звук меньше") || ClearText.startsWith("звук больше") ||
             ClearText.startsWith("громкость на") || ClearText.startsWith("громкость мне") || ClearText.startsWith("громкость"))
             {
                 ArrayList <String> VolumeClear  = new ArrayList<String>(
@@ -211,17 +211,9 @@ public class Java_Dictionary
                     .collect(Collectors.joining(" "));
 
                 ProcessBuilder builder = new ProcessBuilder("python3", "../WendyGrand/Voiceover.py", "StandardModule_StandardResponse");
-                try 
-                {
-                    builder.start();
-                } 
-                catch (IOException e){}
+                builder.start();
 
-                try 
-                {
-                    Thread.sleep(1500);
-                } 
-                catch (InterruptedException e){}
+                Thread.sleep(1500);
 
                 if (ClearTextVolume.startsWith("увеличь") || ClearTextVolume.startsWith("уменьши") ||
                 ClearTextVolume.startsWith("увеличить") || ClearTextVolume.startsWith("уменьшить"))
@@ -245,43 +237,38 @@ public class Java_Dictionary
             ClearText.startsWith("где") || ClearText.startsWith("кто такой") || ClearText.startsWith("кто") || 
             ClearText.startsWith("кто такая") || ClearText.startsWith("найти") || ClearText.startsWith("найти в интернете")) 
             {
-                if (ClearText.contains("найди на ютубе") || ClearText.contains("ищи на ютубе") || ClearText.contains("найти на ютубе") || 
+            if (ClearText.contains("найди на ютубе") || ClearText.contains("ищи на ютубе") || ClearText.contains("найти на ютубе") || 
                 ClearText.contains("найди на ютуб") || ClearText.contains("ищи на ютуб") || ClearText.contains("найти на ютуб")||
                 ClearText.contains("найди на ютюбе") || ClearText.contains("ищи на ютюбе") || ClearText.contains("найти на ютюбе") ||
                 ClearText.contains("найди на ютюб") || ClearText.contains("ищи на ютюб") || ClearText.contains("найти на ютюб"))
-                {
-                    ArrayList <String> RemoveYouTubeSearch  = new ArrayList<String>(
-                        Arrays.asList("найди", "найти", "на", "ищи", "ютубе", "ютюбе", "ютуб", "ютюб")
-                    );
+            {
+                ArrayList <String> RemoveYouTubeSearch  = new ArrayList<String>(
+                    Arrays.asList("найди", "найти", "на", "ищи", "ютубе", "ютюбе", "ютуб", "ютюб")
+                );
 
-                    String ClearTextYouTubeSearch = Arrays.stream(ClearText.split("\\s+"))
-                        .filter(word -> !RemoveYouTubeSearch.contains(word))
-                        .collect(Collectors.joining("%20"));
+                String ClearTextYouTubeSearch = Arrays.stream(ClearText.split("\\s+"))
+                    .filter(word -> !RemoveYouTubeSearch.contains(word))
+                    .collect(Collectors.joining("%20"));
 
-                    ActionHandler.CallFunction(FunctionsDictionary.get("YouTubeSearch"));
-                    ActionHandler.CallYouTubeSearch("https://www.youtube.com/results?search_query=", ClearTextYouTubeSearch);
-                }
-                else
-                {
-                    ArrayList <String> RemoveWebSearch  = new ArrayList<String>(
-                        Arrays.asList("найди", "найти", "в", "интернете", "ищи")
-                    );
-
-                    String ClearTextWebSearch = Arrays.stream(ClearText.split("\\s+"))
-                        .filter(word -> !RemoveWebSearch.contains(word))
-                        .collect(Collectors.joining("%20"));
-
-                    ActionHandler.CallFunction(FunctionsDictionary.get("WebSearch"));
-                    ActionHandler.CallWebSearch("https://duckduckgo.com/?q=", ClearTextWebSearch);
-                }
+                ActionHandler.CallFunction(FunctionsDictionary.get("YouTubeSearch"), "https://www.youtube.com/results?search_query=", ClearTextYouTubeSearch);
             }
-            //--------------------------------------------------------------------------------------------------------------
-            
-            //Модульность 
             else
             {
-                if (!ClearText.equals("")){ActionHandlerModules.TXTreader(ClearText);}
+                ArrayList <String> RemoveWebSearch  = new ArrayList<String>(
+                    Arrays.asList("найди", "найти", "в", "интернете", "ищи")
+                );
+
+                String ClearTextWebSearch = Arrays.stream(ClearText.split("\\s+"))
+                    .filter(word -> !RemoveWebSearch.contains(word))
+                    .collect(Collectors.joining("%20"));
+
+                ActionHandler.CallFunction(FunctionsDictionary.get("WebSearch"), "https://duckduckgo.com/?q=", ClearTextWebSearch);
             }
+            }
+            //--------------------------------------------------------------------------------------------------------------
+                        
+            //Модульность 
+            if (!ClearText.equals("")){ActionHandlerModules.TXTreader(ClearText);}
         }
     }
 }

@@ -6,21 +6,20 @@ import Actions.*;
 
 public class ActionHandler
 {
-    public static void CallFunction(String FunctionName)
+    public static void CallFunction(String FunctionName, Object... args) throws IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException, InterruptedException
     {
         ProcessBuilder builderVoiceover = new ProcessBuilder("python3", "Voiceover.py", FunctionName + "Voiceover");
-        try
+        Process process = builderVoiceover.start();
+        process.waitFor();
+        
+        Class<?>[] parameterTypes = new Class<?>[args.length];
+        for (int i = 0; i < args.length; i++) 
         {
-            builderVoiceover.start().waitFor();
+            parameterTypes[i] = args[i].getClass();
         }
-        catch (IOException | InterruptedException e){}
-        try
-        {
-            Method method = ActionHandler.class.getDeclaredMethod(FunctionName);
-            method.invoke(null);
-        }
-        catch (NoSuchMethodException ignored){}
-        catch (InvocationTargetException | IllegalAccessException e){}
+        
+        Method method = ActionHandler.class.getDeclaredMethod(FunctionName, parameterTypes);
+        method.invoke(null, args);
     }
     
     //Вызов приложений
