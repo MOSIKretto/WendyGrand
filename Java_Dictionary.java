@@ -1,8 +1,7 @@
+import java.lang.reflect.InvocationTargetException;
 import java.util.stream.Collectors;
 import static java.util.Map.entry;
-
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
