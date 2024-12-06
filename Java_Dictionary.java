@@ -60,7 +60,7 @@ public class Java_Dictionary
 
 
             ArrayList <String> Hello = new ArrayList<String>(
-                Arrays.asList("привет", "здравствуй", "ты тут")
+                Arrays.asList("здравствуй", "ты тут")
             );
             
 
@@ -95,7 +95,7 @@ public class Java_Dictionary
 
 
             ArrayList <String> Notes = new ArrayList<String>(
-                Arrays.asList("заметки")
+                Arrays.asList("обсидиан", "заметки")
             );
 
             ArrayList <String> CodeEditor = new ArrayList<String>(
