@@ -1,5 +1,5 @@
 from playsound3 import playsound
-from random import randint
+from random import choice, randint
 import sys
 
 AUDIO_DIR = "../WendyGrand/Audio/"
@@ -21,21 +21,13 @@ class ActionsVoiceover:
 
     @staticmethod
     def HelloVoiceover():
-        executive_voice = randint(0, 1)
-        if executive_voice == 0:
-            playsound(AUDIO_DIR + 'LaunchScriptsAndReadyToWork.mp3')
-        else:
-            playsound(AUDIO_DIR + 'HellowStartWork.mp3')
+        executive_voice = choice(['LaunchScriptsAndReadyToWork.mp3', 'HellowStartWork.mp3'])
+        playsound(AUDIO_DIR + executive_voice)
 
     @staticmethod
     def ByeVoiceover():
-        executive_voice = randint(0, 2)
-        if executive_voice == 0:
-            playsound(AUDIO_DIR + 'ByeBye.mp3')
-        elif executive_voice == 1:
-            playsound(AUDIO_DIR + 'GladToHelp.mp3')
-        else:
-            playsound(AUDIO_DIR + 'Goodbye.mp3')
+        executive_voice = choice(['ByeBye.mp3', 'GladToHelp.mp3', 'Goodbye.mp3'])
+        playsound(AUDIO_DIR + executive_voice)
 
 #----------------------------------------------------------------------------------------------------------------------------------
 
