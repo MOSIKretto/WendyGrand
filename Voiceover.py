@@ -1,5 +1,5 @@
 from playsound3 import playsound
-from random import choice, randint
+from random import choice
 import sys
 
 AUDIO_DIR = "../WendyGrand/Audio/"
@@ -22,204 +22,122 @@ class ActionsVoiceover:
     @staticmethod
     def HelloVoiceover():
         executive_voice = choice(['LaunchScriptsAndReadyToWork.mp3', 'HellowStartWork.mp3'])
-        playsound(AUDIO_DIR + executive_voice)
+        ActionsVoiceover.ActivateVoice(executive_voice)
 
     @staticmethod
     def ByeVoiceover():
         executive_voice = choice(['ByeBye.mp3', 'GladToHelp.mp3', 'Goodbye.mp3'])
-        playsound(AUDIO_DIR + executive_voice)
+        ActionsVoiceover.ActivateVoice(executive_voice)
 
 #----------------------------------------------------------------------------------------------------------------------------------
 
     @staticmethod
     def CallHelloVoiceover():
-        executive_voice = randint(0, 1)
-        if executive_voice == 0:
-            playsound(AUDIO_DIR + 'Hello.mp3')
-        else:
-            playsound(AUDIO_DIR + 'ImHere.mp3')
+        executive_voice = choice(['Hello.mp3', 'ImHere.mp3'])
+        ActionsVoiceover.ActivateVoice(executive_voice)
 
 #----------------------------------------------------------------------------------------------------------------------------------
 
     @staticmethod
     def CallBrowserVoiceover():
-        executive_voice = randint(0, 2)
-        if executive_voice == 0:
-            playsound(AUDIO_DIR + 'BrowserOpen.mp3')
-        elif executive_voice == 1:
-            playsound(AUDIO_DIR + 'OpeningBrowser.mp3')
-        else:
-            ActionsVoiceover.StandardModule_StandardResponse()
+        executive_voice = choice(['BrowserOpen.mp3', 'OpeningBrowser.mp3', 'ActionsVoiceover.StandardModule_StandardResponse()'])
+        ActionsVoiceover.ActivateVoice(executive_voice)
 
     @staticmethod
     def CallConductorVoiceover():
-        executive_voice = randint(0, 2)
-        if executive_voice == 0:
-            playsound(AUDIO_DIR + 'GuideForSystemOpen.mp3')
-        elif executive_voice == 1:
-            playsound(AUDIO_DIR + 'OpeningGuideForSystem.mp3')
-        else:
-            ActionsVoiceover.StandardModule_StandardResponse()
+        executive_voice = choice(['GuideForSystemOpen.mp3', 'OpeningGuideForSystem.mp3', 'ActionsVoiceover.StandardModule_StandardResponse()'])
+        ActionsVoiceover.ActivateVoice(executive_voice)
 
     @staticmethod
     def CallTerminalVoiceover():
-        executive_voice = randint(0, 2)
-        if executive_voice == 0:
-            playsound(AUDIO_DIR + 'TerminalOpen.mp3')
-        elif executive_voice == 1:
-            playsound(AUDIO_DIR + 'OpeningTerminal.mp3')
-        else:
-            ActionsVoiceover.StandardModule_StandardResponse()
+        executive_voice = choice(['TerminalOpen.mp3', 'OpeningTerminal.mp3', 'ActionsVoiceover.StandardModule_StandardResponse()'])
+        ActionsVoiceover.ActivateVoice(executive_voice)
 
     @staticmethod
     def CallStoresVoiceover():
-        executive_voice = randint(0, 3)
-        if executive_voice == 0:
-            playsound(AUDIO_DIR + 'FindSomthing.mp3')
-        elif executive_voice == 1:
-            playsound(AUDIO_DIR + 'OpeningStore.mp3')
-        elif executive_voice == 2:
-            playsound(AUDIO_DIR + 'TheStoreIsOpen.mp3')
-        else:
-            ActionsVoiceover.StandardModule_StandardResponse()
+        executive_voice = choice(['FindSomthing.mp3', 'OpeningStore.mp3', 'TheStoreIsOpen.mp3', 'ActionsVoiceover.StandardModule_StandardResponse()'])
+        ActionsVoiceover.ActivateVoice(executive_voice)
 
     @staticmethod
     def CallOfficeVoiceover():
-        executive_voice = randint(0, 2)
-        if executive_voice == 0:
-            playsound(AUDIO_DIR + 'OfficeOpen.mp3')
-        elif executive_voice == 1:
-            playsound(AUDIO_DIR + 'OpeningOffice.mp3')
-        else:
-            ActionsVoiceover.StandardModule_StandardResponse()
+        executive_voice = choice(['OfficeOpen.mp3', 'OpeningOffice.mp3', 'ActionsVoiceover.StandardModule_StandardResponse()'])
+        ActionsVoiceover.ActivateVoice(executive_voice)
 
 #----------------------------------------------------------------------------------------------------------------------------------
 
     @staticmethod
     def CallMessengerVoiceover():
-        executive_voice = randint(0, 2)
-        if executive_voice == 0:
-            playsound(AUDIO_DIR + 'MessengerOpen.mp3')
-        elif executive_voice == 1:
-            playsound(AUDIO_DIR + 'OpeningMessenger.mp3')
-        else:
-            ActionsVoiceover.StandardModule_StandardResponse()
+        executive_voice = choice(['MessengerOpen.mp3', 'OpeningMessenger.mp3', 'ActionsVoiceover.StandardModule_StandardResponse()'])
+        ActionsVoiceover.ActivateVoice(executive_voice)
 
     @staticmethod
     def CallSocialNetworkVoiceover():
-        executive_voice = randint(0, 2)
-        if executive_voice == 0:
-            playsound(AUDIO_DIR + 'SocialNetworkOpen.mp3')
-        elif executive_voice == 1:
-            playsound(AUDIO_DIR + 'OpeningSocialNetwork.mp3')
-        else:
-            ActionsVoiceover.StandardModule_StandardResponse()
+        executive_voice = choice(['SocialNetworkOpen.mp3', 'OpeningSocialNetwork.mp3', 'ActionsVoiceover.StandardModule_StandardResponse()'])
+        ActionsVoiceover.ActivateVoice(executive_voice)
 
 #----------------------------------------------------------------------------------------------------------------------------------
 
     @staticmethod
     def CallNotesVoiceover():
-        executive_voice = randint(0, 3)
-        if executive_voice == 0:
-            playsound(AUDIO_DIR + 'NotesOpen.mp3')
-        elif executive_voice == 1:
-            playsound(AUDIO_DIR + 'GoodLuckToTheJob.mp3')
-        elif executive_voice == 2:
-            playsound(AUDIO_DIR + 'OpeningNotes.mp3')
-        else:
-            ActionsVoiceover.StandardModule_StandardResponse()
+        executive_voice = choice(['NotesOpen.mp3', 'GoodLuckToTheJob.mp3', 'OpeningNotes.mp3', 'ActionsVoiceover.StandardModule_StandardResponse()'])
+        ActionsVoiceover.ActivateVoice(executive_voice)
 
     @staticmethod
     def CallCodeEditorVoiceover():
-        executive_voice = randint(0, 3)
-        if executive_voice == 0:
-            playsound(AUDIO_DIR + 'GoodLuckToTheJob.mp3')
-        elif executive_voice == 1:
-            playsound(AUDIO_DIR + 'OpeningCodeEditor.mp3')
-        elif executive_voice == 2:
-            playsound(AUDIO_DIR + 'CodeEditorOpen.mp3')
-        else:
-            ActionsVoiceover.StandardModule_StandardResponse()
+        executive_voice = choice(['GoodLuckToTheJob.mp3', 'OpeningCodeEditor.mp3', 'CodeEditorOpen.mp3', 'ActionsVoiceover.StandardModule_StandardResponse()'])
+        ActionsVoiceover.ActivateVoice(executive_voice)
 
 #----------------------------------------------------------------------------------------------------------------------------------
 
     @staticmethod
     def CallRebootVoiceover():
-        executive_voice = randint(0, 1)
-        if executive_voice == 0:
-            playsound(AUDIO_DIR + 'Rebooting.mp3')
-        else:
-            ActionsVoiceover.StandardModule_StandardResponse()
+        executive_voice = choice(['Rebooting.mp3', 'ActionsVoiceover.StandardModule_StandardResponse()'])
+        ActionsVoiceover.ActivateVoice(executive_voice)
 
     @staticmethod
     def CallShutdownVoiceover():
-        executive_voice = randint(0, 1)
-        if executive_voice == 0:
-            playsound(AUDIO_DIR + 'ShuttingDown.mp3')
-        else:
-            ActionsVoiceover.StandardModule_StandardResponse()
+        executive_voice = choice(['ShuttingDown.mp3'])
+        ActionsVoiceover.ActivateVoice(executive_voice)
 
     @staticmethod
     def CallSleepVoiceover():
-        executive_voice = randint(0, 1)
-        if executive_voice == 0:
-            playsound(AUDIO_DIR + 'Sleeping.mp3')
-        else:
-            ActionsVoiceover.StandardModule_StandardResponse()
+        executive_voice = choice(['Sleeping.mp3', 'ActionsVoiceover.StandardModule_StandardResponse()'])
+        ActionsVoiceover.ActivateVoice(executive_voice)
 
 #----------------------------------------------------------------------------------------------------------------------------------
 
     @staticmethod
     def CallWebSearchVoiceover():
-        executive_voice = randint(0, 3)
-        if executive_voice == 0:
-            playsound(AUDIO_DIR + 'LookingForYourRequestOnTheInternet.mp3')
-        elif executive_voice == 1:
-            playsound(AUDIO_DIR + 'AskingOnTheInternet.mp3')
-        elif executive_voice == 2:
-            playsound(AUDIO_DIR + 'WillFindIt.mp3')
-        else:
-            ActionsVoiceover.StandardModule_StandardResponse()
+        executive_voice = choice(['LookingForYourRequestOnTheInternet.mp3', 'AskingOnTheInternet.mp3',
+                                  'WillFindIt.mp3', 'ActionsVoiceover.StandardModule_StandardResponse()'])
+        ActionsVoiceover.ActivateVoice(executive_voice)
 
     @staticmethod
     def CallYouTubeSearchVoiceover():
-        executive_voice = randint(0, 3)
-        if executive_voice == 0:
-            playsound(AUDIO_DIR + 'TryingToFindYourYouTubeRequest.mp3')
-        elif executive_voice == 1:
-            playsound(AUDIO_DIR + 'LookingForYourYouTubeRequest.mp3')
-        elif executive_voice == 2:
-            playsound(AUDIO_DIR + 'WillFindIt.mp3')
-        else:
-            ActionsVoiceover.StandardModule_StandardResponse()
+        executive_voice = choice(['TryingToFindYourYouTubeRequest.mp3', 'LookingForYourYouTubeRequest.mp3', 
+                                  'WillFindIt.mp3', 'ActionsVoiceover.StandardModule_StandardResponse()'])
+        ActionsVoiceover.ActivateVoice(executive_voice)
 
 #----------------------------------------------------------------------------------------------------------------------------------
 
     @staticmethod
     def StandardModule_StandardResponse():
-        executive_voice = randint(0, 5)
-        if executive_voice == 0:
-            playsound(AUDIO_DIR + 'OneMoment.mp3')
-        elif executive_voice == 1:
-            playsound(AUDIO_DIR + 'Doing.mp3')
-        elif executive_voice == 2:
-            playsound(AUDIO_DIR + 'Done.mp3')
-        elif executive_voice == 3:
-            playsound(AUDIO_DIR + 'AlwaysAPleasure.mp3')
-        elif executive_voice == 4:
-            playsound(AUDIO_DIR + 'OneSecond.mp3')
-        else:
-            playsound(AUDIO_DIR + 'Second.mp3')
+        executive_voice = choice(['OneMoment.mp3', 'Doing.mp3', 'Done.mp3', 'AlwaysAPleasure.mp3', 'OneSecond.mp3', 'Second.mp3'])
+        playsound(AUDIO_DIR + executive_voice)
 
     @staticmethod
     def ErrModule():
-        executive_voice = randint(0, 1)
-        if executive_voice == 0:
-            playsound(AUDIO_DIR + 'CouldntFindYouModuleMaybeYouDidntAddItToYourModues.mp3')
-        else:
-            playsound(AUDIO_DIR + 'SorryICouldntFindYourModule.mp3')
+        executive_voice = choice(['CouldntFindYouModuleMaybeYouDidntAddItToYourModues.mp3', 'SorryICouldntFindYourModule.mp3'])
+        ActionsVoiceover.ActivateVoice(executive_voice)
 
 #----------------------------------------------------------------------------------------------------------------------------------
+
+    @staticmethod
+    def ActivateVoice(executive_voice):
+        if executive_voice != 'ActionsVoiceover.StandardModule_StandardResponse()':
+            playsound(AUDIO_DIR + executive_voice)
+        else:
+            ActionsVoiceover.StandardModule_StandardResponse()
 
 if len(sys.argv) > 1:
     eval("ActionsVoiceover." + sys.argv[1] + "()")
