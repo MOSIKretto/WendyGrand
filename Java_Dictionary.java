@@ -59,7 +59,7 @@ public class Java_Dictionary
 
 
             ArrayList <String> Hello = new ArrayList<String>(
-                Arrays.asList("здравствуй", "ты тут")
+                Arrays.asList("здравствуй", "ты тут", "привет")
             );
             
 

@@ -2,10 +2,8 @@ from playsound3 import playsound
 from random import choice
 import sys
 
-AUDIO_DIR = "../WendyGrand/Audio/"
-
 '''
-Универсальные файлы озвучкиб которые подайдут к большенсву функций:
+Универсальные файлы озвучки которые подайдут к большенсву функций:
 ###################################################################
 Doing.mp3
 Done.mp3
@@ -123,7 +121,7 @@ class ActionsVoiceover:
     @staticmethod
     def StandardModule_StandardResponse():
         executive_voice = choice(['OneMoment.mp3', 'Doing.mp3', 'Done.mp3', 'AlwaysAPleasure.mp3', 'OneSecond.mp3', 'Second.mp3'])
-        playsound(AUDIO_DIR + executive_voice)
+        playsound("../WendyGrand/Audio/" + executive_voice)
 
     @staticmethod
     def ErrModule():
@@ -135,7 +133,7 @@ class ActionsVoiceover:
     @staticmethod
     def ActivateVoice(executive_voice):
         if executive_voice != 'ActionsVoiceover.StandardModule_StandardResponse()':
-            playsound(AUDIO_DIR + executive_voice)
+            playsound("../WendyGrand/Audio/" + executive_voice)
         else:
             ActionsVoiceover.StandardModule_StandardResponse()
 
