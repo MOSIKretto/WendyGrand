@@ -71,8 +71,6 @@ public class runModules
 
             startModules("./" + executablePath);
         }
-        else if ("go".equals(extension)){
-            startModules("go", "run", Paths.get(currentDirectory, arg).toString());}
         else if ("rs".equals(extension)) 
         {
             String baseName = new File(arg).getName().replaceFirst("[.][^.]+$", "");
@@ -81,9 +79,11 @@ public class runModules
             .inheritIO()
             .start()
             .waitFor();
-    
+            
             startModules("./" + executablePath);
         }
+        else if ("go".equals(extension)){
+            startModules("go", "run", Paths.get(currentDirectory, arg).toString());}
         else if (extension != null){
             startModules(extension, Paths.get(currentDirectory, arg).toString());}
         else if (new File(Paths.get(currentDirectory, arg).toString()).canExecute() && extension == null){
