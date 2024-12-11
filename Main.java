@@ -49,18 +49,14 @@ public class Main
     //запуск Wendy
     private static void Start() throws IOException, InterruptedException 
     {
-        ProcessBuilder builderGui = new ProcessBuilder("bash", "-c", "source venv/bin/activate; python3 ../WendyGrand/GUI/MW_Window.py");
-        ProcessBuilder builderRecognizer = new ProcessBuilder("bash", "-c", "source venv/bin/activate; python3 Recognizer.py").inheritIO();
-        ProcessBuilder builderGlava = new ProcessBuilder("bash", "-c", "glava --desktop --force-mod=bars");
-
         ExecutorService executor = Executors.newFixedThreadPool(3);
 
-        Process processRecognizer = builderRecognizer.start();
-        Process processGui = builderGui.start();
-        Process processGlava = builderGlava.start();
+        Process builderGui = new ProcessBuilder("bash", "-c", "source venv/bin/activate; python3 ../WendyGrand/GUI/MW_Window.py").start();
+        Process builderRecognizer = new ProcessBuilder("bash", "-c", "source venv/bin/activate; python3 Recognizer.py").inheritIO().start();
+        Process builderGlava = new ProcessBuilder("bash", "-c", "glava --desktop --force-mod=bars").start();
 
-        executor.submit(() -> waitForKill(processRecognizer, processGui, processGlava));
-        executor.submit(() -> waitForKill(processGui, processRecognizer, processGlava));
+        executor.submit(() -> waitForKill(builderRecognizer, builderGui, builderGlava));
+        executor.submit(() -> waitForKill(builderGui, builderRecognizer, builderGlava));
 
         executor.shutdown();
     }
