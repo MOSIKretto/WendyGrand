@@ -12,7 +12,7 @@ public class Java_Dictionary
     {
         for (String arg : args) 
         {
-
+            //слова для выреза
             ArrayList <String> Remove = new ArrayList<String>(
                 Arrays.asList(
                     "пожалуйста", "ладно", "давай", "прямо", "сейчас", "типо", "типа", "будь", "добра", "ну", 
@@ -31,6 +31,7 @@ public class Java_Dictionary
             * EU Dictionaries with commands
             */
 
+            //передача в ActionHandler
             Map <String, String> FunctionsDictionary = Map.ofEntries(
 
                 entry("Hello", "CallHello"), 

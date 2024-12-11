@@ -5,6 +5,7 @@ import java.io.File;
 
 public class ActionHandlerModules 
 {
+    //чтение Dictionary.txt
     public static void TXTreader(String word) throws IOException, InterruptedException
     {
         BufferedReader reader = new BufferedReader(new FileReader("../WendyGrand/Modules/Dictionary.txt"));
@@ -22,6 +23,7 @@ public class ActionHandlerModules
         reader.close();
     }
 
+    //начало запуска модуля или предупреждение что его нет
     private static void functionStart(String function) throws IOException, InterruptedException
     {
         File Modules = new File("../WendyGrand/Modules/YourModules/");
@@ -33,18 +35,19 @@ public class ActionHandlerModules
         {
             System.out.println("Активация модуля: " + function);
         
-            VoiceoverScript("../WendyGrand/Voiceover.py", "StandardModule_StandardResponse");
+            VoiceoverScript("StandardModule_StandardResponse");
             runModules.run(function);
         }
         else
         {
-            VoiceoverScript("../WendyGrand/Voiceover.py", "ErrModule");
+            VoiceoverScript("ErrModule");
         }
     }
 
-    private static void VoiceoverScript(String... scriptPath) throws IOException
+    //запуск озвучки
+    private static void VoiceoverScript(String scriptPath) throws IOException
     {
-        ProcessBuilder builder = new ProcessBuilder("python3", scriptPath[0], scriptPath[1]);
+        ProcessBuilder builder = new ProcessBuilder("python3", "../WendyGrand/Voiceover.py", scriptPath);
         builder.start();
     }
 }

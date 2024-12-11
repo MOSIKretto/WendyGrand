@@ -9,6 +9,7 @@ public class Main
 {
     public static void main(String[] args) throws IOException, InterruptedException 
     {
+        //проверка на изменение дирректории
         String nowPath = new File("").getAbsolutePath();
         String lastPath = readPathFromFile();
 
@@ -22,6 +23,7 @@ public class Main
         else {Start();}
     }
 
+    //чтение старого пути
     private static String readPathFromFile() throws IOException 
     {
         if (Files.exists(Paths.get("path.conf"))) 
@@ -31,11 +33,13 @@ public class Main
         else {return "";}
     }
 
+    //запись нового пути
     private static void writePathToFile(String path) throws IOException 
     {
         Files.write(Paths.get("path.conf"), path.getBytes());
     }
 
+    //пересобираем либы
     private static void executeRebuildScript() throws IOException, InterruptedException 
     {
         ProcessBuilder rebuildProcess = new ProcessBuilder("./Rebuild_Libs.sh");
@@ -43,6 +47,7 @@ public class Main
         rebuildProcess.start().waitFor();
     }
 
+    //запуск Wendy
     private static void Start() throws IOException, InterruptedException 
     {
         ProcessBuilder builderGui = new ProcessBuilder("bash", "-c", "source venv/bin/activate; python3 ../WendyGrand/GUI/MW_Window.py");
@@ -62,6 +67,7 @@ public class Main
         executor.shutdown();
     }
 
+    //закрытие Wendy
     private static void waitForKill(Process mainProcess, Process processToKill1, Process processToKill2) 
     {
         try 

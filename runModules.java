@@ -89,6 +89,7 @@ public class runModules
         }
     }
 
+    //активация модуля
     public static void run(String arg) throws IOException, InterruptedException
     {
         String extension = sliceUntilPeriod(arg);

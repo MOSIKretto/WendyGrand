@@ -6,6 +6,7 @@ import Actions.*;
 
 public class ActionHandler
 {
+    //запуска голоса и вызов фунции для вызова приложений
     public static void CallFunction(String FunctionName, Object... args) throws IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException, InterruptedException
     {
         ProcessBuilder builderVoiceover = new ProcessBuilder("python3", "Voiceover.py", FunctionName + "Voiceover");
