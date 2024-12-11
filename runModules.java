@@ -96,7 +96,7 @@ public class runModules {
             .waitFor();
 
             startModules("./" + executablePath);
-        } 
+        }
         else if ("js".equals(extension)) 
         {
             if (checkingTheInterpreterForJS("node")) 
