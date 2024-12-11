@@ -128,38 +128,28 @@ public class VolumeControl
     {
         int volume = convertTextToNumber(volumeText);
 
-        if (volume != -1) 
-        {
-            setSystemVolume(volume);
-        } 
-        else 
-        {
-            // Не выводим сообщение об ошибке в терминал
+        if (volume != -1){
+            setSystemVolume(volume);} 
+        else{
+            //нет такого значения
         }
     }
 
-    private static int convertTextToNumber(String text) 
-    {
-        return numberMap.getOrDefault(text, -1);
-    }
+    private static int convertTextToNumber(String text){
+        return numberMap.getOrDefault(text, -1);}
 
     private static void setSystemVolume(int volume) 
     {
         try 
         {
             String command;
-            if (volume == -2) 
-            {
-                command = "pactl set-sink-volume @DEFAULT_SINK@ +25%";
-            } 
-            else if (volume == -3) 
-            {
-                command = "pactl set-sink-volume @DEFAULT_SINK@ -25%";
-            } 
-            else 
-            {
-                command = "pactl set-sink-volume @DEFAULT_SINK@ " + volume + "%";
-            }
+            if (volume == -2){
+                command = "pactl set-sink-volume @DEFAULT_SINK@ +25%";} 
+            else if (volume == -3){
+                command = "pactl set-sink-volume @DEFAULT_SINK@ -25%";} 
+            else{
+                command = "pactl set-sink-volume @DEFAULT_SINK@ " + volume + "%";}
+                
             Runtime.getRuntime().exec(command).waitFor();
         } 
         catch (Exception e){}

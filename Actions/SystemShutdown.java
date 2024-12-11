@@ -11,8 +11,9 @@ public class SystemShutdown
 
         try 
         {
-            ProcessBuilder processBuilder = new ProcessBuilder("shutdown", arg, "now");
-            processBuilder.start().waitFor();
+            new ProcessBuilder("shutdown", arg, "now")
+            .start()
+            .waitFor();
         } 
         catch (IOException | InterruptedException e){}
     }
@@ -21,10 +22,8 @@ public class SystemShutdown
     {
         message(message);
 
-        try 
-        {
-            Runtime.getRuntime().exec("systemctl suspend");
-        } 
+        try {
+            Runtime.getRuntime().exec("systemctl suspend");} 
         catch (IOException e){}
     }
 
@@ -36,10 +35,8 @@ public class SystemShutdown
         for (int i = 5; i >= 0; i--)
         {
             System.out.println(i);
-            try
-            {
-                Thread.sleep(1000);
-            }
+            try{
+                Thread.sleep(1000);}
             catch(InterruptedException e){}
         }
     }

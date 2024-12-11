@@ -12,10 +12,8 @@ public class SearchManager
 
         if (os.contains("nux")) 
         {
-            try 
-            {
-                runtime.exec(MessageFormat.format("firefox {0}{1}", https, search));
-            } 
+            try{
+                runtime.exec(MessageFormat.format("firefox {0}{1}", https, search));} 
             catch (IOException e){}
         }
     }
