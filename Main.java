@@ -28,8 +28,7 @@ public class Main
     private static String readPathFromFile() throws IOException 
     {
         if (Files.exists(Paths.get("path.conf"))){
-            return new String(Files.readAllBytes(Paths.get("path.conf")));
-        } 
+            return new String(Files.readAllBytes(Paths.get("path.conf")));} 
         else{
             return "";}
     }
