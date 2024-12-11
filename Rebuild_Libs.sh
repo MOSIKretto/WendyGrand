@@ -6,4 +6,3 @@ pip install --upgrade pip
 pip install vosk
 pip install playsound3
 pip install sounddevice
-pip install PyQt6
