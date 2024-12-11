@@ -11,20 +11,17 @@ public class runModules
     {
         List<String> folders = new ArrayList<>();
         File directory = new File(path);
+
         if (directory.exists() && directory.isDirectory()) 
         {
-            File[] items = directory.listFiles();
+            File[] items = directory.listFiles(File::isDirectory);
             if (items != null)
             {
-                for (File item : items) 
-                {
-                    if (item.isDirectory())
-                    {
-                        folders.add(item.getName());
-                    }
-                }
+                for (File item : items){
+                    folders.add(item.getName());}
             }
         }
+
         return folders;
     }
 
@@ -32,19 +29,19 @@ public class runModules
     private static String sliceUntilPeriod(String inputString) 
     {
         int periodIndex = inputString.lastIndexOf('.');
-        if (periodIndex != -1) 
-        {
-            return inputString.substring(periodIndex + 1);
-        }
-        else{return null;}
+
+        if (periodIndex != -1){
+            return inputString.substring(periodIndex + 1);}
+        else{
+            return null;}
     }
 
     //запуск модуля
     private static void startModules(String... command) throws IOException, InterruptedException 
     {
-        ProcessBuilder pb = new ProcessBuilder(command);
-        pb.inheritIO();
-        pb.start();
+        new ProcessBuilder(command)
+        .inheritIO()
+        .start();
     }
 
     //проверка на язык
@@ -60,41 +57,29 @@ public class runModules
                 String command = String.format("source %s && python3 %s", venvActivateScript, Paths.get(currentDirectory, arg).toString());
                 startModules("bash", "-c", command);
             } 
-            else 
-            {
-                startModules("python3", Paths.get(currentDirectory, arg).toString());
-            }
+            else{
+                startModules("python3", Paths.get(currentDirectory, arg).toString());}
         } 
         else if ("cpp".equals(extension) || "c".equals(extension)) 
         {
             String baseName = new File(arg).getName().replaceFirst("[.][^.]+$", "");
             String executablePath = Paths.get(currentDirectory, baseName).toString();
-            ProcessBuilder compilePb = new ProcessBuilder("g++", Paths.get(currentDirectory, arg).toString(), "-o", executablePath);
-            compilePb.inheritIO();
-            compilePb.start().waitFor();
+            new ProcessBuilder("g++", Paths.get(currentDirectory, arg).toString(), "-o", executablePath)
+            .inheritIO()
+            .start()
+            .waitFor();
 
             startModules("./" + executablePath);
         }
-        else if ("go".equals(extension)) 
-        {
-            startModules("go", "run", Paths.get(currentDirectory, arg).toString());
-        }
-        else if (extension != null) 
-        {
-            startModules(extension, Paths.get(currentDirectory, arg).toString());
-        }
-        else if (new File(Paths.get(currentDirectory, arg).toString()).canExecute() && extension == null) 
-        {   
-            startModules("./" + Paths.get(currentDirectory, arg).toString());
-        }
+        else if ("go".equals(extension)){
+            startModules("go", "run", Paths.get(currentDirectory, arg).toString());}
+        else if (extension != null){
+            startModules(extension, Paths.get(currentDirectory, arg).toString());}
+        else if (new File(Paths.get(currentDirectory, arg).toString()).canExecute() && extension == null){
+            startModules("./" + Paths.get(currentDirectory, arg).toString());}
     }
 
     //активация модуля
-    public static void run(String arg) throws IOException, InterruptedException
-    {
-        String extension = sliceUntilPeriod(arg);
-        String currentDirectory = "../WendyGrand/Modules/YourModules/";
-
-        executeModule(extension, arg, currentDirectory);
-    }
+    public static void run(String arg) throws IOException, InterruptedException{
+        executeModule(sliceUntilPeriod(arg), arg, "../WendyGrand/Modules/YourModules/");}
 }

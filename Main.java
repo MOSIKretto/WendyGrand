@@ -20,31 +20,31 @@ public class Main
             writePathToFile(nowPath);
             Start();
         } 
-        else {Start();}
+        else{
+            Start();}
     }
 
     //чтение старого пути
     private static String readPathFromFile() throws IOException 
     {
-        if (Files.exists(Paths.get("path.conf"))) 
-        {
+        if (Files.exists(Paths.get("path.conf"))){
             return new String(Files.readAllBytes(Paths.get("path.conf")));
         } 
-        else {return "";}
+        else{
+            return "";}
     }
 
     //запись нового пути
-    private static void writePathToFile(String path) throws IOException 
-    {
-        Files.write(Paths.get("path.conf"), path.getBytes());
-    }
+    private static void writePathToFile(String path) throws IOException{
+        Files.write(Paths.get("path.conf"), path.getBytes());}
 
     //пересобираем либы
     private static void executeRebuildScript() throws IOException, InterruptedException 
     {
-        ProcessBuilder rebuildProcess = new ProcessBuilder("./Rebuild_Libs.sh");
-        rebuildProcess.inheritIO();
-        rebuildProcess.start().waitFor();
+        new ProcessBuilder("./Rebuild_Libs.sh")
+        .inheritIO()
+        .start()
+        .waitFor();
     }
 
     //запуск Wendy
@@ -79,9 +79,7 @@ public class Main
                 processToKill2.destroy();
             }
         } 
-        catch (InterruptedException e) 
-        {
-            Thread.currentThread().interrupt();
-        }
+        catch (InterruptedException e){
+            Thread.currentThread().interrupt();}
     }
 }

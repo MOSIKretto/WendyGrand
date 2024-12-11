@@ -38,16 +38,11 @@ public class ActionHandlerModules
             VoiceoverScript("StandardModule_StandardResponse");
             runModules.run(function);
         }
-        else
-        {
-            VoiceoverScript("ErrModule");
-        }
+        else{
+            VoiceoverScript("ErrModule");}
     }
 
     //запуск озвучки
-    private static void VoiceoverScript(String scriptPath) throws IOException
-    {
-        ProcessBuilder builder = new ProcessBuilder("python3", "../WendyGrand/Voiceover.py", scriptPath);
-        builder.start();
-    }
+    private static void VoiceoverScript(String scriptPath) throws IOException{
+        new ProcessBuilder("python3", "../WendyGrand/Voiceover.py", scriptPath).start();}
 }
