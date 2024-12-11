@@ -50,8 +50,7 @@ public class Main
     private static void Start() throws IOException, InterruptedException 
     {
         ProcessBuilder builderGui = new ProcessBuilder("bash", "-c", "source venv/bin/activate; python3 ../WendyGrand/GUI/MW_Window.py");
-        ProcessBuilder builderRecognizer = new ProcessBuilder("bash", "-c", "source venv/bin/activate; python3 Recognizer.py");
-        builderRecognizer.inheritIO();
+        ProcessBuilder builderRecognizer = new ProcessBuilder("bash", "-c", "source venv/bin/activate; python3 Recognizer.py").inheritIO();
         ProcessBuilder builderGlava = new ProcessBuilder("bash", "-c", "glava --desktop --force-mod=bars");
 
         ExecutorService executor = Executors.newFixedThreadPool(3);
