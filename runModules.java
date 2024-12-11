@@ -73,6 +73,17 @@ public class runModules
         }
         else if ("go".equals(extension)){
             startModules("go", "run", Paths.get(currentDirectory, arg).toString());}
+        else if ("rs".equals(extension)) 
+        {
+            String baseName = new File(arg).getName().replaceFirst("[.][^.]+$", "");
+            String executablePath = Paths.get(currentDirectory, baseName).toString();
+            new ProcessBuilder("rustc", Paths.get(currentDirectory, arg).toString(), "-o", executablePath)
+            .inheritIO()
+            .start()
+            .waitFor();
+    
+            startModules("./" + executablePath);
+        }
         else if (extension != null){
             startModules(extension, Paths.get(currentDirectory, arg).toString());}
         else if (new File(Paths.get(currentDirectory, arg).toString()).canExecute() && extension == null){
