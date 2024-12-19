@@ -6,7 +6,6 @@ import vosk
 import time
 import re
 
-
 ActionsVoiceover.HelloVoiceover()
 
 q = asyncio.Queue(maxsize=1000)
@@ -17,13 +16,13 @@ last_command = ""
 command_timer = 0
 remove_word = re.compile(r"\b(привет|чем|могу|помочь|я|здравствуйте|здесь|естественно)\b", re.IGNORECASE)
 
-#прекращение прослушки vosk
+# Прекращение прослушки vosk
 def goodbye(text):
     print("Распознано:", text)
     ActionsVoiceover.ByeVoiceover()
     raise asyncio.CancelledError("Program finished")
 
-#проверка сказанного
+# Проверка сказанного
 def Checking(text):
     global last_command, command_timer
 
@@ -31,13 +30,15 @@ def Checking(text):
         goodbye(text)
         return
 
-    if any(text.startswith(prefix) for prefix in ("венди", "среда", "вэнди")):
-        if len(text) > 5:
-            print("Распознано:", text)
-            subprocess.run(["java", "-cp", ".", "Java_Dictionary", text])
+    match = re.search(r"\b(венди|вэнди|среда)\b", text, re.IGNORECASE)
+    if match:
+        recognized_text = text[match.start():].strip()
+        print("Распознано:", recognized_text)
+        
+        if len(recognized_text) > 5:
+            subprocess.run(["java", "-cp", ".", "Java_Dictionary", recognized_text])
         else:
-            print("Распознано:", text)
-            last_command = text
+            last_command = recognized_text
             command_timer = time.time()
             ActionsVoiceover.CallHelloVoiceover()
         return
@@ -52,7 +53,7 @@ def Checking(text):
                 subprocess.run(["java", "-cp", ".", "Java_Dictionary", text])
                 last_command = ""
 
-#прослушка
+# Прослушка
 async def Recognizer(q):
     rec = vosk.KaldiRecognizer(model, samplerate)
 
@@ -64,7 +65,7 @@ async def Recognizer(q):
         else:
             rec.PartialResult()
 
-#подключение к микро
+# Подключение к микрофону
 async def capture_audio(q):
     def callback(indata, frames, time, status):
         try:
@@ -77,7 +78,7 @@ async def capture_audio(q):
         while True:
             await asyncio.sleep(0.05)
 
-#запуск прослушки и передачи с микро в текст асенхронно
+# Запуск прослушки и передачи с микрофона в текст асинхронно
 async def main():
     recognizer_task = asyncio.create_task(Recognizer(q))
     capture_task = asyncio.create_task(capture_audio(q))
