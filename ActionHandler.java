@@ -1,5 +1,7 @@
 import java.lang.reflect.InvocationTargetException;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.FileReader;
 import Actions.*;
 
 public class ActionHandler
@@ -18,34 +20,52 @@ public class ActionHandler
         
         ActionHandler.class.getDeclaredMethod(FunctionName, parameterTypes).invoke(null, args);
     }
+
+    private static String personalConfigReader(String configResult) throws IOException 
+    {
+        try (BufferedReader reader = new BufferedReader(new FileReader("../WendyGrand/Personal_Config.conf"))) 
+        {
+            String line;
+            while ((line = reader.readLine()) != null) 
+            {
+                if (line.startsWith(configResult + "=")) 
+                {
+                    int equalsIndex = line.indexOf('=');
+                    return line.substring(equalsIndex + 1);
+                }
+            }
+        }
+        return null;
+    }
     
+
     //Вызов приложений
-    public static void CallBrowser(){
-        AppManager.startApp("firefox");}
+    public static void CallBrowser() throws IOException{
+        AppManager.startApp(personalConfigReader("browser"));}
 
-    public static void CallConductor(){
-        AppManager.startApp("nautilus");}
+    public static void CallConductor() throws IOException{
+        AppManager.startApp(personalConfigReader("conductor"));}
 
-    public static void CallTerminal(){
-        AppManager.startApp("gnome-terminal");}
+    public static void CallTerminal() throws IOException{
+        AppManager.startApp(personalConfigReader("terminal"));}
 
-    public static void CallStores(){
-        AppManager.startApp("pamac-manager");}
+    public static void CallStore() throws IOException{
+        AppManager.startApp(personalConfigReader("store"));}
 
-    public static void CallOffice(){
-        AppManager.startApp("libreoffice");}
+    public static void CallOffice() throws IOException{
+        AppManager.startApp(personalConfigReader("office"));}
 
-    public static void CallMessenger(){
-        AppManager.startApp("telegram-desktop");}
+    public static void CallMessenger() throws IOException{
+        AppManager.startApp(personalConfigReader("messenger"));}
 
-    public static void CallSocialNetwork(){
-        AppManager.startApp("telegram-desktop");}
+    public static void CallSocialNetwork() throws IOException{
+        AppManager.startApp(personalConfigReader("socialnetwork"));}
 
-    public static void CallNotes(){
-        AppManager.startApp("md.obsidian.Obsidian");}
+    public static void CallNotes() throws IOException{
+        AppManager.startApp(personalConfigReader("notes"));}
 
-    public static void CallCodeEditor(){
-        AppManager.startApp("code");}
+    public static void CallCodeEditor() throws IOException{
+        AppManager.startApp(personalConfigReader("codeeditor"));}
 
     //Работа с системой
     public static void CallReboot(){
@@ -61,9 +81,9 @@ public class ActionHandler
         VolumeControl.VolumeArgs(arg);}
 
     //Поиск
-    public static void CallWebSearch(String https, String search){
-        SearchManager.startSearch(https, search);}
+    public static void CallWebSearch(String search) throws IOException{
+        SearchManager.startSearch(personalConfigReader("websearch"), search);}
 
-    public static void CallYouTubeSearch(String https, String search){
-        SearchManager.startSearch(https, search);}
+    public static void CallYouTubeSearch(String search){
+        SearchManager.startSearch("https://www.youtube.com/results?search_query=", search);}
 }

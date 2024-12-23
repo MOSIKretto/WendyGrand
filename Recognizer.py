@@ -74,10 +74,10 @@ async def capture_audio(q):
         except asyncio.QueueFull:
             pass
 
-    with sd.RawInputStream(samplerate=samplerate, blocksize=3000, device=device[0], dtype='int16',
+    with sd.RawInputStream(samplerate=samplerate, blocksize=2000, device=device[0], dtype='int16',
                            channels=1, callback=callback):
         while True:
-            await asyncio.sleep(0.05)
+            await asyncio.sleep(0.01)
 
 # Запуск прослушки и передачи с микрофона в текст асинхронно
 async def main():

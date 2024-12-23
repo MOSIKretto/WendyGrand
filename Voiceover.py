@@ -52,7 +52,7 @@ class ActionsVoiceover:
         ActionsVoiceover.ActivateVoice(executive_voice)
 
     @staticmethod
-    def CallStoresVoiceover():
+    def CallStoreVoiceover():
         executive_voice = choice(['FindSomthing.mp3', 'OpeningStore.mp3', 'TheStoreIsOpen.mp3', 'ActionsVoiceover.StandardModule_StandardResponse()'])
         ActionsVoiceover.ActivateVoice(executive_voice)
 

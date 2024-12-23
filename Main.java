@@ -27,15 +27,15 @@ public class Main
     //чтение старого пути
     private static String readPathFromFile() throws IOException 
     {
-        if (Files.exists(Paths.get("path.conf"))){
-            return new String(Files.readAllBytes(Paths.get("path.conf")));} 
+        if (Files.exists(Paths.get("path.cfg"))){
+            return new String(Files.readAllBytes(Paths.get("path.cfg")));} 
         else{
             return "";}
     }
 
     //запись нового пути
     private static void writePathToFile(String path) throws IOException{
-        Files.write(Paths.get("path.conf"), path.getBytes());}
+        Files.write(Paths.get("path.cfg"), path.getBytes());}
 
     //пересобираем либы
     private static void executeRebuildScript() throws IOException, InterruptedException 

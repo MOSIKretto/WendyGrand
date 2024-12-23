@@ -13,11 +13,8 @@ public class ActionHandlerModules
 
         while ((line = reader.readLine()) != null) 
         {
-            if (line.startsWith(word)) 
-            {
-                String function = line.split("=")[1];
-                functionStart(function);
-            }
+            if (line.startsWith(word)){
+                functionStart(line.split("=")[1]);}
         }
 
         reader.close();

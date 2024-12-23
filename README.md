@@ -4,6 +4,8 @@
   <img src="https://github.com/MOSIKretto/WendyGrand/blob/develop/GUI/icon.ico" alt="WendyGrand Logo" width="150" height="150">
 </p>
 
+## Добро пожаловать в репозиторий Wendy! Это интеллектуальный голосовой помощник для Linux, который может выполнять различные задачи на основе ваших команд.
+
 ## 📚 Описание
 
 **WendyGrand** - это инновационный проект, разработанный для помощи новичков в мире Linux и автоматизации повседневных задач. WendyGrand предоставляет базовый спектр функциональности, который можно расширять с помощью модулей. Основной код проекта написан на **Java** и **Python**.
@@ -127,28 +129,25 @@
 
   (Обновляет систему через пакетные менеджеры, указанные в заголовке)
 
-#### 2. **"Стандартный протокол" (GO)**
+#### 2. **"Стандартный протокол" (Python)**
 
 - **Венди** + "стандартный протокол"
 
   (Открывает несколько программ)
 
-  ```go
-  package main
+  ```Python
+  import subprocess
 
-  import (
-      "os/exec"
-  )
+  # Добавьте или измените список запускаемых приложений
+  programs = [
+      "firefox", 
+      "code",
+      "telegram-desktop", 
+      "md.obsidian.Obsidian"
+  ]
 
-  func main() {
-      // Добавьте или измените список запускаемых приложений
-      programs := []string{"firefox", "code", "AmneziaVPN", "telegram-desktop", "md.obsidian.Obsidian"}
-
-      for _, program := range programs {
-          cmd := exec.Command(program)
-          cmd.Start()
-      }
-  }
+  for program in programs:
+      subprocess.Popen(program)
   ```
 
 #### 3. **"Пасхалка" (C++)**
@@ -166,3 +165,7 @@
 ### Если вы хотите внести свой вклад в проект или у вас возникли вопросы/проблемы, пожалуйста, [свяжитесь с нами](https://t.me/TheElexum).
 
 # Спасибо за интерес к WendyGrand!
+
+<p align="center">
+  <a href="https://github.com/MOSIKretto/WendyGrand">GitHub</a>
+</p>

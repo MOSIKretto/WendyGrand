@@ -42,8 +42,7 @@ public class runModules {
     {
         new ProcessBuilder(command)
         .inheritIO()
-        .start()
-        .waitFor();
+        .start();
     }
 
     // Проверка интерпритатора для JS

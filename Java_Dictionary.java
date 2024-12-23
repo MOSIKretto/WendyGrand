@@ -40,7 +40,7 @@ public class Java_Dictionary
                 entry("Browser", "CallBrowser"), 
                 entry("Conductor", "CallConductor"), 
                 entry("Terminal", "CallTerminal"),
-                entry("Stores", "CallStores"),
+                entry("Store", "CallStore"),
                 entry("Office", "CallOffice"),
 
                 entry("Messenger", "CallMessenger"),
@@ -75,7 +75,7 @@ public class Java_Dictionary
                 Arrays.asList("терминал")
             );
 
-            ArrayList <String> Stores = new ArrayList<String>(
+            ArrayList <String> Store = new ArrayList<String>(
                 Arrays.asList("магазин", "стор")
             );
 
@@ -138,7 +138,11 @@ public class Java_Dictionary
                     "найди на ютубе", "ищи на ютубе", "найти на ютубе", 
                     "найди на ютуб", "ищи на ютуб", "найти на ютуб", 
                     "найди на ютюбе", "ищи на ютюбе", "найти на ютюбе", 
-                    "найди на ютюб", "ищи на ютюб", "найти на ютюб"
+                    "найди на ютюб", "ищи на ютюб", "найти на ютюб", 
+                    "найди в ютубе", "ищи в ютубе", "найти в ютубе", 
+                    "найди в ютуб", "ищи в ютуб", "найти в ютуб", 
+                    "найди в ютюбе", "ищи в ютюбе", "найти в ютюбе", 
+                    "найди в ютюб", "ищи в ютюб", "найти в ютюб"
                 )
             );
 
@@ -166,8 +170,8 @@ public class Java_Dictionary
                 ActionHandler.CallFunction(FunctionsDictionary.get("Terminal"));}
             //--------------------------------------------------------------------------------------------------------------
 
-            if (Stores.contains(ClearText)){
-                ActionHandler.CallFunction(FunctionsDictionary.get("Stores"));}
+            if (Store.contains(ClearText)){
+                ActionHandler.CallFunction(FunctionsDictionary.get("Store"));}
             //--------------------------------------------------------------------------------------------------------------
 
             if (Office.contains(ClearText)){
@@ -239,7 +243,7 @@ public class Java_Dictionary
                     .filter(word -> !RemoveYouTubeSearch.contains(word))
                     .collect(Collectors.joining("%20"));
 
-                    ActionHandler.CallFunction(FunctionsDictionary.get("YouTubeSearch"), "https://www.youtube.com/results?search_query=", ClearTextYouTubeSearch);
+                    ActionHandler.CallFunction(FunctionsDictionary.get("YouTubeSearch"), ClearTextYouTubeSearch);
                 }
                 else
                 {
@@ -251,7 +255,7 @@ public class Java_Dictionary
                     .filter(word -> !RemoveWebSearch.contains(word))
                     .collect(Collectors.joining("%20"));
 
-                    ActionHandler.CallFunction(FunctionsDictionary.get("WebSearch"), "https://duckduckgo.com/?q=", ClearTextWebSearch);
+                    ActionHandler.CallFunction(FunctionsDictionary.get("WebSearch"), ClearTextWebSearch);
                 }
             }
             //--------------------------------------------------------------------------------------------------------------
