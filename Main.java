@@ -11,9 +11,8 @@ public class Main
     {
         //проверка на изменение дирректории
         String nowPath = new File("").getAbsolutePath();
-        String lastPath = readPathFromFile();
 
-        if (!nowPath.equals(lastPath)) 
+        if (!nowPath.equals(readPathFromFile())) 
         {
             System.out.println("Изменение директории");
             executeRebuildScript();
