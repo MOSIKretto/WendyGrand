@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.io.File;
 
-public class runModules {
-
+public class runModules 
+{
     // Для Python на наличие venv
     private static List<String> listFoldersInCurrentDirectory(String path) 
     {
@@ -38,7 +38,7 @@ public class runModules {
     }
 
     // Запуск модуля
-    private static void startModules(String... command) throws IOException, InterruptedException 
+    private static void startModules(String... command) throws IOException, InterruptedException
     {
         new ProcessBuilder(command)
         .inheritIO()
@@ -79,7 +79,6 @@ public class runModules {
             String baseName = new File(arg).getName().replaceFirst("[.][^.]+$", "");
             String executablePath = Paths.get(currentDirectory, baseName).toString();
             new ProcessBuilder("g++", Paths.get(currentDirectory, arg).toString(), "-o", executablePath)
-            .inheritIO()
             .start()
             .waitFor();
 
@@ -90,7 +89,6 @@ public class runModules {
             String baseName = new File(arg).getName().replaceFirst("[.][^.]+$", "");
             String executablePath = Paths.get(currentDirectory, baseName).toString();
             new ProcessBuilder("rustc", Paths.get(currentDirectory, arg).toString(), "-o", executablePath)
-            .inheritIO()
             .start()
             .waitFor();
 

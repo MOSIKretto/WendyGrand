@@ -13,12 +13,16 @@ public class ActionHandler
         .start()
         .waitFor();
         
-        Class<?>[] parameterTypes = new Class<?>[args.length];
+        try 
+        {
+            Class<?>[] parameterTypes = new Class<?>[args.length];
 
-        for (int i = 0; i < args.length; i++) 
-        {parameterTypes[i] = args[i].getClass();}
-        
-        ActionHandler.class.getDeclaredMethod(FunctionName, parameterTypes).invoke(null, args);
+            for (int i = 0; i < args.length; i++){
+                parameterTypes[i] = args[i].getClass();}
+            
+            ActionHandler.class.getDeclaredMethod(FunctionName, parameterTypes).invoke(null, args);
+        }
+        catch (NoSuchMethodException e){}
     }
 
     private static String personalConfigReader(String configResult) throws IOException 
