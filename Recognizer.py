@@ -11,8 +11,7 @@ ActionsVoiceover.HelloVoiceover()
 
 q = asyncio.Queue(maxsize=1000)
 model = vosk.Model("model_small")
-device = sd.default.device
-samplerate = int(sd.query_devices(device[0], 'input')['default_samplerate'])
+samplerate = int(sd.query_devices(sd.default.device[0], 'input')['default_samplerate'])
 last_command = ""
 command_timer = 0
 remove_word = re.compile(r"\b(привет|чем|могу|помочь|я|здравствуйте|здесь|естественно)\b", re.IGNORECASE)
@@ -69,13 +68,9 @@ async def Recognizer(q):
 # Подключение к микрофону
 async def capture_audio(q):
     def callback(indata, frames, time, status):
-        try:
-            q.put_nowait(bytes(indata))
-        except asyncio.QueueFull:
-            pass
+        q.put_nowait(bytes(indata))
 
-    with sd.RawInputStream(samplerate=samplerate, blocksize=2000, device=device[0], dtype='int16',
-                           channels=1, callback=callback):
+    with sd.RawInputStream(samplerate=samplerate, blocksize=3000, device=sd.default.device[0], dtype='int16', channels=1, callback=callback):
         while True:
             await asyncio.sleep(0.01)
 
