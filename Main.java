@@ -40,7 +40,17 @@ public class Main
     //пересобираем либы
     private static void executeRebuildScript() throws IOException, InterruptedException 
     {
-        new ProcessBuilder("./Rebuild_Libs.sh")
+        String[] commands = 
+        {
+            "bash", "-c", """
+            javac Java_Dictionary.java && \
+            python -m venv venv && \
+            source venv/bin/activate && \
+            pip install --upgrade pip && \
+            pip install vosk playsound3 sounddevice""" //перечень библиотек
+        };
+
+        new ProcessBuilder(commands)
         .inheritIO()
         .start()
         .waitFor();
