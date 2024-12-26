@@ -58,29 +58,26 @@ public class Main
     //запуск Wendy
     private static void Start() throws IOException, InterruptedException 
     {
-        ExecutorService executor = Executors.newFixedThreadPool(3);
+        ExecutorService executor = Executors.newFixedThreadPool(2);
 
         Process builderGui = new ProcessBuilder("bash", "-c", "source venv/bin/activate; python3 ../WendyGrand/GUI/MW_Window.py").start();
-        Process builderRecognizer = new ProcessBuilder("bash", "-c", "source venv/bin/activate; python3 Recognizer.py").inheritIO().start();
-        Process builderGlava = new ProcessBuilder("bash", "-c", "glava --desktop --force-mod=bars").start();
+        Process builderRecognizer = new ProcessBuilder("bash", "-c", "source venv/bin/activate; python3 Recognizer.py")
+        .inheritIO()
+        .start();
 
-        executor.submit(() -> waitForKill(builderRecognizer, builderGui, builderGlava));
-        executor.submit(() -> waitForKill(builderGui, builderRecognizer, builderGlava));
+        executor.submit(() -> waitForKill(builderRecognizer, builderGui));
+        executor.submit(() -> waitForKill(builderGui, builderRecognizer));
 
         executor.shutdown();
     }
 
     //закрытие Wendy
-    private static void waitForKill(Process mainProcess, Process processToKill1, Process processToKill2) 
+    private static void waitForKill(Process mainProcess, Process processToKill) 
     {
         try 
         {
-            int exitCode = mainProcess.waitFor();
-            if (exitCode == 0) 
-            {
-                processToKill1.destroy();
-                processToKill2.destroy();
-            }
+            if (mainProcess.waitFor() == 0){
+                processToKill.destroy();}
         } 
         catch (InterruptedException e){
             Thread.currentThread().interrupt();}

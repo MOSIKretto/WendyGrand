@@ -7,22 +7,23 @@ import Actions.*;
 public class ActionHandler
 {
     //запуска голоса и вызов фунции для вызова приложений
-    public static void CallFunction(String FunctionName, Object... args) throws IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException, InterruptedException
+    public static void CallFunction(String FunctionName, Object... args) throws 
+    InvocationTargetException, 
+    IllegalAccessException, 
+    NoSuchMethodException, 
+    InterruptedException,
+    IOException
     {
         new ProcessBuilder("python3", "Voiceover.py", FunctionName + "Voiceover")
         .start()
         .waitFor();
         
-        try 
-        {
-            Class<?>[] parameterTypes = new Class<?>[args.length];
+        Class<?>[] parameterTypes = new Class<?>[args.length];
 
-            for (int i = 0; i < args.length; i++){
-                parameterTypes[i] = args[i].getClass();}
-            
-            ActionHandler.class.getDeclaredMethod(FunctionName, parameterTypes).invoke(null, args);
-        }
-        catch (NoSuchMethodException e){}
+        for (int i = 0; i < args.length; i++){
+            parameterTypes[i] = args[i].getClass();}
+        
+        ActionHandler.class.getDeclaredMethod(FunctionName, parameterTypes).invoke(null, args);
     }
 
     private static String personalConfigReader(String configResult) throws IOException 

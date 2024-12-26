@@ -8,7 +8,12 @@ import java.util.Map;
 
 public class Java_Dictionary 
 {
-    public static void main(String[] args) throws IOException, InvocationTargetException, IllegalAccessException, NoSuchMethodException, InterruptedException
+    public static void main(String[] args) throws
+    InvocationTargetException, 
+    IllegalAccessException, 
+    NoSuchMethodException, 
+    InterruptedException,
+    IOException
     {
         for (String arg : args) 
         {
