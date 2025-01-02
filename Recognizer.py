@@ -7,7 +7,7 @@ import time
 import re
 
 
-ActionsVoiceover.HelloVoiceover()
+ActionsVoiceover.HelloVoiceover() #Обращаться к Voiceover.java
 
 q = asyncio.Queue(maxsize=1000)
 model = vosk.Model("model_small")
@@ -19,7 +19,7 @@ remove_word = re.compile(r"\b(привет|чем|могу|помочь|я|зд�
 # Прекращение прослушки vosk
 def goodbye(text):
     print("Распознано:", text)
-    ActionsVoiceover.ByeVoiceover()
+    ActionsVoiceover.ByeVoiceover() #Обращаться к Voiceover.java
     raise asyncio.CancelledError("Program finished")
 
 # Проверка сказанного
@@ -36,11 +36,11 @@ def Checking(text):
         print("Распознано:", recognized_text)
         
         if len(recognized_text) > 5:
-            subprocess.run(["java", "-cp", ".", "Java_Dictionary", recognized_text])
+            subprocess.run(["java", "-cp", ".", "Dictionary", recognized_text])
         else:
             last_command = recognized_text
             command_timer = time.time()
-            ActionsVoiceover.CallHelloVoiceover()
+            ActionsVoiceover.CallHelloVoiceover() #Обращаться к Voiceover.java
         return
 
     if last_command and time.time() - command_timer <= 10:
@@ -50,7 +50,7 @@ def Checking(text):
                 goodbye(text)
             else:
                 print("Распознано:", text)
-                subprocess.run(["java", "-cp", ".", "Java_Dictionary", text])
+                subprocess.run(["java", "-cp", ".", "Dictionary", text])
                 last_command = ""
 
 # Прослушка

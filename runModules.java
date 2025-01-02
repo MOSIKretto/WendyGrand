@@ -117,7 +117,7 @@ public class runModules
             startModules(extension, Paths.get(currentDirectory, arg).toString());} 
         else if (new File(Paths.get(currentDirectory, arg).toString()).canExecute() && extension == null){
             startModules("./" + Paths.get(currentDirectory, arg).toString());}
-        else{//Озвучка отсутствия технологии запуска
+        else{//Озвучка отсутствия технологии запуска (Добавиться с появлением Voiceover.java)
         }
     }
 

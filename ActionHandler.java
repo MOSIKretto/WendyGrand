@@ -9,26 +9,28 @@ public class ActionHandler
     //запуска голоса и вызов фунции для вызова приложений
     public static void CallFunction(String FunctionName, Object... args) throws 
     InvocationTargetException, 
+    IllegalArgumentException, 
     IllegalAccessException, 
     NoSuchMethodException, 
-    InterruptedException,
+    InterruptedException, 
+    SecurityException,
     IOException
     {
         new ProcessBuilder("python3", "Voiceover.py", FunctionName + "Voiceover")
         .start()
         .waitFor();
-        
-        Class<?>[] parameterTypes = new Class<?>[args.length];
 
-        for (int i = 0; i < args.length; i++){
+        Class<?>[] parameterTypes = new Class<?>[args.length];
+        for (int i = 0; i < args.length; i++) {
             parameterTypes[i] = args[i].getClass();}
         
-        ActionHandler.class.getDeclaredMethod(FunctionName, parameterTypes).invoke(null, args);
+        ActionHandler.class.getDeclaredMethod(FunctionName, parameterTypes).invoke(null, args); 
     }
 
+    // Чтение конфигурации
     private static String personalConfigReader(String configResult) throws IOException 
     {
-        try (BufferedReader reader = new BufferedReader(new FileReader("../WendyGrand/Personal_Config.conf"))) 
+        try (BufferedReader reader = new BufferedReader(new FileReader("../WendyGrand/AppConfig.conf"))) 
         {
             String line;
             while ((line = reader.readLine()) != null) 
@@ -44,7 +46,7 @@ public class ActionHandler
     }
     
 
-    //Вызов приложений
+    //Вызов приложений (Добавить вызов озвучки при появлении Voiceover.java)
     public static void CallBrowser() throws IOException{
         AppManager.startApp(personalConfigReader("browser"));}
 

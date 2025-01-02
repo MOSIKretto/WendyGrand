@@ -42,11 +42,11 @@ public class Main
         String[] commands = 
         {
             "bash", "-c", """
-            javac Java_Dictionary.java && \
+            javac Dictionary.java && \
             python -m venv venv && \
             source venv/bin/activate && \
             pip install --upgrade pip && \
-            pip install vosk playsound3 sounddevice""" //перечень библиотек
+            pip install vosk playsound3 sounddevice""" //перечень библиотек (убрать playsound3 с появлением Voiceover.java)
         };
 
         new ProcessBuilder(commands)

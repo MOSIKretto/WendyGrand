@@ -45,7 +45,7 @@ public class ActionHandlerModules
             VoiceoverScript("ErrModule");}
     }
 
-    // Запуск озвучки
+    // Запуск озвучки (пропадет с появлением Voiceover.java)
     private static void VoiceoverScript(String scriptPath) throws IOException, InterruptedException
     {
         new ProcessBuilder("python3", "../WendyGrand/Voiceover.py", scriptPath)
