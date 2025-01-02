@@ -8,7 +8,7 @@ public class ActionHandlerModules
     // Чтение Dictionary.conf
     public static void TXTreader(String word) throws IOException, InterruptedException
     {
-        BufferedReader reader = new BufferedReader(new FileReader("../WendyGrand/Modules/Dictionary.conf"));
+        BufferedReader reader = new BufferedReader(new FileReader("../WendyGrand/Modules/DictionaryMod.conf"));
         String line;
 
         while ((line = reader.readLine()) != null) 

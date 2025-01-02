@@ -30,7 +30,7 @@ public class ActionHandler
     // Чтение конфигурации
     private static String personalConfigReader(String configResult) throws IOException 
     {
-        try (BufferedReader reader = new BufferedReader(new FileReader("../WendyGrand/AppConfig.conf"))) 
+        try (BufferedReader reader = new BufferedReader(new FileReader("../WendyGrand/Basic.conf"))) 
         {
             String line;
             while ((line = reader.readLine()) != null) 
