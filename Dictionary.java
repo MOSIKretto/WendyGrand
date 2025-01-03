@@ -158,58 +158,97 @@ public class Dictionary
             */
             
             //Озвучка фраз не требующей функционала
-            if (Hello.contains(ClearText)){
-                ActionHandler.CallFunction(FunctionsDictionary.get("Hello"));}
+            if (Hello.contains(ClearText))
+            {
+                ActionHandler.CallFunction(
+                    FunctionsDictionary.get("Hello"));
+            }
             //--------------------------------------------------------------------------------------------------------------
 
             //Вызов приложений
-            if (Browser.contains(ClearText)){
-                ActionHandler.CallFunction(FunctionsDictionary.get("Browser"));}
+            if (Browser.contains(ClearText))
+            {
+                ActionHandler.CallFunction(
+                    FunctionsDictionary.get("Browser"));
+            }
             //--------------------------------------------------------------------------------------------------------------
             
-            if (Conductor.contains(ClearText)){
-                ActionHandler.CallFunction(FunctionsDictionary.get("Conductor"));}
+            if (Conductor.contains(ClearText))
+            {
+                ActionHandler.CallFunction(
+                    FunctionsDictionary.get("Conductor"));
+            }
             //--------------------------------------------------------------------------------------------------------------
 
-            if (Terminal.contains(ClearText)){
-                ActionHandler.CallFunction(FunctionsDictionary.get("Terminal"));}
+            if (Terminal.contains(ClearText))
+            {
+                ActionHandler.CallFunction(
+                    FunctionsDictionary.get("Terminal"));
+            }
             //--------------------------------------------------------------------------------------------------------------
 
-            if (Store.contains(ClearText)){
-                ActionHandler.CallFunction(FunctionsDictionary.get("Store"));}
+            if (Store.contains(ClearText))
+            {
+                ActionHandler.CallFunction(
+                    FunctionsDictionary.get("Store"));
+            }
             //--------------------------------------------------------------------------------------------------------------
 
-            if (Office.contains(ClearText)){
-                ActionHandler.CallFunction(FunctionsDictionary.get("Office"));}
+            if (Office.contains(ClearText))
+            {
+                ActionHandler.CallFunction(
+                    FunctionsDictionary.get("Office"));
+            }
             //--------------------------------------------------------------------------------------------------------------
 
-            if (Messenger.contains(ClearText)){
-                ActionHandler.CallFunction(FunctionsDictionary.get("Messenger"));}
+            if (Messenger.contains(ClearText))
+            {
+                ActionHandler.CallFunction(
+                    FunctionsDictionary.get("Messenger"));
+            }
             //--------------------------------------------------------------------------------------------------------------
 
-            if (SocialNetwork.contains(ClearText)){
-                ActionHandler.CallFunction(FunctionsDictionary.get("SocialNetwork"));}
+            if (SocialNetwork.contains(ClearText))
+            {
+                ActionHandler.CallFunction(
+                    FunctionsDictionary.get("SocialNetwork"));
+            }
             //--------------------------------------------------------------------------------------------------------------
 
-            if (Notes.contains(ClearText)){
-                ActionHandler.CallFunction(FunctionsDictionary.get("Notes"));}
+            if (Notes.contains(ClearText))
+            {
+                ActionHandler.CallFunction(
+                    FunctionsDictionary.get("Notes"));
+            }
             //--------------------------------------------------------------------------------------------------------------
             
-            if (CodeEditor.contains(ClearText)){
-                ActionHandler.CallFunction(FunctionsDictionary.get("CodeEditor"));}
+            if (CodeEditor.contains(ClearText))
+            {
+                ActionHandler.CallFunction(
+                    FunctionsDictionary.get("CodeEditor"));
+            }
             //--------------------------------------------------------------------------------------------------------------
             
             //Работа с системой
-            if (Reboot.contains(ClearText)){
-                ActionHandler.CallFunction(FunctionsDictionary.get("Reboot"));}
+            if (Reboot.contains(ClearText))
+            {
+                ActionHandler.CallFunction(
+                    FunctionsDictionary.get("Reboot"));
+            }
             //--------------------------------------------------------------------------------------------------------------
 
-            if (Shutdown.contains(ClearText)){
-                ActionHandler.CallFunction(FunctionsDictionary.get("Shutdown"));}
+            if (Shutdown.contains(ClearText))
+            {
+                ActionHandler.CallFunction(
+                    FunctionsDictionary.get("Shutdown"));
+            }
             //--------------------------------------------------------------------------------------------------------------
 
-            if (Sleep.contains(ClearText)){
-                ActionHandler.CallFunction(FunctionsDictionary.get("Sleep"));}
+            if (Sleep.contains(ClearText))
+            {
+                ActionHandler.CallFunction(
+                    FunctionsDictionary.get("Sleep"));
+            }
             //--------------------------------------------------------------------------------------------------------------
 
             if (Volume.stream().anyMatch(ClearText::startsWith))
@@ -219,9 +258,9 @@ public class Dictionary
                 );
 
                 String ClearTextVolume = Arrays.stream(ClearText.split("\\s+"))
-                .filter(word -> !VolumeClear
-                .contains(word))
-                .collect(Collectors.joining(" ")).toLowerCase();
+                .filter(word -> !VolumeClear.contains(word))
+                .collect(Collectors.joining(" "))
+                .toLowerCase();
 
                 new ProcessBuilder("python3", "../WendyGrand/Voiceover.py", "StandardModule_StandardResponse").start();
                 Thread.sleep(1500);

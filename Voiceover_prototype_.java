@@ -27,22 +27,26 @@ public class Voiceover_prototype_
         latch.await();
     }
 
-    private static final Map<String, List<List<String>>> soundDictionary = new HashMap<>() {
+    private static final Map<String, List<List<String>>> soundDictionary = new HashMap<>() 
+    {
         {
             put("HelloVoiceover", Arrays.asList(
                 Arrays.asList("п", "рь", "и", "вь", "э", "т"),
                 Arrays.asList("т", "рь", "э", "п")
             ));
+            //--------------------------------------------------------------------------------------------------------------
 
             put("ByeVoiceover", Arrays.asList(
                 Arrays.asList("ByeBye.mp3", "GladToHelp.mp3"),
                 Arrays.asList("Goodbye.mp3", "SeeYouLater.mp3")
             ));
+            //--------------------------------------------------------------------------------------------------------------
 
             put("StandardModule_StandardResponse", Arrays.asList(
                 Arrays.asList("OneMoment.mp3", "Doing.mp3"),
                 Arrays.asList("Done.mp3", "AlwaysAPleasure.mp3")
             ));
+            //--------------------------------------------------------------------------------------------------------------
         }
     };
 
@@ -56,8 +60,7 @@ public class Voiceover_prototype_
 
         clip.open(
             AudioSystem.getAudioInputStream(
-                new File("../WendyGrand/Audio/new/" + soundFile + ".wav")
-            )
+                new File("../WendyGrand/Audio/new/" + soundFile + ".wav"))
         );
 
         clip.addLineListener(event -> {

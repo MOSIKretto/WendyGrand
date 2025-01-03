@@ -14,13 +14,15 @@ public class ActionHandlerModules
         while ((line = reader.readLine()) != null) 
         {
             String[] parts = line.split("=");
+
             if (parts.length >= 2 && parts[0].trim().equals(word)) 
             {
                 VoiceoverScript("StandardModule_StandardResponse");
 
                 // Разделяем значение на отдельные модули по запятой
                 String[] modules = parts[1].trim().split(",");
-                for (String module : modules) {
+
+                for (String module : modules){
                     functionStart(module.trim());}
             }
         }
@@ -33,15 +35,15 @@ public class ActionHandlerModules
     {
         File Modules = new File("../WendyGrand/Modules/YourModules/");
         File[] files = Modules.listFiles();
-
         File ModulesCheck = new File(Modules, function);
 
         if (files != null && ModulesCheck.exists()) 
         {
             System.out.println("Активация модуля: " + function);
-            runModules.run(function);
+            runModules.run(
+                function);
         }
-        else {
+        else{
             VoiceoverScript("ErrModule");}
     }
 

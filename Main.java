@@ -33,14 +33,15 @@ public class Main
     }
 
     //запись нового пути
-    private static void writePathToFile(String path) throws IOException{
-        Files.write(Paths.get("path.cfg"), path.getBytes());}
+    private static void writePathToFile(String path) throws IOException
+    {
+        Files.write(Paths.get("path.cfg"), path.getBytes());
+    }
 
     //пересобираем либы
     private static void executeRebuildScript() throws IOException, InterruptedException 
     {
-        String[] commands = 
-        {
+        String[] commands = {
             "bash", "-c", """
             javac Dictionary.java && \
             python -m venv venv && \
