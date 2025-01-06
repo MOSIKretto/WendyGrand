@@ -5,6 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.io.File;
 
+
 public class Main 
 {
     public static void main(String[] args) throws IOException, InterruptedException 
@@ -19,17 +20,15 @@ public class Main
             writePathToFile(nowPath);
             Start();
         } 
-        else{
-            Start();}
+        else Start();
     }
 
     //чтение старого пути
     private static String readPathFromFile() throws IOException 
     {
-        if (Files.exists(Paths.get("path.cfg"))){
-            return new String(Files.readAllBytes(Paths.get("path.cfg")));} 
-        else{
-            return "";}
+        if (Files.exists(Paths.get("path.cfg"))) return new String(Files.readAllBytes(Paths.get("path.cfg")));
+
+        else return "";
     }
 
     //запись нового пути
@@ -43,7 +42,7 @@ public class Main
     {
         String[] commands = {
             "bash", "-c", """
-            javac Dictionary.java && \
+            javac WordHandler.java && \
             python -m venv venv && \
             source venv/bin/activate && \
             pip install --upgrade pip && \
@@ -75,11 +74,8 @@ public class Main
     //закрытие Wendy
     private static void waitForKill(Process mainProcess, Process processToKill) 
     {
-        try 
-        {
-            if (mainProcess.waitFor() == 0){
-                processToKill.destroy();}
-        } 
+        try{
+            if (mainProcess.waitFor() == 0) processToKill.destroy();} 
         catch (InterruptedException e){
             Thread.currentThread().interrupt();}
     }

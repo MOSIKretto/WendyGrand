@@ -36,7 +36,7 @@ def Checking(text):
         print("Распознано:", recognized_text)
         
         if len(recognized_text) > 5:
-            subprocess.run(["java", "-cp", ".", "Dictionary", recognized_text])
+            subprocess.run(["java", "-cp", ".", "WordHandler", recognized_text])
         else:
             last_command = recognized_text
             command_timer = time.time()
@@ -50,7 +50,7 @@ def Checking(text):
                 goodbye(text)
             else:
                 print("Распознано:", text)
-                subprocess.run(["java", "-cp", ".", "Dictionary", text])
+                subprocess.run(["java", "-cp", ".", "WordHandler", text])
                 last_command = ""
 
 # Прослушка
@@ -61,7 +61,7 @@ async def Recognizer(q):
         data = await q.get()
         if rec.AcceptWaveform(data):
             text = rec.Result()[14:-3]
-            Checking(text)
+            Checking(text.lower())
         else:
             rec.PartialResult()
 

@@ -5,13 +5,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.io.File;
 
-public class runModules 
+
+public class RunModules 
 {
     // Начало активации модуля
     public static void run(String arg) throws IOException, InterruptedException
     {
         executeModule(
-            sliceUntilPeriod(arg), arg, "../WendyGrand/Modules/YourModules/");
+            sliceUntilPeriod(arg), arg, "../WendyGrand/Modules/");
     }
 
     // Определение языка
@@ -19,10 +20,9 @@ public class runModules
     {
         int periodIndex = inputString.lastIndexOf('.');
 
-        if (periodIndex != -1){
-            return inputString.substring(periodIndex + 1);}
-        else{
-            return null;}
+        if (periodIndex != -1) return inputString.substring(periodIndex + 1);
+
+        else return null;
     }
 
     // Проверка на язык
@@ -39,8 +39,7 @@ public class runModules
 
                 startModules("bash", "-c", command);
             }
-            else{
-                startModules("python3", Paths.get(currentDirectory, arg).toString());}
+            else startModules("python3", Paths.get(currentDirectory, arg).toString());
         }
         //--------------------------------------------------------------------------------------------------------------
 
@@ -82,25 +81,20 @@ public class runModules
                 System.out.println("Запуск через Deno...");
                 startModules("deno", "run", Paths.get(currentDirectory, arg).toString());
             }
-            else{
-                System.err.println("Не удалось запустить файл. Убедитесь, что установлен Node.js или Deno.");}
+            else System.err.println("Не удалось запустить файл. Убедитесь, что установлен Node.js или Deno.");
         }
         //--------------------------------------------------------------------------------------------------------------
 
-        else if ("go".equals(extension)){
-            startModules("go", "run", Paths.get(currentDirectory, arg).toString());}
+        else if ("go".equals(extension)) startModules("go", "run", Paths.get(currentDirectory, arg).toString());
         //--------------------------------------------------------------------------------------------------------------
 
-        else if ("rb".equals(extension)){
-            startModules("ruby", Paths.get(currentDirectory, arg).toString());}
+        else if ("rb".equals(extension)) startModules("ruby", Paths.get(currentDirectory, arg).toString());
         //--------------------------------------------------------------------------------------------------------------
 
-        else if (extension != null){
-            startModules(extension, Paths.get(currentDirectory, arg).toString());}
+        else if (extension != null) startModules(extension, Paths.get(currentDirectory, arg).toString());
         //--------------------------------------------------------------------------------------------------------------
 
-        else if (new File(Paths.get(currentDirectory, arg).toString()).canExecute() && extension == null){
-            startModules("./" + Paths.get(currentDirectory, arg).toString());}
+        else if (new File(Paths.get(currentDirectory, arg).toString()).canExecute() && extension == null) startModules("./" + Paths.get(currentDirectory, arg).toString());
         //--------------------------------------------------------------------------------------------------------------
         else{
             //Озвучка отсутствия технологии запуска (Добавиться с появлением Voiceover.java)
@@ -120,8 +114,7 @@ public class runModules
 
             if (items != null) 
             {
-                for (File item : items){
-                    folders.add(item.getName());}
+                for (File item : items) folders.add(item.getName());
             }
         }
 
