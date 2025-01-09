@@ -22,6 +22,7 @@ def update_system():
     elif os.system("command -v pacman >/dev/null 2>&1") == 0:
         print("Обновление системы с использованием pacman...")
         subprocess.run(["pacman", "-Syu", "--noconfirm"])
+        subprocess.run(["yay", "-Syu", "--noconfirm"])
         return True
 
     elif os.system("command -v xbps-install >/dev/null 2>&1") == 0:

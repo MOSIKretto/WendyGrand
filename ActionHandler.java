@@ -30,7 +30,7 @@ public class ActionHandler
 
             ActionHandler.class.getDeclaredMethod(FunctionName, parameterTypes).invoke(null, args); 
         } 
-        catch (Exception e) {}
+        catch (Exception e){}
     }
 
     // Чтение конфигурации
@@ -52,7 +52,7 @@ public class ActionHandler
                     if (parts.length == 2) return parts[1].trim();
                 }
             }
-        } 
+        }
         catch (IOException e){}
 
         return null;
@@ -98,29 +98,29 @@ public class ActionHandler
 
 
     //Работа с системой
-    public static void CallReboot(){
-        SystemShutdown.systemShutdown("-r", " перезапущена ");}
+    public static void CallReboot() throws IOException, InterruptedException{
+        SystemManager.systemShutdown("-r", " перезапущена ");}
     //--------------------------------------------------------------------------------------------------------------
 
-    public static void CallShutdown(){
-        SystemShutdown.systemShutdown("-h", " выключена ");}
+    public static void CallShutdown() throws IOException, InterruptedException{
+        SystemManager.systemShutdown("-h", " выключена ");}
     //--------------------------------------------------------------------------------------------------------------
 
-    public static void CallSleep(){
-        SystemShutdown.systemSleep("systemctl suspend", " переведена в спящий режим ");}
+    public static void CallSleep() throws IOException, InterruptedException{
+        SystemManager.systemSleep("systemctl suspend", " переведена в спящий режим ");}
     //--------------------------------------------------------------------------------------------------------------
 
     public static void CallVolume(String arg){
-        VolumeControl.VolumeArgs(arg);}
+        SystemManager.volumeArgs(arg);}
     //--------------------------------------------------------------------------------------------------------------
 
 
     //Поиск
     public static void CallWebSearch(String search) throws IOException{
-        SearchManager.startSearch(personalConfigReader("websearch"), search);}
+        SearchManager.startSearch(personalConfigReader("browser"), personalConfigReader("websearch"), search);}
     //--------------------------------------------------------------------------------------------------------------
 
-    public static void CallYouTubeSearch(String search){
-        SearchManager.startSearch("https://www.youtube.com/results?search_query=", search);}
+    public static void CallYouTubeSearch(String search) throws IOException{
+        SearchManager.startSearch(personalConfigReader("browser"), "https://www.youtube.com/results?search_query=", search);}
     //--------------------------------------------------------------------------------------------------------------
 }

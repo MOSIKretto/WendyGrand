@@ -11,6 +11,7 @@ public class WordHandler
 {
     private static final Map<String, String> FUNCTIONS_DICTIONARY = Map.ofEntries(
         // Изменяемые
+        entry("Hello", "CallHello"),
         entry("Browser", "CallBrowser"),
         entry("Conductor", "CallConductor"),
         entry("Terminal", "CallTerminal"),
@@ -25,7 +26,6 @@ public class WordHandler
         entry("Sleep", "CallSleep"),
 
         // Полуизменяемые
-        entry("Hello", "CallHello"),
         entry("Volume", "CallVolume"),
         entry("WebSearch", "CallWebSearch"),
         entry("YouTubeSearch", "CallYouTubeSearch")
@@ -53,6 +53,7 @@ public class WordHandler
             String clearText = cleanInput(arg, REMOVE_WORDS);
 
             // Изменяемые команды
+            executeCommand(clearText, configMap.get("hello"),  FUNCTIONS_DICTIONARY.get("Hello"));
             executeCommand(clearText, configMap.get("browser"), FUNCTIONS_DICTIONARY.get("Browser"));
             executeCommand(clearText, configMap.get("conductor"), FUNCTIONS_DICTIONARY.get("Conductor"));
             executeCommand(clearText, configMap.get("terminal"), FUNCTIONS_DICTIONARY.get("Terminal"));
@@ -65,16 +66,14 @@ public class WordHandler
             executeCommand(clearText, configMap.get("reboot"), FUNCTIONS_DICTIONARY.get("Reboot"));
             executeCommand(clearText, configMap.get("shutdown"), FUNCTIONS_DICTIONARY.get("Shutdown"));
             executeCommand(clearText, configMap.get("sleep"), FUNCTIONS_DICTIONARY.get("Sleep"));
-
+            
             // Полуизменяемые команды
-            executeCommand(clearText, configMap.getOrDefault("hello", List.of("здравствуй", "ты тут", "привет")), FUNCTIONS_DICTIONARY.get("Hello"));
-
             handleVolumeCommand(clearText, 
             configMap.getOrDefault("volume", List.of("увеличь громкость", "уменьши громкость", 
                                                     "увеличить громкость", "уменьшить громкость",
                                                     "громкость больше", "громкость меньше", 
                                                     "звук больше", "звук меньше", 
-                                                    "выключи звук", "включи звук", 
+                                                    "включи звук", "выключи звук",
                                                     "громкость на", "громкость мне", "громкость")));
 
             handleSearchCommand(clearText, 
@@ -96,12 +95,20 @@ public class WordHandler
             )));
 
             // Модульность
-            if (!clearText.isEmpty() || Optional.ofNullable(configMap.get("modules")).orElse(List.of("запусти", "начни выполнение", "начинаем")).stream().anyMatch(clearText::startsWith)) 
+            if (!clearText.isEmpty() || Optional.ofNullable(configMap.get("modules")).isPresent()) 
             {
-                String clearModules = cleanInput(clearText, configMap.getOrDefault("modules", List.of()));
+                String clearModules = cleanInput(clearText, configMap.get("modules"));
                 ActionHandlerModules.txtReader(clearModules);
             }
         }
+    }
+
+
+    private static String cleanInput(String input, List<String> wordsToRemove) 
+    {
+        return Arrays.stream(input.split("\\s+"))
+        .filter(word -> !wordsToRemove.contains(word))
+        .collect(Collectors.joining(" "));
     }
 
     private static Map<String, List<String>> readConfig(String filePath) throws IOException 
@@ -131,13 +138,6 @@ public class WordHandler
         return configMap;
     }
 
-    private static String cleanInput(String input, List<String> wordsToRemove) 
-    {
-        return Arrays.stream(input.split("\\s+"))
-        .filter(word -> !wordsToRemove.contains(word))
-        .collect(Collectors.joining(" "));
-    }
-
     private static void executeCommand(String input, List<String> commands, String functionName) throws 
     InvocationTargetException, 
     IllegalArgumentException, 
@@ -154,8 +154,7 @@ public class WordHandler
     {
         if (volumeCommands.stream().anyMatch(input::startsWith)) 
         {
-            List<String> volumeClearWords = List.of("громкость", "на", "мне", "меня", "процента", "процент", "процентов");
-            String clearTextVolume = cleanInput(input, volumeClearWords);
+            String clearTextVolume = cleanInput(input, List.of("громкость", "на", "мне", "меня", "процента", "процент", "процентов"));
 
             new ProcessBuilder("python3", "../WendyGrand/Voiceover.py", "StandardModule_StandardResponse").start();
             Thread.sleep(1500);

@@ -1,20 +1,15 @@
 package Actions;
 
-import java.text.MessageFormat;
 import java.io.IOException;
 
 public class SearchManager
 {
-    public static void startSearch(String https, String search)
+    public static void startSearch(String browser, String https, String search) throws IOException
     {
         String os = System.getProperty("os.name").toLowerCase();
         Runtime runtime = Runtime.getRuntime();
 
-        if (os.contains("nux")) 
-        {
-            try{
-                runtime.exec(MessageFormat.format("firefox {0}{1}", https, search));} 
-            catch (IOException e){}
-        }
+        if (os.contains("nux") || os.contains("nix")) 
+        runtime.exec(browser + " " + https + search);
     }
 }
