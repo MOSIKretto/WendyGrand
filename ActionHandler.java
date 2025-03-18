@@ -30,11 +30,11 @@ public class ActionHandler
 
             ActionHandler.class.getDeclaredMethod(FunctionName, parameterTypes).invoke(null, args); 
         } 
-        catch (Exception e){}
+        catch (Exception e){};
     }
 
     // Чтение конфигурации
-    private static String personalConfigReader(String configKey) 
+    private static String personalConfigReader(String configKey) throws IOException
     {
         try (BufferedReader reader = Files.newBufferedReader(Paths.get("../WendyGrand/Configs/Apps.conf"))) 
         {
@@ -53,7 +53,6 @@ public class ActionHandler
                 }
             }
         }
-        catch (IOException e){}
 
         return null;
     }

@@ -103,7 +103,6 @@ public class WordHandler
         }
     }
 
-
     private static String cleanInput(String input, List<String> wordsToRemove) 
     {
         return Arrays.stream(input.split("\\s+"))

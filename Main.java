@@ -19,7 +19,7 @@ public class Main
             executeRebuildScript();
             writePathToFile(nowPath);
             Start();
-        } 
+        }
         else Start();
     }
 

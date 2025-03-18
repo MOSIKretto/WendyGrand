@@ -137,9 +137,9 @@ class Installer(QWidget):
 
     def select_stage(self, item):
         pass
+
     #Централизуем окно
     def center(self):
-
         qr = self.frameGeometry()
         screen = QApplication.primaryScreen()
         cp = screen.availableGeometry().center()

@@ -7,53 +7,63 @@ import time
 import re
 
 
-ActionsVoiceover.HelloVoiceover() #Обращаться к Voiceover.java
-
-q = asyncio.Queue(maxsize=1000)
+lastСommand = ""
+commandTimer = 0
+q = asyncio.Queue(maxsize=1500)
 model = vosk.Model("model_small")
 samplerate = int(sd.query_devices(sd.default.device[0], 'input')['default_samplerate'])
-last_command = ""
-command_timer = 0
-remove_word = re.compile(r"\b(привет|чем|могу|помочь|я|здравствуйте|здесь|естественно)\b", re.IGNORECASE)
+removeWord = re.compile(r"\b(привет|чем|могу|помочь|я|здравствуйте|здесь|естественно|застав)\b", re.IGNORECASE)
 
-# Прекращение прослушки vosk
+
+# Приветствие
+ActionsVoiceover.HelloVoiceover()
+
+# Очистка текста от лишних слов
+def clearText(text):
+    return removeWord.sub("", text).strip()
+
+# Прекращение прослушки
 def goodbye(text):
     print("Распознано:", text)
-    ActionsVoiceover.ByeVoiceover() #Обращаться к Voiceover.java
-    raise asyncio.CancelledError("Program finished")
+    ActionsVoiceover.ByeVoiceover()
+    raise asyncio.CancelledError("Программа завершена")
 
-# Проверка сказанного
-def Checking(text):
-    global last_command, command_timer
+# Обработка команды
+def handleCommand(text):
+    global lastСommand, commandTimer
 
-    if any(text.startswith(prefix) for prefix in ("венди пока", "среда пока", "вэнди пока", "вэнди закройся", "венди закройся", "среда закройся")):
+    # Команды для завершения работы
+    stopCommands = ("венди пока", "среда пока", "вэнди пока", "вэнди закройся", "венди закройся", "среда закройся")
+    if any(text.startswith(prefix) for prefix in stopCommands):
         goodbye(text)
         return
 
+    # Поиск ключевых слов
     match = re.search(r"\b(венди|вэнди|среда)\b", text, re.IGNORECASE)
     if match:
-        recognized_text = text[match.start():].strip()
-        print("Распознано:", recognized_text)
-        
-        if len(recognized_text) > 5:
-            subprocess.run(["java", "-cp", ".", "WordHandler", recognized_text])
+        recognizedText = text[match.start():].strip()
+        print("Распознано:", recognizedText)
+
+        if len(recognizedText) > 5:
+            subprocess.run(["java", "WordHandler", recognizedText])
         else:
-            last_command = recognized_text
-            command_timer = time.time()
-            ActionsVoiceover.CallHelloVoiceover() #Обращаться к Voiceover.java
+            lastСommand = recognizedText
+            commandTimer = time.time()
+            ActionsVoiceover.CallHelloVoiceover()
         return
 
-    if last_command and time.time() - command_timer <= 10:
-        text = remove_word.sub("", text).strip()
-        if text:
-            if text in ("пока", "закройся"):
-                goodbye(text)
+    # Обработка последней команды в течение 10 секунд
+    if lastСommand and time.time() - commandTimer <= 10:
+        recognizedText = clearText(text)
+        if recognizedText:
+            if recognizedText in ("пока", "закройся"):
+                goodbye(recognizedText)
             else:
-                print("Распознано:", text)
-                subprocess.run(["java", "-cp", ".", "WordHandler", text])
-                last_command = ""
+                print("Распознано:", recognizedText)
+                subprocess.run(["java", "WordHandler", recognizedText])
+                lastСommand = ""
 
-# Прослушка
+# Прослушка и распознавание речи
 async def Recognizer(q):
     rec = vosk.KaldiRecognizer(model, samplerate)
 
@@ -61,29 +71,33 @@ async def Recognizer(q):
         data = await q.get()
         if rec.AcceptWaveform(data):
             text = rec.Result()[14:-3]
-            Checking(text.lower())
+            handleCommand(text.lower())
         else:
             rec.PartialResult()
 
 # Подключение к микрофону
-async def capture_audio(q):
+async def captureAudio(q):
     def callback(indata, frames, time, status):
-        q.put_nowait(bytes(indata))
-
+        try:
+            q.put_nowait(bytes(indata))
+        except asyncio.QueueFull:
+            pass
+        
     with sd.RawInputStream(samplerate=samplerate, blocksize=3000, device=sd.default.device[0], dtype='int16', channels=1, callback=callback):
         while True:
             await asyncio.sleep(0.01)
 
 # Запуск прослушки и передачи с микрофона в текст асинхронно
 async def main():
-    recognizer_task = asyncio.create_task(Recognizer(q))
-    capture_task = asyncio.create_task(capture_audio(q))
+    recognizerTask = asyncio.create_task(Recognizer(q))
+    captureTask = asyncio.create_task(captureAudio(q))
 
     try:
-        await asyncio.gather(recognizer_task, capture_task)
+        await asyncio.gather(recognizerTask, captureTask)
     except asyncio.CancelledError:
-        recognizer_task.cancel()
-        capture_task.cancel()
-        await asyncio.gather(recognizer_task, capture_task, return_exceptions=True)
+        recognizerTask.cancel()
+        captureTask.cancel()
+        await asyncio.gather(recognizerTask, captureTask, return_exceptions=True)
 
-asyncio.run(main())
+if __name__ == "__main__":
+    asyncio.run(main())

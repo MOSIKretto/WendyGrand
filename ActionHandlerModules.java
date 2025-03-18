@@ -14,6 +14,7 @@ public class ActionHandlerModules
         try (BufferedReader reader = new BufferedReader(new FileReader("../WendyGrand/Configs/DictionaryModules.conf"))) 
         {
             String line;
+            
             while ((line = reader.readLine()) != null) 
             {
                 line = line.trim();
