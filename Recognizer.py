@@ -12,7 +12,7 @@ commandTimer = 0
 q = asyncio.Queue(maxsize=1500)
 model = vosk.Model("model_small")
 samplerate = int(sd.query_devices(sd.default.device[0], 'input')['default_samplerate'])
-removeWord = re.compile(r"\b(привет|чем|могу|помочь|я|здравствуйте|здесь|естественно|застав)\b", re.IGNORECASE)
+removeWord = re.compile(r"\b(привет|чем|могу|помочь|я|здравствуйте|здесь|естественно|застав|засос)\b", re.IGNORECASE)
 
 
 # Приветствие
@@ -24,7 +24,7 @@ def clearText(text):
 
 # Прекращение прослушки
 def goodbye(text):
-    print("Распознано:", text)
+    print(f"Распознано: {text}")
     ActionsVoiceover.ByeVoiceover()
     raise asyncio.CancelledError("Программа завершена")
 
@@ -42,7 +42,7 @@ def handleCommand(text):
     match = re.search(r"\b(венди|вэнди|среда)\b", text, re.IGNORECASE)
     if match:
         recognizedText = text[match.start():].strip()
-        print("Распознано:", recognizedText)
+        print(f"Распознано: {recognizedText}")
 
         if len(recognizedText) > 5:
             subprocess.run(["java", "WordHandler", recognizedText])
@@ -59,7 +59,7 @@ def handleCommand(text):
             if recognizedText in ("пока", "закройся"):
                 goodbye(recognizedText)
             else:
-                print("Распознано:", recognizedText)
+                print(f"Распознано: {recognizedText}")
                 subprocess.run(["java", "WordHandler", recognizedText])
                 lastСommand = ""
 

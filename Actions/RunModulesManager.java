@@ -175,6 +175,7 @@ public class RunModulesManager
             {
                 System.out.println("Установка библиотеки: " + lib);
                 int exitCode = new ProcessBuilder(pipExecutable, "install", lib)
+                .inheritIO()
                 .start()
                 .waitFor();
 
