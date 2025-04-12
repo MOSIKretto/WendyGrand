@@ -33,7 +33,7 @@ public class WordHandler
 
     private static final List<String> REMOVE_WORDS = Arrays.asList(
         "пожалуйста", "ладно", "давай", "прямо", "сейчас", "типо", "типа", "будь", "добра", "ну",
-        "что-то", "открой", "откройте", "блять", "нахуй", "сука",
+        "что-то", "открой", "откройте", "хз", "блять", "нахуй", "сука",
         // Имя
         "венди", "среда", "вэнди"
     );
@@ -103,7 +103,6 @@ public class WordHandler
         }
     }
 
-
     private static String cleanInput(String input, List<String> wordsToRemove) 
     {
         return Arrays.stream(input.split("\\s+"))
@@ -122,10 +121,11 @@ public class WordHandler
             while ((line = reader.readLine()) != null) 
             {
                 line = line.trim();
-
+                
                 if (line.isEmpty() || line.startsWith("#")) continue;
-
+                
                 String[] parts = line.split("=");
+                
                 if (parts.length == 2) 
                 {
                     String key = parts[0].trim();

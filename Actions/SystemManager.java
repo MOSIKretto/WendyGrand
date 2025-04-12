@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+
 public class SystemManager
 {
     // Перезапуск выключение и спящий режим
@@ -16,6 +17,7 @@ public class SystemManager
         .waitFor();
     }
 
+    @SuppressWarnings("deprecation")
     public static void systemSleep(String arg, String message) throws IOException, InterruptedException
     {
         message(message);
@@ -34,7 +36,6 @@ public class SystemManager
             Thread.sleep(1000);
         }
     }
-
 
 
     //Громкость
@@ -59,15 +60,16 @@ public class SystemManager
             for (int j = 1; j <= 9; j++) 
             numberMap.put(tens[i] + " " + units[j], i * 10 + j);
         }
-        numberMap.put("сто", 100);
-
         // Специальные команды
+        numberMap.put("сто", 100);
         numberMap.put("выключи звук", 0);
         numberMap.put("включи звук", 50);
-        numberMap.put("увеличь громкость", -2);
-        numberMap.put("уменьши громкость", -3);
-        numberMap.put("громкость больше", -2);
-        numberMap.put("громкость меньше", -3);
+        numberMap.put("увеличь", -2);
+        numberMap.put("уменьши", -3);
+        numberMap.put("больше", -2);
+        numberMap.put("меньше", -3);
+        numberMap.put("увеличить", -2);
+        numberMap.put("уменьшить", -3);
         numberMap.put("звук больше", -2);
         numberMap.put("звук меньше", -3);
     }
@@ -89,6 +91,7 @@ public class SystemManager
         return numberMap.getOrDefault(text, -1);
     }
 
+    @SuppressWarnings("deprecation")
     private static void setSystemVolume(int volume)
     {
         try 

@@ -4,6 +4,7 @@ import java.io.IOException;
 
 public class AppManager
 {
+    @SuppressWarnings("deprecation")
     public static void startApp(String App) throws IOException
     {
         String os = System.getProperty("os.name").toLowerCase();

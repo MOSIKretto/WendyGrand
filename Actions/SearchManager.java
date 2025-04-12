@@ -4,6 +4,7 @@ import java.io.IOException;
 
 public class SearchManager
 {
+    @SuppressWarnings("deprecation")
     public static void startSearch(String browser, String https, String search) throws IOException
     {
         String os = System.getProperty("os.name").toLowerCase();
