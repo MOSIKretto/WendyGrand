@@ -1,9 +1,7 @@
 import java.lang.reflect.InvocationTargetException;
 import java.util.stream.Collectors;
 import static java.util.Map.entry;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.FileReader;
 import java.util.*;
 
 
@@ -24,8 +22,6 @@ public class WordHandler
         entry("Reboot", "CallReboot"),
         entry("Shutdown", "CallShutdown"),
         entry("Sleep", "CallSleep"),
-
-        // Полуизменяемые
         entry("Volume", "CallVolume"),
         entry("WebSearch", "CallWebSearch"),
         entry("YouTubeSearch", "CallYouTubeSearch")
@@ -38,7 +34,6 @@ public class WordHandler
         "венди", "среда", "вэнди"
     );
 
-
     public static void main(String[] args) throws 
     InvocationTargetException, 
     IllegalAccessException,
@@ -46,58 +41,31 @@ public class WordHandler
     InterruptedException, 
     IOException 
     {
-        Map<String, List<String>> configMap = readConfig("../WendyGrand/Configs/Dictionary.conf");
-
         for (String arg : args) 
         {
             String clearText = cleanInput(arg, REMOVE_WORDS);
 
-            // Изменяемые команды
-            executeCommand(clearText, configMap.get("hello"),  FUNCTIONS_DICTIONARY.get("Hello"));
-            executeCommand(clearText, configMap.get("browser"), FUNCTIONS_DICTIONARY.get("Browser"));
-            executeCommand(clearText, configMap.get("conductor"), FUNCTIONS_DICTIONARY.get("Conductor"));
-            executeCommand(clearText, configMap.get("terminal"), FUNCTIONS_DICTIONARY.get("Terminal"));
-            executeCommand(clearText, configMap.get("store"), FUNCTIONS_DICTIONARY.get("Store"));
-            executeCommand(clearText, configMap.get("office"), FUNCTIONS_DICTIONARY.get("Office"));
-            executeCommand(clearText, configMap.get("messenger"), FUNCTIONS_DICTIONARY.get("Messenger"));
-            executeCommand(clearText, configMap.get("socialnetwork"), FUNCTIONS_DICTIONARY.get("SocialNetwork"));
-            executeCommand(clearText, configMap.get("notes"), FUNCTIONS_DICTIONARY.get("Notes"));
-            executeCommand(clearText, configMap.get("codeeditor"), FUNCTIONS_DICTIONARY.get("CodeEditor"));
-            executeCommand(clearText, configMap.get("reboot"), FUNCTIONS_DICTIONARY.get("Reboot"));
-            executeCommand(clearText, configMap.get("shutdown"), FUNCTIONS_DICTIONARY.get("Shutdown"));
-            executeCommand(clearText, configMap.get("sleep"), FUNCTIONS_DICTIONARY.get("Sleep"));
-            
-            // Полуизменяемые команды
-            handleVolumeCommand(clearText, 
-            configMap.getOrDefault("volume", List.of("увеличь громкость", "уменьши громкость", 
-                                                    "увеличить громкость", "уменьшить громкость",
-                                                    "громкость больше", "громкость меньше", 
-                                                    "звук больше", "звук меньше", 
-                                                    "включи звук", "выключи звук",
-                                                    "громкость на", "громкость мне", "громкость")));
-
-            handleSearchCommand(clearText, 
-            configMap.getOrDefault("websearch", List.of("найди", "найди в интернете",
-                                                        "найти", "найти в интернете", 
-                                                        "ищи", "что такое", "когда", 
-                                                        "в каком году", "где", "кто такой", 
-                                                        "кто", "кто такая")), 
-
-            configMap.getOrDefault("youtubesearch", List.of(
-                "найди на ютубе", "ищи на ютубе", "найти на ютубе", 
-                "найди на ютуб", "ищи на ютуб", "найти на ютуб",
-                "найди на ютюбе", "ищи на ютюбе", "найти на ютюбе", 
-                "найди на ютюб", "ищи на ютюб", "найти на ютюб",
-                "найди в ютубе", "ищи в ютубе", "найти в ютубе", 
-                "найди в ютуб", "ищи в ютуб", "найти в ютуб",
-                "найди в ютюбе", "ищи в ютюбе", "найти в ютюбе", 
-                "найди в ютюб", "ищи в ютюб", "найти в ютюб"
-            )));
+            // Команды
+            executeCommand(clearText, getConfigValues("hello"), FUNCTIONS_DICTIONARY.get("Hello"));
+            executeCommand(clearText, getConfigValues("browser"), FUNCTIONS_DICTIONARY.get("Browser"));
+            executeCommand(clearText, getConfigValues("conductor"), FUNCTIONS_DICTIONARY.get("Conductor"));
+            executeCommand(clearText, getConfigValues("terminal"), FUNCTIONS_DICTIONARY.get("Terminal"));
+            executeCommand(clearText, getConfigValues("store"), FUNCTIONS_DICTIONARY.get("Store"));
+            executeCommand(clearText, getConfigValues("office"), FUNCTIONS_DICTIONARY.get("Office"));
+            executeCommand(clearText, getConfigValues("messenger"), FUNCTIONS_DICTIONARY.get("Messenger"));
+            executeCommand(clearText, getConfigValues("socialnetwork"), FUNCTIONS_DICTIONARY.get("SocialNetwork"));
+            executeCommand(clearText, getConfigValues("notes"), FUNCTIONS_DICTIONARY.get("Notes"));
+            executeCommand(clearText, getConfigValues("codeeditor"), FUNCTIONS_DICTIONARY.get("CodeEditor"));
+            executeCommand(clearText, getConfigValues("reboot"), FUNCTIONS_DICTIONARY.get("Reboot"));
+            executeCommand(clearText, getConfigValues("shutdown"), FUNCTIONS_DICTIONARY.get("Shutdown"));
+            executeCommand(clearText, getConfigValues("sleep"), FUNCTIONS_DICTIONARY.get("Sleep"));
+            handleVolumeCommand(clearText, getConfigValues("volume"));
+            handleSearchCommand(clearText, getConfigValues("websearch"), getConfigValues("youtubesearch"));
 
             // Модульность
-            if (!clearText.isEmpty() || Optional.ofNullable(configMap.get("modules")).isPresent()) 
+            if (!clearText.isEmpty() || ConfigReader.readConfig("../WendyGrand/Configs/Dictionary.conf", "modules") != null) 
             {
-                String clearModules = cleanInput(clearText, configMap.get("modules"));
+                String clearModules = cleanInput(clearText, getConfigValues("modules"));
                 ActionHandlerModules.txtReader(clearModules);
             }
         }
@@ -110,32 +78,19 @@ public class WordHandler
         .collect(Collectors.joining(" "));
     }
 
-    private static Map<String, List<String>> readConfig(String filePath) throws IOException 
+    private static List<String> getConfigValues(String key) throws IOException 
     {
-        Map<String, List<String>> configMap = new HashMap<>();
-
-        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) 
+        String[] values = ConfigReader.readConfig("../WendyGrand/Configs/Dictionary.conf", key);
+        if (values == null) return null;
+        
+        List<String> result = new ArrayList<>();
+        
+        for (String value : values) 
         {
-            String line;
-
-            while ((line = reader.readLine()) != null) 
-            {
-                line = line.trim();
-                
-                if (line.isEmpty() || line.startsWith("#")) continue;
-                
-                String[] parts = line.split("=");
-                
-                if (parts.length == 2) 
-                {
-                    String key = parts[0].trim();
-                    List<String> values = Arrays.asList(parts[1].trim().split(",\\s*"));
-
-                    configMap.put(key, values);
-                }
-            }
+            String[] parts = value.split(",\\s*");
+            Collections.addAll(result, parts);
         }
-        return configMap;
+        return result;
     }
 
     private static void executeCommand(String input, List<String> commands, String functionName) throws 
@@ -147,7 +102,8 @@ public class WordHandler
     InterruptedException, 
     IOException 
     {
-        if (commands != null && commands.contains(input)) ActionHandler.CallFunction(functionName);
+        if (commands != null && commands.contains(input)) 
+        ActionHandler.CallFunction(functionName);
     }
 
     private static void handleVolumeCommand(String input, List<String> volumeCommands) throws IOException, InterruptedException 
@@ -162,10 +118,10 @@ public class WordHandler
             if (clearTextVolume.matches("^(увеличь|увеличить|уменьши|уменьшить)\\b.*")) 
             ActionHandler.CallVolume(clearTextVolume + " громкость");
 
-            else if (clearTextVolume.matches("^(больше|меньше)\\b.*")) 
+            else if (clearTextVolume.matches("^(больше|меньше)\\b.*"))
             ActionHandler.CallVolume("громкость " + clearTextVolume);
 
-            else 
+            else
             ActionHandler.CallVolume(clearTextVolume);
         }
     }

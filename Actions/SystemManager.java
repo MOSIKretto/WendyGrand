@@ -18,11 +18,11 @@ public class SystemManager
     }
 
     @SuppressWarnings("deprecation")
-    public static void systemSleep(String arg, String message) throws IOException, InterruptedException
+    public static void systemSleep(String message) throws IOException, InterruptedException
     {
         message(message);
 
-        Runtime.getRuntime().exec("systemctl suspend"); 
+        Runtime.getRuntime().exec("systemctl suspend -i"); 
     }
 
 
