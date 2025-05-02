@@ -10,7 +10,9 @@ import java.nio.file.Paths;
 import java.util.*;
 import java.util.List;
 
-public class WendyW extends JFrame {
+
+public class WendyW extends JFrame 
+{
     // Константы путей
     private static final String CONFIG_DIR = "Configs";
     private static final String MODULES_DIR = "Modules";
@@ -27,12 +29,14 @@ public class WendyW extends JFrame {
     private Point startPos;
     private boolean isDragging = false;
 
-    public WendyW() {
+    public WendyW() 
+    {
         configureWindow();
         initUI();
     }
 
-    private void configureWindow() {
+    private void configureWindow() 
+    {
         setTitle("Wendy");
         setSize(1000, 700);
         setUndecorated(true);
@@ -41,11 +45,13 @@ public class WendyW extends JFrame {
         setShape(new RoundRectangle2D.Double(0, 0, getWidth(), getHeight(), 20, 20));
     }
 
-    private void initUI() {
-        // Главная панель с темным фоном
-        JPanel mainPanel = new JPanel(new BorderLayout()) {
+    private void initUI() 
+    {
+        JPanel mainPanel = new JPanel(new BorderLayout()) 
+        {
             @Override
-            protected void paintComponent(Graphics g) {
+            protected void paintComponent(Graphics g) 
+            {
                 super.paintComponent(g);
                 Graphics2D g2d = (Graphics2D) g.create();
                 g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -112,25 +118,33 @@ public class WendyW extends JFrame {
         mainPanel.add(contentPanel, BorderLayout.CENTER);
 
         // Обработчики перемещения окна
-        addMouseMotionListener(new MouseAdapter() {
-            public void mouseDragged(MouseEvent e) {
-                if (isDragging) {
+        addMouseMotionListener(new MouseAdapter() 
+        {
+            public void mouseDragged(MouseEvent e) 
+            {
+                if (isDragging) 
+                {
                     Point current = e.getLocationOnScreen();
                     setLocation(current.x - startPos.x, current.y - startPos.y);
                 }
             }
         });
 
-        addMouseListener(new MouseAdapter() {
-            public void mousePressed(MouseEvent e) {
-                if (SwingUtilities.isLeftMouseButton(e)) {
+        addMouseListener(new MouseAdapter() 
+        {
+            public void mousePressed(MouseEvent e) 
+            {
+                if (SwingUtilities.isLeftMouseButton(e)) 
+                {
                     isDragging = true;
                     startPos = e.getPoint();
                 }
             }
             
-            public void mouseReleased(MouseEvent e) {
-                if (SwingUtilities.isLeftMouseButton(e)) {
+            public void mouseReleased(MouseEvent e) 
+            {
+                if (SwingUtilities.isLeftMouseButton(e)) 
+                {
                     isDragging = false;
                 }
             }
@@ -139,7 +153,8 @@ public class WendyW extends JFrame {
         add(mainPanel);
     }
 
-    private JPanel createChatScreen() {
+    private JPanel createChatScreen() 
+    {
         JPanel panel = new JPanel(new BorderLayout());
         panel.setBorder(new EmptyBorder(10, 10, 10, 10));
         panel.setBackground(new Color(50, 50, 50));
@@ -178,7 +193,8 @@ public class WendyW extends JFrame {
         return panel;
     }
 
-    private JPanel createSettingsScreen() {
+    private JPanel createSettingsScreen() 
+    {
         JPanel panel = new JPanel(new BorderLayout());
         panel.setBorder(new EmptyBorder(10, 10, 10, 10));
         panel.setBackground(new Color(50, 50, 50));
@@ -221,144 +237,160 @@ public class WendyW extends JFrame {
         return panel;
     }
 
-    private JPanel createAppsSettingsPanel() {
-    JPanel panel = new JPanel(new BorderLayout());
-    panel.setBackground(new Color(50, 50, 50));
-    
-    // Загрузка текущих настроек
-    Map<String, String> config = new HashMap<>();
-    try {
-        config = loadConfig(APPS_CONFIG);
-    } catch (IOException e) {
-        System.err.println("Ошибка загрузки конфига: " + e.getMessage());
-    }
-    
-    String[] programs = {
-        "browser", "conductor", "terminal", "store", 
-        "office", "messenger", "socialnetwork", "notes", 
-        "codeeditor", "websearch"
-    };
-    
-    String[] labels = {
-        "Браузер", "Проводник", "Терминал", "Менеджер пакетов", 
-        "Офис", "Мессенджер", "Соц. сети", "Заметки", 
-        "Редактор кода", "Поисковая система"
-    };
-    
-    JPanel settingsPanel = new JPanel();
-    settingsPanel.setLayout(new BoxLayout(settingsPanel, BoxLayout.Y_AXIS));
-    settingsPanel.setBackground(new Color(50, 50, 50));
-    
-    // Максимальный размер для текстовых полей
-    Dimension fieldSize = new Dimension(300, 30);
-    JTextField[] fields = new JTextField[programs.length];
-    
-    for (int i = 0; i < programs.length; i++) {
-        JPanel row = new JPanel(new BorderLayout());
-        row.setBorder(new EmptyBorder(5, 0, 5, 0));
-        row.setBackground(new Color(50, 50, 50));
+    private JPanel createAppsSettingsPanel() 
+    {
+        JPanel panel = new JPanel(new BorderLayout());
+        panel.setBackground(new Color(50, 50, 50));
         
-        JLabel label = new JLabel(labels[i]);
-        label.setForeground(new Color(225, 215, 198));
-        label.setPreferredSize(new Dimension(150, 30));
+        // Загрузка текущих настроек
+        Map<String, String> config = new HashMap<>();
+        try 
+        {
+            config = loadConfig(APPS_CONFIG);
+        } 
+        catch (IOException e) 
+        {
+            System.err.println("Ошибка загрузки конфига: " + e.getMessage());
+        }
         
-        JPanel fieldWrapper = new JPanel(new BorderLayout());
-        fieldWrapper.setBackground(new Color(50, 50, 50));
+        String[] programs = {
+            "browser", "conductor", "terminal", "store", 
+            "office", "messenger", "socialnetwork", "notes", 
+            "codeeditor", "websearch"
+        };
         
-        fields[i] = new JTextField(config.getOrDefault(programs[i], ""));
-        fields[i].setBackground(new Color(70, 70, 70));
-        fields[i].setForeground(Color.WHITE);
-        fields[i].setPreferredSize(fieldSize);
-        fields[i].setMaximumSize(fieldSize);
+        String[] labels = {
+            "Браузер", "Проводник", "Терминал", "Менеджер пакетов", 
+            "Офис", "Мессенджер", "Соц. сети", "Заметки", 
+            "Редактор кода", "Поисковая система"
+        };
         
-        fieldWrapper.add(fields[i], BorderLayout.WEST);
+        JPanel settingsPanel = new JPanel();
+        settingsPanel.setLayout(new BoxLayout(settingsPanel, BoxLayout.Y_AXIS));
+        settingsPanel.setBackground(new Color(50, 50, 50));
         
-        row.add(label, BorderLayout.WEST);
-        row.add(fieldWrapper, BorderLayout.CENTER);
+        // Максимальный размер для текстовых полей
+        Dimension fieldSize = new Dimension(300, 30);
+        JTextField[] fields = new JTextField[programs.length];
         
-        settingsPanel.add(row);
-    }
-    
-    JButton saveBtn = new JButton("Сохранить");
-    saveBtn.addActionListener(e -> {
-        try {
-            // Читаем исходный файл полностью
-            List<String> originalLines = Files.readAllLines(Paths.get(APPS_CONFIG), StandardCharsets.UTF_8);
-            Map<String, String> newValues = new HashMap<>();
+        for (int i = 0; i < programs.length; i++) 
+        {
+            JPanel row = new JPanel(new BorderLayout());
+            row.setBorder(new EmptyBorder(5, 0, 5, 0));
+            row.setBackground(new Color(50, 50, 50));
             
-            // Собираем новые значения из полей ввода
-            for (int i = 0; i < programs.length; i++) {
-                newValues.put(programs[i], fields[i].getText().trim());
-            }
+            JLabel label = new JLabel(labels[i]);
+            label.setForeground(new Color(225, 215, 198));
+            label.setPreferredSize(new Dimension(150, 30));
             
-            // Обрабатываем каждую строку оригинального файла
-            List<String> newLines = new ArrayList<>();
-            Set<String> processedKeys = new HashSet<>();
+            JPanel fieldWrapper = new JPanel(new BorderLayout());
+            fieldWrapper.setBackground(new Color(50, 50, 50));
             
-            for (String line : originalLines) {
-                String trimmedLine = line.trim();
+            fields[i] = new JTextField(config.getOrDefault(programs[i], ""));
+            fields[i].setBackground(new Color(70, 70, 70));
+            fields[i].setForeground(Color.WHITE);
+            fields[i].setPreferredSize(fieldSize);
+            fields[i].setMaximumSize(fieldSize);
+            
+            fieldWrapper.add(fields[i], BorderLayout.WEST);
+            
+            row.add(label, BorderLayout.WEST);
+            row.add(fieldWrapper, BorderLayout.CENTER);
+            
+            settingsPanel.add(row);
+        }
+        
+        JButton saveBtn = new JButton("Сохранить");
+        saveBtn.addActionListener(e -> {
+            try 
+            {
+                // Читаем исходный файл полностью
+                List<String> originalLines = Files.readAllLines(Paths.get(APPS_CONFIG), StandardCharsets.UTF_8);
+                Map<String, String> newValues = new HashMap<>();
                 
-                // Сохраняем пустые строки и комментарии как есть
-                if (trimmedLine.isEmpty() || trimmedLine.startsWith("#")) {
-                    newLines.add(line);
-                    continue;
+                // Собираем новые значения из полей ввода
+                for (int i = 0; i < programs.length; i++) 
+                {
+                    newValues.put(programs[i], fields[i].getText().trim());
                 }
                 
-                // Разбираем строки конфига
-                String[] parts = line.split("=", 2);
-                if (parts.length == 2) {
-                    String key = parts[0].trim();
-                    if (newValues.containsKey(key)) {
-                        // Обновляем значение, сохраняя оригинальный формат
-                        String newLine = parts[0] + "=" + newValues.get(key);
-                        newLines.add(newLine);
-                        processedKeys.add(key);
+                // Обрабатываем каждую строку оригинального файла
+                List<String> newLines = new ArrayList<>();
+                Set<String> processedKeys = new HashSet<>();
+                
+                for (String line : originalLines) 
+                {
+                    String trimmedLine = line.trim();
+                    
+                    // Сохраняем пустые строки и комментарии как есть
+                    if (trimmedLine.isEmpty() || trimmedLine.startsWith("#")) 
+                    {
+                        newLines.add(line);
                         continue;
                     }
+                    
+                    // Разбираем строки конфига
+                    String[] parts = line.split("=", 2);
+                    if (parts.length == 2) 
+                    {
+                        String key = parts[0].trim();
+                        if (newValues.containsKey(key)) 
+                        {
+                            // Обновляем значение, сохраняя оригинальный формат
+                            String newLine = parts[0] + "=" + newValues.get(key);
+                            newLines.add(newLine);
+                            processedKeys.add(key);
+                            continue;
+                        }
+                    }
+                    
+                    // Если строка не содержит параметр из нашего списка, оставляем как есть
+                    newLines.add(line);
                 }
                 
-                // Если строка не содержит параметр из нашего списка, оставляем как есть
-                newLines.add(line);
-            }
-            
-            // Добавляем новые параметры, которых не было в файле
-            if (newValues.size() > processedKeys.size()) {
-                newLines.add("");
-                newLines.add("# Добавленные параметры");
-                for (Map.Entry<String, String> entry : newValues.entrySet()) {
-                    if (!processedKeys.contains(entry.getKey())) {
-                        newLines.add(entry.getKey() + "=" + entry.getValue());
+                // Добавляем новые параметры, которых не было в файле
+                if (newValues.size() > processedKeys.size()) 
+                {
+                    newLines.add("");
+                    newLines.add("# Добавленные параметры");
+                    for (Map.Entry<String, String> entry : newValues.entrySet()) 
+                    {
+                        if (!processedKeys.contains(entry.getKey())) 
+                        {
+                            newLines.add(entry.getKey() + "=" + entry.getValue());
+                        }
                     }
                 }
+                
+                // Записываем обновленный файл
+                Files.write(Paths.get(APPS_CONFIG), newLines, StandardCharsets.UTF_8);
+                JOptionPane.showMessageDialog(this, "Настройки сохранены с сохранением структуры файла!");
+                
+            } 
+            catch (IOException ex) 
+            {
+                JOptionPane.showMessageDialog(this, "Ошибка сохранения: " + ex.getMessage(), "Ошибка", JOptionPane.ERROR_MESSAGE);
             }
-            
-            // Записываем обновленный файл
-            Files.write(Paths.get(APPS_CONFIG), newLines, StandardCharsets.UTF_8);
-            JOptionPane.showMessageDialog(this, "Настройки сохранены с сохранением структуры файла!");
-            
-        } catch (IOException ex) {
-            JOptionPane.showMessageDialog(this, 
-                "Ошибка сохранения: " + ex.getMessage(), 
-                "Ошибка", JOptionPane.ERROR_MESSAGE);
-        }
-    });
-    styleButton(saveBtn);
-    
-    JScrollPane scrollPane = new JScrollPane(settingsPanel);
-    scrollPane.setBorder(null);
-    
-    panel.add(scrollPane, BorderLayout.CENTER);
-    
-    JPanel buttonPanel = new JPanel();
-    buttonPanel.setBackground(new Color(50, 50, 50));
-    buttonPanel.add(saveBtn);
-    
-    panel.add(buttonPanel, BorderLayout.SOUTH);
-    
-    return panel;
-}
+        });
 
-    private JPanel createModulesScreen() {
+        styleButton(saveBtn);
+        
+        JScrollPane scrollPane = new JScrollPane(settingsPanel);
+        scrollPane.setBorder(null);
+        
+        panel.add(scrollPane, BorderLayout.CENTER);
+        
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setBackground(new Color(50, 50, 50));
+        buttonPanel.add(saveBtn);
+        
+        panel.add(buttonPanel, BorderLayout.SOUTH);
+        
+        return panel;
+    }
+
+    private JPanel createModulesScreen() 
+    {
         JPanel panel = new JPanel(new BorderLayout());
         panel.setBorder(new EmptyBorder(10, 10, 10, 10));
         panel.setBackground(new Color(50, 50, 50));
@@ -413,7 +445,8 @@ public class WendyW extends JFrame {
         
         // Обработчик выбора модуля
         modulesList.addListSelectionListener(e -> {
-            if (!e.getValueIsAdjusting()) {
+            if (!e.getValueIsAdjusting()) 
+            {
                 loadModuleConfig(modulesList.getSelectedValue());
             }
         });
@@ -425,7 +458,8 @@ public class WendyW extends JFrame {
         return panel;
     }
 
-    private JPanel createDictionaryScreen() {
+    private JPanel createDictionaryScreen() 
+    {
         JPanel panel = new JPanel(new BorderLayout());
         panel.setBorder(new EmptyBorder(10, 10, 10, 10));
         panel.setBackground(new Color(50, 50, 50));
@@ -447,67 +481,83 @@ public class WendyW extends JFrame {
         return panel;
     }
 
-    private void styleControlButton(JButton btn) {
+    private void styleControlButton(JButton btn) 
+    {
         btn.setContentAreaFilled(false);
         btn.setBorderPainted(false);
         btn.setFocusPainted(false);
         btn.setForeground(Color.WHITE);
         btn.setFont(new Font("Arial", Font.PLAIN, 14));
         
-        btn.addMouseListener(new MouseAdapter() {
-            public void mouseEntered(MouseEvent e) {
+        btn.addMouseListener(new MouseAdapter() 
+        {
+            public void mouseEntered(MouseEvent e) 
+            {
                 btn.setForeground(new Color(200, 200, 200));
             }
-            public void mouseExited(MouseEvent e) {
+            public void mouseExited(MouseEvent e) 
+            {
                 btn.setForeground(Color.WHITE);
             }
         });
     }
 
-    private void styleButton(JButton btn) {
+    private void styleButton(JButton btn) 
+    {
         btn.setContentAreaFilled(false);
         btn.setBorderPainted(false);
         btn.setFocusPainted(false);
         btn.setForeground(Color.WHITE);
         btn.setFont(new Font("Arial", Font.PLAIN, 14));
         
-        btn.addMouseListener(new MouseAdapter() {
-            public void mouseEntered(MouseEvent e) {
+        btn.addMouseListener(new MouseAdapter() 
+        {
+            public void mouseEntered(MouseEvent e) 
+            {
                 btn.setForeground(new Color(200, 200, 200));
             }
-            public void mouseExited(MouseEvent e) {
+            public void mouseExited(MouseEvent e) 
+            {
                 btn.setForeground(Color.WHITE);
             }
         });
     }
 
-    private void processMessage() {
+    private void processMessage() 
+    {
         String msg = messageField.getText().trim();
-        if (!msg.isEmpty()) {
+        if (!msg.isEmpty()) 
+        {
             addMessage("Вы", msg, true);
             messageField.setText("");
         }
     }
 
-    private void addMessage(String sender, String text, boolean isUser) {
+    private void addMessage(String sender, String text, boolean isUser) 
+    {
         SwingUtilities.invokeLater(() -> {
             chatArea.append((isUser ? "[Вы]: " : "[" + sender + "]: ") + text + "\n\n");
             chatArea.setCaretPosition(chatArea.getDocument().getLength());
         });
     }
 
-    private Map<String, String> loadConfig(String path) throws IOException {
+    private Map<String, String> loadConfig(String path) throws IOException 
+    {
         Map<String, String> config = new HashMap<>();
         File configFile = new File(path);
-        if (!configFile.exists()) {
+        if (!configFile.exists()) 
+        {
             return config;
         }
         
-        try (BufferedReader reader = new BufferedReader(new FileReader(configFile))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(configFile))) 
+        {
             String line;
-            while ((line = reader.readLine()) != null) {
+            while ((line = reader.readLine()) != null) 
+            {
                 String[] parts = line.split("=", 2);
-                if (parts.length == 2) {
+                if (parts.length == 2) 
+                {
                     config.put(parts[0].trim(), parts[1].trim());
                 }
             }
@@ -515,99 +565,128 @@ public class WendyW extends JFrame {
         return config;
     }
 
-    private void refreshModulesList(DefaultListModel<String> model) {
+    private void refreshModulesList(DefaultListModel<String> model) 
+    {
         model.clear();
         File modulesDir = new File(MODULES_DIR);
-        if (modulesDir.exists() && modulesDir.isDirectory()) {
+        if (modulesDir.exists() && modulesDir.isDirectory()) 
+        {
             File[] files = modulesDir.listFiles();
-            if (files != null) {
-                for (File f : files) {
-                    if (f.isFile()) {
+            if (files != null) 
+            {
+                for (File f : files) 
+                {
+                    if (f.isFile()) 
+                    {
                         model.addElement(f.getName());
                     }
                 }
             }
         }
-        if (model.isEmpty()) {
+        if (model.isEmpty()) 
+        {
             model.addElement("Нет модулей");
         }
     }
 
-    private void loadModuleConfig(String name) {
-        if (name == null || name.equals("Нет модулей")) {
+    private void loadModuleConfig(String name) 
+    {
+        if (name == null || name.equals("Нет модулей")) 
+        {
             moduleConfigArea.setText("");
             return;
         }
-        try (BufferedReader reader = new BufferedReader(new FileReader(MODULES_DIR + File.separator + name))) {
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(MODULES_DIR + File.separator + name))) 
+        {
             StringBuilder content = new StringBuilder();
             String line;
-            while ((line = reader.readLine()) != null) {
+            while ((line = reader.readLine()) != null) 
+            {
                 content.append(line).append("\n");
             }
             moduleConfigArea.setText(content.toString());
-        } catch (IOException e) {
+        } 
+        catch (IOException e) 
+        {
             moduleConfigArea.setText("Ошибка загрузки: " + e.getMessage());
         }
     }
 
-    private void saveModuleConfig(String name) {
+    private void saveModuleConfig(String name) 
+    {
         if (name == null || name.equals("Нет модулей")) return;
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(MODULES_DIR + File.separator + name))) {
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(MODULES_DIR + File.separator + name))) 
+        {
             writer.write(moduleConfigArea.getText());
             JOptionPane.showMessageDialog(this, "Модуль сохранен");
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(this, 
-                "Ошибка сохранения: " + e.getMessage(), 
-                "Ошибка", JOptionPane.ERROR_MESSAGE);
+        } 
+        catch (IOException e) 
+        {
+            JOptionPane.showMessageDialog(this, "Ошибка сохранения: " + e.getMessage(), "Ошибка", JOptionPane.ERROR_MESSAGE);
         }
     }
 
-    private void openModulesFolder() {
-        try {
+    private void openModulesFolder() 
+    {
+        try 
+        {
             Desktop.getDesktop().open(new File(MODULES_DIR));
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(this, 
-                "Ошибка открытия папки: " + e.getMessage(), 
-                "Ошибка", JOptionPane.ERROR_MESSAGE);
+        } 
+        catch (IOException e) 
+        {
+            JOptionPane.showMessageDialog(this, "Ошибка открытия папки: " + e.getMessage(), "Ошибка", JOptionPane.ERROR_MESSAGE);
         }
     }
 
-    private void loadDictionary() {
-        try (BufferedReader reader = new BufferedReader(new FileReader(DICT_CONFIG))) {
+    private void loadDictionary() 
+    {
+        try (BufferedReader reader = new BufferedReader(new FileReader(DICT_CONFIG))) 
+        {
             StringBuilder content = new StringBuilder();
             String line;
-            while ((line = reader.readLine()) != null) {
+            while ((line = reader.readLine()) != null) 
+            {
                 content.append(line).append("\n");
             }
             dictionaryArea.setText(content.toString());
-        } catch (IOException e) {
+        } 
+        catch (IOException e) 
+        {
             dictionaryArea.setText("Ошибка загрузки словаря: " + e.getMessage());
         }
     }
 
-    private void saveDictionary() {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(DICT_CONFIG))) {
+    private void saveDictionary() 
+    {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(DICT_CONFIG))) 
+        {
             writer.write(dictionaryArea.getText());
             JOptionPane.showMessageDialog(this, "Словарь сохранен");
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(this, 
-                "Ошибка сохранения: " + e.getMessage(), 
-                "Ошибка", JOptionPane.ERROR_MESSAGE);
+        } 
+        catch (IOException e) 
+        {
+            JOptionPane.showMessageDialog(this, "Ошибка сохранения: " + e.getMessage(), "Ошибка", JOptionPane.ERROR_MESSAGE);
         }
     }
 
-    static class MenuListRenderer extends DefaultListCellRenderer {
-        public Component getListCellRendererComponent(JList<?> list, Object value, int index, 
-                                                    boolean isSelected, boolean cellHasFocus) {
+    static class MenuListRenderer extends DefaultListCellRenderer 
+    {
+        public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) 
+        {
             JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
             label.setBorder(new EmptyBorder(5, 10, 5, 10));
             label.setHorizontalAlignment(SwingConstants.LEFT);
             label.setOpaque(true);
             
-            if (isSelected) {
+            if (isSelected) 
+            {
                 label.setBackground(new Color(59, 30, 84));
                 label.setForeground(Color.WHITE);
-            } else {
+            } 
+            else 
+            {
                 label.setBackground(new Color(30, 30, 30));
                 label.setForeground(new Color(225, 215, 198));
             }
@@ -616,7 +695,8 @@ public class WendyW extends JFrame {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) 
+    {
         SwingUtilities.invokeLater(() -> {
             WendyW app = new WendyW();
             app.setVisible(true);
