@@ -1,11 +1,13 @@
 import java.lang.reflect.InvocationTargetException;
+import Resources.Managers.SystemManager;
+import Resources.Managers.AppManager;
 import java.io.IOException;
 import java.util.List;
-import Actions.*;
 
 
 public class ActionHandler 
 {
+    
     public static void CallFunction(String FunctionName, Object... args) throws 
     InvocationTargetException, 
     IllegalArgumentException, 
@@ -32,117 +34,134 @@ public class ActionHandler
     }
 
     // Вызов приложений
-    public static void CallBrowser() throws IOException 
+    public static void CallBrowser() throws 
+    IOException 
     {
-        List<String> browser = ConfigReader.readConfig("../WendyGrand/Configs/Apps.conf", "browser");
+        List<String> browser = GeneralHelper.readConfig("../WendyGrand/Configs/Apps.conf", "browser");
         if (!browser.isEmpty()) 
-            AppManager.startApp(browser.get(0));
+            AppManager.execute(browser.get(0));
         // else Вызов озвучки, что конфиг не заполнен
     }
 
-    public static void CallConductor() throws IOException 
+    public static void CallConductor() throws 
+    IOException 
     {
-        List<String> conductor = ConfigReader.readConfig("../WendyGrand/Configs/Apps.conf", "conductor");
+        List<String> conductor = GeneralHelper.readConfig("../WendyGrand/Configs/Apps.conf", "conductor");
         if (!conductor.isEmpty()) 
-            AppManager.startApp(conductor.get(0));
+            AppManager.execute(conductor.get(0));
         // else Вызов озвучки, что конфиг не заполнен
     }
 
-    public static void CallTerminal() throws IOException 
+    public static void CallTerminal() throws 
+    IOException 
     {
-        List<String> terminal = ConfigReader.readConfig("../WendyGrand/Configs/Apps.conf", "terminal");
+        List<String> terminal = GeneralHelper.readConfig("../WendyGrand/Configs/Apps.conf", "terminal");
         if (!terminal.isEmpty()) 
-            AppManager.startApp(terminal.get(0));
+            AppManager.execute(terminal.get(0));
         // else Вызов озвучки, что конфиг не заполнен
     }
 
-    public static void CallStore() throws IOException 
+    public static void CallStore() throws 
+    IOException 
     {
-        List<String> store = ConfigReader.readConfig("../WendyGrand/Configs/Apps.conf", "store");
+        List<String> store = GeneralHelper.readConfig("../WendyGrand/Configs/Apps.conf", "store");
         if (!store.isEmpty()) 
-            AppManager.startApp(store.get(0));
+            AppManager.execute(store.get(0));
         // else Вызов озвучки, что конфиг не заполнен
     }
 
-    public static void CallOffice() throws IOException 
+    public static void CallOffice() throws 
+    IOException 
     {
-        List<String> office = ConfigReader.readConfig("../WendyGrand/Configs/Apps.conf", "office");
+        List<String> office = GeneralHelper.readConfig("../WendyGrand/Configs/Apps.conf", "office");
         if (!office.isEmpty()) 
-            AppManager.startApp(office.get(0));
+            AppManager.execute(office.get(0));
         // else Вызов озвучки, что конфиг не заполнен
     }
 
-    public static void CallMessenger() throws IOException 
+    public static void CallMessenger() throws 
+    IOException 
     {
-        List<String> messenger = ConfigReader.readConfig("../WendyGrand/Configs/Apps.conf", "messenger");
+        List<String> messenger = GeneralHelper.readConfig("../WendyGrand/Configs/Apps.conf", "messenger");
         if (!messenger.isEmpty()) 
-            AppManager.startApp(messenger.get(0));
+            AppManager.execute(messenger.get(0));
         // else Вызов озвучки, что конфиг не заполнен
     }
 
-    public static void CallSocialNetwork() throws IOException 
+    public static void CallSocialNetwork() throws 
+    IOException 
     {
-        List<String> social = ConfigReader.readConfig("../WendyGrand/Configs/Apps.conf", "socialnetwork");
+        List<String> social = GeneralHelper.readConfig("../WendyGrand/Configs/Apps.conf", "socialnetwork");
         if (!social.isEmpty()) 
-            AppManager.startApp(social.get(0));
+            AppManager.execute(social.get(0));
         // else Вызов озвучки, что конфиг не заполнен
     }
 
-    public static void CallNotes() throws IOException 
+    public static void CallNotes() throws 
+    IOException 
     {
-        List<String> notes = ConfigReader.readConfig("../WendyGrand/Configs/Apps.conf", "notes");
+        List<String> notes = GeneralHelper.readConfig("../WendyGrand/Configs/Apps.conf", "notes");
         if (!notes.isEmpty()) 
-            AppManager.startApp(notes.get(0));
+            AppManager.execute(notes.get(0));
         // else Вызов озвучки, что конфиг не заполнен
     }
 
-    public static void CallCodeEditor() throws IOException 
+    public static void CallCodeEditor() throws 
+    IOException 
     {
-        List<String> editor = ConfigReader.readConfig("../WendyGrand/Configs/Apps.conf", "codeeditor");
+        List<String> editor = GeneralHelper.readConfig("../WendyGrand/Configs/Apps.conf", "codeeditor");
         if (!editor.isEmpty()) 
-            AppManager.startApp(editor.get(0));
+            AppManager.execute(editor.get(0));
         // else Вызов озвучки, что конфиг не заполнен
     }
 
     // Работа с системой
-    public static void CallReboot() throws IOException, InterruptedException 
+    public static void CallReboot() throws 
+    InterruptedException, 
+    IOException
     {
         SystemManager.systemShutdown("-r", " перезапущена ");
     }
 
-    public static void CallShutdown() throws IOException, InterruptedException 
+    public static void CallShutdown() throws 
+    InterruptedException, 
+    IOException
     {
         SystemManager.systemShutdown("-h", " выключена ");
     }
 
-    public static void CallSleep() throws IOException, InterruptedException 
+    public static void CallSleep() throws 
+    InterruptedException, 
+    IOException
     {
         SystemManager.systemSleep(" переведена в спящий режим ");
     }
 
     public static void CallVolume(String arg) 
     {
-        SystemManager.volumeArgs(arg);
+        SystemManager.handleVolumeCommand(arg);
     }
 
     // Поиск
-    public static void CallWebSearch(String search) throws IOException 
+    public static void CallWebSearch(String search) throws 
+    IOException 
     {
-        List<String> browser = ConfigReader.readConfig("../WendyGrand/Configs/Apps.conf", "browser");
-        List<String> searchEngine = ConfigReader.readConfig("../WendyGrand/Configs/Apps.conf", "websearch");
+        List<String> browser = GeneralHelper.readConfig("../WendyGrand/Configs/Apps.conf", "browser");
+        List<String> searchEngine = GeneralHelper.readConfig("../WendyGrand/Configs/Apps.conf", "websearch");
 
         if (!browser.isEmpty() && !searchEngine.isEmpty()) 
-            SearchManager.startSearch(browser.get(0), searchEngine.get(0), search);
+            AppManager.execute(browser.get(0), searchEngine.get(0) + search);
         // else Вызов озвучки, что конфиг не заполнен
     }
 
-    public static void CallYouTubeSearch(String search) throws IOException 
+    public static void CallYouTubeSearch(String search) throws 
+    IOException 
     {
-        List<String> browser = ConfigReader.readConfig("../WendyGrand/Configs/Apps.conf", "browser");
-        List<String> searchEngine = ConfigReader.readConfig("../WendyGrand/Configs/Apps.conf", "videosearch");
+        List<String> browser = GeneralHelper.readConfig("../WendyGrand/Configs/Apps.conf", "browser");
+        List<String> searchEngine = GeneralHelper.readConfig("../WendyGrand/Configs/Apps.conf", "videosearch");
 
         if (!browser.isEmpty() && !searchEngine.isEmpty()) 
-            SearchManager.startSearch(browser.get(0), searchEngine.get(0), search);
+            AppManager.execute(browser.get(0), searchEngine.get(0) + search);
         // else Вызов озвучки, что конфиг не заполнен
     }
 }

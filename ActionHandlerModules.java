@@ -1,66 +1,59 @@
-import Actions.RunModulesManager;
-import java.io.BufferedReader;
+import Resources.Managers.RunModuleManager;
 import java.io.IOException;
-import java.io.FileReader;
-import java.util.Arrays;
+import java.util.List;
 import java.io.File;
-
 
 public class ActionHandlerModules 
 {
-    // Чтение DictionaryModules.conf
-    public static void txtReader(String word) throws IOException, InterruptedException 
+    
+    // Обработка модулей
+    public static void handleModule(String word) throws 
+    InterruptedException, 
+    IOException
     {
-        try (BufferedReader reader = new BufferedReader(new FileReader("../WendyGrand/Configs/DictionaryModules.conf"))) 
+        List<String> modules = GeneralHelper.readConfig("../WendyGrand/Configs/DictionaryModules.conf", word);
+        
+        if (!modules.isEmpty()) 
         {
-            String line;
-            
-            while ((line = reader.readLine()) != null) 
+            voiceoverScript("StandardModule_StandardResponse");
+
+            for (String module : modules) 
             {
-                line = line.trim();
-
-                if (line.isEmpty() || line.startsWith("#")) continue;
-
-                String[] parts = line.split("=");
-                if (parts.length >= 2 && parts[0].trim().equals(word)) 
+                try{
+                    startModule(module.trim());} 
+                catch (IOException | InterruptedException e) 
                 {
-                    voiceoverScript("StandardModule_StandardResponse");
-
-                    // Разделяем значение на отдельные модули по запятой
-                    Arrays.stream(parts[1].trim().split(","))
-                    .map(String::trim)
-                    .forEach(module -> {
-                        try{
-                            functionStart(module);} 
-                        catch (IOException | InterruptedException e) 
-                        {
-                            System.err.println("Ошибка при запуске модуля: " + module); //добавить озвучку ошибка модуля
-                            e.printStackTrace();
-                        }
-                    });
+                    System.err.println("Ошибка при запуске модуля: " + module);
+                    //добавить озвучку ошибка модуля (типо ошибка в коде модуля)
+                    e.printStackTrace();
                 }
             }
         }
     }
 
     // Запуск модуля или предупреждение, что его нет
-    private static void functionStart(String function) throws IOException, InterruptedException 
+    private static void startModule(String moduleName) throws 
+    InterruptedException, 
+    IOException
     {
-        File moduleFile = new File("../WendyGrand/Modules/", function);
+        File moduleFile = new File("../WendyGrand/Modules/", moduleName);
 
         if (moduleFile.exists()) 
         {
-            System.out.println("Активация модуля: " + function);
-            RunModulesManager.run(function);
+            System.out.println("Активация модуля: " + moduleName);
+            RunModuleManager.run(moduleName);
         }
-        else voiceoverScript("ErrModule");
+        else 
+            voiceoverScript("ErrModule");
     }
 
-    // Запуск озвучки (пропадет с появлением Voiceover.java)
-    private static void voiceoverScript(String scriptPath) throws IOException, InterruptedException 
+    // Запуск озвучки
+    private static void voiceoverScript(String scriptPath) throws 
+    InterruptedException, 
+    IOException
     {
         new ProcessBuilder("python3", "../WendyGrand/Voiceover.py", scriptPath)
-        .start()
-        .waitFor();
+            .start()
+            .waitFor();
     }
 }

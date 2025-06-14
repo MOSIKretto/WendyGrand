@@ -1,5 +1,4 @@
 import java.lang.reflect.InvocationTargetException;
-import java.util.stream.Collectors;
 import static java.util.Map.entry;
 import java.io.IOException;
 import java.util.*;
@@ -7,6 +6,7 @@ import java.util.*;
 
 public class WordHandler 
 {
+    
     private static final Map<String, String> FUNCTIONS_DICTIONARY = Map.ofEntries(
         // Изменяемые
         entry("Hello", "CallHello"),
@@ -43,50 +43,43 @@ public class WordHandler
     {
         for (String arg : args) 
         {
-            String clearText = cleanInput(arg, REMOVE_WORDS);
+            String clearText = GeneralHelper.cleanInput(arg, REMOVE_WORDS);
 
             // Команды
-            executeCommand(clearText, ConfigReader.readConfig("../WendyGrand/Configs/Dictionary.conf", "hello"), FUNCTIONS_DICTIONARY.get("Hello"));
-            executeCommand(clearText, ConfigReader.readConfig("../WendyGrand/Configs/Dictionary.conf", "browser"), FUNCTIONS_DICTIONARY.get("Browser"));
-            executeCommand(clearText, ConfigReader.readConfig("../WendyGrand/Configs/Dictionary.conf", "conductor"), FUNCTIONS_DICTIONARY.get("Conductor"));
-            executeCommand(clearText, ConfigReader.readConfig("../WendyGrand/Configs/Dictionary.conf", "terminal"), FUNCTIONS_DICTIONARY.get("Terminal"));
-            executeCommand(clearText, ConfigReader.readConfig("../WendyGrand/Configs/Dictionary.conf", "store"), FUNCTIONS_DICTIONARY.get("Store"));
-            executeCommand(clearText, ConfigReader.readConfig("../WendyGrand/Configs/Dictionary.conf", "office"), FUNCTIONS_DICTIONARY.get("Office"));
-            executeCommand(clearText, ConfigReader.readConfig("../WendyGrand/Configs/Dictionary.conf", "messenger"), FUNCTIONS_DICTIONARY.get("Messenger"));
-            executeCommand(clearText, ConfigReader.readConfig("../WendyGrand/Configs/Dictionary.conf", "socialnetwork"), FUNCTIONS_DICTIONARY.get("SocialNetwork"));
-            executeCommand(clearText, ConfigReader.readConfig("../WendyGrand/Configs/Dictionary.conf", "notes"), FUNCTIONS_DICTIONARY.get("Notes"));
-            executeCommand(clearText, ConfigReader.readConfig("../WendyGrand/Configs/Dictionary.conf", "codeeditor"), FUNCTIONS_DICTIONARY.get("CodeEditor"));
-            executeCommand(clearText, ConfigReader.readConfig("../WendyGrand/Configs/Dictionary.conf", "reboot"), FUNCTIONS_DICTIONARY.get("Reboot"));
-            executeCommand(clearText, ConfigReader.readConfig("../WendyGrand/Configs/Dictionary.conf", "shutdown"), FUNCTIONS_DICTIONARY.get("Shutdown"));
-            executeCommand(clearText, ConfigReader.readConfig("../WendyGrand/Configs/Dictionary.conf", "sleep"), FUNCTIONS_DICTIONARY.get("Sleep"));
+            executeCommand(clearText, GeneralHelper.readConfig("../WendyGrand/Configs/Dictionary.conf", "hello"), FUNCTIONS_DICTIONARY.get("Hello"));
+            executeCommand(clearText, GeneralHelper.readConfig("../WendyGrand/Configs/Dictionary.conf", "browser"), FUNCTIONS_DICTIONARY.get("Browser"));
+            executeCommand(clearText, GeneralHelper.readConfig("../WendyGrand/Configs/Dictionary.conf", "conductor"), FUNCTIONS_DICTIONARY.get("Conductor"));
+            executeCommand(clearText, GeneralHelper.readConfig("../WendyGrand/Configs/Dictionary.conf", "terminal"), FUNCTIONS_DICTIONARY.get("Terminal"));
+            executeCommand(clearText, GeneralHelper.readConfig("../WendyGrand/Configs/Dictionary.conf", "store"), FUNCTIONS_DICTIONARY.get("Store"));
+            executeCommand(clearText, GeneralHelper.readConfig("../WendyGrand/Configs/Dictionary.conf", "office"), FUNCTIONS_DICTIONARY.get("Office"));
+            executeCommand(clearText, GeneralHelper.readConfig("../WendyGrand/Configs/Dictionary.conf", "messenger"), FUNCTIONS_DICTIONARY.get("Messenger"));
+            executeCommand(clearText, GeneralHelper.readConfig("../WendyGrand/Configs/Dictionary.conf", "socialnetwork"), FUNCTIONS_DICTIONARY.get("SocialNetwork"));
+            executeCommand(clearText, GeneralHelper.readConfig("../WendyGrand/Configs/Dictionary.conf", "notes"), FUNCTIONS_DICTIONARY.get("Notes"));
+            executeCommand(clearText, GeneralHelper.readConfig("../WendyGrand/Configs/Dictionary.conf", "codeeditor"), FUNCTIONS_DICTIONARY.get("CodeEditor"));
+            executeCommand(clearText, GeneralHelper.readConfig("../WendyGrand/Configs/Dictionary.conf", "reboot"), FUNCTIONS_DICTIONARY.get("Reboot"));
+            executeCommand(clearText, GeneralHelper.readConfig("../WendyGrand/Configs/Dictionary.conf", "shutdown"), FUNCTIONS_DICTIONARY.get("Shutdown"));
+            executeCommand(clearText, GeneralHelper.readConfig("../WendyGrand/Configs/Dictionary.conf", "sleep"), FUNCTIONS_DICTIONARY.get("Sleep"));
 
             // Исключения
-            handleVolumeCommand(clearText, ConfigReader.readConfig("../WendyGrand/Configs/Dictionary.conf", "volume"));
-            handleSearchCommand(clearText, ConfigReader.readConfig("../WendyGrand/Configs/Dictionary.conf", "websearch"), 
-                                           ConfigReader.readConfig("../WendyGrand/Configs/Dictionary.conf", "videosearch"));
+            handleVolumeCommand(clearText, GeneralHelper.readConfig("../WendyGrand/Configs/Dictionary.conf", "volume"));
+            handleSearchCommand(clearText, GeneralHelper.readConfig("../WendyGrand/Configs/Dictionary.conf", "websearch"), 
+                                           GeneralHelper.readConfig("../WendyGrand/Configs/Dictionary.conf", "videosearch"));
 
             // Модульность
-            List<String> modules = ConfigReader.readConfig("../WendyGrand/Configs/Dictionary.conf", "modules");
+            List<String> modules = GeneralHelper.readConfig("../WendyGrand/Configs/Dictionary.conf", "modules");
+
             if (!clearText.isEmpty() || !modules.isEmpty()) 
-            {
-                String clearModules = cleanInput(clearText, modules);
-                ActionHandlerModules.txtReader(clearModules);
-            }
+                ActionHandlerModules.handleModule(GeneralHelper.cleanInput(clearText, modules));
         }
     }
 
-    private static String cleanInput(String input, List<String> wordsToRemove) 
-    {
-        return Arrays.stream(input.split("\\s+"))
-            .filter(word -> !wordsToRemove.contains(word))
-            .collect(Collectors.joining(" "));
-    }
-
-    private static void handleVolumeCommand(String input, List<String> volumeCommands) throws IOException, InterruptedException 
+    private static void handleVolumeCommand(String input, List<String> volumeCommands) throws 
+    InterruptedException, 
+    IOException
     {
         if (volumeCommands != null && !volumeCommands.isEmpty() && volumeCommands.stream().anyMatch(input::startsWith)) 
         {
-            String clearTextVolume = cleanInput(input, List.of("громкость", "на", "мне", "меня", "процента", "процент", "процентов"));
+            String clearTextVolume = GeneralHelper.cleanInput(input, List.of("громкость", "на", "мне", "меня", "процента", "процент", "процентов"));
             
             new ProcessBuilder("python3", "../WendyGrand/Voiceover.py", "StandardModule_StandardResponse").start();
             Thread.sleep(1500);
@@ -116,13 +109,13 @@ public class WordHandler
             if (youtubeSearchCommands != null && !youtubeSearchCommands.isEmpty() && youtubeSearchCommands.stream().anyMatch(input::startsWith)) 
             {
                 List<String> removeYouTubeSearchWords = List.of("найди", "найти", "на", "ищи", "ютубе", "ютюбе", "ютуб", "ютюб");
-                String clearTextYouTubeSearch = cleanInput(input, removeYouTubeSearchWords).replace(" ", "%20");
+                String clearTextYouTubeSearch = GeneralHelper.cleanInput(input, removeYouTubeSearchWords).replace(" ", "%20");
                 ActionHandler.CallFunction(FUNCTIONS_DICTIONARY.get("YouTubeSearch"), clearTextYouTubeSearch);
             } 
             else 
             {
                 List<String> removeWebSearchWords = List.of("найди", "найти", "в", "интернете", "ищи");
-                String clearTextWebSearch = cleanInput(input, removeWebSearchWords).replace(" ", "%20");
+                String clearTextWebSearch = GeneralHelper.cleanInput(input, removeWebSearchWords).replace(" ", "%20");
                 ActionHandler.CallFunction(FUNCTIONS_DICTIONARY.get("WebSearch"), clearTextWebSearch);
             }
         }
@@ -133,8 +126,8 @@ public class WordHandler
     IllegalArgumentException, 
     IllegalAccessException, 
     NoSuchMethodException, 
-    SecurityException, 
     InterruptedException, 
+    SecurityException, 
     IOException 
     {
         if (commands != null && !commands.isEmpty() && commands.contains(input)) 

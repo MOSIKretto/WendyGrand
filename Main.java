@@ -1,5 +1,3 @@
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -8,6 +6,7 @@ import java.io.File;
 
 public class Main 
 {
+    
     public static void main(String[] args) throws IOException, InterruptedException 
     {
         //проверка на изменение дирректории
@@ -26,7 +25,7 @@ public class Main
     //чтение старого пути
     private static String readPathFromFile() throws IOException 
     {
-        if (Files.exists(Paths.get("path.cfg"))) return new String(Files.readAllBytes(Paths.get("path.cfg")));
+        if (Files.exists(Paths.get("timepath.cfg"))) return new String(Files.readAllBytes(Paths.get("timepath.cfg")));
 
         else return "";
     }
@@ -34,7 +33,7 @@ public class Main
     //запись нового пути
     private static void writePathToFile(String path) throws IOException
     {
-        Files.write(Paths.get("path.cfg"), path.getBytes());
+        Files.write(Paths.get("timepath.cfg"), path.getBytes());
     }
 
     //пересобираем либы
@@ -42,7 +41,7 @@ public class Main
     {
         String[] commands = {
             "bash", "-c", """
-            javac WordHandler.java && \
+            javac ../WendyGrand/WordHandler.java && \
             python -m venv venv && \
             source venv/bin/activate && \
             pip install --upgrade pip && \
@@ -58,25 +57,9 @@ public class Main
     //запуск Wendy
     private static void Start() throws IOException, InterruptedException 
     {
-        ExecutorService executor = Executors.newFixedThreadPool(2);
-
-        Process builderGui = new ProcessBuilder("bash", "-c", "source venv/bin/activate; python3 ../WendyGrand/GUI/MW_Window.py").start();
-        Process builderRecognizer = new ProcessBuilder("bash", "-c", "source venv/bin/activate; python3 Recognizer.py")
+        new ProcessBuilder("bash", "-c", "source venv/bin/activate; python3 Recognizer.py")
         .inheritIO()
-        .start();
-
-        executor.submit(() -> waitForKill(builderRecognizer, builderGui));
-        executor.submit(() -> waitForKill(builderGui, builderRecognizer));
-
-        executor.shutdown();
-    }
-
-    //закрытие Wendy
-    private static void waitForKill(Process mainProcess, Process processToKill) 
-    {
-        try{
-            if (mainProcess.waitFor() == 0) processToKill.destroy();} 
-        catch (InterruptedException e){
-            Thread.currentThread().interrupt();}
+        .start()
+        .waitFor();
     }
 }
