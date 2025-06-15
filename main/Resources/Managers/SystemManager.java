@@ -41,7 +41,9 @@ public class SystemManager
 
         // Специальные команды
         map.put("сто", 100);
+        map.put("максимум", 100);
         map.put("выключи звук", 0);
+        map.put("минимум", 10);
         map.put("включи звук", 50);
         map.put("увеличь", -2);
         map.put("уменьши", -3);
@@ -56,13 +58,17 @@ public class SystemManager
     }
 
     // Управление питанием системы
-    public static void systemShutdown(String arg, String message) throws IOException, InterruptedException 
+    public static void systemShutdown(String arg, String message) throws 
+    InterruptedException,
+    IOException
     {
         GeneralHelper.message(message);
         GeneralHelper.Performer(new String[]{SHUTDOWN_CMD, arg, "now"});
     }
 
-    public static void systemSleep(String message) throws IOException, InterruptedException 
+    public static void systemSleep(String message) throws 
+    InterruptedException, 
+    IOException
     {
         GeneralHelper.message(message);
         GeneralHelper.Performer(new String[]{SLEEP_CMD, "suspend", "-i"});

@@ -11,7 +11,9 @@ public class Main
 
     private static final String TIME_CFG = "../WendyGrand/Configs/timepath.cfg";
     
-    public static void main(String[] args) throws IOException, InterruptedException 
+    public static void main(String[] args) throws 
+    InterruptedException,
+    IOException
     {
         //проверка на изменение дирректории
         String nowPath = new File("").getAbsolutePath();
@@ -36,7 +38,8 @@ public class Main
     }
 
     //чтение старого пути
-    private static String readPathFromFile() throws IOException 
+    private static String readPathFromFile() throws 
+    IOException 
     {
         if (Files.exists(Paths.get(TIME_CFG))) return new String(Files.readAllBytes(Paths.get(TIME_CFG)));
 

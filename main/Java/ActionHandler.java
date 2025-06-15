@@ -1,6 +1,5 @@
 package main.Java;
 
-import java.lang.reflect.InvocationTargetException;
 import main.Resources.Managers.SystemManager;
 import main.Resources.Managers.AppManager;
 import main.Resources.GeneralHelper;
@@ -13,13 +12,8 @@ public class ActionHandler
 
     private static String PATH = "../WendyGrand/Configs/Apps.conf";
 
-    public static void CallFunction(String FunctionName, Object... args) throws 
-    InvocationTargetException, 
-    IllegalArgumentException, 
-    IllegalAccessException, 
-    NoSuchMethodException, 
-    InterruptedException, 
-    SecurityException,
+    public static void CallFunction(String FunctionName, Object... args) throws  
+    InterruptedException,
     IOException 
     {
         GeneralHelper.Performer("python3", "../WendyGrand/main/Python/Voiceover.py", FunctionName + "Voiceover");

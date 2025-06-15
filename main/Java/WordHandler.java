@@ -68,12 +68,10 @@ public class WordHandler
     }
 
     private static void executeCommand(String input, List<String> commands, String functionName) throws 
-    InvocationTargetException, 
-    IllegalArgumentException, 
+    InvocationTargetException,
     IllegalAccessException, 
     NoSuchMethodException,
-    InterruptedException, 
-    SecurityException,
+    InterruptedException,
     IOException 
     {
         if (commands != null && !commands.isEmpty() && commands.contains(input))
