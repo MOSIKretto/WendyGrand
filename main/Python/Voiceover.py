@@ -106,14 +106,8 @@ class ActionsVoiceover:
 #----------------------------------------------------------------------------------------------------------------------------------
 
     @staticmethod
-    def CallWebSearchVoiceover():
+    def CallSearchVoiceover():
         executive_voice = choice(['LookingForYourRequestOnTheInternet.mp3', 'AskingOnTheInternet.mp3',
-                                  'WillFindIt.mp3', 'ActionsVoiceover.StandardModule_StandardResponse()'])
-        ActionsVoiceover.ActivateVoice(executive_voice)
-
-    @staticmethod
-    def CallYouTubeSearchVoiceover():
-        executive_voice = choice(['TryingToFindYourYouTubeRequest.mp3', 'LookingForYourYouTubeRequest.mp3', 
                                   'WillFindIt.mp3', 'ActionsVoiceover.StandardModule_StandardResponse()'])
         ActionsVoiceover.ActivateVoice(executive_voice)
 
@@ -122,7 +116,7 @@ class ActionsVoiceover:
     @staticmethod
     def StandardModule_StandardResponse():
         executive_voice = choice(['OneMoment.mp3', 'Doing.mp3', 'Done.mp3', 'AlwaysAPleasure.mp3', 'OneSecond.mp3', 'Second.mp3'])
-        playsound("../WendyGrand/Audio/" + executive_voice)
+        playsound("../WendyGrand/main/Resources/Audio/" + executive_voice)
 
     @staticmethod
     def ErrModule():
@@ -134,7 +128,7 @@ class ActionsVoiceover:
     @staticmethod
     def ActivateVoice(executive_voice):
         if executive_voice != 'ActionsVoiceover.StandardModule_StandardResponse()':
-            playsound("../WendyGrand/Audio/" + executive_voice)
+            playsound("../WendyGrand/main/Resources/Audio/" + executive_voice)
         else:
             ActionsVoiceover.StandardModule_StandardResponse()
 

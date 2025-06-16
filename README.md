@@ -1,7 +1,7 @@
 # Wendy - Голосовой помощник для Linux
 
 <p align="center">
-  <img src="https://github.com/MOSIKretto/WendyGrand/blob/develop/GUI/icon.ico" alt="WendyGrand Logo" width="150" height="150">
+  <img src="https://github.com/MOSIKretto/WendyGrand/blob/develop/main/Resources/GUI/icon.ico" alt="WendyGrand Logo" width="150" height="150">
 </p>
 
 ## Добро пожаловать в репозиторий Wendy! Это интеллектуальный голосовой помощник для Linux, который может выполнять различные задачи на основе ваших команд.

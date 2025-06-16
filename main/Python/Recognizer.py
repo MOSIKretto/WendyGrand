@@ -10,9 +10,10 @@ import re
 lastСommand = ""
 commandTimer = 0
 q = asyncio.Queue(maxsize=1500)
-model = vosk.Model("model_small")
+model = vosk.Model("../WendyGrand/main/Resources/model_small")
 samplerate = int(sd.query_devices(sd.default.device[0], 'input')['default_samplerate'])
 removeWord = re.compile(r"\b(привет|чем|могу|помочь|я|здравствуйте|здесь|естественно|застав|засос)\b", re.IGNORECASE)
+WardHandler = "../WendyGrand/main/Java/WordHandler.java"
 
 
 # Приветствие
@@ -45,7 +46,7 @@ def handleCommand(text):
         print(f"Распознано: {recognizedText}")
 
         if len(recognizedText) > 5:
-            subprocess.run(["java", "WordHandler", recognizedText])
+            subprocess.run(["java", WardHandler, recognizedText])
         else:
             lastСommand = recognizedText
             commandTimer = time.time()
@@ -60,7 +61,7 @@ def handleCommand(text):
                 goodbye(recognizedText)
             else:
                 print(f"Распознано: {recognizedText}")
-                subprocess.run(["java", "WordHandler", recognizedText])
+                subprocess.run(["java", WardHandler, recognizedText])
                 lastСommand = ""
 
 # Прослушка и распознавание речи

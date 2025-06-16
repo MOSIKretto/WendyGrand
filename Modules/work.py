@@ -4,7 +4,7 @@ import subprocess
 programs = [
     "firefox", 
     "code",
-    "telegram-desktop", 
+    "Telegram", 
     "md.obsidian.Obsidian"
 ]
 
