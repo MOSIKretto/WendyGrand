@@ -1,10 +1,9 @@
-package main.Resources.Managers;
+package main.Resources.Managers.Addons;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import main.Resources.GeneralHelper;
-
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -13,50 +12,10 @@ import java.util.List;
 import java.io.File;
 
 
-public class RunModuleManager 
+public class RunPythonModules
 {
-    // Начало активации модуля
-    public static void run(String arg) throws 
-    InterruptedException, 
-    IOException
-    {
-        executeModule(sliceUntilPeriod(arg), arg, "../WendyGrand/Modules/");
-    }
 
-    // Определение языка по расширению файла
-    private static String sliceUntilPeriod(String inputString) 
-    {
-        int periodIndex = inputString.lastIndexOf('.');
-        return periodIndex != -1 ? inputString.substring(periodIndex + 1) : "";
-    }
-
-    // Проверка на язык и выполнение соответствующего модуля
-    private static void executeModule(String extension, String arg, String currentDirectory) throws 
-    InterruptedException, 
-    IOException
-    {
-        String modulePath = Paths.get(currentDirectory, arg).toString();
-
-        switch (extension) 
-        {
-            case "py":
-                handlePythonModule(modulePath, currentDirectory);
-                break;
-
-            case "":
-                startModules("./" + modulePath);
-                break;
-            
-            default:
-                startModules(extension, modulePath);
-                break;
-        }
-    }
-
-    
-    // Python-специфичные методы --------------------------------------------------------
-    
-    private static void handlePythonModule(String modulePath, String currentDirectory) throws 
+    public static void runPythonModule(String modulePath, String currentDirectory) throws 
     InterruptedException, 
     IOException 
     {
@@ -144,17 +103,5 @@ public class RunModuleManager
         .redirectError(ProcessBuilder.Redirect.DISCARD)
         .start()
         .waitFor() == 0;
-    }
-
-
-    // Запуск модуля --------------------------------------------------------------------------
-
-    private static void startModules(String... command) throws 
-    InterruptedException, 
-    IOException
-    {
-        new ProcessBuilder(command)
-        .inheritIO()
-        .start();
     }
 }

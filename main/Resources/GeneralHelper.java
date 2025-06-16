@@ -1,7 +1,7 @@
 package main.Resources;
 
+import main.Java.Handlers.ActionHandler;
 import java.util.stream.Collectors;
-import main.Java.ActionHandler;
 import java.io.BufferedReader;
 import java.util.Collections;
 import java.util.Collection;

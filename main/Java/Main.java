@@ -23,7 +23,7 @@ public class Main
             System.out.println("Изменение директории");
             Performer(
                 "bash", "-c", """
-            javac ../WendyGrand/main/Java/WordHandler.java && \
+            javac ../WendyGrand/main/Java/Handlers/WordHandler.java && \
             python -m venv ../WendyGrand/main/Python/venv && \
             source ../WendyGrand/main/Python/venv/bin/activate && \
             pip install --upgrade pip && \
