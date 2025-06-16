@@ -13,7 +13,7 @@ q = asyncio.Queue(maxsize=1500)
 model = vosk.Model("../WendyGrand/main/Resources/model_small")
 samplerate = int(sd.query_devices(sd.default.device[0], 'input')['default_samplerate'])
 removeWord = re.compile(r"\b(привет|чем|могу|помочь|я|здравствуйте|здесь|естественно|застав|засос)\b", re.IGNORECASE)
-WardHandler = "../WendyGrand/main/Java/WordHandler.java"
+WardHandler = "../WendyGrand/main/Java/Handlers/WordHandler.java"
 
 
 # Приветствие

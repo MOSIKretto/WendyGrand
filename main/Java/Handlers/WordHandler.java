@@ -1,4 +1,4 @@
-package main.Java;
+package main.Java.Handlers;
 
 import java.lang.reflect.InvocationTargetException;
 import main.Resources.GeneralHelper;

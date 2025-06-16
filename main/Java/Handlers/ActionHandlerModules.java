@@ -1,6 +1,5 @@
-package main.Java;
+package main.Java.Handlers;
 
-import main.Resources.Managers.RunModuleManager;
 import main.Resources.GeneralHelper;
 import java.io.IOException;
 import java.util.List;
@@ -45,7 +44,7 @@ public class ActionHandlerModules
         if (moduleFile.exists()) 
         {
             System.out.println("Активация модуля: " + moduleName);
-            RunModuleManager.run(moduleName);
+            RunModulesHandler.run(moduleName);
         }
         else
             GeneralHelper.Performer("python3", "../WendyGrand/main/Python/Voiceover.py", "ErrModule");

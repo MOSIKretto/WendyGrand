@@ -1,4 +1,4 @@
-package main.Java;
+package main.Java.Handlers;
 
 import main.Resources.Managers.SystemManager;
 import main.Resources.Managers.AppManager;
