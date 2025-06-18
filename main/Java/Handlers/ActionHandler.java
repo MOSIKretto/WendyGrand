@@ -1,10 +1,12 @@
 package main.Java.Handlers;
 
-import main.Resources.Managers.SystemManager;
+import main.Resources.Managers.ShutdownManager;
+import main.Resources.Managers.VolumeManager;
 import main.Resources.Managers.AppManager;
 import main.Resources.GeneralHelper;
 import java.io.IOException;
 import java.util.List;
+import java.util.Set;
 
 
 public class ActionHandler 
@@ -12,142 +14,93 @@ public class ActionHandler
 
     private static String PATH = "../WendyGrand/Configs/Apps.conf";
 
-    public static void CallFunction(String FunctionName, Object... args) throws  
-    InterruptedException,
+    public static void CallFunction(String functionName, Object... args) throws 
+    InterruptedException, 
     IOException 
     {
-        GeneralHelper.Performer("python3", "../WendyGrand/main/Python/Voiceover.py", FunctionName + "Voiceover");
-
-        try 
-        {
-            Class<?>[] parameterTypes = new Class<?>[args.length];
-
-            for (int i = 0; i < args.length; i++)
-                parameterTypes[i] = args[i].getClass();
-
-            ActionHandler.class.getDeclaredMethod(FunctionName, parameterTypes).invoke(null, args); 
-        } 
-        catch (Exception e) {}
+        if (args == null) return;
+        
+        if (functionName.equals("CallApps"))
+            CallApps((String) args[0]);
+        else
+            CallShutdown((String) args[0]);
     }
+    
 
     // Вызов приложений
-    public static void CallBrowser() throws 
+    public static void CallApps(String args) throws 
     IOException 
     {
-        List<String> browser = GeneralHelper.readConfig(PATH, "browser");
-        if (!browser.isEmpty()) 
-            AppManager.execute(browser.get(0));
-        // else Вызов озвучки, что конфиг не заполнен
-    }
-
-    public static void CallConductor() throws 
-    IOException 
-    {
-        List<String> conductor = GeneralHelper.readConfig(PATH, "conductor");
-        if (!conductor.isEmpty()) 
-            AppManager.execute(conductor.get(0));
-        // else Вызов озвучки, что конфиг не заполнен
-    }
-
-    public static void CallTerminal() throws 
-    IOException 
-    {
-        List<String> terminal = GeneralHelper.readConfig(PATH, "terminal");
-        if (!terminal.isEmpty()) 
-            AppManager.execute(terminal.get(0));
-        // else Вызов озвучки, что конфиг не заполнен
-    }
-
-    public static void CallStore() throws 
-    IOException 
-    {
-        List<String> store = GeneralHelper.readConfig(PATH, "store");
-        if (!store.isEmpty()) 
-            AppManager.execute(store.get(0));
-        // else Вызов озвучки, что конфиг не заполнен
-    }
-
-    public static void CallOffice() throws 
-    IOException 
-    {
-        List<String> office = GeneralHelper.readConfig(PATH, "office");
-        if (!office.isEmpty()) 
-            AppManager.execute(office.get(0));
-        // else Вызов озвучки, что конфиг не заполнен
-    }
-
-    public static void CallMessenger() throws 
-    IOException 
-    {
-        List<String> messenger = GeneralHelper.readConfig(PATH, "messenger");
-        if (!messenger.isEmpty()) 
-            AppManager.execute(messenger.get(0));
-        // else Вызов озвучки, что конфиг не заполнен
-    }
-
-    public static void CallSocialNetwork() throws 
-    IOException 
-    {
-        List<String> social = GeneralHelper.readConfig(PATH, "socialnetwork");
-        if (!social.isEmpty()) 
-            AppManager.execute(social.get(0));
-        // else Вызов озвучки, что конфиг не заполнен
-    }
-
-    public static void CallNotes() throws 
-    IOException 
-    {
-        List<String> notes = GeneralHelper.readConfig(PATH, "notes");
-        if (!notes.isEmpty()) 
-            AppManager.execute(notes.get(0));
-        // else Вызов озвучки, что конфиг не заполнен
-    }
-
-    public static void CallCodeEditor() throws 
-    IOException 
-    {
-        List<String> editor = GeneralHelper.readConfig(PATH, "codeeditor");
-        if (!editor.isEmpty()) 
-            AppManager.execute(editor.get(0));
-        // else Вызов озвучки, что конфиг не заполнен
+        GeneralHelper.Voiceover(args);
+        List<String> app = GeneralHelper.readConfig(PATH, args);
+        if (app != null && !app.isEmpty())
+            AppManager.execute(app.get(0));
     }
 
     // Работа с системой
-    public static void CallReboot() throws 
+    public static void CallShutdown(String args) throws 
     InterruptedException, 
-    IOException
-    {
-        SystemManager.systemShutdown("-r", "перезапущена");
-    }
-
-    public static void CallShutdown() throws 
-    InterruptedException, 
-    IOException
-    {
-        SystemManager.systemShutdown("-h", "выключена");
-    }
-
-    public static void CallSleep() throws 
-    InterruptedException, 
-    IOException
-    {
-        SystemManager.systemSleep("переведена в спящий режим");
-    }
-
-    public static void CallVolume(String arg) 
-    {
-        SystemManager.handleVolumeCommand(arg);
-    }
-
-    // Поиск
-    public static void CallSearch(String search, String key) throws 
     IOException 
     {
-        List<String> browser = GeneralHelper.readConfig(PATH, "browser");
-        List<String> searchEngine = GeneralHelper.readConfig(PATH, key);
+        switch (args) 
+        {
+            case "shutdown":
+                GeneralHelper.Voiceover(args);
+                ShutdownManager.systemShutdown("-h", "выключена");
+                break;
+            case "reboot":
+                GeneralHelper.Voiceover(args);
+                ShutdownManager.systemShutdown("-r", "перезапущена");
+                break;
+            case "sleep":
+                GeneralHelper.Voiceover(args);
+                ShutdownManager.systemSleep("переведена в спящий режим");
+                break;
+        }
+    }
 
-        if (!browser.isEmpty() && !searchEngine.isEmpty()) 
-            AppManager.execute(browser.get(0), searchEngine.get(0) + search);
-        // else Вызов озвучки, что конфиг не заполнен
+    // Для громкости
+    public static void CallVolume(String input, List<String> volumeCommands) throws 
+    InterruptedException, 
+    IOException 
+    {
+        if (volumeCommands.stream().noneMatch(input::startsWith))
+            return;
+
+        String clearTextVolume = GeneralHelper.cleanInput(input, List.of("громкость", "на", "мне", "меня", "процента", "процент", "процентов", "сделай", "поставь", "установи"));
+
+        VolumeManager.handleVolumeCommand(clearTextVolume);
+
+        GeneralHelper.Voiceover("StandardModule_StandardResponse");
+    }
+
+
+    // Для поиска в интернете и на видео площадках
+    public static void CallSearch(String input, List<String> webSearchCommands, List<String> youtubeSearchCommands) throws 
+    InterruptedException,
+    IOException
+    {
+        final boolean isYoutubeSearch = youtubeSearchCommands.stream().anyMatch(input::startsWith);
+        
+        final boolean isWebSearch = !isYoutubeSearch && webSearchCommands.stream().anyMatch(input::startsWith);
+        
+        if (!isWebSearch && !isYoutubeSearch)
+            return;
+
+        final String searchType = isYoutubeSearch ? "videosearch" : "websearch";
+        final Set<String> cleanWords = isYoutubeSearch 
+                                        ? Set.of("найди", "найти", "на", "ищи", "ютубе", "ютюбе", "ютуб", "ютюб")
+                                        : Set.of("найди", "найти", "в", "интернете", "ищи");
+
+        String searchQuery = GeneralHelper.cleanInput(input, cleanWords).replace(" ", "%20").trim();
+        
+        if (searchQuery.isEmpty())
+            return;
+
+        List<String> browser = GeneralHelper.readConfig(PATH, "browser");
+        List<String> searchEngine = GeneralHelper.readConfig(PATH, searchType);
+
+        GeneralHelper.Voiceover(searchType);
+        AppManager.execute(browser.get(0), searchEngine.get(0) + searchQuery);
     }
 }

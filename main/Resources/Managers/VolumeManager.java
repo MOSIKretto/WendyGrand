@@ -1,16 +1,12 @@
 package main.Resources.Managers;
 
 import main.Resources.GeneralHelper;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 
-public class SystemManager 
+public class VolumeManager 
 {
-    
-    private static final String SHUTDOWN_CMD = "shutdown";
-    private static final String SLEEP_CMD = "systemctl";
     private static final String VOLUME_CMD = "pactl";
     private static final String DEFAULT_SINK = "@DEFAULT_SINK@";
 
@@ -28,7 +24,8 @@ public class SystemManager
         for (int i = 0; i <= 9; i++) 
         {
             map.put(units[i], i);
-            map.put(teens[i], i + 10);
+            if (i < teens.length)
+                map.put(teens[i], i + 10);
         }
 
         // Заполнение составных чисел (20-99)
@@ -53,38 +50,36 @@ public class SystemManager
         map.put("уменьшить", -3);
         map.put("звук больше", -2);
         map.put("звук меньше", -3);
+        map.put("громче", -2);
+        map.put("тише", -3);
 
         return map;
     }
-
-    // Управление питанием системы
-    public static void systemShutdown(String arg, String message) throws 
-    InterruptedException,
-    IOException
-    {
-        GeneralHelper.message(message);
-        GeneralHelper.Performer(new String[]{SHUTDOWN_CMD, arg, "now"});
-    }
-
-    public static void systemSleep(String message) throws 
-    InterruptedException, 
-    IOException
-    {
-        GeneralHelper.message(message);
-        GeneralHelper.Performer(new String[]{SLEEP_CMD, "suspend", "-i"});
-    }
-
-    // Управление громкостью
+    
     public static void handleVolumeCommand(String volumeText) 
     {
+        // Сначала проверяем точные совпадения
         Integer volume = NUMBER_MAP.get(volumeText.toLowerCase());
         
-        if (volume != null)
+        if (volume != null) 
+        {
             setSystemVolume(volume);
-        else
-            System.err.println("Неизвестная команда громкости: " + volumeText);
+            return;
+        }
+        
+        // Если точного совпадения нет, ищем частичное совпадение
+        for (Map.Entry<String, Integer> entry : NUMBER_MAP.entrySet()) 
+        {
+            if (volumeText.toLowerCase().contains(entry.getKey())) 
+            {
+                setSystemVolume(entry.getValue());
+                return;
+            }
+        }
+        
+        System.err.println("Неизвестная команда громкости: " + volumeText);
     }
-
+    
     private static void setSystemVolume(int volume) 
     {
         try 
@@ -92,14 +87,14 @@ public class SystemManager
             String[] command;
             
             if (volume == -2)
-                command = new String[]{VOLUME_CMD, "set-sink-volume", DEFAULT_SINK, "+25%"};
+                command = new String[]{VOLUME_CMD, "set-sink-volume", DEFAULT_SINK, "+10%"};
 
             else if (volume == -3)
-                command = new String[]{VOLUME_CMD, "set-sink-volume", DEFAULT_SINK, "-25%"};
-                
+                command = new String[]{VOLUME_CMD, "set-sink-volume", DEFAULT_SINK, "-10%"};
+
             else
                 command = new String[]{VOLUME_CMD, "set-sink-volume", DEFAULT_SINK, volume + "%"};
-
+            
             GeneralHelper.Performer(command);
         } 
         catch (Exception e) {

@@ -21,16 +21,14 @@ public class Main
         if (!nowPath.equals(readPathFromFile())) 
         {
             System.out.println("Изменение директории");
-            Performer(
-                "bash", "-c", """
+            Performer("bash", "-c", 
+            """
             javac ../WendyGrand/main/Java/Handlers/WordHandler.java && \
             python -m venv ../WendyGrand/main/Python/venv && \
             source ../WendyGrand/main/Python/venv/bin/activate && \
             pip install --upgrade pip && \
-            pip install vosk playsound3 sounddevice""" //перечень библиотек (убрать playsound3 с появлением Voiceover.java)
-            );
+            pip install vosk playsound3 sounddevice"""); //перечень библиотек (убрать playsound3 с появлением Voiceover.java)
             Files.write(Paths.get(TIME_CFG), nowPath.getBytes()); //запись нового пути
-            // Запуск процессов
             Performer("bash", "-c", "source ../WendyGrand/main/Python/venv/bin/activate; python3 ../WendyGrand/main/Python/Recognizer.py");
         }
         else
@@ -42,7 +40,6 @@ public class Main
     IOException 
     {
         if (Files.exists(Paths.get(TIME_CFG))) return new String(Files.readAllBytes(Paths.get(TIME_CFG)));
-
         else return "";
     }
 

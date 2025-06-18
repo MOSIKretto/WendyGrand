@@ -1,12 +1,9 @@
 package main.Resources;
 
-import main.Java.Handlers.ActionHandler;
 import java.util.stream.Collectors;
 import java.io.BufferedReader;
-import java.util.Collections;
 import java.util.Collection;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.io.FileReader;
 import java.util.HashSet;
 import java.util.Arrays;
@@ -16,106 +13,30 @@ import java.util.Set;
 
 public class GeneralHelper
 {
-
-    // Для громкости
-    public static void handleVolumeCommand(String input, List<String> volumeCommands) throws 
-    InterruptedException, 
+    // Чтение конфигов
+    public static List<String> readConfig(String path, String key) throws 
     IOException 
     {
-    
-        if (volumeCommands == null || volumeCommands.isEmpty() || volumeCommands.stream().noneMatch(input::startsWith))
-            return;
-        
-        String clearTextVolume = cleanInput(input, List.of("громкость", "на", "мне", "меня", "процента", "процент", "процентов"));
-        
-        new ProcessBuilder("python3", "../WendyGrand/main/Python/Voiceover.py", "StandardModule_StandardResponse").start();
-        Thread.sleep(1000);
-        
-        ActionHandler.CallVolume(clearTextVolume.matches("^(увеличь|увеличить|уменьши|уменьшить)\\b.*") 
-                                    ? clearTextVolume + " громкость" 
-                                    : clearTextVolume.matches("^(больше|меньше)\\b.*") 
-                                    ? "громкость " + clearTextVolume 
-                                    : clearTextVolume);
-    }
-    
-    // Для поиска в интернете и на видео площадках
-    public static void handleSearchCommand(String input, List<String> webSearchCommands, List<String> youtubeSearchCommands) throws 
-    InterruptedException, 
-    IOException 
-    {   
-        if (webSearchCommands == null || webSearchCommands.isEmpty()) return;
-        
-        boolean hasWebSearchCommand = false;
-        for (String cmd : webSearchCommands) 
+        try (BufferedReader br = new BufferedReader(new FileReader(path))) 
         {
-            if (input.startsWith(cmd)) 
-            {
-                hasWebSearchCommand = true;
-                break;
-            }
+            return br.lines()
+            .filter(line -> !line.trim().isEmpty() && !line.startsWith("#"))
+            .filter(line -> line.startsWith(key + "="))
+            .map(line -> line.substring(key.length()+1).split(",\\s*"))
+            .flatMap(Arrays::stream)
+            .collect(Collectors.toList());
         }
-        if (!hasWebSearchCommand) return;
-        
-        if (youtubeSearchCommands != null && !youtubeSearchCommands.isEmpty()) 
-        {
-            boolean hasYoutubeCommand = false;
-            for (String cmd : youtubeSearchCommands) 
-            {
-                if (input.startsWith(cmd)) 
-                    hasYoutubeCommand = true; break;
-            }
-            
-            if (hasYoutubeCommand) 
-            {
-                String clearText = cleanInput(input, Set.of("найди", "найти", "на", "ищи", "ютубе", "ютюбе", "ютуб", "ютюб")).replace(" ", "%20");
-                ActionHandler.CallFunction("CallSearch", clearText, "videosearch");
-                return;
-            }
-        }
-        
-        String clearText = cleanInput(input, Set.of("найди", "найти", "в", "интернете", "ищи")).replace(" ", "%20");
-        ActionHandler.CallFunction("CallSearch", clearText, "websearch");
-    }
-
-    // Чтение кофигов
-    public static List<String> readConfig(String filePath, String key) throws 
-    IOException 
-    {
-        List<String> results = new ArrayList<>(4);
-        
-        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) 
-        {
-            String line;
-            int keyLen = key.length() + 1;
-            
-            while ((line = reader.readLine()) != null) 
-            {
-                line = line.trim();
-                
-                if (line.isEmpty() || line.charAt(0) == '#') continue;
-                
-                if (line.startsWith(key) && line.length() > keyLen && line.charAt(key.length()) == '=') 
-                {
-                    String value = line.substring(keyLen);
-                    Collections.addAll(results, value.split(",\\s*"));
-                    break;
-                }
-            }
-        }
-        
-        return results.isEmpty() ? Collections.emptyList() : results;
     }
 
     // Очищение текста
-    public static String cleanInput(String input, Collection<String> wordsToRemove) 
+    public static String cleanInput(String input, Collection<String> words) 
     {
-        Set<String> removeSet = wordsToRemove instanceof Set ? (Set<String>) wordsToRemove : new HashSet<>(wordsToRemove);
-            
+        Set<String> toRemove = words instanceof Set ? (Set<String>)words : new HashSet<>(words);
         return Arrays.stream(input.split("\\s+"))
-        .filter(word -> !removeSet.contains(word))
+        .filter(word -> !toRemove.contains(word))
         .collect(Collectors.joining(" "));
     }
-
+    
     // Отсчет выключения системы
     public static void message(String message) throws InterruptedException 
     {
@@ -126,6 +47,13 @@ public class GeneralHelper
             System.out.println(i);
             Thread.sleep(1000);
         }
+    }
+    
+    // Озвучка
+    public static void Voiceover(String FunctionVoice) throws 
+    IOException 
+    {
+        GeneralHelper.Performer("python3", "../WendyGrand/main/Python/Voiceover.py", FunctionVoice);
     }
 
     // Запуск процессов

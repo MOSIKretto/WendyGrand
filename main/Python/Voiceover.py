@@ -31,83 +31,85 @@ class ActionsVoiceover:
 #----------------------------------------------------------------------------------------------------------------------------------
 
     @staticmethod
-    def CallHelloVoiceover():
+    def hello():
         executive_voice = choice(['Hello.mp3', 'ImHere.mp3'])
         ActionsVoiceover.ActivateVoice(executive_voice)
 
 #----------------------------------------------------------------------------------------------------------------------------------
 
     @staticmethod
-    def CallBrowserVoiceover():
+    def browser():
         executive_voice = choice(['BrowserOpen.mp3', 'OpeningBrowser.mp3', 'ActionsVoiceover.StandardModule_StandardResponse()'])
         ActionsVoiceover.ActivateVoice(executive_voice)
 
     @staticmethod
-    def CallConductorVoiceover():
+    def conductor():
         executive_voice = choice(['GuideForSystemOpen.mp3', 'OpeningGuideForSystem.mp3', 'ActionsVoiceover.StandardModule_StandardResponse()'])
         ActionsVoiceover.ActivateVoice(executive_voice)
 
     @staticmethod
-    def CallTerminalVoiceover():
+    def terminal():
         executive_voice = choice(['TerminalOpen.mp3', 'OpeningTerminal.mp3', 'ActionsVoiceover.StandardModule_StandardResponse()'])
         ActionsVoiceover.ActivateVoice(executive_voice)
 
     @staticmethod
-    def CallStoreVoiceover():
+    def store():
         executive_voice = choice(['FindSomthing.mp3', 'OpeningStore.mp3', 'TheStoreIsOpen.mp3', 'ActionsVoiceover.StandardModule_StandardResponse()'])
         ActionsVoiceover.ActivateVoice(executive_voice)
 
     @staticmethod
-    def CallOfficeVoiceover():
+    def office():
         executive_voice = choice(['OfficeOpen.mp3', 'OpeningOffice.mp3', 'ActionsVoiceover.StandardModule_StandardResponse()'])
         ActionsVoiceover.ActivateVoice(executive_voice)
 
-#----------------------------------------------------------------------------------------------------------------------------------
-
     @staticmethod
-    def CallMessengerVoiceover():
+    def messenger():
         executive_voice = choice(['MessengerOpen.mp3', 'OpeningMessenger.mp3', 'ActionsVoiceover.StandardModule_StandardResponse()'])
         ActionsVoiceover.ActivateVoice(executive_voice)
 
     @staticmethod
-    def CallSocialNetworkVoiceover():
+    def socialnetwork():
         executive_voice = choice(['SocialNetworkOpen.mp3', 'OpeningSocialNetwork.mp3', 'ActionsVoiceover.StandardModule_StandardResponse()'])
         ActionsVoiceover.ActivateVoice(executive_voice)
 
-#----------------------------------------------------------------------------------------------------------------------------------
-
     @staticmethod
-    def CallNotesVoiceover():
+    def notes():
         executive_voice = choice(['NotesOpen.mp3', 'GoodLuckToTheJob.mp3', 'OpeningNotes.mp3', 'ActionsVoiceover.StandardModule_StandardResponse()'])
         ActionsVoiceover.ActivateVoice(executive_voice)
 
     @staticmethod
-    def CallCodeEditorVoiceover():
+    def codeeditor():
         executive_voice = choice(['GoodLuckToTheJob.mp3', 'OpeningCodeEditor.mp3', 'CodeEditorOpen.mp3', 'ActionsVoiceover.StandardModule_StandardResponse()'])
         ActionsVoiceover.ActivateVoice(executive_voice)
 
 #----------------------------------------------------------------------------------------------------------------------------------
 
     @staticmethod
-    def CallRebootVoiceover():
+    def reboot():
         executive_voice = choice(['Rebooting.mp3', 'ActionsVoiceover.StandardModule_StandardResponse()'])
         ActionsVoiceover.ActivateVoice(executive_voice)
 
     @staticmethod
-    def CallShutdownVoiceover():
+    def shutdown():
         executive_voice = choice(['ShuttingDown.mp3'])
         ActionsVoiceover.ActivateVoice(executive_voice)
 
     @staticmethod
-    def CallSleepVoiceover():
+    def sleep():
         executive_voice = choice(['Sleeping.mp3', 'ActionsVoiceover.StandardModule_StandardResponse()'])
         ActionsVoiceover.ActivateVoice(executive_voice)
 
 #----------------------------------------------------------------------------------------------------------------------------------
 
     @staticmethod
-    def CallSearchVoiceover():
+    def websearch():
         executive_voice = choice(['LookingForYourRequestOnTheInternet.mp3', 'AskingOnTheInternet.mp3',
+                                  'WillFindIt.mp3', 'ActionsVoiceover.StandardModule_StandardResponse()'])
+        ActionsVoiceover.ActivateVoice(executive_voice)
+
+    @staticmethod
+    def videosearch():
+        executive_voice = choice(['TryingToFindYourYouTubeRequest.mp3', 'LookingForYourYouTubeRequest.mp3',
                                   'WillFindIt.mp3', 'ActionsVoiceover.StandardModule_StandardResponse()'])
         ActionsVoiceover.ActivateVoice(executive_voice)
 

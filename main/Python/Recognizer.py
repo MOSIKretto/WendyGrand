@@ -50,7 +50,7 @@ def handleCommand(text):
         else:
             lastСommand = recognizedText
             commandTimer = time.time()
-            ActionsVoiceover.CallHelloVoiceover()
+            ActionsVoiceover.hello()
         return
 
     # Обработка последней команды в течение 10 секунд
