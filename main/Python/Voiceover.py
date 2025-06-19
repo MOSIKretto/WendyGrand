@@ -91,7 +91,7 @@ class ActionsVoiceover:
 
     @staticmethod
     def shutdown():
-        executive_voice = choice(['ShuttingDown.mp3'])
+        executive_voice = choice(['ShuttingDown.mp3', 'ActionsVoiceover.StandardModule_StandardResponse()'])
         ActionsVoiceover.ActivateVoice(executive_voice)
 
     @staticmethod
