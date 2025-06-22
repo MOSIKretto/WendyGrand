@@ -67,7 +67,7 @@ class VoiceAssistant:
             dtype='int16',
             channels=1,
             callback=self.audio_callback
-        ) as stream:
+        ):
             while not self.exit_flag:
                 time.sleep(0.1)
             

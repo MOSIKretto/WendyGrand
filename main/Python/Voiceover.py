@@ -167,6 +167,12 @@ class ActionsVoiceover:
         playsound("../WendyGrand/main/Resources/Audio/" + executive_voice)
 
     @staticmethod
+    def ErrModuleCode():
+        executive_voice = choice(['AttentionErrorInStartingTheModuleMostLikelyTheErrorIsInTheModuleCodeItself.mp3', 
+                                  'FailedToStartTheModuleMostLikelyThereIsAnErrorInTheModuleCodeItself.mp3'])
+        ActionsVoiceover.ActivateVoice(executive_voice)
+
+    @staticmethod
     def ErrModule():
         executive_voice = choice(['CouldntFindYouModuleMaybeYouDidntAddItToYourModues.mp3', 'SorryICouldntFindYourModule.mp3'])
         ActionsVoiceover.ActivateVoice(executive_voice)

@@ -16,7 +16,7 @@ public class ActionHandlerModules
     {
         List<String> modules = GeneralHelper.readConfig("../WendyGrand/Configs/DictionaryModules.conf", word);
         
-        if (!modules.isEmpty()) 
+        if (!modules.isEmpty())
         {
             GeneralHelper.Performer("python3", "../WendyGrand/main/Python/Voiceover.py", "StandardModule_StandardResponse");
 
@@ -27,7 +27,7 @@ public class ActionHandlerModules
                 catch (IOException | InterruptedException e) 
                 {
                     System.err.println("Ошибка при запуске модуля: " + module);
-                    //добавить озвучку ошибка модуля (типо ошибка в коде модуля)
+                    GeneralHelper.Voiceover("ErrModuleCode");
                     e.printStackTrace();
                 }
             }
@@ -47,6 +47,6 @@ public class ActionHandlerModules
             RunModulesHandler.run(moduleName);
         }
         else
-            GeneralHelper.Performer("python3", "../WendyGrand/main/Python/Voiceover.py", "ErrModule");
+            GeneralHelper.Voiceover("ErrModule");
     }
 }
