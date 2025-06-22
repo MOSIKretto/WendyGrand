@@ -44,7 +44,8 @@ class ActionsVoiceover:
 
     @staticmethod
     def conductor():
-        executive_voice = choice(['GuideForSystemOpen.mp3', 'OpeningGuideForSystem.mp3', 'ActionsVoiceover.StandardModule_StandardResponse()'])
+        executive_voice = choice(['GuideForSystemOpen.mp3', 'OpeningGuideForSystem.mp3', 
+                                  'ActionsVoiceover.StandardModule_StandardResponse()'])
         ActionsVoiceover.ActivateVoice(executive_voice)
 
     @staticmethod
@@ -54,7 +55,8 @@ class ActionsVoiceover:
 
     @staticmethod
     def store():
-        executive_voice = choice(['FindSomthing.mp3', 'OpeningStore.mp3', 'TheStoreIsOpen.mp3', 'ActionsVoiceover.StandardModule_StandardResponse()'])
+        executive_voice = choice(['FindSomthing.mp3', 'OpeningAppStore.mp3', 'OpeningStore.mp3', 'TheStoreIsOpen.mp3', 
+                                  'ActionsVoiceover.StandardModule_StandardResponse()'])
         ActionsVoiceover.ActivateVoice(executive_voice)
 
     @staticmethod
@@ -69,17 +71,20 @@ class ActionsVoiceover:
 
     @staticmethod
     def socialnetwork():
-        executive_voice = choice(['SocialNetworkOpen.mp3', 'OpeningSocialNetwork.mp3', 'ActionsVoiceover.StandardModule_StandardResponse()'])
+        executive_voice = choice(['SocialNetworkOpen.mp3', 'OpeningSocialNetwork.mp3', 
+                                  'ActionsVoiceover.StandardModule_StandardResponse()'])
         ActionsVoiceover.ActivateVoice(executive_voice)
 
     @staticmethod
     def notes():
-        executive_voice = choice(['NotesOpen.mp3', 'GoodLuckToTheJob.mp3', 'OpeningNotes.mp3', 'ActionsVoiceover.StandardModule_StandardResponse()'])
+        executive_voice = choice(['NotesOpen.mp3', 'GoodLuckToTheJob.mp3', 'OpeningNotes.mp3', 
+                                  'ActionsVoiceover.StandardModule_StandardResponse()'])
         ActionsVoiceover.ActivateVoice(executive_voice)
 
     @staticmethod
     def codeeditor():
-        executive_voice = choice(['GoodLuckToTheJob.mp3', 'OpeningCodeEditor.mp3', 'CodeEditorOpen.mp3', 'ActionsVoiceover.StandardModule_StandardResponse()'])
+        executive_voice = choice(['GoodLuckToTheJob.mp3', 'OpeningCodeEditor.mp3', 'CodeEditorOpen.mp3', 
+                                  'ActionsVoiceover.StandardModule_StandardResponse()'])
         ActionsVoiceover.ActivateVoice(executive_voice)
 
 #----------------------------------------------------------------------------------------------------------------------------------
@@ -116,6 +121,47 @@ class ActionsVoiceover:
 #----------------------------------------------------------------------------------------------------------------------------------
 
     @staticmethod
+    def volume():
+        executive_voice = choice(['ISetTheVolume.mp3', 'TheVolumeIsSet.mp3', 'ActionsVoiceover.StandardModule_StandardResponse()'])
+        ActionsVoiceover.ActivateVoice(executive_voice)
+
+    @staticmethod
+    def volumeErr():
+        executive_voice = choice(['SorryButIDontKnowSuchAVolumeCommand.mp3', 'SorryButThereIsNoSuchVolumeCommand.mp3'])
+        ActionsVoiceover.ActivateVoice(executive_voice)
+
+    @staticmethod
+    def volumeErrUtil():
+        executive_voice = choice(['AnErrorOccurredWhileChangingTheVolume.mp3', 'VolumeChangeError.mp3', 
+                                  'ThereWasAProblemChangingTheVolume.mp3'])
+        ActionsVoiceover.ActivateVoice(executive_voice)
+
+#----------------------------------------------------------------------------------------------------------------------------------
+
+    @staticmethod
+    def errUpgradePip():
+        executive_voice = choice(['FailedToUpdatePipToLatestVersion.mp3', 'FailedToUpdatePip.mp3'])
+        ActionsVoiceover.ActivateVoice(executive_voice)
+
+    @staticmethod
+    def errVenvCreate():
+        executive_voice = choice(['FailedToCreateVirtualEnvironment.mp3', 'ErrorCreatingVirtualEnvironment.mp3'])
+        ActionsVoiceover.ActivateVoice(executive_voice)
+
+    @staticmethod
+    def errorInstallLibs():
+        executive_voice = choice(["ErrorInstallingLibrary.mp3", "FailedToFindOrInstallLibrary.mp3"])
+        ActionsVoiceover.ActivateVoice(executive_voice)
+
+    @staticmethod
+    def dependenciesFound():
+        executive_voice = choice(['DependenciesFoundStartingBuild.mp3', 'DependenciesFoundStartBuilding.mp3', 
+                                  'StartingBuildOfRequiredDependencies.mp3'])
+        ActionsVoiceover.ActivateVoice(executive_voice)
+
+#----------------------------------------------------------------------------------------------------------------------------------
+
+    @staticmethod
     def StandardModule_StandardResponse():
         executive_voice = choice(['OneMoment.mp3', 'Doing.mp3', 'Done.mp3', 'AlwaysAPleasure.mp3', 'OneSecond.mp3', 'Second.mp3'])
         playsound("../WendyGrand/main/Resources/Audio/" + executive_voice)
@@ -132,7 +178,8 @@ class ActionsVoiceover:
         if executive_voice != 'ActionsVoiceover.StandardModule_StandardResponse()':
             playsound("../WendyGrand/main/Resources/Audio/" + executive_voice)
         else:
-            ActionsVoiceover.StandardModule_StandardResponse()
+            eval(executive_voice)
+
 
 if len(sys.argv) > 1:
     eval("ActionsVoiceover." + sys.argv[1] + "()")

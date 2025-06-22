@@ -1,6 +1,7 @@
 package main.Resources.Managers;
 
 import main.Resources.GeneralHelper;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -56,31 +57,34 @@ public class VolumeManager
         return map;
     }
     
-    public static void handleVolumeCommand(String volumeText) 
+    public static void handleVolumeCommand(String volumeText) throws 
+    IOException 
     {
-        // Сначала проверяем точные совпадения
+        // Проверка точного совпадения
         Integer volume = NUMBER_MAP.get(volumeText.toLowerCase());
-        
         if (volume != null) 
         {
             setSystemVolume(volume);
+            GeneralHelper.Voiceover("volume");
             return;
         }
-        
-        // Если точного совпадения нет, ищем частичное совпадение
+
+        // Проверка частичного совпадения
         for (Map.Entry<String, Integer> entry : NUMBER_MAP.entrySet()) 
         {
             if (volumeText.toLowerCase().contains(entry.getKey())) 
             {
                 setSystemVolume(entry.getValue());
+                GeneralHelper.Voiceover("volume");
                 return;
             }
         }
-        
-        System.err.println("Неизвестная команда громкости: " + volumeText);
+
+        GeneralHelper.Voiceover("volumeErr");
     }
     
-    private static void setSystemVolume(int volume) 
+    private static void setSystemVolume(int volume) throws 
+    IOException 
     {
         try 
         {
@@ -97,7 +101,10 @@ public class VolumeManager
             
             GeneralHelper.Performer(command);
         } 
-        catch (Exception e) {
-            System.err.println("Ошибка изменения громкости: " + e.getMessage());}
+        catch (Exception e) 
+        {
+            System.err.println("Ошибка изменения громкости: " + e.getMessage());
+            GeneralHelper.Voiceover("volumeErrUtil");
+        }
     }
 }

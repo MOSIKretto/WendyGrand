@@ -1,6 +1,5 @@
 package main.Resources.Managers.Addons;
 
-
 import main.Resources.GeneralHelper;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -38,10 +37,15 @@ public class RunPythonModules
         .start();
                 
         if (process.waitFor() != 0)
+        {
             System.err.println("Предупреждение: не удалось обновить pip. Продолжение работы...");
+            GeneralHelper.Voiceover("errUpgradePip");
+        }
     }
 
-    private static String setupVenv(String directory) throws InterruptedException, IOException 
+    private static String setupVenv(String directory) throws 
+    InterruptedException, 
+    IOException 
     {
         String venvPath = Paths.get(directory, "venv").toString();
         File venvDir = new File(venvPath);
@@ -55,18 +59,22 @@ public class RunPythonModules
             .start();
             
             if (process.waitFor() != 0)
+            {
+                GeneralHelper.Voiceover("errVenvCreate");
                 throw new IOException("Не удалось создать виртуальное окружение");
+            }
         }
         return venvPath;
     }
 
     private static void installRequiredLibraries(String modulePath, String pipPath) throws 
-    InterruptedException, 
+    InterruptedException,
     IOException 
     {
         List<String> libraries = extractLibsFromModule(modulePath);
         if (libraries.isEmpty()) return;
 
+        GeneralHelper.Voiceover("dependenciesFound");
         System.out.println("Обнаружены зависимости: " + libraries);
 
         for (String lib : libraries) 
@@ -79,7 +87,10 @@ public class RunPythonModules
                 .start();
                         
                 if (process.waitFor() != 0)
+                {
+                    GeneralHelper.Voiceover("errorInstallLibs");
                     throw new IOException("Ошибка установки библиотеки: " + lib);
+                }
             }
         }
     }

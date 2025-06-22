@@ -70,8 +70,6 @@ public class ActionHandler
         String clearTextVolume = GeneralHelper.cleanInput(input, List.of("громкость", "на", "мне", "меня", "процента", "процент", "процентов", "сделай", "поставь", "установи"));
 
         VolumeManager.handleVolumeCommand(clearTextVolume);
-
-        GeneralHelper.Voiceover("StandardModule_StandardResponse");
     }
 
 
