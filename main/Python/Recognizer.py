@@ -7,6 +7,7 @@ import sys
 
 
 class VoiceAssistant:
+    
     def __init__(self):
         self.last_command_time = 0
         self.model = vosk.Model("../WendyGrand/main/Resources/model_small")

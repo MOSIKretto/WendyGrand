@@ -2,6 +2,7 @@ package main.Resources.Managers;
 
 import java.io.IOException;
 
+
 public class AppManager
 {
     public static void execute(String... params) throws IOException

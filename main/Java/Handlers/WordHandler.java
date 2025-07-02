@@ -11,7 +11,8 @@ public class WordHandler
 
     private static final List<String> REMOVE_WORDS = Arrays.asList(
         "пожалуйста", "ладно", "давай", "прямо", "сейчас", "типо", "типа", "будь", "добра", "ну",
-        "что-то", "открой", "откройте", "хз", "блять", "нахуй", "сука",
+        "что-то", "открой", "откройте", "запусти", "начни", "выполнение", "выполнения", "начинаем", 
+        "хз", "блять", "нахуй", "сука",
         "венди", "среда", "вэнди"
     );
 
@@ -40,13 +41,10 @@ public class WordHandler
             executeCommand(clearText, GeneralHelper.readConfig(PATH, "sleep"), "CallShutdown", "sleep");
             ActionHandler.CallVolume(clearText, GeneralHelper.readConfig(PATH, "volume"));
             ActionHandler.CallSearch(clearText, GeneralHelper.readConfig(PATH, "websearch"), 
-                                                         GeneralHelper.readConfig(PATH, "videosearch"));
+                                                GeneralHelper.readConfig(PATH, "videosearch"));
 
-            // Модульность
-            List<String> modules = GeneralHelper.readConfig(PATH, "modules");
-
-            if (!clearText.isEmpty() || !modules.isEmpty()) 
-                ActionHandlerModules.handleModule(GeneralHelper.cleanInput(clearText, modules));
+            if (!clearText.isEmpty()) 
+                ActionHandlerModules.handleModule(clearText);
         }
     }
 

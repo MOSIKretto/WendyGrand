@@ -2,12 +2,15 @@ package main.Resources;
 
 import java.util.stream.Collectors;
 import java.io.BufferedReader;
+import java.util.AbstractMap;
 import java.util.Collection;
 import java.io.IOException;
 import java.io.FileReader;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 
@@ -20,10 +23,31 @@ public class GeneralHelper
         try (BufferedReader br = new BufferedReader(new FileReader(path))) 
         {
             return br.lines()
-            .filter(line -> !line.trim().isEmpty() && !line.startsWith("#"))
-            .filter(line -> line.startsWith(key + "="))
-            .map(line -> line.substring(key.length()+1).split(",\\s*"))
-            .flatMap(Arrays::stream)
+            .map(line -> {
+                // Удаляем комментарии (всё после #) и обрезаем пробелы
+                int commentIndex = line.indexOf('#');
+
+                if (commentIndex != -1)
+                    line = line.substring(0, commentIndex);
+
+                return line.trim();
+            })
+            .filter(line -> !line.isEmpty()) // Игнорируем пустые строки
+            .map(line -> {
+                int eqIndex = line.indexOf('=');
+
+                if (eqIndex == -1)
+                    return null; // Пропускаем строки без '='
+                    
+                // Разделяем на ключ и значение с удалением пробелов
+                String k = line.substring(0, eqIndex).trim();
+                String v = line.substring(eqIndex + 1).trim();
+                return new AbstractMap.SimpleEntry<>(k, v);
+            })
+            .filter(Objects::nonNull) // Отфильтровываем строки без '='
+            .filter(entry -> key.equals(entry.getKey())) // Ищем нужный ключ
+            .map(Map.Entry::getValue)
+            .flatMap(value -> Arrays.stream(value.split(",\\s*"))) // Разбиваем значения
             .collect(Collectors.toList());
         }
     }
@@ -38,7 +62,8 @@ public class GeneralHelper
     }
     
     // Отсчет выключения системы
-    public static void message(String message) throws InterruptedException 
+    public static void message(String message) throws 
+    InterruptedException 
     {
         System.out.println("Система будет " + message + " через 5 секунд...");
         

@@ -19,8 +19,9 @@ public class ActionHandlerModules
         if (!modules.isEmpty())
         {
             GeneralHelper.Performer("python3", "../WendyGrand/main/Python/Voiceover.py", "StandardModule_StandardResponse");
+            Thread.sleep(500);
 
-            for (String module : modules) 
+            for (String module : modules)
             {
                 try{
                     startModule(module.trim());} 
