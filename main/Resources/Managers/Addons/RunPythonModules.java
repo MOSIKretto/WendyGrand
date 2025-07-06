@@ -21,7 +21,6 @@ public class RunPythonModules
         String venvPath = setupVenv(currentDirectory);
         String pipPath = Paths.get(venvPath, "bin", "pip").toString();
         
-        // Обновляем pip перед установкой библиотек
         upgradePip(pipPath);
         
         installRequiredLibraries(modulePath, pipPath);

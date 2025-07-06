@@ -27,7 +27,7 @@ public class ActionHandler
     }
     
 
-    // Вызов приложений
+    // вызов приложений
     public static void CallApps(String args) throws 
     IOException 
     {
@@ -37,7 +37,7 @@ public class ActionHandler
             AppManager.execute(app.get(0));
     }
 
-    // Работа с системой
+    // работа с системой
     public static void CallShutdown(String args) throws 
     InterruptedException, 
     IOException 
@@ -59,7 +59,7 @@ public class ActionHandler
         }
     }
 
-    // Для громкости
+    // для громкости
     public static void CallVolume(String input, List<String> volumeCommands) throws 
     InterruptedException, 
     IOException 
@@ -73,7 +73,7 @@ public class ActionHandler
     }
 
 
-    // Для поиска в интернете и на видео площадках
+    // для поиска в интернете и на видео площадках
     public static void CallSearch(String input, List<String> webSearchCommands, List<String> youtubeSearchCommands) throws 
     InterruptedException,
     IOException

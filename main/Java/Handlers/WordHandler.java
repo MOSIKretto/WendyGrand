@@ -3,7 +3,8 @@ package main.Java.Handlers;
 import java.lang.reflect.InvocationTargetException;
 import main.Resources.GeneralHelper;
 import java.io.IOException;
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
 
 
 public class WordHandler 

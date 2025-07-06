@@ -14,31 +14,29 @@ import java.util.Set;
 
 public class GeneralHelper
 {
-    // Чтение конфигов
+    // чтение конфигов
     public static List<String> readConfig(String path, String key) throws 
-    IOException 
+    IOException
     {
         try (BufferedReader br = new BufferedReader(new FileReader(path))) 
         {
             return br.lines()
-                .map(line -> line.split("#")[0].trim()) // Удаляем комментарии
-                .filter(line -> !line.isEmpty())
-                .flatMap(line -> {
-                    String[] parts = line.split("=", 2); // Разделяем на ключ и значение
-                    if (parts.length != 2) return Stream.empty();
-                    
-                    String k = parts[0].trim();
-                    String v = parts[1].trim();
-                    
-                    return key.equals(k) 
-                        ? Arrays.stream(v.split(",\\s*")) 
-                        : Stream.empty();
-                })
-                .collect(Collectors.toList());
+            .map(line -> line.split("#")[0].trim()) // удаление комментариев
+            .filter(line -> !line.isEmpty())
+            .flatMap(line -> {
+                String[] parts = line.split("=", 2); // разделение на ключ и значение
+                if (parts.length != 2) return Stream.empty();
+                
+                String k = parts[0].trim();
+                String v = parts[1].trim();
+                
+                return key.equals(k) ? Arrays.stream(v.split(",\\s*")) : Stream.empty();
+            })
+            .collect(Collectors.toList());
         }
     }
 
-    // Очищение текста
+    // очищение текста
     public static String cleanInput(String input, Collection<String> words) 
     {
         Set<String> toRemove = words instanceof Set ? (Set<String>)words : new HashSet<>(words);
@@ -47,27 +45,14 @@ public class GeneralHelper
         .collect(Collectors.joining(" "));
     }
     
-    // Отсчет выключения системы
-    public static void message(String message) throws 
-    InterruptedException 
-    {
-        System.out.println("Система будет " + message + " через 5 секунд...");
-        
-        for (int i = 5; i > 0; i--) 
-        {
-            System.out.println(i);
-            Thread.sleep(1000);
-        }
-    }
-    
-    // Озвучка
+    // озвучка
     public static void Voiceover(String FunctionVoice) throws 
     IOException 
     {
         GeneralHelper.Performer("python3", "../WendyGrand/main/Python/Voiceover.py", FunctionVoice);
     }
 
-    // Запуск процессов
+    // запуск процессов
     public static void Performer(String... command) throws 
     IOException 
     {

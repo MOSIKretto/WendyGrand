@@ -8,6 +8,7 @@ import java.util.Map;
 
 public class VolumeManager 
 {
+
     private static final String VOLUME_CMD = "pactl";
     private static final String DEFAULT_SINK = "@DEFAULT_SINK@";
 
@@ -21,7 +22,7 @@ public class VolumeManager
         String[] teens = {"десять", "одиннадцать", "двенадцать", "тринадцать", "четырнадцать", "пятнадцать", "шестнадцать", "семнадцать", "восемнадцать", "девятнадцать"};
         String[] tens = {"", "", "двадцать", "тридцать", "сорок", "пятьдесят", "шестьдесят", "семьдесят", "восемьдесят", "девяносто"};
 
-        // Заполнение базовых чисел
+        // заполнение базовых чисел
         for (int i = 0; i <= 9; i++) 
         {
             map.put(units[i], i);
@@ -29,7 +30,7 @@ public class VolumeManager
                 map.put(teens[i], i + 10);
         }
 
-        // Заполнение составных чисел (20-99)
+        // заполнение составных чисел (20-99)
         for (int i = 2; i <= 9; i++) 
         {
             map.put(tens[i], i * 10);
@@ -37,7 +38,7 @@ public class VolumeManager
                 map.put(tens[i] + " " + units[j], i * 10 + j);
         }
 
-        // Специальные команды
+        // спец команды
         map.put("сто", 100);
         map.put("максимум", 100);
         map.put("выключи звук", 0);
@@ -60,7 +61,7 @@ public class VolumeManager
     public static void handleVolumeCommand(String volumeText) throws 
     IOException 
     {
-        // Проверка точного совпадения
+        // проверка на точное совпадения
         Integer volume = NUMBER_MAP.get(volumeText.toLowerCase());
         if (volume != null) 
         {
@@ -69,7 +70,7 @@ public class VolumeManager
             return;
         }
 
-        // Проверка частичного совпадения
+        // Проверка на частичное совпадения
         for (Map.Entry<String, Integer> entry : NUMBER_MAP.entrySet()) 
         {
             if (volumeText.toLowerCase().contains(entry.getKey())) 

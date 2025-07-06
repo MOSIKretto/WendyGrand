@@ -8,7 +8,7 @@ import java.io.File;
 
 public class ActionHandlerModules 
 {
-    // Обработка модулей
+    // обработка модулей
     public static void handleModule(String word) throws 
     InterruptedException, 
     IOException
@@ -34,7 +34,7 @@ public class ActionHandlerModules
         }
     }
 
-    // Запуск модуля или предупреждение, что его нет
+    // запуск модуля или предупреждение, что его нет
     private static void startModule(String moduleName) throws 
     InterruptedException, 
     IOException
