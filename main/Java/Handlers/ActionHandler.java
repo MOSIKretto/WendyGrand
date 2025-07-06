@@ -16,7 +16,7 @@ public class ActionHandler
 
     public static void CallFunction(String functionName, Object... args) throws 
     InterruptedException, 
-    IOException 
+    IOException
     {
         if (args == null) return;
         

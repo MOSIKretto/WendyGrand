@@ -28,7 +28,7 @@ public class Main
             source ../WendyGrand/main/Python/venv/bin/activate && \
             pip install --upgrade pip && \
             pip install vosk playsound3 sounddevice"""); //перечень библиотек (убрать playsound3 с появлением Voiceover.java)
-            Files.write(Paths.get(TIME_CFG), nowPath.getBytes()); //запись нового пути
+            Files.write(Paths.get(TIME_CFG), nowPath.getBytes()); //запись нового пути в timepath.cfg
             Performer("bash", "-c", "source ../WendyGrand/main/Python/venv/bin/activate; python3 ../WendyGrand/main/Python/Recognizer.py");
         }
         else

@@ -8,7 +8,6 @@ import java.io.File;
 
 public class ActionHandlerModules 
 {
-    
     // Обработка модулей
     public static void handleModule(String word) throws 
     InterruptedException, 

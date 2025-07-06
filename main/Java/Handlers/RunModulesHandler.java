@@ -8,7 +8,6 @@ import java.nio.file.Paths;
 
 public class RunModulesHandler
 {
-
     // Начало активации модуля
     public static void run(String arg) throws 
     InterruptedException, 
