@@ -8,45 +8,44 @@ import java.io.File;
 
 public class ActionHandlerModules 
 {
-    // обработка модулей
+    
+    private final static String CONFIG = "../WendyGrand/Configs/DictionaryModules.conf";
+
     public static void handleModule(String word) throws 
     InterruptedException, 
-    IOException
+    IOException 
     {
-        List<String> modules = GeneralHelper.readConfig("../WendyGrand/Configs/DictionaryModules.conf", word);
-        
-        if (!modules.isEmpty())
-        {
-            GeneralHelper.Performer("python3", "../WendyGrand/main/Python/Voiceover.py", "StandardModule_StandardResponse");
-            Thread.sleep(500);
+        List<String> modules = GeneralHelper.readConfig(CONFIG, word);
+        boolean voiceoverPlayed = false;
+        boolean errorVoiceoverPlayed = false;
 
-            for (String module : modules)
+        for (String module : modules) 
+        {
+            File moduleFile = new File("../WendyGrand/Modules/", module);
+
+            if (moduleFile.exists()) 
             {
-                try{
-                    startModule(module.trim());} 
-                catch (IOException | InterruptedException e) 
+                if (!modules.isEmpty() && !voiceoverPlayed) 
                 {
-                    System.err.println("Ошибка при запуске модуля: " + module);
-                    GeneralHelper.Voiceover("ErrModuleCode");
-                    e.printStackTrace();
+                    GeneralHelper.Voiceover("StandardModule_StandardResponse");
+                    Thread.sleep(500);
+                    voiceoverPlayed = true;
                 }
+
+                System.out.println("Активация модуля: " + module.trim());
+                RunModulesHandler.run(module.trim());
+            } 
+            else 
+            {
+                if (!errorVoiceoverPlayed) 
+                {
+                    GeneralHelper.Voiceover("ErrModule");
+                    Thread.sleep(500);
+                    errorVoiceoverPlayed = true;
+                }
+
+                System.err.println("Ошибка при запуске модуля: " + module);
             }
         }
-    }
-
-    // запуск модуля или предупреждение, что его нет
-    private static void startModule(String moduleName) throws 
-    InterruptedException, 
-    IOException
-    {
-        File moduleFile = new File("../WendyGrand/Modules/", moduleName);
-
-        if (moduleFile.exists()) 
-        {
-            System.out.println("Активация модуля: " + moduleName);
-            RunModulesHandler.run(moduleName);
-        }
-        else
-            GeneralHelper.Voiceover("ErrModule");
     }
 }

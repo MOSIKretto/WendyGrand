@@ -17,7 +17,7 @@ public class WordHandler
         "венди", "среда", "вэнди"
     );
 
-    private static final String PATH = "../WendyGrand/Configs/Dictionary.conf";
+    private static final String CONFIG = "../WendyGrand/Configs/Dictionary.conf";
 
     public static void main(String[] args) throws 
     Exception 
@@ -27,22 +27,22 @@ public class WordHandler
             String clearText = GeneralHelper.cleanInput(arg, REMOVE_WORDS);
 
             // Основные команды
-            executeCommand(clearText, GeneralHelper.readConfig(PATH, "hello"), "CallApps", "hello");
-            executeCommand(clearText, GeneralHelper.readConfig(PATH, "browser"), "CallApps", "browser");
-            executeCommand(clearText, GeneralHelper.readConfig(PATH, "conductor"), "CallApps", "conductor");
-            executeCommand(clearText, GeneralHelper.readConfig(PATH, "terminal"), "CallApps", "terminal");
-            executeCommand(clearText, GeneralHelper.readConfig(PATH, "store"), "CallApps", "store");
-            executeCommand(clearText, GeneralHelper.readConfig(PATH, "office"), "CallApps", "office");
-            executeCommand(clearText, GeneralHelper.readConfig(PATH, "messenger"), "CallApps", "messenger");
-            executeCommand(clearText, GeneralHelper.readConfig(PATH, "socialnetwork"), "CallApps", "socialnetwork");
-            executeCommand(clearText, GeneralHelper.readConfig(PATH, "notes"), "CallApps", "notes");
-            executeCommand(clearText, GeneralHelper.readConfig(PATH, "codeeditor"), "CallApps", "codeeditor");
-            executeCommand(clearText, GeneralHelper.readConfig(PATH, "reboot"), "CallShutdown", "reboot");
-            executeCommand(clearText, GeneralHelper.readConfig(PATH, "shutdown"), "CallShutdown", "shutdown");
-            executeCommand(clearText, GeneralHelper.readConfig(PATH, "sleep"), "CallShutdown", "sleep");
-            ActionHandler.CallVolume(clearText, GeneralHelper.readConfig(PATH, "volume"));
-            ActionHandler.CallSearch(clearText, GeneralHelper.readConfig(PATH, "websearch"), 
-                                                GeneralHelper.readConfig(PATH, "videosearch"));
+            executeCommand(clearText, GeneralHelper.readConfig(CONFIG, "hello"), "CallApps", "hello");
+            executeCommand(clearText, GeneralHelper.readConfig(CONFIG, "browser"), "CallApps", "browser");
+            executeCommand(clearText, GeneralHelper.readConfig(CONFIG, "conductor"), "CallApps", "conductor");
+            executeCommand(clearText, GeneralHelper.readConfig(CONFIG, "terminal"), "CallApps", "terminal");
+            executeCommand(clearText, GeneralHelper.readConfig(CONFIG, "store"), "CallApps", "store");
+            executeCommand(clearText, GeneralHelper.readConfig(CONFIG, "office"), "CallApps", "office");
+            executeCommand(clearText, GeneralHelper.readConfig(CONFIG, "messenger"), "CallApps", "messenger");
+            executeCommand(clearText, GeneralHelper.readConfig(CONFIG, "socialnetwork"), "CallApps", "socialnetwork");
+            executeCommand(clearText, GeneralHelper.readConfig(CONFIG, "notes"), "CallApps", "notes");
+            executeCommand(clearText, GeneralHelper.readConfig(CONFIG, "codeeditor"), "CallApps", "codeeditor");
+            executeCommand(clearText, GeneralHelper.readConfig(CONFIG, "reboot"), "CallShutdown", "reboot");
+            executeCommand(clearText, GeneralHelper.readConfig(CONFIG, "shutdown"), "CallShutdown", "shutdown");
+            executeCommand(clearText, GeneralHelper.readConfig(CONFIG, "sleep"), "CallShutdown", "sleep");
+            ActionHandler.CallVolume(clearText, GeneralHelper.readConfig(CONFIG, "volume"));
+            ActionHandler.CallSearch(clearText, GeneralHelper.readConfig(CONFIG, "websearch"), 
+                                                GeneralHelper.readConfig(CONFIG, "videosearch"));
 
             if (!clearText.isEmpty()) 
                 ActionHandlerModules.handleModule(clearText);

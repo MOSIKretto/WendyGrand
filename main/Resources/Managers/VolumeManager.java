@@ -87,25 +87,17 @@ public class VolumeManager
     private static void setSystemVolume(int volume) throws 
     IOException 
     {
-        try 
-        {
-            String[] command;
-            
-            if (volume == -2)
-                command = new String[]{VOLUME_CMD, "set-sink-volume", DEFAULT_SINK, "+10%"};
+        String[] command;
+        
+        if (volume == -2)
+            command = new String[]{VOLUME_CMD, "set-sink-volume", DEFAULT_SINK, "+10%"};
 
-            else if (volume == -3)
-                command = new String[]{VOLUME_CMD, "set-sink-volume", DEFAULT_SINK, "-10%"};
+        else if (volume == -3)
+            command = new String[]{VOLUME_CMD, "set-sink-volume", DEFAULT_SINK, "-10%"};
 
-            else
-                command = new String[]{VOLUME_CMD, "set-sink-volume", DEFAULT_SINK, volume + "%"};
-            
-            GeneralHelper.Performer(command);
-        } 
-        catch (Exception e) 
-        {
-            System.err.println("Ошибка изменения громкости: " + e.getMessage());
-            GeneralHelper.Voiceover("volumeErrUtil");
-        }
+        else
+            command = new String[]{VOLUME_CMD, "set-sink-volume", DEFAULT_SINK, volume + "%"};
+        
+        GeneralHelper.Performer(command);
     }
 }

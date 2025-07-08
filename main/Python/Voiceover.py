@@ -127,12 +127,8 @@ class ActionsVoiceover:
 
     @staticmethod
     def volumeErr():
-        executive_voice = choice(['SorryButIDontKnowSuchAVolumeCommand.mp3', 'SorryButThereIsNoSuchVolumeCommand.mp3'])
-        ActionsVoiceover.ActivateVoice(executive_voice)
-
-    @staticmethod
-    def volumeErrUtil():
-        executive_voice = choice(['AnErrorOccurredWhileChangingTheVolume.mp3', 'VolumeChangeError.mp3', 
+        executive_voice = choice(['SorryButIDontKnowSuchAVolumeCommand.mp3', 'SorryButThereIsNoSuchVolumeCommand.mp3', 
+                                  'VolumeChangeError.mp3', 'AnErrorOccurredWhileChangingTheVolume.mp3', 
                                   'ThereWasAProblemChangingTheVolume.mp3'])
         ActionsVoiceover.ActivateVoice(executive_voice)
 
@@ -165,12 +161,6 @@ class ActionsVoiceover:
     def StandardModule_StandardResponse():
         executive_voice = choice(['OneMoment.mp3', 'Doing.mp3', 'Done.mp3', 'AlwaysAPleasure.mp3', 'OneSecond.mp3', 'Second.mp3'])
         playsound("../WendyGrand/main/Resources/Audio/" + executive_voice)
-
-    @staticmethod
-    def ErrModuleCode():
-        executive_voice = choice(['AttentionErrorInStartingTheModuleMostLikelyTheErrorIsInTheModuleCodeItself.mp3', 
-                                  'FailedToStartTheModuleMostLikelyThereIsAnErrorInTheModuleCodeItself.mp3'])
-        ActionsVoiceover.ActivateVoice(executive_voice)
 
     @staticmethod
     def ErrModule():

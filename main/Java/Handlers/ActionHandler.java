@@ -12,7 +12,7 @@ import java.util.Set;
 public class ActionHandler 
 {
 
-    private static String PATH = "../WendyGrand/Configs/Apps.conf";
+    private static String CONFIG = "../WendyGrand/Configs/Apps.conf";
 
     public static void CallFunction(String functionName, Object... args) throws 
     InterruptedException, 
@@ -32,7 +32,7 @@ public class ActionHandler
     IOException 
     {
         GeneralHelper.Voiceover(args);
-        List<String> app = GeneralHelper.readConfig(PATH, args);
+        List<String> app = GeneralHelper.readConfig(CONFIG, args);
         if (app != null && !app.isEmpty())
             AppManager.execute(app.get(0));
     }
@@ -72,14 +72,12 @@ public class ActionHandler
         VolumeManager.handleVolumeCommand(clearTextVolume);
     }
 
-
     // для поиска в интернете и на видео площадках
     public static void CallSearch(String input, List<String> webSearchCommands, List<String> youtubeSearchCommands) throws 
     InterruptedException,
     IOException
     {
         final boolean isYoutubeSearch = youtubeSearchCommands.stream().anyMatch(input::startsWith);
-        
         final boolean isWebSearch = !isYoutubeSearch && webSearchCommands.stream().anyMatch(input::startsWith);
         
         if (!isWebSearch && !isYoutubeSearch)
@@ -95,8 +93,8 @@ public class ActionHandler
         if (searchQuery.isEmpty())
             return;
 
-        List<String> browser = GeneralHelper.readConfig(PATH, "browser");
-        List<String> searchEngine = GeneralHelper.readConfig(PATH, searchType);
+        List<String> browser = GeneralHelper.readConfig(CONFIG, "browser");
+        List<String> searchEngine = GeneralHelper.readConfig(CONFIG, searchType);
 
         GeneralHelper.Voiceover(searchType);
         AppManager.execute(browser.get(0), searchEngine.get(0) + searchQuery);

@@ -49,7 +49,7 @@ public class GeneralHelper
     public static void Voiceover(String FunctionVoice) throws 
     IOException 
     {
-        GeneralHelper.Performer("python3", "../WendyGrand/main/Python/Voiceover.py", FunctionVoice);
+        Performer("python3", "../WendyGrand/main/Python/Voiceover.py", FunctionVoice);
     }
 
     // запуск процессов
