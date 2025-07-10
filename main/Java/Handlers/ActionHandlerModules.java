@@ -12,7 +12,7 @@ public class ActionHandlerModules
     private final static String CONFIG = "../WendyGrand/Configs/DictionaryModules.conf";
 
     public static void handleModule(String word) throws 
-    InterruptedException, 
+    InterruptedException,
     IOException 
     {
         List<String> modules = GeneralHelper.readConfig(CONFIG, word);

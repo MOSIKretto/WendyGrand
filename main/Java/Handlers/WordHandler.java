@@ -2,29 +2,28 @@ package main.Java.Handlers;
 
 import java.lang.reflect.InvocationTargetException;
 import main.Resources.GeneralHelper;
+import java.util.Collections;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
 
 
-public class WordHandler 
+public class WordHandler
 {
-
-    private static final List<String> REMOVE_WORDS = Arrays.asList(
-        "пожалуйста", "ладно", "давай", "прямо", "сейчас", "типо", "типа", "будь", "добра", "ну",
-        "что-то", "открой", "откройте", "запусти", "начни", "выполнение", "выполнения", "начинаем", 
-        "хз", "блять", "нахуй", "сука",
-        "венди", "среда", "вэнди"
-    );
 
     private static final String CONFIG = "../WendyGrand/Configs/Dictionary.conf";
 
+    private static List<String> REMOVE_WORDS() 
+    {
+        try { return GeneralHelper.readConfig(CONFIG, "delete"); } 
+        catch (IOException e) { return Collections.emptyList(); } 
+    }
+
     public static void main(String[] args) throws 
-    Exception 
+    Exception
     {
         for (String arg : args) 
         {
-            String clearText = GeneralHelper.cleanInput(arg, REMOVE_WORDS);
+            String clearText = GeneralHelper.cleanInput(arg, REMOVE_WORDS());
 
             // Основные команды
             executeCommand(clearText, GeneralHelper.readConfig(CONFIG, "hello"), "CallApps", "hello");

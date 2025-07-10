@@ -1,10 +1,10 @@
 package main.Resources;
 
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import java.io.BufferedReader;
 import java.util.Collection;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.io.FileReader;
 import java.util.HashSet;
 import java.util.Arrays;
@@ -16,24 +16,45 @@ public class GeneralHelper
 {
     // чтение конфигов
     public static List<String> readConfig(String path, String key) throws 
-    IOException
+    IOException 
     {
+        List<String> result = new ArrayList<>();
+        StringBuilder block = new StringBuilder();
+
         try (BufferedReader br = new BufferedReader(new FileReader(path))) 
         {
-            return br.lines()
-            .map(line -> line.split("#")[0].trim()) // удаление комментариев
-            .filter(line -> !line.isEmpty())
-            .flatMap(line -> {
-                String[] parts = line.split("=", 2); // разделение на ключ и значение
-                if (parts.length != 2) return Stream.empty();
-                
-                String k = parts[0].trim();
-                String v = parts[1].trim();
-                
-                return key.equals(k) ? Arrays.stream(v.split(",\\s*")) : Stream.empty();
-            })
-            .collect(Collectors.toList());
+            String line;
+
+            while ((line = br.readLine()) != null) 
+            {
+                String s = line.split("#")[0].trim();
+
+                if (s.isEmpty()) continue;
+
+                if (s.endsWith("\\")) 
+                    block.append(s, 0, s.length() - 1);
+                else 
+                {
+                    String full = block.append(s).toString();
+                    block.setLength(0);
+                    String[] parts = full.split("=", 2);
+
+                    if (parts.length == 2 && key.equals(parts[0].trim())) 
+                        for (String v : parts[1].trim().split(",\\s*")) 
+                            if (!v.isEmpty()) result.add(v);
+                }
+            }
         }
+
+        String full = block.toString();
+        String[] parts = full.split("=", 2);
+
+        if (!full.isEmpty() && parts.length == 2 && key.equals(parts[0].trim())) 
+            for (String v : parts[1].trim().split(",\\s*")) 
+                if (!v.isEmpty()) 
+                    result.add(v);
+
+        return result;
     }
 
     // очищение текста

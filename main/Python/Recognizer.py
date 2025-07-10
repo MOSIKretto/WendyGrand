@@ -1,78 +1,83 @@
 from Voiceover import ActionsVoiceover
 import sounddevice as sd
 import subprocess
+import queue
 import vosk
 import time
-import sys
 
 
 class VoiceAssistant:
     
     def __init__(self):
-        self.last_command_time = 0
+        self.lastCommandTime = 0
         self.model = vosk.Model("../WendyGrand/main/Resources/model_small")
         self.samplerate = int(sd.query_devices(sd.default.device[0], 'input')['default_samplerate'])
-        self.word_handler = "../WendyGrand/main/Java/Handlers/WordHandler.java"
-        self.stop_commands = {"пока", "закройся", "выход"}
+        self.wordHandler = "../WendyGrand/main/Java/Handlers/WordHandler.java"
         self.names = {"венди", "вэнди", "среда"}
-        self.exit_flag = False
+        self.exitPhrases = self.exit()
+        self.running = True
+        self.commandQueue = queue.Queue()
+        self.recognizer = None
+
+    def exit(self):
+        commands = {"пока", "закройся", "выход"}
+        return commands | {f"{name} {cmd}" for name in self.names for cmd in commands}
 
     def start(self):
         ActionsVoiceover.HelloVoiceover()
-        self.main_loop()
+        self.mainLoop()
 
-    def should_exit(self, text):
-        return any(text == cmd or text.startswith(f"{name} {cmd}") for name in self.names for cmd in self.stop_commands)
-
-    def should_print(self, text):
-        return (any(text.startswith(name) for name in self.names) or (time.time() - self.last_command_time <= 10))
-
-    def process_command(self, text):
-        if self.should_exit(text):
-            if not self.exit_flag:
-                print(f"Распознано: {text}")
-                ActionsVoiceover.ByeVoiceover()
-                self.exit_flag = True
-            return False
-
-        if self.should_print(text):
-            print(f"Распознано: {text}")
+    def processCommand(self, text):
+        print(f"Распознано: {text}")
+        
+        if text in self.exitPhrases:
+            ActionsVoiceover.ByeVoiceover()
+            self.running = False
+            return
 
         for name in self.names:
             if text.startswith(name):
                 command = text[len(name):].strip()
                 if command:
-                    subprocess.run(["java", self.word_handler, command])
+                    subprocess.run(["java", self.wordHandler, command])
                 else:
-                    self.last_command_time = time.time()
+                    self.lastCommandTime = time.time()
                     ActionsVoiceover.hello()
-                return True
+                return
 
-        if time.time() - self.last_command_time <= 10:
-            subprocess.run(["java", self.word_handler, text])
-            self.last_command_time = 0
-        return True
+        current_time = time.time()
+        if current_time - self.lastCommandTime <= 10:
+            subprocess.run(["java", self.wordHandler, text])
+            self.lastCommandTime = 0
 
-    def audio_callback(self, indata, frames, time, status):
+    def callback(self, indata, frames, time_info, status):
         if self.recognizer.AcceptWaveform(bytes(indata)):
-            if text := self.recognizer.Result()[14:-3]:
-                self.process_command(text.lower())
+            result = self.recognizer.Result()
+            text = result[14:-3].strip()
+            if not text:
+                return
+                
+            current_time = time.time()
+            time_valid = current_time - self.lastCommandTime <= 10
+            if text in self.exitPhrases or any(text.startswith(name) for name in self.names) or time_valid:
+                self.commandQueue.put(text)
 
-    def main_loop(self):
+    def mainLoop(self):
         self.recognizer = vosk.KaldiRecognizer(self.model, self.samplerate)
         
         with sd.RawInputStream(
             samplerate=self.samplerate,
             blocksize=8000,
-            device=sd.default.device[0],
             dtype='int16',
             channels=1,
-            callback=self.audio_callback
+            callback=self.callback
         ):
-            while not self.exit_flag:
-                time.sleep(0.1)
-            
-        sys.exit(0)
+            while self.running:
+                try:
+                    text = self.commandQueue.get(timeout=0.1)
+                    self.processCommand(text)
+                except queue.Empty:
+                    continue
 
 if __name__ == "__main__":
     VoiceAssistant().start()
