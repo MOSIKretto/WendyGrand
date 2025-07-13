@@ -9,32 +9,27 @@ import java.nio.file.Paths;
 public class RunModulesHandler
 {
 
-    // Начало активации модуля
-    public static void run(String arg) throws 
-    InterruptedException, 
-    IOException
-    {
-        executeModule(sliceUntilPeriod(arg), arg, "../WendyGrand/Modules/");
-    }
+    private final static String PATH = "../WendyGrand/Modules/";
 
-    // Определение языка по расширению файла
-    private static String sliceUntilPeriod(String inputString) 
+    // определение языка по расширению файла
+    private static String sliceUntilPeriod(String inputString)
     {
         int periodIndex = inputString.lastIndexOf('.');
         return periodIndex != -1 ? inputString.substring(periodIndex + 1) : "";
     }
 
-    // Проверка на язык и выполнение соответствующего модуля
-    private static void executeModule(String extension, String arg, String currentDirectory) throws 
+    // проверка на язык и выполнение соответствующего модуля
+    public static void run(String arg) throws 
     InterruptedException, 
     IOException
     {
-        String modulePath = Paths.get(currentDirectory, arg).toString();
+        String extension = sliceUntilPeriod(arg);
+        String modulePath = Paths.get(PATH, arg).toString();
 
         switch (extension) 
         {
             case "py":
-                RunPythonModules.runPythonModule(modulePath, currentDirectory);
+                RunPythonModules.runPythonModule(modulePath, PATH);
                 break;
 
             case "":

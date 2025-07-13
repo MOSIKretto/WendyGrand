@@ -9,44 +9,43 @@ import java.io.File;
 public class ActionHandlerModules 
 {
     
-    // Обработка модулей
-    public static void handleModule(String word) throws 
-    InterruptedException, 
-    IOException
-    {
-        List<String> modules = GeneralHelper.readConfig("../WendyGrand/Configs/DictionaryModules.conf", word);
-        
-        if (!modules.isEmpty()) 
-        {
-            GeneralHelper.Performer("python3", "../WendyGrand/main/Python/Voiceover.py", "StandardModule_StandardResponse");
+    private final static String CONFIG = "../WendyGrand/Configs/DictionaryModules.conf";
 
-            for (String module : modules) 
+    public static void handleModule(String word) throws 
+    InterruptedException,
+    IOException 
+    {
+        List<String> modules = GeneralHelper.readConfig(CONFIG, word);
+        boolean voiceoverPlayed = false;
+        boolean errorVoiceoverPlayed = false;
+
+        for (String module : modules) 
+        {
+            File moduleFile = new File("../WendyGrand/Modules/", module);
+
+            if (moduleFile.exists()) 
             {
-                try{
-                    startModule(module.trim());} 
-                catch (IOException | InterruptedException e) 
+                if (!modules.isEmpty() && !voiceoverPlayed) 
                 {
-                    System.err.println("Ошибка при запуске модуля: " + module);
-                    //добавить озвучку ошибка модуля (типо ошибка в коде модуля)
-                    e.printStackTrace();
+                    GeneralHelper.Voiceover("StandardModule_StandardResponse");
+                    Thread.sleep(500);
+                    voiceoverPlayed = true;
                 }
+
+                System.out.println("Активация модуля: " + module.trim());
+                RunModulesHandler.run(module.trim());
+            } 
+            else 
+            {
+                if (!errorVoiceoverPlayed) 
+                {
+                    GeneralHelper.Voiceover("ErrModule");
+                    Thread.sleep(500);
+                    errorVoiceoverPlayed = true;
+                }
+
+                System.err.println("Ошибка при запуске модуля: " + module);
             }
         }
-    }
-
-    // Запуск модуля или предупреждение, что его нет
-    private static void startModule(String moduleName) throws 
-    InterruptedException, 
-    IOException
-    {
-        File moduleFile = new File("../WendyGrand/Modules/", moduleName);
-
-        if (moduleFile.exists()) 
-        {
-            System.out.println("Активация модуля: " + moduleName);
-            RunModulesHandler.run(moduleName);
-        }
-        else
-            GeneralHelper.Performer("python3", "../WendyGrand/main/Python/Voiceover.py", "ErrModule");
     }
 }

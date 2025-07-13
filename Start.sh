@@ -1,2 +1,2 @@
 #!/bin/bash
-java ../WendyGrand/main/Java/Main.java 
+java ../WendyGrand/main/Java/Main.java

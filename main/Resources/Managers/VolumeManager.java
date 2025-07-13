@@ -6,11 +6,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class SystemManager 
+public class VolumeManager 
 {
-    
-    private static final String SHUTDOWN_CMD = "shutdown";
-    private static final String SLEEP_CMD = "systemctl";
+
     private static final String VOLUME_CMD = "pactl";
     private static final String DEFAULT_SINK = "@DEFAULT_SINK@";
 
@@ -24,14 +22,15 @@ public class SystemManager
         String[] teens = {"десять", "одиннадцать", "двенадцать", "тринадцать", "четырнадцать", "пятнадцать", "шестнадцать", "семнадцать", "восемнадцать", "девятнадцать"};
         String[] tens = {"", "", "двадцать", "тридцать", "сорок", "пятьдесят", "шестьдесят", "семьдесят", "восемьдесят", "девяносто"};
 
-        // Заполнение базовых чисел
+        // заполнение базовых чисел
         for (int i = 0; i <= 9; i++) 
         {
             map.put(units[i], i);
-            map.put(teens[i], i + 10);
+            if (i < teens.length)
+                map.put(teens[i], i + 10);
         }
 
-        // Заполнение составных чисел (20-99)
+        // заполнение составных чисел (20-99)
         for (int i = 2; i <= 9; i++) 
         {
             map.put(tens[i], i * 10);
@@ -39,7 +38,7 @@ public class SystemManager
                 map.put(tens[i] + " " + units[j], i * 10 + j);
         }
 
-        // Специальные команды
+        // спец команды
         map.put("сто", 100);
         map.put("максимум", 100);
         map.put("выключи звук", 0);
@@ -53,56 +52,52 @@ public class SystemManager
         map.put("уменьшить", -3);
         map.put("звук больше", -2);
         map.put("звук меньше", -3);
+        map.put("громче", -2);
+        map.put("тише", -3);
 
         return map;
     }
-
-    // Управление питанием системы
-    public static void systemShutdown(String arg, String message) throws 
-    InterruptedException,
-    IOException
+    
+    public static void handleVolumeCommand(String volumeText) throws 
+    IOException 
     {
-        GeneralHelper.message(message);
-        GeneralHelper.Performer(new String[]{SHUTDOWN_CMD, arg, "now"});
-    }
-
-    public static void systemSleep(String message) throws 
-    InterruptedException, 
-    IOException
-    {
-        GeneralHelper.message(message);
-        GeneralHelper.Performer(new String[]{SLEEP_CMD, "suspend", "-i"});
-    }
-
-    // Управление громкостью
-    public static void handleVolumeCommand(String volumeText) 
-    {
+        // проверка на точное совпадения
         Integer volume = NUMBER_MAP.get(volumeText.toLowerCase());
-        
-        if (volume != null)
-            setSystemVolume(volume);
-        else
-            System.err.println("Неизвестная команда громкости: " + volumeText);
-    }
-
-    private static void setSystemVolume(int volume) 
-    {
-        try 
+        if (volume != null) 
         {
-            String[] command;
-            
-            if (volume == -2)
-                command = new String[]{VOLUME_CMD, "set-sink-volume", DEFAULT_SINK, "+25%"};
+            setSystemVolume(volume);
+            GeneralHelper.Voiceover("volume");
+            return;
+        }
 
-            else if (volume == -3)
-                command = new String[]{VOLUME_CMD, "set-sink-volume", DEFAULT_SINK, "-25%"};
-                
-            else
-                command = new String[]{VOLUME_CMD, "set-sink-volume", DEFAULT_SINK, volume + "%"};
+        // Проверка на частичное совпадения
+        for (Map.Entry<String, Integer> entry : NUMBER_MAP.entrySet()) 
+        {
+            if (volumeText.toLowerCase().contains(entry.getKey())) 
+            {
+                setSystemVolume(entry.getValue());
+                GeneralHelper.Voiceover("volume");
+                return;
+            }
+        }
 
-            GeneralHelper.Performer(command);
-        } 
-        catch (Exception e) {
-            System.err.println("Ошибка изменения громкости: " + e.getMessage());}
+        GeneralHelper.Voiceover("volumeErr");
+    }
+    
+    private static void setSystemVolume(int volume) throws 
+    IOException 
+    {
+        String[] command;
+        
+        if (volume == -2)
+            command = new String[]{VOLUME_CMD, "set-sink-volume", DEFAULT_SINK, "+10%"};
+
+        else if (volume == -3)
+            command = new String[]{VOLUME_CMD, "set-sink-volume", DEFAULT_SINK, "-10%"};
+
+        else
+            command = new String[]{VOLUME_CMD, "set-sink-volume", DEFAULT_SINK, volume + "%"};
+        
+        GeneralHelper.Performer(command);
     }
 }

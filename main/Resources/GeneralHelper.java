@@ -1,9 +1,7 @@
 package main.Resources;
 
-import main.Java.Handlers.ActionHandler;
 import java.util.stream.Collectors;
 import java.io.BufferedReader;
-import java.util.Collections;
 import java.util.Collection;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -16,119 +14,66 @@ import java.util.Set;
 
 public class GeneralHelper
 {
-
-    // Для громкости
-    public static void handleVolumeCommand(String input, List<String> volumeCommands) throws 
-    InterruptedException, 
+    // чтение конфигов
+    public static List<String> readConfig(String path, String key) throws 
     IOException 
     {
-    
-        if (volumeCommands == null || volumeCommands.isEmpty() || volumeCommands.stream().noneMatch(input::startsWith))
-            return;
-        
-        String clearTextVolume = cleanInput(input, List.of("громкость", "на", "мне", "меня", "процента", "процент", "процентов"));
-        
-        new ProcessBuilder("python3", "../WendyGrand/main/Python/Voiceover.py", "StandardModule_StandardResponse").start();
-        Thread.sleep(1000);
-        
-        ActionHandler.CallVolume(clearTextVolume.matches("^(увеличь|увеличить|уменьши|уменьшить)\\b.*") 
-                                    ? clearTextVolume + " громкость" 
-                                    : clearTextVolume.matches("^(больше|меньше)\\b.*") 
-                                    ? "громкость " + clearTextVolume 
-                                    : clearTextVolume);
-    }
-    
-    // Для поиска в интернете и на видео площадках
-    public static void handleSearchCommand(String input, List<String> webSearchCommands, List<String> youtubeSearchCommands) throws 
-    InterruptedException, 
-    IOException 
-    {   
-        if (webSearchCommands == null || webSearchCommands.isEmpty()) return;
-        
-        boolean hasWebSearchCommand = false;
-        for (String cmd : webSearchCommands) 
-        {
-            if (input.startsWith(cmd)) 
-            {
-                hasWebSearchCommand = true;
-                break;
-            }
-        }
-        if (!hasWebSearchCommand) return;
-        
-        if (youtubeSearchCommands != null && !youtubeSearchCommands.isEmpty()) 
-        {
-            boolean hasYoutubeCommand = false;
-            for (String cmd : youtubeSearchCommands) 
-            {
-                if (input.startsWith(cmd)) 
-                    hasYoutubeCommand = true; break;
-            }
-            
-            if (hasYoutubeCommand) 
-            {
-                String clearText = cleanInput(input, Set.of("найди", "найти", "на", "ищи", "ютубе", "ютюбе", "ютуб", "ютюб")).replace(" ", "%20");
-                ActionHandler.CallFunction("CallSearch", clearText, "videosearch");
-                return;
-            }
-        }
-        
-        String clearText = cleanInput(input, Set.of("найди", "найти", "в", "интернете", "ищи")).replace(" ", "%20");
-        ActionHandler.CallFunction("CallSearch", clearText, "websearch");
-    }
+        List<String> result = new ArrayList<>();
+        StringBuilder block = new StringBuilder();
 
-    // Чтение кофигов
-    public static List<String> readConfig(String filePath, String key) throws 
-    IOException 
-    {
-        List<String> results = new ArrayList<>(4);
-        
-        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) 
+        try (BufferedReader br = new BufferedReader(new FileReader(path))) 
         {
             String line;
-            int keyLen = key.length() + 1;
-            
-            while ((line = reader.readLine()) != null) 
+
+            while ((line = br.readLine()) != null) 
             {
-                line = line.trim();
-                
-                if (line.isEmpty() || line.charAt(0) == '#') continue;
-                
-                if (line.startsWith(key) && line.length() > keyLen && line.charAt(key.length()) == '=') 
+                String s = line.split("#")[0].trim();
+
+                if (s.isEmpty()) continue;
+
+                if (s.endsWith("\\")) 
+                    block.append(s, 0, s.length() - 1);
+                else 
                 {
-                    String value = line.substring(keyLen);
-                    Collections.addAll(results, value.split(",\\s*"));
-                    break;
+                    String full = block.append(s).toString();
+                    block.setLength(0);
+                    String[] parts = full.split("=", 2);
+
+                    if (parts.length == 2 && key.equals(parts[0].trim())) 
+                        for (String v : parts[1].trim().split(",\\s*")) 
+                            if (!v.isEmpty()) result.add(v);
                 }
             }
         }
-        
-        return results.isEmpty() ? Collections.emptyList() : results;
+
+        String full = block.toString();
+        String[] parts = full.split("=", 2);
+
+        if (!full.isEmpty() && parts.length == 2 && key.equals(parts[0].trim())) 
+            for (String v : parts[1].trim().split(",\\s*")) 
+                if (!v.isEmpty()) 
+                    result.add(v);
+
+        return result;
     }
 
-    // Очищение текста
-    public static String cleanInput(String input, Collection<String> wordsToRemove) 
+    // очищение текста
+    public static String cleanInput(String input, Collection<String> words) 
     {
-        Set<String> removeSet = wordsToRemove instanceof Set ? (Set<String>) wordsToRemove : new HashSet<>(wordsToRemove);
-            
+        Set<String> toRemove = words instanceof Set ? (Set<String>)words : new HashSet<>(words);
         return Arrays.stream(input.split("\\s+"))
-        .filter(word -> !removeSet.contains(word))
+        .filter(word -> !toRemove.contains(word))
         .collect(Collectors.joining(" "));
     }
-
-    // Отсчет выключения системы
-    public static void message(String message) throws InterruptedException 
+    
+    // озвучка
+    public static void Voiceover(String FunctionVoice) throws 
+    IOException 
     {
-        System.out.println("Система будет " + message + " через 5 секунд...");
-        
-        for (int i = 5; i > 0; i--) 
-        {
-            System.out.println(i);
-            Thread.sleep(1000);
-        }
+        Performer("python3", "../WendyGrand/main/Python/Voiceover.py", FunctionVoice);
     }
 
-    // Запуск процессов
+    // запуск процессов
     public static void Performer(String... command) throws 
     IOException 
     {
