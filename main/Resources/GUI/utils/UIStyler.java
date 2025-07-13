@@ -1,13 +1,10 @@
 package utils;
 
-
 import java.awt.*;
-
 import javax.swing.BorderFactory;
-
 import ui.components.CustomButton;
 
-public class UIStyler 
+public class UIStyler
 {
     public static void styleExitButton(CustomButton exitButton)
     {
@@ -52,10 +49,7 @@ public class UIStyler
         menuButton.setBackground(ColorPalette.MENU_BACKGROUND);
 
         if (target == "exit")
-        {
-
             styleExitMenuButton(menuButton);
-        }
         else
         {
             // Ну тут короче это, да... ниче нет:)

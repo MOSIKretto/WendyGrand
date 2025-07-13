@@ -2,6 +2,7 @@ package utils;
 
 import java.awt.Color;
 
+
 public class ColorPalette 
 {
     public static final Color BACKGROUND = new Color(40, 40, 40);

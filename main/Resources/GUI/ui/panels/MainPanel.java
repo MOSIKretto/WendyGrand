@@ -12,15 +12,15 @@ public class MainPanel
     {
 
         JPanel mainPanel = new JPanel() {
-                @Override
-                protected void paintComponent(Graphics g) {
-                    Graphics2D g2d = (Graphics2D) g;
-                    g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, 
-                                       RenderingHints.VALUE_ANTIALIAS_ON);
-                    g2d.setColor(getBackground());
-                    g2d.fillRoundRect(0, 0, getWidth(), getHeight(), 30, 30);
-                }
-            };
+            @Override
+            protected void paintComponent(Graphics g) 
+            {
+                Graphics2D g2d = (Graphics2D) g;
+                g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                g2d.setColor(getBackground());
+                g2d.fillRoundRect(0, 0, getWidth(), getHeight(), 30, 30);
+            }
+        };
         mainPanel.setLayout(new GridBagLayout());
         mainPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5)); 
         mainPanel.setBackground(Color.WHITE);

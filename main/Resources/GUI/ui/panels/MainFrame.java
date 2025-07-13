@@ -7,9 +7,11 @@ import utils.UIConstants;
 import javax.swing.*;
 import java.awt.*;
 
+
 public class MainFrame 
 {
     private JFrame frame;
+    
     public static void createMainFrame()
     {
         SwingUtilities.invokeLater(() -> 

@@ -6,7 +6,8 @@ import java.awt.*;
 
 public class ChatTab extends JPanel 
 {
-    public ChatTab() {
+    public ChatTab() 
+    {
         setBackground(ColorPalette.TAB_BACKGROUND);
         setLayout(new BorderLayout());
         

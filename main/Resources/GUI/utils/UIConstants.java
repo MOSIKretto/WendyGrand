@@ -10,5 +10,4 @@ public class UIConstants
     public static final int MIN_HEIGHT = 480;
     public static final int MAX_WIDTH = 1240;
     public static final int MAX_HEIGHT = 930;
-    
 }

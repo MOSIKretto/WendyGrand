@@ -12,6 +12,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 
+
 public class NavigationPanel extends JPanel
 {
     public static JPanel createNavigationPanel()

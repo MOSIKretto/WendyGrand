@@ -1,18 +1,18 @@
 package ui.components;
 
-
 import java.awt.geom.RoundRectangle2D;
 import utils.ColorPalette;
 import javax.swing.*;
 import java.awt.*;
 
 
+
 public class CustomButton extends JButton 
 {
-    private Color backgroundColor = ColorPalette.BTN_BG;
-    private Color hoverColor = ColorPalette.BTN_HOVER_COLOR;
-    private Color pressedColor = ColorPalette.BTN_PRESSED_COLOR;
-    private int cornerRadius = 15;
+    private static Color backgroundColor = ColorPalette.BTN_BG;
+    private static Color hoverColor = ColorPalette.BTN_HOVER_COLOR;
+    private static Color pressedColor = ColorPalette.BTN_PRESSED_COLOR;
+    private static int cornerRadius = 15;
 
     public CustomButton(String text,int weidht, int height) 
     {
@@ -44,23 +44,19 @@ public class CustomButton extends JButton
         Graphics2D g2 = (Graphics2D) g.create();
         
         // Включаем сглаживание
-        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, 
-                          RenderingHints.VALUE_ANTIALIAS_ON);
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         
         // Определяем цвет в зависимости от состояния
         Color color = backgroundColor;
         if (getModel().isPressed()) 
-        {
             color = pressedColor;
-        } else if (getModel().isRollover()) 
-        {
+
+        else if (getModel().isRollover()) 
             color = hoverColor;
-        }
         
         // Рисуем скругленный прямоугольник
         g2.setColor(color);
-        g2.fill(new RoundRectangle2D.Double(0, 0, getWidth(), getHeight(), 
-                                          cornerRadius, cornerRadius));
+        g2.fill(new RoundRectangle2D.Double(0, 0, getWidth(), getHeight(), cornerRadius, cornerRadius));
         
         // Рисуем текст
         super.paintComponent(g2);
@@ -70,25 +66,25 @@ public class CustomButton extends JButton
     // Методы для изменения стиля
     public void setBackgroundColor(Color color) 
     {
-        this.backgroundColor = color;
+        CustomButton.backgroundColor = color;
         repaint();
     }
     
     public void setHoverColor(Color color) 
     {
-        this.hoverColor = color;
+        CustomButton.hoverColor = color;
         repaint();
     }
     
     public void setPressedColor(Color color)
     {
-        this.pressedColor = color;
+        CustomButton.pressedColor = color;
         repaint();
     }
     
     public void setCornerRadius(int radius) 
     {
-        this.cornerRadius = radius;
+        CustomButton.cornerRadius = radius;
         repaint();
     }
 }

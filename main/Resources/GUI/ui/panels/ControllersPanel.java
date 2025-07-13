@@ -82,10 +82,9 @@ public class ControllersPanel extends JPanel
     private void closeWindow() 
     {
         Window window = SwingUtilities.getWindowAncestor(this);
+        
         if (window != null)
-        {
             window.dispose();
-        }
     }
 
     public static JPanel createControllerPanel()
