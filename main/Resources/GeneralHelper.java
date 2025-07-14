@@ -15,9 +15,10 @@ import java.util.Set;
 public class GeneralHelper
 {
     // чтение конфигов
-    public static List<String> readConfig(String path, String key) throws 
+    public static List<String> readConfig(String... args) throws 
     IOException 
     {
+        String path = args[0], key = args[1];
         List<String> result = new ArrayList<>();
         StringBuilder block = new StringBuilder();
 
@@ -27,34 +28,34 @@ public class GeneralHelper
 
             while ((line = br.readLine()) != null) 
             {
-                String s = line.split("#")[0].trim();
+                String trimmed = line.split("#", 2)[0].trim();
 
-                if (s.isEmpty()) continue;
-
-                if (s.endsWith("\\")) 
-                    block.append(s, 0, s.length() - 1);
-                else 
+                if (trimmed.isEmpty()) continue;
+                
+                if (trimmed.endsWith("\\")) 
                 {
-                    String full = block.append(s).toString();
-                    block.setLength(0);
-                    String[] parts = full.split("=", 2);
-
-                    if (parts.length == 2 && key.equals(parts[0].trim())) 
-                        for (String v : parts[1].trim().split(",\\s*")) 
-                            if (!v.isEmpty()) result.add(v);
+                    block.append(trimmed, 0, trimmed.length() - 1);
+                    continue;
                 }
+                
+                processConfigLine(block.append(trimmed).toString(), key, result);
+                block.setLength(0);
             }
         }
-
-        String full = block.toString();
-        String[] parts = full.split("=", 2);
-
-        if (!full.isEmpty() && parts.length == 2 && key.equals(parts[0].trim())) 
-            for (String v : parts[1].trim().split(",\\s*")) 
-                if (!v.isEmpty()) 
-                    result.add(v);
-
+        
+        if (block.length() > 0)
+            processConfigLine(block.toString(), key, result);
+        
         return result;
+    }
+
+    private static void processConfigLine(String line, String key, List<String> result) 
+    {
+        String[] parts = line.split("=", 2);
+        if (parts.length == 2 && key.equals(parts[0].trim())) 
+            for (String value : parts[1].trim().split(",\\s*"))
+                if (!value.isEmpty())
+                    result.add(value);
     }
 
     // очищение текста

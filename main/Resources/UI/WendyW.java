@@ -1,3 +1,5 @@
+package main.Resources.UI;
+
 import javax.swing.*;
 import javax.swing.border.*;
 import java.awt.*;
@@ -10,7 +12,6 @@ import java.nio.file.Paths;
 import java.util.*;
 import java.util.List;
 
-
 public class WendyW extends JFrame 
 {
     // Константы путей
@@ -18,8 +19,7 @@ public class WendyW extends JFrame
     private static final String MODULES_DIR = "Modules";
     private static final String APPS_CONFIG = CONFIG_DIR + File.separator + "Apps.conf";
     private static final String DICT_CONFIG = CONFIG_DIR + File.separator + "Dictionary.conf"; 
-    //private static final String WINDOW_CONFIG = CONFIG_DIR + File.separator + "Window.conf";
-
+    
     // Компоненты UI
     private JTextArea chatArea;
     private JTextField messageField;
@@ -62,20 +62,8 @@ public class WendyW extends JFrame
         };
         mainPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
 
-        // Панель управления (кнопки закрытия)
-        JPanel controlPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        controlPanel.setOpaque(false);
-        
-        JButton minimizeBtn = new JButton("—");
-        minimizeBtn.addActionListener(e -> setState(Frame.ICONIFIED));
-        styleControlButton(minimizeBtn);
-        
-        JButton closeBtn = new JButton("×");
-        closeBtn.addActionListener(e -> System.exit(0));
-        styleControlButton(closeBtn);
-        
-        controlPanel.add(minimizeBtn);
-        controlPanel.add(closeBtn);
+        // Используем новый компонент ControlPanel
+        ControlPanel controlPanel = new ControlPanel(this);
 
         // Меню навигации
         JPanel navPanel = new JPanel();
@@ -481,27 +469,6 @@ public class WendyW extends JFrame
         return panel;
     }
 
-    private void styleControlButton(JButton btn) 
-    {
-        btn.setContentAreaFilled(false);
-        btn.setBorderPainted(false);
-        btn.setFocusPainted(false);
-        btn.setForeground(Color.WHITE);
-        btn.setFont(new Font("Arial", Font.PLAIN, 14));
-        
-        btn.addMouseListener(new MouseAdapter() 
-        {
-            public void mouseEntered(MouseEvent e) 
-            {
-                btn.setForeground(new Color(200, 200, 200));
-            }
-            public void mouseExited(MouseEvent e) 
-            {
-                btn.setForeground(Color.WHITE);
-            }
-        });
-    }
-
     private void styleButton(JButton btn) 
     {
         btn.setContentAreaFilled(false);
@@ -695,11 +662,72 @@ public class WendyW extends JFrame
         }
     }
 
-    public static void main(String[] args) 
+    // Вложенный класс ControlPanel
+    static class ControlPanel extends JPanel
+    {
+        public ControlPanel(JFrame frame) 
+        {
+            setLayout(new FlowLayout(FlowLayout.RIGHT, 8, 0));
+            setOpaque(false);
+            setBorder(new EmptyBorder(0, 0, 10, 10));
+            
+            add(createControlButton("minimize", e -> frame.setState(Frame.ICONIFIED)));
+            add(createControlButton("close", e -> System.exit(0)));
+        }
+
+        private JButton createControlButton(String type, ActionListener action)
+        {
+            JButton btn = new JButton() {
+                @Override
+                protected void paintComponent(Graphics g) 
+                {
+                    Graphics2D g2 = (Graphics2D) g.create();
+                    g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                    
+                    // Рисуем фон при наведении
+                    if (getModel().isRollover()) 
+                    {
+                        g2.setColor(type.equals("close") ? new Color(232, 17, 35, 150) : new Color(100, 100, 100, 100));
+                        g2.fillRoundRect(0, 0, getWidth(), getHeight(), 5, 5);
+                    }
+                    
+                    // Рисуем значок
+                    g2.setColor(Color.WHITE);
+                    g2.setStroke(new BasicStroke(2f));
+                    
+                    int centerX = getWidth() / 2;
+                    int centerY = getHeight() / 2;
+                    
+                    if (type.equals("minimize")) 
+                    {
+                        // Горизонтальная линия (свернуть)
+                        g2.drawLine(centerX - 6, centerY, centerX + 6, centerY);
+                    } 
+                    else 
+                    {
+                        // Диагональный крестик (закрыть)
+                        g2.drawLine(centerX - 5, centerY - 5, centerX + 5, centerY + 5);
+                        g2.drawLine(centerX + 5, centerY - 5, centerX - 5, centerY + 5);
+                    }
+                    g2.dispose();
+                }
+            };
+            
+            btn.addActionListener(action);
+            btn.setContentAreaFilled(false);
+            btn.setBorderPainted(false);
+            btn.setFocusPainted(false);
+            btn.setPreferredSize(new Dimension(30, 24));
+            btn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+            
+            return btn;
+        }
+    }
+
+    public static void startWindow() 
     {
         SwingUtilities.invokeLater(() -> {
-            WendyW app = new WendyW();
-            app.setVisible(true);
+            new WendyW().setVisible(true);
         });
     }
 }

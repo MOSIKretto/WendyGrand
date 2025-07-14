@@ -1,53 +1,66 @@
 package main.Java;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.io.File;
+import main.Resources.UI.WendyW;
+
+import java.nio.file.*;
+import java.awt.Frame;
+import javax.swing.*;
 
 
-public class Main 
+public class Main
 {
-
-    private static final String TIME_CFG = "../WendyGrand/Configs/timepath.cfg";
     
+    private static final String TIME_CFG = "../WendyGrand/Configs/timepath.cfg";
+    private static final String VENV = "../WendyGrand/main/Python/venv/bin/activate";
+    private static Process recognitionProcess;
+
     public static void main(String[] args) throws 
-    InterruptedException,
-    IOException
+    Exception
     {
-        //проверка на изменение дирректории
-        String nowPath = new File("").getAbsolutePath();
-
-        if (!nowPath.equals(readPathFromFile())) 
+        Path config = Paths.get(TIME_CFG);
+        String currentDir = Paths.get("").toAbsolutePath().toString();
+        
+        if (!Files.exists(config) || !currentDir.equals(Files.readString(config))) 
         {
-            System.out.println("Изменение директории");
-            Performer("bash", "-c", 
-            """
-            javac ../WendyGrand/main/Java/Handlers/WordHandler.java && \
-            python -m venv ../WendyGrand/main/Python/venv && \
-            source ../WendyGrand/main/Python/venv/bin/activate && \
-            pip install --upgrade pip && \
-            pip install vosk playsound3 sounddevice"""); //перечень библиотек (убрать playsound3 с появлением Voiceover.java)
-            Files.write(Paths.get(TIME_CFG), nowPath.getBytes()); //запись нового пути в timepath.cfg
-            Performer("bash", "-c", "source ../WendyGrand/main/Python/venv/bin/activate; python3 ../WendyGrand/main/Python/Recognizer.py");
+            Files.writeString(config, currentDir);
+            setupEnvironment();
         }
-        else
-            Performer("bash", "-c", "source ../WendyGrand/main/Python/venv/bin/activate; python3 ../WendyGrand/main/Python/Recognizer.py");
+        startApplication();
     }
 
-    //чтение старого пути
-    private static String readPathFromFile() throws 
-    IOException 
+    private static void startApplication() throws 
+    Exception
     {
-        if (Files.exists(Paths.get(TIME_CFG))) return new String(Files.readAllBytes(Paths.get(TIME_CFG)));
-        else return "";
+        recognitionProcess = new ProcessBuilder("bash", "-c", 
+                            "source " + VENV + " && python3 ../WendyGrand/main/Python/Recognizer.py")
+                            .inheritIO().start();
+        
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> recognitionProcess.destroy()));
+        
+        new Thread(() -> {
+            try 
+            { 
+                recognitionProcess.waitFor(); 
+                System.exit(0); 
+            } 
+            catch (InterruptedException ignored) { }
+        }).start();
+
+        SwingUtilities.invokeLater(() -> {
+            WendyW.startWindow();
+            for (Frame f : Frame.getFrames()) 
+                if (f.isVisible()) 
+                    ((JFrame)f).setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        });
     }
 
-    private static void Performer(String... command) throws 
-    InterruptedException, 
-    IOException
+    private static void setupEnvironment() throws 
+    Exception
     {
-        new ProcessBuilder(command)
+        new ProcessBuilder("bash", "-c", 
+        "javac ../WendyGrand/main/Java/Handlers/WordHandler.java && " +
+        "python -m venv " + VENV.replace("/bin/activate", "") + " && " +
+        "source " + VENV + " && pip install -U vosk playsound3 sounddevice")
         .inheritIO()
         .start()
         .waitFor();
