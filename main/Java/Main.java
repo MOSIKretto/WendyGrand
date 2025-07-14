@@ -1,7 +1,6 @@
 package main.Java;
 
-import main.Resources.UI.WendyW;
-
+import main.Resources.UI.WindowMaker;
 import java.nio.file.*;
 import java.awt.Frame;
 import javax.swing.*;
@@ -47,7 +46,7 @@ public class Main
         }).start();
 
         SwingUtilities.invokeLater(() -> {
-            WendyW.startWindow();
+            WindowMaker.startWindow();
             for (Frame f : Frame.getFrames()) 
                 if (f.isVisible()) 
                     ((JFrame)f).setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
