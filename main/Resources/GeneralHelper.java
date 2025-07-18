@@ -30,9 +30,10 @@ public class GeneralHelper
             {
                 String trimmed = line.split("#", 2)[0].trim();
 
-                if (trimmed.isEmpty()) continue;
+                if (trimmed.isEmpty()) 
+                    continue;
                 
-                if (trimmed.endsWith("\\")) 
+                if (trimmed.endsWith("\\"))
                 {
                     block.append(trimmed, 0, trimmed.length() - 1);
                     continue;

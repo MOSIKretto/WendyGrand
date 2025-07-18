@@ -18,14 +18,15 @@ public class ActionHandler
     InterruptedException, 
     IOException
     {
-        if (args == null) return;
+        if (args == null) 
+            return;
         
         if (functionName.equals("CallApps"))
             CallApps((String) args[0]);
+
         else
             CallShutdown((String) args[0]);
     }
-    
 
     // вызов приложений
     public static void CallApps(String args) throws 

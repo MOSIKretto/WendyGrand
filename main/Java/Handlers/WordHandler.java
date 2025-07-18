@@ -48,12 +48,12 @@ public class WordHandler
         }
     }
 
-    private static void executeCommand(String input, List<String> commands, String functionName, String argForFunctions) throws 
+    private static void executeCommand(String input, List<String> commands, String functionName, String argForFunctions) throws
     InvocationTargetException,
-    IllegalAccessException, 
+    IllegalAccessException,
     NoSuchMethodException,
     InterruptedException,
-    IOException 
+    IOException
     {
         if (commands != null && !commands.isEmpty() && commands.contains(input))
             ActionHandler.CallFunction(functionName, argForFunctions);

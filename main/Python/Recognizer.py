@@ -20,7 +20,7 @@ class VoiceAssistant:
         self.recognizer = None
 
     def exit(self):
-        commands = {"пока", "закройся", "выход"}
+        commands = {"пока", "закройся", "выход", "закрывайся"}
         return commands | {f"{name} {cmd}" for name in self.names for cmd in commands}
 
     def start(self):
