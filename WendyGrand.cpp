@@ -1,6 +1,4 @@
-#include <cstdlib>
 #include <iostream>
-#include <string>
 
 int main() 
 {   
@@ -8,9 +6,7 @@ int main()
 
     // Создание и настройка виртуального окружения для Python
     system("python3 -m venv ../WendyGrand/main/Python/venv/");
-
-    std::string install_deps = "source ../WendyGrand/main/Python/venv/bin/activate && pip install -U vosk playsound3 sounddevice";
-    system(("bash -c '" + install_deps + "'").c_str());
+    system(("bash -c 'source ../WendyGrand/main/Python/venv/bin/activate && pip install -U vosk playsound3 sounddevice'"));
 
     // Компиляция всего Java-проекта
     system(("javac ../WendyGrand/main/Resources/UI/*.java"));
