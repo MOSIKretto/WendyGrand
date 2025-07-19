@@ -11,34 +11,34 @@ import java.io.FileWriter;
 import javax.swing.*;
 import java.awt.*;
 
-
-public class DictionaryPanel extends JPanel 
+public class ModulesDictPanel extends JPanel
 {
 
-    private JTextArea dictionaryArea;
-    private static final String DICT_CONFIG = "../WendyGrand/Configs/Dictionary.conf";
 
-    public DictionaryPanel() 
+    private JTextArea modulesDictionaryArea;
+    private static final String MODULE_DICT_CONFIG = "../WendyGrand/Configs/DictionaryModules.conf";
+
+    public ModulesDictPanel() 
     {
         setLayout(new BorderLayout());
         setBorder(new EmptyBorder(10, 10, 10, 10));
         setBackground(new Color(50, 50, 50));
         
         initUI();
-        loadDictionary();
+        loadModulesDict();
     }
 
     private void initUI() 
     {
-        dictionaryArea = new JTextArea();
-        dictionaryArea.setBackground(new Color(60, 60, 60));
-        dictionaryArea.setForeground(Color.WHITE);
+        modulesDictionaryArea = new JTextArea();
+        modulesDictionaryArea.setBackground(new Color(60, 60, 60));
+        modulesDictionaryArea.setForeground(Color.WHITE);
 
-        JScrollPane scroll = new JScrollPane(dictionaryArea);
+        JScrollPane scroll = new JScrollPane(modulesDictionaryArea);
         JButton saveBtn = new JButton("Сохранить словарь");
 
-        saveBtn.addActionListener(this::saveDictionary);
-        
+        saveBtn.addActionListener(this::saveModulesDict);
+
         UIUtils.styleScrollPane(scroll);
         UIUtils.styleButton(saveBtn);
         
@@ -46,9 +46,9 @@ public class DictionaryPanel extends JPanel
         add(saveBtn, BorderLayout.SOUTH);
     }
 
-    private void loadDictionary() 
+    private void loadModulesDict() 
     {
-        try (BufferedReader reader = new BufferedReader(new FileReader(DICT_CONFIG))) 
+        try (BufferedReader reader = new BufferedReader(new FileReader(MODULE_DICT_CONFIG))) 
         {
             StringBuilder content = new StringBuilder();
             String line;
@@ -56,16 +56,16 @@ public class DictionaryPanel extends JPanel
             while ((line = reader.readLine()) != null)
                 content.append(line).append("\n");
 
-            dictionaryArea.setText(content.toString());
+            modulesDictionaryArea.setText(content.toString());
         } 
-        catch (IOException e) { dictionaryArea.setText("Ошибка загрузки: " + e.getMessage()); }
+        catch (IOException e) { modulesDictionaryArea.setText("Ошибка загрузки: " + e.getMessage()); }
     }
 
-    private void saveDictionary(ActionEvent e) 
+    private void saveModulesDict(ActionEvent e) 
     {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(DICT_CONFIG))) 
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(MODULE_DICT_CONFIG))) 
         {
-            writer.write(dictionaryArea.getText());
+            writer.write(modulesDictionaryArea.getText());
             JOptionPane.showMessageDialog(this, "Словарь сохранен");
         } 
         catch (IOException ex) { JOptionPane.showMessageDialog(this, "Ошибка сохранения: " + ex.getMessage()); }

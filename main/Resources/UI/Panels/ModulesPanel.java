@@ -59,6 +59,7 @@ public class ModulesPanel extends JPanel
         });
         
         JScrollPane scroll = new JScrollPane(modulesList);
+        UIUtils.styleScrollPane(scroll);
         panel.add(scroll, BorderLayout.CENTER);
         
         JPanel buttonPanel = new JPanel();
@@ -88,6 +89,7 @@ public class ModulesPanel extends JPanel
         configArea.setBackground(new Color(60, 60, 60));
         configArea.setForeground(Color.WHITE);
         JScrollPane scroll = new JScrollPane(configArea);
+        UIUtils.styleScrollPane(scroll);
         
         JButton saveBtn = new JButton("Сохранить");
         saveBtn.addActionListener(this::saveModuleConfig);

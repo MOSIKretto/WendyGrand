@@ -11,30 +11,29 @@ import java.io.FileWriter;
 import javax.swing.*;
 import java.awt.*;
 
-
-public class DictionaryPanel extends JPanel 
+public class VoiceOverDict extends JPanel 
 {
+    
+    private JTextArea voiceOverDictArea;
+    private static final String VOICEOVER_DICT_CONFIG = "../WendyGrand/Configs/Voiceover.conf";
 
-    private JTextArea dictionaryArea;
-    private static final String DICT_CONFIG = "../WendyGrand/Configs/Dictionary.conf";
-
-    public DictionaryPanel() 
+    public VoiceOverDict() 
     {
         setLayout(new BorderLayout());
         setBorder(new EmptyBorder(10, 10, 10, 10));
         setBackground(new Color(50, 50, 50));
         
         initUI();
-        loadDictionary();
+        loadVoiceOverDict();
     }
 
     private void initUI() 
     {
-        dictionaryArea = new JTextArea();
-        dictionaryArea.setBackground(new Color(60, 60, 60));
-        dictionaryArea.setForeground(Color.WHITE);
+        voiceOverDictArea = new JTextArea();
+        voiceOverDictArea.setBackground(new Color(60, 60, 60));
+        voiceOverDictArea.setForeground(Color.WHITE);
 
-        JScrollPane scroll = new JScrollPane(dictionaryArea);
+        JScrollPane scroll = new JScrollPane(voiceOverDictArea);
         JButton saveBtn = new JButton("Сохранить словарь");
 
         saveBtn.addActionListener(this::saveDictionary);
@@ -46,9 +45,9 @@ public class DictionaryPanel extends JPanel
         add(saveBtn, BorderLayout.SOUTH);
     }
 
-    private void loadDictionary() 
+    private void loadVoiceOverDict() 
     {
-        try (BufferedReader reader = new BufferedReader(new FileReader(DICT_CONFIG))) 
+        try (BufferedReader reader = new BufferedReader(new FileReader(VOICEOVER_DICT_CONFIG))) 
         {
             StringBuilder content = new StringBuilder();
             String line;
@@ -56,16 +55,16 @@ public class DictionaryPanel extends JPanel
             while ((line = reader.readLine()) != null)
                 content.append(line).append("\n");
 
-            dictionaryArea.setText(content.toString());
+            voiceOverDictArea.setText(content.toString());
         } 
-        catch (IOException e) { dictionaryArea.setText("Ошибка загрузки: " + e.getMessage()); }
+        catch (IOException e) { voiceOverDictArea.setText("Ошибка загрузки: " + e.getMessage()); }
     }
 
     private void saveDictionary(ActionEvent e) 
     {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(DICT_CONFIG))) 
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(VOICEOVER_DICT_CONFIG))) 
         {
-            writer.write(dictionaryArea.getText());
+            writer.write(voiceOverDictArea.getText());
             JOptionPane.showMessageDialog(this, "Словарь сохранен");
         } 
         catch (IOException ex) { JOptionPane.showMessageDialog(this, "Ошибка сохранения: " + ex.getMessage()); }
