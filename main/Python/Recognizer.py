@@ -6,8 +6,8 @@ import vosk
 import time
 
 
-class VoiceAssistant:
-    
+class Recognizer:
+
     def __init__(self):
         self.lastCommandTime = 0
         self.model = vosk.Model("../WendyGrand/main/Resources/model_small")
@@ -29,7 +29,9 @@ class VoiceAssistant:
 
     def processCommand(self, text):
         print(f"Распознано: {text}")
-        
+        with open('../WendyGrand/Configs/History.conf', 'a') as f:
+            f.write(f"{text}\n")
+
         if text in self.exitPhrases:
             ActionsVoiceover.ByeVoiceover()
             self.running = False
@@ -80,4 +82,4 @@ class VoiceAssistant:
                     continue
 
 if __name__ == "__main__":
-    VoiceAssistant().start()
+    Recognizer().start()

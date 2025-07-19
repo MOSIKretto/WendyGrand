@@ -8,7 +8,6 @@ source ../WendyGrand/main/Python/venv/bin/activate
 pip install -U vosk playsound3 sounddevice
 deactivate
 
-
 # Компиляция всего Java-проекта
 javac ../WendyGrand/main/Resources/UI/*.java
 javac ../WendyGrand/main/Resources/UI/Panels/*.java
