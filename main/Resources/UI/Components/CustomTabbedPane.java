@@ -18,7 +18,7 @@ public class CustomTabbedPane extends BasicTabbedPaneUI {
     // Размеры
     private final int TAB_HEIGHT = 40;
     private final int BORDER_THICKNESS = 2;
-    private final Font tabFont = new Font("Segoe UI", Font.PLAIN, 14);
+    private final Font tabFont = new Font("Courier", Font.BOLD, 18);
 
     @Override
     protected void installDefaults() {
