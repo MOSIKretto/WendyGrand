@@ -36,6 +36,7 @@ public class HistoryPanel extends JPanel
     private void initUI()
     {
         historyArea = new JTextArea();
+        UIUtils.styleTextArea(historyArea, Color.WHITE, 500, 5, false, null);
         historyArea.setBackground(new Color(60, 60, 60));
         historyArea.setForeground(Color.WHITE);
         historyArea.setEditable(false);

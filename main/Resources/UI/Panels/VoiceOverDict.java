@@ -30,6 +30,7 @@ public class VoiceOverDict extends JPanel
     private void initUI() 
     {
         voiceOverDictArea = new JTextArea();
+        UIUtils.styleTextArea(voiceOverDictArea, Color.WHITE, 500, 5, false, null);
         voiceOverDictArea.setBackground(new Color(60, 60, 60));
         voiceOverDictArea.setForeground(Color.WHITE);
         voiceOverDictArea.setFont(new Font("Courier", Font.BOLD, 15));

@@ -4,6 +4,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.*;
 import javax.swing.plaf.basic.BasicScrollBarUI;
+import javax.swing.text.DefaultCaret;
 
 import java.awt.*;
 
@@ -84,5 +85,51 @@ public class UIUtils
                 scrollBar.setBackground(new Color(40, 40, 40));
             }
         });
+    }
+
+    public static void styleTextArea(
+        JTextArea textArea,
+        Color caretColor,
+        int blinkRate,
+        int caretWidth,
+        boolean highlightLine,
+        Color highlightColor
+    ) 
+    {
+        textArea.setCaretColor(caretColor != null ? caretColor : Color.RED);
+        textArea.getCaret().setBlinkRate(blinkRate);
+
+        textArea.setCaret(new DefaultCaret() 
+        {
+            @Override
+            protected synchronized void damage(Rectangle r) {
+                if (r == null) return;
+                r.width = caretWidth > 0 ? caretWidth : 2; 
+                super.damage(r);
+            }
+        });
+
+        ((DefaultCaret) textArea.getCaret()).setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
+
+        if (highlightLine) 
+        {
+            Color lineColor = highlightColor != null 
+                ? highlightColor 
+                : new Color(100, 100, 255, 50); 
+            textArea.addCaretListener(e -> highlightCurrentLine(textArea, lineColor));
+        }
+    }
+
+    private static void highlightCurrentLine(JTextArea textArea, Color color) 
+    {
+        try 
+        {
+            int caretPos = textArea.getCaretPosition();
+            int line = textArea.getLineOfOffset(caretPos);
+            textArea.setSelectionStart(textArea.getLineStartOffset(line));
+            textArea.setSelectionEnd(textArea.getLineEndOffset(line));
+            textArea.setSelectionColor(color);
+        } 
+        catch (Exception ignored) {}
     }
 }

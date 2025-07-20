@@ -31,6 +31,7 @@ public class ModulesDictPanel extends JPanel
     private void initUI() 
     {
         modulesDictionaryArea = new JTextArea();
+        UIUtils.styleTextArea(modulesDictionaryArea, Color.WHITE, 500, 5, false, null);
         modulesDictionaryArea.setBackground(new Color(60, 60, 60));
         modulesDictionaryArea.setForeground(Color.WHITE);
         modulesDictionaryArea.setFont(new Font("Courier", Font.BOLD, 15));

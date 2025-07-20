@@ -92,6 +92,7 @@ public class ModulesPanel extends JPanel
         panel.setBackground(new Color(50, 50, 50));
         
         configArea = new JTextArea();
+        UIUtils.styleTextArea(configArea, Color.WHITE, 500, 5, false, null);
 
         configArea.setBackground(new Color(60, 60, 60));
         configArea.setForeground(Color.WHITE);

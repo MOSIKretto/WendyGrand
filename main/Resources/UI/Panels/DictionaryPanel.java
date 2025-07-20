@@ -40,6 +40,7 @@ public class DictionaryPanel extends JPanel
 
         saveBtn.addActionListener(this::saveDictionary);
         
+        UIUtils.styleTextArea(dictionaryArea, Color.WHITE, 500, 5, false, null);
         UIUtils.styleScrollPane(scroll);
         UIUtils.styleButton(saveBtn);
         
