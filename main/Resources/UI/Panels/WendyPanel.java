@@ -1,12 +1,11 @@
 package main.Resources.UI.Panels;
 
 import javax.swing.border.EmptyBorder;
-
 import main.Resources.UI.UIUtils;
-
 import javax.swing.*;
-import java.awt.*;
 import java.io.File;
+import java.awt.*;
+
 
 
 public class WendyPanel extends JPanel 

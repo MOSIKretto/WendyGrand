@@ -1,20 +1,17 @@
 package main.Resources.UI.Panels;
 
-import javax.swing.border.EmptyBorder;
-
-import main.Resources.UI.UIUtils;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.nio.file.FileSystems;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.nio.file.StandardWatchEventKinds;
-import java.nio.file.WatchEvent;
-import java.nio.file.WatchKey;
+import javax.swing.border.EmptyBorder;
 import java.nio.file.WatchService;
-
+import java.nio.file.FileSystems;
+import main.Resources.UI.UIUtils;
+import java.nio.file.WatchEvent;
+import java.io.BufferedReader;
+import java.nio.file.WatchKey;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.Path;
 import javax.swing.*;
 import java.awt.*;
 
