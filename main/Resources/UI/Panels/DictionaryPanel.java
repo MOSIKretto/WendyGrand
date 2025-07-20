@@ -31,6 +31,7 @@ public class DictionaryPanel extends JPanel
     private void initUI() 
     {
         dictionaryArea = new JTextArea();
+        dictionaryArea.setCaretPosition(0);
         dictionaryArea.setBackground(new Color(60, 60, 60));
         dictionaryArea.setForeground(Color.WHITE);
         dictionaryArea.setFont(new Font("Courier", Font.BOLD, 15));

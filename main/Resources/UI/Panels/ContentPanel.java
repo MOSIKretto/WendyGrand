@@ -16,9 +16,7 @@ public class ContentPanel extends JPanel
         add(new WendyPanel(), "0");
         add(new SettingsPanel(), "1");
         add(new ModulesPanel(), "2");
-        add(new DictionaryPanel(), "3");
-        add(new ModulesDictPanel(), "4");
-        add(new VoiceOverDict(), "5");
-        add(new HistoryPanel(), "6");
+        add(new DictionariesPanel(), "3");
+        add(new HistoryPanel(), "4");
     }
 }
