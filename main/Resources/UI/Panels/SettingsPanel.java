@@ -1,5 +1,6 @@
 package main.Resources.UI.Panels;
 
+import main.Resources.UI.Components.CustomTabbedPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.*;
 import java.awt.*;
@@ -15,11 +16,7 @@ public class SettingsPanel extends JPanel
         setBackground(new Color(50, 50, 50));
         
         JTabbedPane tabs = new JTabbedPane();
-        tabs.setBorder(null);
-        tabs.setBackground(new Color(50, 50, 50));
-        tabs.setForeground(new Color(225, 215, 198));
-        tabs.setFont(new Font("Courier", Font.BOLD, 17));
-        tabs.setBorder(new EmptyBorder(0, 0, 0, 0));
+        tabs.setUI(new CustomTabbedPane());
         
         tabs.addTab("Окно", createWindowSettings());
         tabs.addTab("Программы", new AppsSettingsPanel());
