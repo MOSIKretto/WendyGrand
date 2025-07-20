@@ -19,7 +19,7 @@ public class ModulesPanel extends JPanel
     private JTextArea configArea;
     private JList<String> modulesList;
     private DefaultListModel<String> listModel;
-    private static final String MODULES_DIR = "../WendyGrand/Modules/";;
+    private static final String MODULES_DIR = "../WendyGrand/Modules/";
 
     public ModulesPanel() 
     {

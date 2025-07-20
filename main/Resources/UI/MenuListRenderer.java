@@ -12,7 +12,7 @@ public class MenuListRenderer extends DefaultListCellRenderer
     {
         JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
         
-        label.setFont(new Font("Arial", Font.BOLD, 19));
+        label.setFont(new Font("Arial", Font.BOLD, 18));
 
         label.setBorder(new EmptyBorder(5, 10, 5, 10));
         label.setHorizontalAlignment(SwingConstants.LEFT);

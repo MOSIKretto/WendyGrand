@@ -13,7 +13,7 @@ public class ContentPanel extends JPanel
         super(new CardLayout());
         setBackground(new Color(50, 50, 50));
         
-        add(new ChatPanel(), "0");
+        add(new WendyPanel(), "0");
         add(new SettingsPanel(), "1");
         add(new ModulesPanel(), "2");
         add(new DictionaryPanel(), "3");
