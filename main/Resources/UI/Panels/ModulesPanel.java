@@ -24,7 +24,7 @@ public class ModulesPanel extends JPanel
     public ModulesPanel() 
     {
         setLayout(new BorderLayout());
-        setBorder(new EmptyBorder(10, 10, 10, 10));
+        setBorder(new EmptyBorder(0, 0, 0, 0));
         setBackground(new Color(50, 50, 50));
         
         initUI();
@@ -35,6 +35,7 @@ public class ModulesPanel extends JPanel
         JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
         splitPane.setDividerLocation(300);
         splitPane.setBackground(new Color(50, 50, 50));
+        splitPane.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
         
         splitPane.setLeftComponent(createModulesListPanel());
         splitPane.setRightComponent(createEditorPanel());
@@ -51,6 +52,7 @@ public class ModulesPanel extends JPanel
         refreshModulesList();
         
         modulesList = new JList<>(listModel);
+        modulesList.setFont(new Font("Courier", Font.BOLD, 16));
         modulesList.setBackground(new Color(30, 30, 30));
         modulesList.setForeground(new Color(225, 215, 198));
         modulesList.addListSelectionListener(e -> {
@@ -64,6 +66,10 @@ public class ModulesPanel extends JPanel
         
         JPanel buttonPanel = new JPanel();
         buttonPanel.setBackground(new Color(50, 50, 50));
+        buttonPanel.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createLineBorder(new Color(59, 30, 84), 2),
+            BorderFactory.createEmptyBorder(15, 15, 15, 15) 
+        ));
         
         JButton refreshBtn = new JButton("Обновить");
         refreshBtn.addActionListener(e -> refreshModulesList());
@@ -86,8 +92,10 @@ public class ModulesPanel extends JPanel
         panel.setBackground(new Color(50, 50, 50));
         
         configArea = new JTextArea();
+
         configArea.setBackground(new Color(60, 60, 60));
         configArea.setForeground(Color.WHITE);
+        configArea.setFont(new Font("Courier", Font.BOLD, 14));
         JScrollPane scroll = new JScrollPane(configArea);
         UIUtils.styleScrollPane(scroll);
         

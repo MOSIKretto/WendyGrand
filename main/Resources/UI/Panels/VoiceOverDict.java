@@ -32,6 +32,7 @@ public class VoiceOverDict extends JPanel
         voiceOverDictArea = new JTextArea();
         voiceOverDictArea.setBackground(new Color(60, 60, 60));
         voiceOverDictArea.setForeground(Color.WHITE);
+        voiceOverDictArea.setFont(new Font("Courier", Font.BOLD, 15));
 
         JScrollPane scroll = new JScrollPane(voiceOverDictArea);
         JButton saveBtn = new JButton("Сохранить словарь");

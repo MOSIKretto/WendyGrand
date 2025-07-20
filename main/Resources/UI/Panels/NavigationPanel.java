@@ -15,7 +15,7 @@ public class NavigationPanel extends JPanel
         setPreferredSize(new Dimension(200, 0));
         setBackground(new Color(30, 30, 30));
         
-        String[] menuItems = {"Wendy", "Настройки", "Модули", "Основной словарь", "Словарь модулей", "VoiceOver", "История"};
+        String[] menuItems = {"Wendy", "Настройки", "Модули", "Основной словарь", "Словарь модулей", "Voice Over", "История"};
         JList<String> menuList = new JList<>(menuItems);
         menuList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         menuList.setSelectedIndex(0);

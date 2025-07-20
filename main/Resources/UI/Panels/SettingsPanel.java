@@ -11,12 +11,15 @@ public class SettingsPanel extends JPanel
     public SettingsPanel() 
     {
         setLayout(new BorderLayout());
-        setBorder(new EmptyBorder(10, 10, 10, 10));
+        setBorder(new EmptyBorder(0, 0, 0, 0));
         setBackground(new Color(50, 50, 50));
         
         JTabbedPane tabs = new JTabbedPane();
+        tabs.setBorder(null);
         tabs.setBackground(new Color(50, 50, 50));
         tabs.setForeground(new Color(225, 215, 198));
+        tabs.setFont(new Font("Courier", Font.BOLD, 17));
+        tabs.setBorder(new EmptyBorder(0, 0, 0, 0));
         
         tabs.addTab("Окно", createWindowSettings());
         tabs.addTab("Программы", new AppsSettingsPanel());
@@ -28,7 +31,7 @@ public class SettingsPanel extends JPanel
     {
         JPanel themePanel = new JPanel();
         themePanel.setLayout(new BoxLayout(themePanel, BoxLayout.Y_AXIS));
-        themePanel.setBorder(new EmptyBorder(20, 20, 20, 20));
+        themePanel.setBorder(new EmptyBorder(0, 0, 0, 0));
         themePanel.setBackground(new Color(50, 50, 50));
         
         JLabel infoLabel = new JLabel("Смена темы в разработке");

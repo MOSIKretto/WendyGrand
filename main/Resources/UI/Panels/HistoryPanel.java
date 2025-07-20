@@ -40,6 +40,7 @@ public class HistoryPanel extends JPanel
         historyArea.setForeground(Color.WHITE);
         historyArea.setEditable(false);
         historyArea.setLineWrap(true);
+        historyArea.setFont(new Font("Courier", Font.BOLD, 15));
 
         JScrollPane scroll = new JScrollPane(historyArea);
 

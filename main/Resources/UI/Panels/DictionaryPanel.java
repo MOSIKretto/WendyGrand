@@ -33,6 +33,7 @@ public class DictionaryPanel extends JPanel
         dictionaryArea = new JTextArea();
         dictionaryArea.setBackground(new Color(60, 60, 60));
         dictionaryArea.setForeground(Color.WHITE);
+        dictionaryArea.setFont(new Font("Courier", Font.BOLD, 15));
 
         JScrollPane scroll = new JScrollPane(dictionaryArea);
         JButton saveBtn = new JButton("Сохранить словарь");

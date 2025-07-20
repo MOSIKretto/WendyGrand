@@ -28,7 +28,7 @@ public class WindowMaker extends JFrame
     private void configureWindow() 
     {
         setTitle("Wendy");
-        setSize(1000, 700);
+        setSize(1280, 840);
         setUndecorated(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);

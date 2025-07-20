@@ -49,28 +49,32 @@ public class AppsSettingsPanel extends JPanel
         JPanel settingsPanel = new JPanel();
         settingsPanel.setLayout(new BoxLayout(settingsPanel, BoxLayout.Y_AXIS));
         settingsPanel.setBackground(new Color(50, 50, 50));
+        settingsPanel.setBorder(new EmptyBorder(0, 0, 0, 0));
         
         Dimension fieldSize = new Dimension(300, 30);
         Map<String, String> config = loadConfig();
 
         for (int i = 0; i < PROGRAMS.length; i++) 
         {
-            JPanel row = new JPanel(new BorderLayout());
-            row.setBorder(new EmptyBorder(5, 0, 5, 0));
+            JPanel row = new JPanel(new GridLayout(1,2));
+            row.setBorder(new EmptyBorder(8, 8, 8, 8));
             row.setBackground(new Color(50, 50, 50));
             
             JLabel label = new JLabel(LABELS[i]);
             label.setForeground(new Color(225, 215, 198));
             label.setPreferredSize(new Dimension(150, 30));
-            
+            label.setFont(new Font("Courier", Font.BOLD, 15));
+
             fields[i] = new JTextField(config.getOrDefault(PROGRAMS[i], ""));
             fields[i].setBackground(new Color(70, 70, 70));
+            fields[i].setFont(new Font("Courier", Font.BOLD, 16));
             fields[i].setForeground(Color.WHITE);
             fields[i].setPreferredSize(fieldSize);
+            fields[i].setBorder(new EmptyBorder(0, 0, 0, 0));
             fields[i].setMaximumSize(fieldSize);
             
-            row.add(label, BorderLayout.WEST);
-            row.add(fields[i], BorderLayout.CENTER);
+            row.add(label);
+            row.add(fields[i]);
             settingsPanel.add(row);
         }
         
