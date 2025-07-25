@@ -1,7 +1,11 @@
 package main.Resources.UI.Panels;
 
 import javax.swing.border.EmptyBorder;
+import main.Resources.UI.WindowMaker;
 import java.awt.event.ActionEvent;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import main.Resources.UI.FocusState;
 import main.Resources.UI.UIUtils;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -16,24 +20,43 @@ import java.awt.*;
 public class ModulesPanel extends JPanel 
 {
 
+    private WindowMaker window;
     private JTextArea configArea;
     private JList<String> modulesList;
     private DefaultListModel<String> listModel;
     private static final String MODULES_DIR = "../WendyGrand/Modules/";
 
-    public ModulesPanel() 
+    public ModulesPanel(WindowMaker window) 
     {
+        this.window = window;
+
         setLayout(new BorderLayout());
         setBorder(new EmptyBorder(0, 0, 0, 0));
         setBackground(new Color(50, 50, 50));
-        
+
         initUI();
+        setupKeyBindings();
+
+        modulesList.addFocusListener(new FocusAdapter() 
+        {
+            @Override
+            public void focusGained(FocusEvent e)
+            {
+                window.setCurrentFocusState(FocusState.MODULES_LIST);
+            }
+
+            @Override
+            public void focusLost(FocusEvent e)
+            {
+
+            }
+        });
     }
 
     private void initUI() 
     {
         JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
-        splitPane.setDividerLocation(300);
+        splitPane.setDividerLocation(200);
         splitPane.setBackground(new Color(50, 50, 50));
         splitPane.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
         
@@ -167,5 +190,44 @@ public class ModulesPanel extends JPanel
     {
         try { java.awt.Desktop.getDesktop().open(new File(MODULES_DIR)); } 
         catch (Exception ex) { JOptionPane.showMessageDialog(this, "Ошибка открытия папки: " + ex.getMessage()); }
+    }
+
+    private void setupKeyBindings()
+    {
+        InputMap im = modulesList.getInputMap(JComponent.WHEN_FOCUSED);
+        ActionMap am = modulesList.getActionMap();
+
+        Action returnAction = new AbstractAction()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                modulesList.clearSelection();
+                window.focusOnMainMenu();
+            }
+        };
+
+        im.put(KeyStroke.getKeyStroke("LEFT"), "returnAction");
+        im.put(KeyStroke.getKeyStroke("ESCAPE"), "returnAction");
+        am.put("returnAction", returnAction);
+
+        im.put(KeyStroke.getKeyStroke("RIGHT"), "none");
+    }
+
+    private void returnFocusTomainMenu()
+    {
+        modulesList.clearSelection();
+        window.focusOnMainMenu();
+    }
+
+    public void focusOnList() {
+        modulesList.requestFocusInWindow();
+        if (modulesList.getModel().getSize() > 0) 
+        {
+            modulesList.setSelectedIndex(0); 
+        }
+        
+        InputMap im = modulesList.getInputMap(JComponent.WHEN_FOCUSED);
+        im.put(KeyStroke.getKeyStroke("RIGHT"), "none");
     }
 }

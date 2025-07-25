@@ -15,7 +15,7 @@ public class ContentPanel extends JPanel
         
         add(new WendyPanel(), "0");
         add(new SettingsPanel(), "1");
-        add(new ModulesPanel(), "2");
+        add(new ModulesPanel(frame), "2");
         add(new DictionariesPanel(), "3");
         add(new HistoryPanel(), "4");
     }
