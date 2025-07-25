@@ -1,4 +1,4 @@
-package main.Resources.UI;
+package main.Resources;
 
 public enum FocusState 
 {

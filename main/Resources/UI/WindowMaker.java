@@ -1,6 +1,7 @@
 package main.Resources.UI;
 
 import main.Resources.UI.Panels.NavigationPanel;
+import main.Resources.FocusState;
 import main.Resources.UI.Panels.ContentPanel;
 import main.Resources.UI.Panels.ControlPanel;
 import main.Resources.UI.Panels.MainPanel;
@@ -141,8 +142,8 @@ public class WindowMaker extends JFrame
                         }
                     }
                     break;
-        }
-    });
+            }
+        });
     }
     
 
