@@ -30,11 +30,6 @@ def update_system():
         subprocess.run(["xbps-install", "-Suvy"])
         return True
 
-    elif os.system("command -v nix >/dev/null 2>&1") == 0:
-        print("Обновление системы с использованием nix...")
-        subprocess.run(["nixpkgs.stable", "--no-outdated", "--no-reorder", "nixos-rebuild", "switch", "-y"])
-        return True
-
     else:
         print("Неизвестный дистрибутив. Пожалуйста, обновите систему вручную.")
         return False

@@ -16,7 +16,7 @@ public class GeneralHelper
 {
     // чтение конфигов
     public static List<String> readConfig(String... args) throws 
-    IOException 
+    IOException
     {
         String path = args[0], key = args[1];
         List<String> result = new ArrayList<>();

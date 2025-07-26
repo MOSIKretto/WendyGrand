@@ -11,6 +11,7 @@ int main()
     // Компиляция всего Java-проекта
     system(("javac ../WendyGrand/main/Resources/UI/*.java"));
     system(("javac ../WendyGrand/main/Resources/UI/Panels/*.java"));
+    system(("javac ../WendyGrand/main/Resources/UI/Components/*.java"));
     system(("javac ../WendyGrand/main/Java/Handlers/WordHandler.java"));
 
     // Запуск
