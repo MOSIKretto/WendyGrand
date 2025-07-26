@@ -1,7 +1,12 @@
 package main.Resources.UI.Panels;
 
 import javax.swing.border.EmptyBorder;
+import javax.swing.plaf.basic.BasicSplitPaneDivider;
+import javax.swing.plaf.basic.BasicSplitPaneUI;
+
 import main.Resources.UI.WindowMaker;
+import main.Resources.UI.Components.CustomDivider;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
@@ -57,9 +62,19 @@ public class ModulesPanel extends JPanel
     private void initUI() 
     {
         JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
-        splitPane.setDividerLocation(200);
+        splitPane.setDividerLocation(250);
         splitPane.setBackground(new Color(50, 50, 50));
         splitPane.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        splitPane.setDividerSize(4);
+
+        splitPane.setUI(new BasicSplitPaneUI() 
+        {
+            @Override
+            public BasicSplitPaneDivider createDefaultDivider()
+            {
+                return new CustomDivider(this);
+            }
+        });
         
         splitPane.setLeftComponent(createModulesListPanel());
         splitPane.setRightComponent(createEditorPanel());
