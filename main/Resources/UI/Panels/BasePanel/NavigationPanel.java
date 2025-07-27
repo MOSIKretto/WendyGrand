@@ -1,6 +1,6 @@
 package main.Resources.UI.Panels.BasePanel;
 
-import main.Resources.FocusState;
+import main.Resources.enums.FocusState;
 import main.Resources.UI.MenuListRenderer;
 import main.Resources.UI.WindowMaker;
 import java.awt.event.ActionEvent;
