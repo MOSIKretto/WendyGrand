@@ -22,7 +22,7 @@ public class DictionariesPanel extends JPanel
 
         tabs.addTab("Основной словарь", new DictionaryPanel());
         tabs.addTab("Словарь модулей", new ModulesDictPanel());
-        tabs.addTab("Voice over", new VoiceOverDict());
+        tabs.addTab("Словарь озвучки", new VoiceOverDict());
 
         add(tabs, BorderLayout.CENTER);
     }
