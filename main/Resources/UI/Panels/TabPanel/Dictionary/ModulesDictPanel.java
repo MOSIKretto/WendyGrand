@@ -1,4 +1,4 @@
-package main.Resources.UI.Panels;
+package main.Resources.UI.Panels.TabPanel.Dictionary;
 
 import javax.swing.border.EmptyBorder;
 import java.awt.event.ActionEvent;
@@ -26,12 +26,12 @@ public class ModulesDictPanel extends JPanel
         
         initUI();
         loadModulesDict();
+        modulesDictionaryArea.setCaretPosition(0);
     }
 
     private void initUI() 
     {
         modulesDictionaryArea = new JTextArea();
-        modulesDictionaryArea.setCaretPosition(0);
         UIUtils.styleTextArea(modulesDictionaryArea, Color.WHITE, 500, 5, false, null);
         modulesDictionaryArea.setBackground(new Color(60, 60, 60));
         modulesDictionaryArea.setForeground(Color.WHITE);

@@ -1,4 +1,4 @@
-package main.Resources.UI.Panels;
+package main.Resources.UI.Panels.TabPanel;
 
 import javax.swing.border.EmptyBorder;
 import main.Resources.UI.UIUtils;

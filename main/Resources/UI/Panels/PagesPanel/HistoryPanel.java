@@ -1,4 +1,4 @@
-package main.Resources.UI.Panels;
+package main.Resources.UI.Panels.PagesPanel;
 
 import java.nio.file.StandardWatchEventKinds;
 import javax.swing.border.EmptyBorder;
@@ -37,7 +37,6 @@ public class HistoryPanel extends JPanel
     {
         historyArea = new JTextArea();
         UIUtils.styleTextArea(historyArea, Color.WHITE, 500, 5, false, null);
-        historyArea.setCaretPosition(0);
         historyArea.setBackground(new Color(60, 60, 60));
         historyArea.setForeground(Color.WHITE);
         historyArea.setEditable(false);
@@ -64,6 +63,7 @@ public class HistoryPanel extends JPanel
             historyArea.setText(content.toString());
         }
         catch (IOException e) { historyArea.setText("Ошибка загрузки: " + e.getMessage());}
+        historyArea.setCaretPosition(0);
     }
 
     public void startFileWatcher() {

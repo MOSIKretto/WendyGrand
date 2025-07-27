@@ -1,4 +1,4 @@
-package main.Resources.UI.Panels;
+package main.Resources.UI.Panels.TabPanel.Dictionary;
 
 import javax.swing.border.EmptyBorder;
 import java.awt.event.ActionEvent;
@@ -11,36 +11,37 @@ import java.io.FileWriter;
 import javax.swing.*;
 import java.awt.*;
 
-public class VoiceOverDict extends JPanel 
-{
-    
-    private JTextArea voiceOverDictArea;
-    private static final String VOICEOVER_DICT_CONFIG = "../WendyGrand/Configs/Voiceover.conf";
 
-    public VoiceOverDict() 
+public class DictionaryPanel extends JPanel 
+{
+
+    private JTextArea dictionaryArea;
+    private static final String DICT_CONFIG = "../WendyGrand/Configs/Dictionary.conf";
+
+    public DictionaryPanel() 
     {
         setLayout(new BorderLayout());
         setBorder(new EmptyBorder(10, 10, 10, 10));
         setBackground(new Color(50, 50, 50));
         
         initUI();
-        loadVoiceOverDict();
+        loadDictionary();
+        dictionaryArea.setCaretPosition(0);
     }
 
     private void initUI() 
     {
-        voiceOverDictArea = new JTextArea();
-        voiceOverDictArea.setCaretPosition(0);
-        UIUtils.styleTextArea(voiceOverDictArea, Color.WHITE, 500, 5, false, null);
-        voiceOverDictArea.setBackground(new Color(60, 60, 60));
-        voiceOverDictArea.setForeground(Color.WHITE);
-        voiceOverDictArea.setFont(new Font("Courier", Font.BOLD, 15));
+        dictionaryArea = new JTextArea();
+        dictionaryArea.setBackground(new Color(60, 60, 60));
+        dictionaryArea.setForeground(Color.WHITE);
+        dictionaryArea.setFont(new Font("Courier", Font.BOLD, 15));
 
-        JScrollPane scroll = new JScrollPane(voiceOverDictArea);
+        JScrollPane scroll = new JScrollPane(dictionaryArea);
         JButton saveBtn = new JButton("Сохранить словарь");
 
         saveBtn.addActionListener(this::saveDictionary);
         
+        UIUtils.styleTextArea(dictionaryArea, Color.WHITE, 500, 5, false, null);
         UIUtils.styleScrollPane(scroll);
         UIUtils.styleButton(saveBtn);
         
@@ -48,9 +49,9 @@ public class VoiceOverDict extends JPanel
         add(saveBtn, BorderLayout.SOUTH);
     }
 
-    private void loadVoiceOverDict() 
+    private void loadDictionary() 
     {
-        try (BufferedReader reader = new BufferedReader(new FileReader(VOICEOVER_DICT_CONFIG))) 
+        try (BufferedReader reader = new BufferedReader(new FileReader(DICT_CONFIG))) 
         {
             StringBuilder content = new StringBuilder();
             String line;
@@ -58,16 +59,16 @@ public class VoiceOverDict extends JPanel
             while ((line = reader.readLine()) != null)
                 content.append(line).append("\n");
 
-            voiceOverDictArea.setText(content.toString());
+            dictionaryArea.setText(content.toString());
         } 
-        catch (IOException e) { voiceOverDictArea.setText("Ошибка загрузки: " + e.getMessage()); }
+        catch (IOException e) { dictionaryArea.setText("Ошибка загрузки: " + e.getMessage()); }
     }
 
     private void saveDictionary(ActionEvent e) 
     {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(VOICEOVER_DICT_CONFIG))) 
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(DICT_CONFIG))) 
         {
-            writer.write(voiceOverDictArea.getText());
+            writer.write(dictionaryArea.getText());
             JOptionPane.showMessageDialog(this, "Словарь сохранен");
         } 
         catch (IOException ex) { JOptionPane.showMessageDialog(this, "Ошибка сохранения: " + ex.getMessage()); }
