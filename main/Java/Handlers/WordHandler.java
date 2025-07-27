@@ -1,8 +1,8 @@
 package main.Java.Handlers;
 
 import java.lang.reflect.InvocationTargetException;
+import main.Resources.enums.ConstPaths;
 import main.Resources.GeneralHelper;
-import java.util.Collections;
 import java.io.IOException;
 import java.util.List;
 
@@ -10,20 +10,14 @@ import java.util.List;
 public class WordHandler
 {
 
-    private static final String CONFIG = "../WendyGrand/Configs/Dictionary.conf";
-
-    private static List<String> REMOVE_WORDS() 
-    {
-        try { return GeneralHelper.readConfig(CONFIG, "delete"); } 
-        catch (IOException e) { return Collections.emptyList(); } 
-    }
+    private static final String CONFIG = ConstPaths.DICTIONARY.getConfPath();
 
     public static void main(String[] args) throws 
     Exception
     {
         for (String arg : args) 
         {
-            String clearText = GeneralHelper.cleanInput(arg, REMOVE_WORDS());
+            String clearText = GeneralHelper.cleanInput(arg, GeneralHelper.readConfig(CONFIG, "delete"));
 
             // Основные команды
             executeCommand(clearText, GeneralHelper.readConfig(CONFIG, "hello"), "CallApps", "hello");

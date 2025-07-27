@@ -5,6 +5,8 @@ import java.util.concurrent.CountDownLatch;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.LineEvent;
 import main.Resources.GeneralHelper;
+import main.Resources.enums.ConstPaths;
+
 import javax.sound.sampled.Clip;
 import java.io.IOException;
 import java.util.Random;
@@ -15,13 +17,13 @@ import java.io.File;
 public class VoiceoverHandler
 {
 
-    private static String PATH = "../WendyGrand/Configs/Voiceover.conf";
-    private static String SOUNDS = "../WendyGrand/main/Resources/Audio/new/";
+    private static final String CONFIG = ConstPaths.VOICEOVER.getConfPath();
+    private static final String SOUNDS = ConstPaths.SOUNDS.getConfPath();
 
     public static void voiceover(String key) throws
     IOException
     {
-        List<String> options = GeneralHelper.readConfig(PATH, key);
+        List<String> options = GeneralHelper.readConfig(CONFIG, key);
         
         Random random = new Random();
         int randomIndex = random.nextInt(options.size());

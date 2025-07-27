@@ -2,6 +2,8 @@ package main.Resources.UI.Panels;
 
 import javax.swing.border.EmptyBorder;
 import main.Resources.UI.UIUtils;
+import main.Resources.enums.ConstPaths;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -18,8 +20,8 @@ import java.awt.*;
 
 public class AppsSettingsPanel extends JPanel 
 {
-
-    private static final String APPS_CONFIG = "../WendyGrand/Configs/Apps.conf";
+    
+    private static final String CONFIG = ConstPaths.APPS.getConfPath();
 
     private static final String[] PROGRAMS = {
         "browser", "conductor", "terminal", "store", 
@@ -100,7 +102,7 @@ public class AppsSettingsPanel extends JPanel
         Map<String, String> config = new HashMap<>();
         try 
         {
-            List<String> lines = Files.readAllLines(Paths.get(APPS_CONFIG));
+            List<String> lines = Files.readAllLines(Paths.get(CONFIG));
             for (String line : lines) 
             {
                 String trimmed = line.trim();
@@ -119,7 +121,7 @@ public class AppsSettingsPanel extends JPanel
     {
         try 
         {
-            List<String> lines = Files.readAllLines(Paths.get(APPS_CONFIG));
+            List<String> lines = Files.readAllLines(Paths.get(CONFIG));
             List<String> newLines = new ArrayList<>();
             Set<String> processed = new HashSet<>();
             
@@ -153,7 +155,7 @@ public class AppsSettingsPanel extends JPanel
                     newLines.add(PROGRAMS[i] + "=" + fields[i].getText().trim());
             }
             
-            Files.write(Paths.get(APPS_CONFIG), newLines);
+            Files.write(Paths.get(CONFIG), newLines);
             JOptionPane.showMessageDialog(this, "Настройки сохранены!");
         } 
         catch (IOException ex) { JOptionPane.showMessageDialog(this, "Ошибка сохранения: " + ex.getMessage()); }

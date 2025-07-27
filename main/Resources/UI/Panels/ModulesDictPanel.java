@@ -3,6 +3,8 @@ package main.Resources.UI.Panels;
 import javax.swing.border.EmptyBorder;
 import java.awt.event.ActionEvent;
 import main.Resources.UI.UIUtils;
+import main.Resources.enums.ConstPaths;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -16,7 +18,7 @@ public class ModulesDictPanel extends JPanel
 
 
     private JTextArea modulesDictionaryArea;
-    private static final String MODULE_DICT_CONFIG = "../WendyGrand/Configs/DictionaryModules.conf";
+    private static final String CONFIG = ConstPaths.DICTIONARY_MODULES.getConfPath();
 
     public ModulesDictPanel() 
     {
@@ -51,7 +53,7 @@ public class ModulesDictPanel extends JPanel
 
     private void loadModulesDict() 
     {
-        try (BufferedReader reader = new BufferedReader(new FileReader(MODULE_DICT_CONFIG))) 
+        try (BufferedReader reader = new BufferedReader(new FileReader(CONFIG))) 
         {
             StringBuilder content = new StringBuilder();
             String line;
@@ -66,7 +68,7 @@ public class ModulesDictPanel extends JPanel
 
     private void saveModulesDict(ActionEvent e) 
     {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(MODULE_DICT_CONFIG))) 
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(CONFIG))) 
         {
             writer.write(modulesDictionaryArea.getText());
             JOptionPane.showMessageDialog(this, "Словарь сохранен");

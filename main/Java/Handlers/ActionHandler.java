@@ -3,6 +3,7 @@ package main.Java.Handlers;
 import main.Resources.Managers.ShutdownManager;
 import main.Resources.Managers.VolumeManager;
 import main.Resources.Managers.AppManager;
+import main.Resources.enums.ConstPaths;
 import main.Resources.GeneralHelper;
 import java.io.IOException;
 import java.util.List;
@@ -12,7 +13,7 @@ import java.util.Set;
 public class ActionHandler 
 {
 
-    private static String CONFIG = "../WendyGrand/Configs/Apps.conf";
+    private static final String CONFIG = ConstPaths.APPS.getConfPath();
 
     public static void CallFunction(String functionName, Object... args) throws 
     InterruptedException, 

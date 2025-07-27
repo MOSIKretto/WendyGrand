@@ -1,6 +1,8 @@
 package main.Java.Handlers;
 
 import main.Resources.GeneralHelper;
+import main.Resources.enums.ConstPaths;
+
 import java.io.IOException;
 import java.util.List;
 import java.io.File;
@@ -9,7 +11,7 @@ import java.io.File;
 public class ActionHandlerModules 
 {
     
-    private final static String CONFIG = "../WendyGrand/Configs/DictionaryModules.conf";
+    private static final String CONFIG = ConstPaths.DICTIONARY_MODULES.getConfPath();
 
     public static void handleModule(String word) throws 
     InterruptedException,

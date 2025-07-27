@@ -6,12 +6,12 @@ import javax.swing.plaf.basic.BasicSplitPaneUI;
 
 import main.Resources.UI.WindowMaker;
 import main.Resources.UI.Components.CustomDivider;
+import main.Resources.enums.FocusState;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 
-import main.Resources.FocusState;
 import main.Resources.UI.UIUtils;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

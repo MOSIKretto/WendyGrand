@@ -3,6 +3,8 @@ package main.Resources.UI.Panels;
 import javax.swing.border.EmptyBorder;
 import java.awt.event.ActionEvent;
 import main.Resources.UI.UIUtils;
+import main.Resources.enums.ConstPaths;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -15,7 +17,8 @@ public class VoiceOverDict extends JPanel
 {
     
     private JTextArea voiceOverDictArea;
-    private static final String VOICEOVER_DICT_CONFIG = "../WendyGrand/Configs/Voiceover.conf";
+    private static final String CONFIG = ConstPaths.VOICEOVER.getConfPath();
+
 
     public VoiceOverDict() 
     {
@@ -50,7 +53,7 @@ public class VoiceOverDict extends JPanel
 
     private void loadVoiceOverDict() 
     {
-        try (BufferedReader reader = new BufferedReader(new FileReader(VOICEOVER_DICT_CONFIG))) 
+        try (BufferedReader reader = new BufferedReader(new FileReader(CONFIG))) 
         {
             StringBuilder content = new StringBuilder();
             String line;
@@ -65,7 +68,7 @@ public class VoiceOverDict extends JPanel
 
     private void saveDictionary(ActionEvent e) 
     {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(VOICEOVER_DICT_CONFIG))) 
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(CONFIG))) 
         {
             writer.write(voiceOverDictArea.getText());
             JOptionPane.showMessageDialog(this, "Словарь сохранен");
