@@ -1,10 +1,9 @@
 package main.Resources.UI.Panels.TabPanel.Dictionary;
 
+import main.Resources.enums.ConstPaths;
 import javax.swing.border.EmptyBorder;
 import java.awt.event.ActionEvent;
 import main.Resources.UI.UIUtils;
-import main.Resources.enums.ConstPaths;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -13,13 +12,11 @@ import java.io.FileWriter;
 import javax.swing.*;
 import java.awt.*;
 
-
 public class DictionaryPanel extends JPanel 
 {
-
-    private JTextArea dictionaryArea;
     private static final String CONFIG = ConstPaths.DICTIONARY.getConfPath();
-
+    private JTextArea dictionaryArea;
+    
     public DictionaryPanel() 
     {
         setLayout(new BorderLayout());

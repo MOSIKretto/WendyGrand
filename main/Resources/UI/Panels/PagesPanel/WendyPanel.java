@@ -27,7 +27,6 @@ public class WendyPanel extends JPanel
         setLayout(new BorderLayout());
         setBorder(new EmptyBorder(0, 0, 0, 0));
         
-
         editorPane = new JEditorPane();
         editorPane.setBorder(new EmptyBorder(0, 0, 0, 0));
         editorPane.setContentType("text/html");

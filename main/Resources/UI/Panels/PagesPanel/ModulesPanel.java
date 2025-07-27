@@ -1,17 +1,14 @@
 package main.Resources.UI.Panels.PagesPanel;
 
-import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicSplitPaneDivider;
-import javax.swing.plaf.basic.BasicSplitPaneUI;
-
-import main.Resources.UI.WindowMaker;
 import main.Resources.UI.Components.CustomDivider;
+import javax.swing.plaf.basic.BasicSplitPaneUI;
 import main.Resources.enums.FocusState;
-
-import java.awt.event.ActionEvent;
+import javax.swing.border.EmptyBorder;
+import main.Resources.UI.WindowMaker;
 import java.awt.event.FocusAdapter;
+import java.awt.event.ActionEvent;
 import java.awt.event.FocusEvent;
-
 import main.Resources.UI.UIUtils;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -22,16 +19,14 @@ import javax.swing.*;
 import java.io.File;
 import java.awt.*;
 
-
 public class ModulesPanel extends JPanel 
 {
-
-    private WindowMaker window;
-    private JTextArea configArea;
-    private JList<String> modulesList;
-    private DefaultListModel<String> listModel;
     private static final String MODULES_DIR = "../WendyGrand/Modules/";
-
+    private DefaultListModel<String> listModel;
+    private JList<String> modulesList;
+    private JTextArea configArea;
+    private WindowMaker window;
+    
     public ModulesPanel(WindowMaker window) 
     {
         this.window = window;
@@ -93,7 +88,8 @@ public class ModulesPanel extends JPanel
                 loadModuleConfig();
         });
 
-        modulesList.setCellRenderer(new DefaultListCellRenderer() {
+        modulesList.setCellRenderer(new DefaultListCellRenderer() 
+        {
             @Override
             public Component getListCellRendererComponent(
                 JList<?> list, 
@@ -106,15 +102,19 @@ public class ModulesPanel extends JPanel
                     list, value, index, isSelected, cellHasFocus
                 );
                 
-                if (isSelected) {
-                    if (list.hasFocus()) {
+                if (isSelected) 
+                {
+                    if (list.hasFocus()) 
+                    {
                         c.setBackground(new Color(59, 30, 84));
                         c.setForeground(Color.WHITE);
-                    } else {
+                    } else 
+                    {
                         c.setBackground(new Color(80, 40, 100));
                         c.setForeground(Color.LIGHT_GRAY);
                     }
-                } else {
+                } else 
+                {
                     c.setBackground(new Color(30, 30, 30));
                     c.setForeground(new Color(225, 215, 198));
                 }
@@ -270,15 +270,12 @@ public class ModulesPanel extends JPanel
         InputMap im = modulesList.getInputMap(JComponent.WHEN_FOCUSED);
         ActionMap am = modulesList.getActionMap();
 
-        // Возврат в главное меню
         im.put(KeyStroke.getKeyStroke("LEFT"), "returnToMenu");
         im.put(KeyStroke.getKeyStroke("ESCAPE"), "returnToMenu");
         
-        // Навигация по списку
         im.put(KeyStroke.getKeyStroke("DOWN"), "selectNext");
         im.put(KeyStroke.getKeyStroke("UP"), "selectPrevious");
         
-        // Переход в редактор (только для модулей)
         im.put(KeyStroke.getKeyStroke("TAB"), "focusEditor");
         im.put(KeyStroke.getKeyStroke("ENTER"), "focusEditor");
 

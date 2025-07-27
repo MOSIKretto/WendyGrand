@@ -1,18 +1,20 @@
 package main.Resources.UI.Panels.PagesPanel;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import main.Resources.UI.Components.CustomTabbedPane;
-import main.Resources.UI.Panels.TabPanel.Dictionary.DictionaryPanel;
 import main.Resources.UI.Panels.TabPanel.Dictionary.ModulesDictPanel;
+import main.Resources.UI.Panels.TabPanel.Dictionary.DictionaryPanel;
 import main.Resources.UI.Panels.TabPanel.Dictionary.VoiceOverDict;
+import main.Resources.UI.Components.CustomTabbedPane;
+import javax.swing.border.EmptyBorder;
+import java.awt.BorderLayout;
+import javax.swing.JPanel;
+import java.awt.Color;
 
-public class DictionariesPanel extends JPanel {
+public class DictionariesPanel extends JPanel 
+{
     private CustomTabbedPane tabs;
 
-    public DictionariesPanel() {
+    public DictionariesPanel() 
+    {
         setLayout(new BorderLayout());
         setBorder(new EmptyBorder(0, 0, 0, 0));
         setBackground(new Color(50, 50, 50));
@@ -23,14 +25,16 @@ public class DictionariesPanel extends JPanel {
         tabs.addTab("Словарь модулей", new ModulesDictPanel());
         tabs.addTab("Словарь озвучки", new VoiceOverDict());
 
-        if (tabs.getTabCount() > 0) {
+        if (tabs.getTabCount() > 0) 
+        {
             tabs.setSelectedIndex(0);
         }
 
         add(tabs, BorderLayout.CENTER);
     }
 
-    public CustomTabbedPane getTabs() {
+    public CustomTabbedPane getTabs() 
+    {
         return tabs;
     }
 }

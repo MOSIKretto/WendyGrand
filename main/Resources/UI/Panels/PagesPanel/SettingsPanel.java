@@ -1,14 +1,13 @@
 package main.Resources.UI.Panels.PagesPanel;
 
-import main.Resources.UI.Components.CustomTabbedPane;
 import main.Resources.UI.Panels.TabPanel.AppsSettingsPanel;
-
+import main.Resources.UI.Components.CustomTabbedPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.*;
 import java.awt.*;
 
-public class SettingsPanel extends JPanel {
-
+public class SettingsPanel extends JPanel 
+{
     private CustomTabbedPane tabs;
 
     public SettingsPanel() 
@@ -19,7 +18,6 @@ public class SettingsPanel extends JPanel {
         
         tabs = new CustomTabbedPane();
         
-
         tabs.addTab("Окно", createWindowSettings());
         tabs.addTab("Программы", new AppsSettingsPanel());
         
@@ -31,7 +29,8 @@ public class SettingsPanel extends JPanel {
         add(tabs, BorderLayout.CENTER);
     }
 
-    private JPanel createWindowSettings() {
+    private JPanel createWindowSettings() 
+    {
         JPanel themePanel = new JPanel();
         themePanel.setLayout(new BoxLayout(themePanel, BoxLayout.Y_AXIS));
         themePanel.setBorder(new EmptyBorder(0, 0, 0, 0));
@@ -52,7 +51,8 @@ public class SettingsPanel extends JPanel {
         return themePanel;
     }
 
-    public CustomTabbedPane getTabs() {
+    public CustomTabbedPane getTabs() 
+    {
         return tabs;
     }
 }

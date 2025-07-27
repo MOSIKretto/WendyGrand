@@ -1,17 +1,14 @@
 package main.Resources.UI;
 
+import javax.swing.plaf.basic.BasicScrollBarUI;
+import javax.swing.text.DefaultCaret;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.*;
-import javax.swing.plaf.basic.BasicScrollBarUI;
-import javax.swing.text.DefaultCaret;
-
 import java.awt.*;
-
 
 public class UIUtils 
 {
-    
     public static void styleButton(JButton btn) 
     {
         btn.setContentAreaFilled(false);
@@ -34,8 +31,8 @@ public class UIUtils
         });
     }
 
-    public static void styleScrollPane(JScrollPane scrollPane) {
-
+    public static void styleScrollPane(JScrollPane scrollPane) 
+    {
         scrollPane.setBorder(BorderFactory.createEmptyBorder());
         
         JScrollBar verticalScrollBar = scrollPane.getVerticalScrollBar();
@@ -45,29 +42,34 @@ public class UIUtils
         styleScrollBar(horizontalScrollBar);
     }
 
-    private static void styleScrollBar(JScrollBar scrollBar) {
+    private static void styleScrollBar(JScrollBar scrollBar) 
+    {
         scrollBar.setUnitIncrement(16); 
         scrollBar.setPreferredSize(new Dimension(10, 10)); 
         
-        
-        scrollBar.setUI(new BasicScrollBarUI() {
+        scrollBar.setUI(new BasicScrollBarUI() 
+        {
             @Override
-            protected void configureScrollBarColors() {
+            protected void configureScrollBarColors() 
+            {
                 this.thumbColor = new Color(200, 200, 200); 
                 this.trackColor = new Color(40, 40, 40);    
             }
 
             @Override
-            protected JButton createDecreaseButton(int orientation) {
+            protected JButton createDecreaseButton(int orientation) 
+            {
                 return createInvisibleButton();
             }
 
             @Override
-            protected JButton createIncreaseButton(int orientation) {
+            protected JButton createIncreaseButton(int orientation) 
+            {
                 return createInvisibleButton();
             }
 
-            private JButton createInvisibleButton() {
+            private JButton createInvisibleButton() 
+            {
                 JButton button = new JButton();
                 button.setPreferredSize(new Dimension(0, 0));
                 button.setMinimumSize(new Dimension(0, 0));
@@ -76,12 +78,15 @@ public class UIUtils
             }
         });
         
-        scrollBar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
+        scrollBar.addMouseListener(new java.awt.event.MouseAdapter() 
+        {
+            public void mouseEntered(java.awt.event.MouseEvent evt) 
+            {
                 scrollBar.setBackground(new Color(80, 80, 80));
             }
 
-            public void mouseExited(java.awt.event.MouseEvent evt) {
+            public void mouseExited(java.awt.event.MouseEvent evt) 
+            {
                 scrollBar.setBackground(new Color(40, 40, 40));
             }
         });

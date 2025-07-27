@@ -1,15 +1,13 @@
 package main.Resources.UI.Panels.BasePanel;
 
-import main.Resources.UI.WindowMaker;
 import main.Resources.UI.Panels.PagesPanel.DictionariesPanel;
+import main.Resources.UI.Panels.PagesPanel.SettingsPanel;
 import main.Resources.UI.Panels.PagesPanel.HistoryPanel;
 import main.Resources.UI.Panels.PagesPanel.ModulesPanel;
-import main.Resources.UI.Panels.PagesPanel.SettingsPanel;
 import main.Resources.UI.Panels.PagesPanel.WendyPanel;
-
+import main.Resources.UI.WindowMaker;
 import javax.swing.*;
 import java.awt.*;
-
 
 public class ContentPanel extends JPanel 
 {

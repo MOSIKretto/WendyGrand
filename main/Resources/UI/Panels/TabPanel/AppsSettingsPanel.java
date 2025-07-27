@@ -1,9 +1,8 @@
 package main.Resources.UI.Panels.TabPanel;
 
+import main.Resources.enums.ConstPaths;
 import javax.swing.border.EmptyBorder;
 import main.Resources.UI.UIUtils;
-import main.Resources.enums.ConstPaths;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -17,11 +16,10 @@ import java.util.Set;
 import javax.swing.*;
 import java.awt.*;
 
-
 public class AppsSettingsPanel extends JPanel 
 {
-    
     private static final String CONFIG = ConstPaths.APPS.getConfPath();
+    private final JTextField[] fields = new JTextField[PROGRAMS.length];
 
     private static final String[] PROGRAMS = {
         "browser", "conductor", "terminal", "store", 
@@ -35,8 +33,6 @@ public class AppsSettingsPanel extends JPanel
         "Редактор кода", "Поисковая система"
     };
     
-    private final JTextField[] fields = new JTextField[PROGRAMS.length];
-
     public AppsSettingsPanel() 
     {
         setLayout(new BorderLayout());

@@ -1,18 +1,17 @@
 package main.Resources.UI;
 
+import main.Resources.UI.Panels.PagesPanel.DictionariesPanel;
+import main.Resources.UI.Panels.BasePanel.NavigationPanel;
+import main.Resources.UI.Panels.PagesPanel.SettingsPanel;
+import main.Resources.UI.Panels.PagesPanel.ModulesPanel;
 import main.Resources.UI.Panels.BasePanel.ContentPanel;
 import main.Resources.UI.Panels.BasePanel.ControlPanel;
-import main.Resources.UI.Panels.BasePanel.MainPanel;
-import main.Resources.UI.Panels.BasePanel.NavigationPanel;
-import main.Resources.UI.Panels.PagesPanel.DictionariesPanel;
-import main.Resources.UI.Panels.PagesPanel.ModulesPanel;
-import main.Resources.enums.FocusState;
 import main.Resources.UI.Components.CustomTabbedPane;
-
+import main.Resources.UI.Panels.BasePanel.MainPanel;
+import main.Resources.enums.FocusState;
+import javax.swing.border.EmptyBorder;
 import java.awt.geom.RoundRectangle2D;
 import java.util.prefs.Preferences;
-import main.Resources.UI.Panels.PagesPanel.SettingsPanel;
-import javax.swing.border.EmptyBorder;
 import java.awt.event.*;
 import javax.swing.*;
 import java.awt.*;
@@ -25,7 +24,7 @@ public class WindowMaker extends JFrame
     private NavigationPanel navPanel;
     private Point startPos;
     private boolean isDragging = false;
-    private boolean spacePressed = false; // Добавлено для отслеживания пробела
+    private boolean spacePressed = false; 
 
     public WindowMaker() 
     {
@@ -60,18 +59,22 @@ public class WindowMaker extends JFrame
 
         setupWindowDragHandlers(mainPanel);
         
-        // Добавление слушателей для пробела
-        mainPanel.addKeyListener(new KeyAdapter() {
+        mainPanel.addKeyListener(new KeyAdapter() 
+        {
             @Override
-            public void keyPressed(KeyEvent e) {
-                if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+            public void keyPressed(KeyEvent e) 
+            {
+                if (e.getKeyCode() == KeyEvent.VK_SPACE) 
+                {
                     spacePressed = true;
                 }
             }
             
             @Override
-            public void keyReleased(KeyEvent e) {
-                if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+            public void keyReleased(KeyEvent e) 
+            {
+                if (e.getKeyCode() == KeyEvent.VK_SPACE) 
+                {
                     spacePressed = false;
                 }
             }
@@ -99,20 +102,23 @@ public class WindowMaker extends JFrame
         });
     }
 
-    private void restoreLastState() {
+    private void restoreLastState() 
+    {
         int lastMenu = PREFS.getInt("last_menu_item", 0);
         navPanel.getMenuList().setSelectedIndex(lastMenu);
 
         switch (lastMenu) 
         {
-            case 1: // Настройки
+            case 1: 
                 focusOnSettings();
                 break;
+
             case 2: 
                 focusOnModulesList();
                 int lastModule = PREFS.getInt("last_module", 0);
                 ((ModulesPanel)contentPanel.getComponent(2)).restoreLastModule(lastModule);
                 break;
+
             case 3: 
                 focusOnDictionaries();
                 int lastDictTab = PREFS.getInt("last_dict_tab", 0);
@@ -181,7 +187,6 @@ public class WindowMaker extends JFrame
     {
         if (e.getID() != KeyEvent.KEY_PRESSED) return;
 
-        // Глобальные горячие клавиши
         if ((e.getModifiersEx() & KeyEvent.CTRL_DOWN_MASK) != 0) 
         {
             if (e.getKeyCode() == KeyEvent.VK_Q) 
@@ -191,19 +196,19 @@ public class WindowMaker extends JFrame
             return;
         }
 
-        // Возврат в главное меню по Space+Left
-        if (e.getKeyCode() == KeyEvent.VK_LEFT && spacePressed) {
+        if (e.getKeyCode() == KeyEvent.VK_LEFT && spacePressed) 
+        {
             focusOnMainMenu();
             e.consume();
             return;
         }
 
-        // Сброс пробела при других нажатиях
-        if (e.getKeyCode() != KeyEvent.VK_SPACE) {
+        if (e.getKeyCode() != KeyEvent.VK_SPACE) 
+        {
             spacePressed = false;
         }
 
-        // Навигация между основными разделами
+
         switch (currentFocusState) 
         {
             case MAIN_MENU:
@@ -293,7 +298,8 @@ public class WindowMaker extends JFrame
 
     public static void startWindow() 
     {
-        SwingUtilities.invokeLater(() -> {
+        SwingUtilities.invokeLater(() -> 
+        {
             new WindowMaker().setVisible(true);
         });
     }

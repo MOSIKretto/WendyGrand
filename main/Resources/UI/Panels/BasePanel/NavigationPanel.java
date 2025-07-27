@@ -1,12 +1,10 @@
 package main.Resources.UI.Panels.BasePanel;
-
-import main.Resources.enums.FocusState;
 import main.Resources.UI.MenuListRenderer;
+import main.Resources.enums.FocusState;
 import main.Resources.UI.WindowMaker;
-import java.awt.event.ActionEvent;
 import java.awt.event.FocusAdapter;
+import java.awt.event.ActionEvent;
 import java.awt.event.FocusEvent;
-
 import javax.swing.*;
 import java.awt.*;
 
@@ -38,17 +36,13 @@ public class NavigationPanel extends JPanel
                 frame.navigateTo(menuList.getSelectedIndex());
         });
 
-        // Настройка клавиатурных команд
         InputMap im = menuList.getInputMap(JComponent.WHEN_FOCUSED);
         ActionMap am = menuList.getActionMap();
 
-        // Навигация вверх/вниз по меню
         im.put(KeyStroke.getKeyStroke("DOWN"), "selectNext");
         im.put(KeyStroke.getKeyStroke("UP"), "selectPrevious");
         
-        // Переход в выбранный раздел
         im.put(KeyStroke.getKeyStroke("RIGHT"), "enterSelected");
-
 
         am.put("enterSelected", new AbstractAction() 
         {

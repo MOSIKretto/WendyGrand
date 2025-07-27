@@ -15,13 +15,11 @@ import java.nio.file.Path;
 import javax.swing.*;
 import java.awt.*;
 
-
 public class HistoryPanel extends JPanel
 {
-
-    private JTextArea historyArea;
     private final Path HIST_FILE = Paths.get("Configs", "History.conf");
-
+    private JTextArea historyArea;
+    
     public HistoryPanel()
     {
         setLayout(new BorderLayout());

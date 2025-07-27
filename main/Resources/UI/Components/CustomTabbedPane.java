@@ -1,7 +1,7 @@
 package main.Resources.UI.Components;
 
-import javax.swing.*;
 import java.awt.event.ActionEvent;
+import javax.swing.*;
 
 public class CustomTabbedPane extends JTabbedPane 
 {
@@ -44,14 +44,6 @@ public class CustomTabbedPane extends JTabbedPane
             }
         });
 
-        am.put("selectTab", new AbstractAction() 
-        {
-            @Override
-            public void actionPerformed(ActionEvent e) 
-            {
-
-            }
-        });
     }
 
     private void navigate(int direction) 
@@ -73,7 +65,6 @@ public class CustomTabbedPane extends JTabbedPane
         }
         
         setSelectedIndex(newIndex);
-        
         requestFocusInWindow();
     }
 }

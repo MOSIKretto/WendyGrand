@@ -12,15 +12,12 @@ public class CustomTabbedPaneUI extends BasicTabbedPaneUI
     private final Color unselectedColor = new Color(50, 50, 50);
     private final Color unselectedBorderColor = new Color(80, 80, 80);
     
-
     private final Color tabAreaBackground = new Color(35, 35, 35);
     private final Color tabAreaBorder = new Color(70, 70, 70);
     
-
     private final int TAB_HEIGHT = 40;
     private final int BORDER_THICKNESS = 2;
     private final Font tabFont = new Font("Courier", Font.BOLD, 18);
-
 
     @Override
     protected void installDefaults() 
@@ -105,18 +102,6 @@ public class CustomTabbedPaneUI extends BasicTabbedPaneUI
         g2d.dispose();
     }
 
-    @Override
-    protected void paintTabBorder(Graphics g, int tabPlacement, int tabIndex, int x, int y, int w, int h, boolean isSelected) 
-    {
-
-    }
-
-    @Override
-    protected void paintContentBorder(Graphics g, int tabPlacement, int selectedIndex) 
-    {
-
-    }
-    
     @Override
     protected void paintFocusIndicator(Graphics g, int tabPlacement, Rectangle[] rects, int tabIndex,Rectangle iconRect, Rectangle textRect,boolean isSelected)
     {
