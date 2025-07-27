@@ -1,4 +1,4 @@
-package main.Resources.UI.Panels;
+package main.Resources.UI.Panels.BasePanel;
 
 import javax.swing.border.EmptyBorder;
 import java.awt.event.ActionListener;

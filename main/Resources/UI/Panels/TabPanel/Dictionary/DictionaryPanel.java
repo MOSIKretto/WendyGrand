@@ -1,4 +1,4 @@
-package main.Resources.UI.Panels;
+package main.Resources.UI.Panels.TabPanel.Dictionary;
 
 import javax.swing.border.EmptyBorder;
 import java.awt.event.ActionEvent;
@@ -13,37 +13,37 @@ import java.io.FileWriter;
 import javax.swing.*;
 import java.awt.*;
 
-public class ModulesDictPanel extends JPanel
+
+public class DictionaryPanel extends JPanel 
 {
 
+    private JTextArea dictionaryArea;
+    private static final String CONFIG = ConstPaths.DICTIONARY.getConfPath();
 
-    private JTextArea modulesDictionaryArea;
-    private static final String CONFIG = ConstPaths.DICTIONARY_MODULES.getConfPath();
-
-    public ModulesDictPanel() 
+    public DictionaryPanel() 
     {
         setLayout(new BorderLayout());
         setBorder(new EmptyBorder(10, 10, 10, 10));
         setBackground(new Color(50, 50, 50));
         
         initUI();
-        loadModulesDict();
+        loadDictionary();
+        dictionaryArea.setCaretPosition(0);
     }
 
     private void initUI() 
     {
-        modulesDictionaryArea = new JTextArea();
-        modulesDictionaryArea.setCaretPosition(0);
-        UIUtils.styleTextArea(modulesDictionaryArea, Color.WHITE, 500, 5, false, null);
-        modulesDictionaryArea.setBackground(new Color(60, 60, 60));
-        modulesDictionaryArea.setForeground(Color.WHITE);
-        modulesDictionaryArea.setFont(new Font("Courier", Font.BOLD, 15));
+        dictionaryArea = new JTextArea();
+        dictionaryArea.setBackground(new Color(60, 60, 60));
+        dictionaryArea.setForeground(Color.WHITE);
+        dictionaryArea.setFont(new Font("Courier", Font.BOLD, 15));
 
-        JScrollPane scroll = new JScrollPane(modulesDictionaryArea);
+        JScrollPane scroll = new JScrollPane(dictionaryArea);
         JButton saveBtn = new JButton("Сохранить словарь");
 
-        saveBtn.addActionListener(this::saveModulesDict);
-
+        saveBtn.addActionListener(this::saveDictionary);
+        
+        UIUtils.styleTextArea(dictionaryArea, Color.WHITE, 500, 5, false, null);
         UIUtils.styleScrollPane(scroll);
         UIUtils.styleButton(saveBtn);
         
@@ -51,7 +51,7 @@ public class ModulesDictPanel extends JPanel
         add(saveBtn, BorderLayout.SOUTH);
     }
 
-    private void loadModulesDict() 
+    private void loadDictionary() 
     {
         try (BufferedReader reader = new BufferedReader(new FileReader(CONFIG))) 
         {
@@ -61,16 +61,16 @@ public class ModulesDictPanel extends JPanel
             while ((line = reader.readLine()) != null)
                 content.append(line).append("\n");
 
-            modulesDictionaryArea.setText(content.toString());
+            dictionaryArea.setText(content.toString());
         } 
-        catch (IOException e) { modulesDictionaryArea.setText("Ошибка загрузки: " + e.getMessage()); }
+        catch (IOException e) { dictionaryArea.setText("Ошибка загрузки: " + e.getMessage()); }
     }
 
-    private void saveModulesDict(ActionEvent e) 
+    private void saveDictionary(ActionEvent e) 
     {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(CONFIG))) 
         {
-            writer.write(modulesDictionaryArea.getText());
+            writer.write(dictionaryArea.getText());
             JOptionPane.showMessageDialog(this, "Словарь сохранен");
         } 
         catch (IOException ex) { JOptionPane.showMessageDialog(this, "Ошибка сохранения: " + ex.getMessage()); }

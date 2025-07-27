@@ -1,4 +1,4 @@
-package main.Resources.UI.Panels;
+package main.Resources.UI.Panels.PagesPanel;
 
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicSplitPaneDivider;
@@ -50,12 +50,6 @@ public class ModulesPanel extends JPanel
             {
                 window.setCurrentFocusState(FocusState.MODULES_LIST);
             }
-
-            @Override
-            public void focusLost(FocusEvent e)
-            {
-
-            }
         });
     }
 
@@ -98,6 +92,35 @@ public class ModulesPanel extends JPanel
             if (!e.getValueIsAdjusting())
                 loadModuleConfig();
         });
+
+        modulesList.setCellRenderer(new DefaultListCellRenderer() {
+            @Override
+            public Component getListCellRendererComponent(
+                JList<?> list, 
+                Object value, 
+                int index, 
+                boolean isSelected, 
+                boolean cellHasFocus
+            ) {
+                Component c = super.getListCellRendererComponent(
+                    list, value, index, isSelected, cellHasFocus
+                );
+                
+                if (isSelected) {
+                    if (list.hasFocus()) {
+                        c.setBackground(new Color(59, 30, 84));
+                        c.setForeground(Color.WHITE);
+                    } else {
+                        c.setBackground(new Color(80, 40, 100));
+                        c.setForeground(Color.LIGHT_GRAY);
+                    }
+                } else {
+                    c.setBackground(new Color(30, 30, 30));
+                    c.setForeground(new Color(225, 215, 198));
+                }
+                return c;
+            }
+        });
         
         JScrollPane scroll = new JScrollPane(modulesList);
         UIUtils.styleScrollPane(scroll);
@@ -131,7 +154,6 @@ public class ModulesPanel extends JPanel
         panel.setBackground(new Color(50, 50, 50));
         
         configArea = new JTextArea();
-        configArea.setCaretPosition(0);
         UIUtils.styleTextArea(configArea, Color.WHITE, 500, 5, false, null);
 
         configArea.setBackground(new Color(60, 60, 60));
@@ -146,6 +168,7 @@ public class ModulesPanel extends JPanel
         
         panel.add(scroll, BorderLayout.CENTER);
         panel.add(saveBtn, BorderLayout.SOUTH);
+        setupEditorKeyBindings(configArea);
         return panel;
     }
 
@@ -187,6 +210,12 @@ public class ModulesPanel extends JPanel
             configArea.setText(content.toString());
         }
         catch (IOException e) { configArea.setText("Ошибка загрузки: " + e.getMessage()); }
+        configArea.setCaretPosition(0);
+
+        if (modulesList.getSelectedIndex() != -1)
+        {
+            WindowMaker.PREFS.putInt("last_module", modulesList.getSelectedIndex());
+        }
     }
 
     private void saveModuleConfig(ActionEvent e) 
@@ -208,12 +237,52 @@ public class ModulesPanel extends JPanel
         catch (Exception ex) { JOptionPane.showMessageDialog(this, "Ошибка открытия папки: " + ex.getMessage()); }
     }
 
+    private void setupEditorKeyBindings(JTextArea editor) 
+    {
+        InputMap im = editor.getInputMap(JComponent.WHEN_FOCUSED);
+        ActionMap am = editor.getActionMap();
+
+        im.put(KeyStroke.getKeyStroke("ESCAPE"), "returnToList");
+        im.put(KeyStroke.getKeyStroke("shift pressed TAB"), "returnToList");
+        im.put(KeyStroke.getKeyStroke("ctrl LEFT"), "returnToMenu");
+
+        am.put("returnToList", new AbstractAction() 
+        {
+            @Override
+            public void actionPerformed(ActionEvent e) 
+            {
+                modulesList.requestFocusInWindow();
+            }
+        });
+        
+        am.put("returnToMenu", new AbstractAction() 
+        {
+            @Override
+            public void actionPerformed(ActionEvent e) 
+            {
+                window.focusOnMainMenu();
+            }
+        });
+    }
+
     private void setupKeyBindings()
     {
         InputMap im = modulesList.getInputMap(JComponent.WHEN_FOCUSED);
         ActionMap am = modulesList.getActionMap();
 
-        Action returnAction = new AbstractAction()
+        // Возврат в главное меню
+        im.put(KeyStroke.getKeyStroke("LEFT"), "returnToMenu");
+        im.put(KeyStroke.getKeyStroke("ESCAPE"), "returnToMenu");
+        
+        // Навигация по списку
+        im.put(KeyStroke.getKeyStroke("DOWN"), "selectNext");
+        im.put(KeyStroke.getKeyStroke("UP"), "selectPrevious");
+        
+        // Переход в редактор (только для модулей)
+        im.put(KeyStroke.getKeyStroke("TAB"), "focusEditor");
+        im.put(KeyStroke.getKeyStroke("ENTER"), "focusEditor");
+
+        am.put("returnToMenu", new AbstractAction()
         {
             @Override
             public void actionPerformed(ActionEvent e)
@@ -221,29 +290,62 @@ public class ModulesPanel extends JPanel
                 modulesList.clearSelection();
                 window.focusOnMainMenu();
             }
-        };
+        });
 
-        im.put(KeyStroke.getKeyStroke("LEFT"), "returnAction");
-        im.put(KeyStroke.getKeyStroke("ESCAPE"), "returnAction");
-        am.put("returnAction", returnAction);
-
-        im.put(KeyStroke.getKeyStroke("RIGHT"), "none");
+        am.put("selectNext", new AbstractAction() 
+        {
+            @Override
+            public void actionPerformed(ActionEvent e) 
+            {
+                int next = Math.min(modulesList.getSelectedIndex() + 1, modulesList.getModel().getSize() - 1);
+                modulesList.setSelectedIndex(next);
+            }
+        });
+        
+        am.put("selectPrevious", new AbstractAction() 
+        {
+            @Override
+            public void actionPerformed(ActionEvent e) 
+            {
+                int prev = Math.max(modulesList.getSelectedIndex() - 1, 0);
+                modulesList.setSelectedIndex(prev);
+            }
+        });
+        
+        am.put("focusEditor", new AbstractAction() 
+        {
+            @Override
+            public void actionPerformed(ActionEvent e) 
+            {
+                configArea.requestFocusInWindow();
+            }
+        });
     }
 
-    private void returnFocusTomainMenu()
+    private void returnFocusToMainMenu()
     {
         modulesList.clearSelection();
         window.focusOnMainMenu();
     }
 
-    public void focusOnList() {
-        modulesList.requestFocusInWindow();
-        if (modulesList.getModel().getSize() > 0) 
+    public void restoreLastModule(int index) 
+    {
+        if (modulesList != null && index >= 0 && index < modulesList.getModel().getSize()) 
         {
-            modulesList.setSelectedIndex(0); 
+            modulesList.setSelectedIndex(index);
+            loadModuleConfig();
+            WindowMaker.PREFS.putInt("last_module", index);
         }
-        
-        InputMap im = modulesList.getInputMap(JComponent.WHEN_FOCUSED);
-        im.put(KeyStroke.getKeyStroke("RIGHT"), "none");
+    }
+
+    public void focusOnList() {
+        if (modulesList != null) 
+        {
+            modulesList.requestFocusInWindow();
+            if (modulesList.getSelectedIndex() == -1 && modulesList.getModel().getSize() > 0) 
+            {
+                modulesList.setSelectedIndex(0);
+            }
+        }
     }
 }
