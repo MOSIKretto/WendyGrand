@@ -1,6 +1,7 @@
 package main.Java.Handlers;
 
 import main.Resources.Managers.Addons.RunPythonModules;
+import main.Resources.enums.ConstPaths;
 import main.Resources.GeneralHelper;
 import java.io.IOException;
 import java.nio.file.Paths;
@@ -9,7 +10,7 @@ import java.nio.file.Paths;
 public class RunModulesHandler
 {
 
-    private final static String PATH = "../WendyGrand/Modules/";
+    private final static String PATH = ConstPaths.DIRECTORY_MODULES.getConfPath();
 
     // определение языка по расширению файла
     private static String sliceUntilPeriod(String inputString)
