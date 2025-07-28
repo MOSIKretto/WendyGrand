@@ -9,9 +9,11 @@ int main()
     system(("bash -c 'source ../WendyGrand/main/Python/venv/bin/activate && pip install -U vosk playsound3 sounddevice'"));
 
     // Компиляция всего Java-проекта
-    system(("javac ../WendyGrand/main/Resources/enums/*.java"));
     system(("javac ../WendyGrand/main/Resources/UI/*.java"));
-    system(("javac ../WendyGrand/main/Resources/UI/Panels/*.java"));
+    system(("javac ../WendyGrand/main/Resources/UI/Panels/BasePanel/*.java"));
+    system(("javac ../WendyGrand/main/Resources/UI/Panels/PagesPanel/*.java"));
+    system(("javac ../WendyGrand/main/Resources/UI/Panels/TabPanel/*.java"));
+    system(("javac ../WendyGrand/main/Resources/UI/Panels/TabPanel/Dictionary/*.java"));
     system(("javac ../WendyGrand/main/Resources/UI/Components/*.java"));
     system(("javac ../WendyGrand/main/Java/Handlers/WordHandler.java"));
 

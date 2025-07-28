@@ -1,6 +1,7 @@
 package main.Resources.Managers;
 
 import main.Resources.GeneralHelper;
+import java.util.Collections;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -9,36 +10,38 @@ import java.util.Map;
 public class VolumeManager 
 {
 
-    private static final String VOLUME_CMD = "pactl";
-    private static final String DEFAULT_SINK = "@DEFAULT_SINK@";
-
-    private static final Map<String, Integer> NUMBER_MAP = createNumberMap();
-
-    private static Map<String, Integer> createNumberMap() 
+    public static final String VOLUME_CMD = "pactl";
+    public static final String DEFAULT_SINK = "@DEFAULT_SINK@";
+    
+    public static final Map<String, Integer> NUMBER_MAP;
+    
+    static
     {
         Map<String, Integer> map = new HashMap<>();
         
-        String[] units = {"ноль", "один", "два", "три", "четыре", "пять", "шесть", "семь", "восемь", "девять"};
-        String[] teens = {"десять", "одиннадцать", "двенадцать", "тринадцать", "четырнадцать", "пятнадцать", "шестнадцать", "семнадцать", "восемнадцать", "девятнадцать"};
-        String[] tens = {"", "", "двадцать", "тридцать", "сорок", "пятьдесят", "шестьдесят", "семьдесят", "восемьдесят", "девяносто"};
-
-        // заполнение базовых чисел
-        for (int i = 0; i <= 9; i++) 
-        {
+        final String[] units = {"ноль", "один", "два", "три", "четыре", "пять", "шесть", "семь", "восемь", "девять"};
+        final String[] teens = {"десять", "одиннадцать", "двенадцать", "тринадцать", "четырнадцать", 
+                                "пятнадцать", "шестнадцать", "семнадцать", "восемнадцать", "девятнадцать"};
+        final String[] tens = {"", "", "двадцать", "тридцать", "сорок", "пятьдесят", 
+                                "шестьдесят", "семьдесят", "восемьдесят", "девяносто"};
+        
+        // Базовые числа (0-9)
+        for (int i = 0; i < units.length; i++)
             map.put(units[i], i);
-            if (i < teens.length)
-                map.put(teens[i], i + 10);
-        }
-
-        // заполнение составных чисел (20-99)
-        for (int i = 2; i <= 9; i++) 
+        
+        // Числа 10-19
+        for (int i = 0; i < teens.length; i++)
+            map.put(teens[i], i + 10);
+        
+        // Составные числа (20-99)
+        for (int i = 2; i < tens.length; i++) 
         {
             map.put(tens[i], i * 10);
-            for (int j = 1; j <= 9; j++)
+            for (int j = 0; j < units.length; j++)
                 map.put(tens[i] + " " + units[j], i * 10 + j);
         }
-
-        // спец команды
+        
+        // Специальные команды
         map.put("сто", 100);
         map.put("максимум", 100);
         map.put("выключи звук", 0);
@@ -50,54 +53,22 @@ public class VolumeManager
         map.put("меньше", -3);
         map.put("увеличить", -2);
         map.put("уменьшить", -3);
-        map.put("звук больше", -2);
-        map.put("звук меньше", -3);
         map.put("громче", -2);
         map.put("тише", -3);
-
-        return map;
+        
+        NUMBER_MAP = Collections.unmodifiableMap(map);
     }
     
-    public static void handleVolumeCommand(String volumeText) throws 
+    public static void setSystemVolume(int volume) throws 
     IOException 
     {
-        // проверка на точное совпадения
-        Integer volume = NUMBER_MAP.get(volumeText.toLowerCase());
-        if (volume != null) 
+        String arg = switch (volume) 
         {
-            setSystemVolume(volume);
-            GeneralHelper.Voiceover("volume");
-            return;
-        }
-
-        // Проверка на частичное совпадения
-        for (Map.Entry<String, Integer> entry : NUMBER_MAP.entrySet()) 
-        {
-            if (volumeText.toLowerCase().contains(entry.getKey())) 
-            {
-                setSystemVolume(entry.getValue());
-                GeneralHelper.Voiceover("volume");
-                return;
-            }
-        }
-
-        GeneralHelper.Voiceover("volumeErr");
-    }
-    
-    private static void setSystemVolume(int volume) throws 
-    IOException 
-    {
-        String[] command;
+            case -2 -> "+10%";
+            case -3 -> "-10%";
+            default -> volume + "%";
+        };
         
-        if (volume == -2)
-            command = new String[]{VOLUME_CMD, "set-sink-volume", DEFAULT_SINK, "+10%"};
-
-        else if (volume == -3)
-            command = new String[]{VOLUME_CMD, "set-sink-volume", DEFAULT_SINK, "-10%"};
-
-        else
-            command = new String[]{VOLUME_CMD, "set-sink-volume", DEFAULT_SINK, volume + "%"};
-        
-        GeneralHelper.Performer(command);
+        GeneralHelper.Performer(new String[]{VOLUME_CMD, "set-sink-volume", DEFAULT_SINK, arg});
     }
 }

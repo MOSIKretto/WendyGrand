@@ -7,6 +7,7 @@ import main.Resources.enums.ConstPaths;
 import main.Resources.GeneralHelper;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 
@@ -64,14 +65,33 @@ public class ActionHandler
     // для громкости
     public static void CallVolume(String input, List<String> volumeCommands) throws 
     InterruptedException, 
-    IOException 
+    IOException
     {
         if (volumeCommands.stream().noneMatch(input::startsWith))
             return;
 
-        String clearTextVolume = GeneralHelper.cleanInput(input, List.of("громкость", "на", "мне", "меня", "процента", "процент", "процентов", "сделай", "поставь", "установи"));
+        String clearTextVolume = GeneralHelper.cleanInput(input, List.of("громкость", "на", "мне", "меня", "процента", 
+                                                                        "процент", "процентов", "сделай", "поставь", "установи"));
+        
+        Integer volume = VolumeManager.NUMBER_MAP.get(clearTextVolume);
+        if (volume != null) 
+        {
+            VolumeManager.setSystemVolume(volume);
+            GeneralHelper.Voiceover("volume");
+            return;
+        }
 
-        VolumeManager.handleVolumeCommand(clearTextVolume);
+        for (Map.Entry<String, Integer> entry : VolumeManager.NUMBER_MAP.entrySet()) 
+        {
+            if (clearTextVolume.contains(entry.getKey())) 
+            {
+                VolumeManager.setSystemVolume(entry.getValue());
+                GeneralHelper.Voiceover("volume");
+                return;
+            }
+        }
+
+        GeneralHelper.Voiceover("volumeErr");
     }
 
     // для поиска в интернете и на видео площадках

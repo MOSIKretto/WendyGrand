@@ -11,6 +11,7 @@ public enum ConstPaths
     VOICEOVER("../WendyGrand/Configs/Logics/Voiceover.conf"),
 
     // Для модулей
+    DIRECTORY_MODULES("../WendyGrand/Modules/"),
     DICTIONARY_MODULES("../WendyGrand/Configs/Logics/forModules/DictionaryModules.conf"),
     MODULES("../WendyGrand/Configs/Logics/forModules/Modules.conf"),
     VOICEOVER_MODULES("../WendyGrand/Configs/Logics/forModules/DictionaryModules.conf"),
