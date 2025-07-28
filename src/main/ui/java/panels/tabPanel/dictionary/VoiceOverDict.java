@@ -5,6 +5,12 @@ import src.main.ui.java.UIUtils;
 
 import javax.swing.border.EmptyBorder;
 import java.awt.event.ActionEvent;
+<<<<<<< HEAD:src/main/ui/java/panels/tabPanel/dictionary/VoiceOverDict.java
+=======
+import main.Resources.UI.UIUtils;
+import main.Resources.UI.Components.CustomButton;
+
+>>>>>>> 7a5441ae93da21ee70b7415827d1b81ef56fb93f:main/Resources/UI/Panels/TabPanel/Dictionary/VoiceOverDict.java
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -38,12 +44,11 @@ public class VoiceOverDict extends JPanel
         voiceOverDictArea.setFont(new Font("Courier", Font.BOLD, 15));
 
         JScrollPane scroll = new JScrollPane(voiceOverDictArea);
-        JButton saveBtn = new JButton("Сохранить словарь");
+        CustomButton saveBtn = UIUtils.createSaveButton("Сохранить словарь", getWidth(), getHeight());
 
         saveBtn.addActionListener(this::saveDictionary);
         
         UIUtils.styleScrollPane(scroll);
-        UIUtils.styleButton(saveBtn);
         
         add(scroll, BorderLayout.CENTER);
         add(saveBtn, BorderLayout.SOUTH);

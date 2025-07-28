@@ -4,6 +4,12 @@ import src.main.helpers.java.enums.ConstPaths;
 import src.main.ui.java.UIUtils;
 
 import javax.swing.border.EmptyBorder;
+<<<<<<< HEAD:src/main/ui/java/panels/tabPanel/AppsSettingsPanel.java
+=======
+import main.Resources.UI.UIUtils;
+import main.Resources.UI.Components.CustomButton;
+
+>>>>>>> 7a5441ae93da21ee70b7415827d1b81ef56fb93f:main/Resources/UI/Panels/TabPanel/AppsSettingsPanel.java
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -84,13 +90,14 @@ public class AppsSettingsPanel extends JPanel
 
     private void initSaveButton() 
     {
-        JButton saveBtn = new JButton("Сохранить");
-        saveBtn.addActionListener(e -> saveConfig());
-        UIUtils.styleButton(saveBtn);
-        
-        JPanel buttonPanel = new JPanel();
+        JPanel buttonPanel = new JPanel(new BorderLayout());
         buttonPanel.setBackground(new Color(50, 50, 50));
-        buttonPanel.add(saveBtn);
+        buttonPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 35));
+        
+        CustomButton saveBtn = UIUtils.createSaveButton("Сохранить", getWidth(), getHeight());
+        saveBtn.addActionListener(e -> saveConfig());
+
+        buttonPanel.add(saveBtn, BorderLayout.CENTER);
         add(buttonPanel, BorderLayout.SOUTH);
     }
 
