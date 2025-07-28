@@ -1,6 +1,8 @@
 package main.Resources.UI.Panels.PagesPanel;
 
 import javax.swing.plaf.basic.BasicSplitPaneDivider;
+
+import main.Resources.UI.Components.CustomButton;
 import main.Resources.UI.Components.CustomDivider;
 import javax.swing.plaf.basic.BasicSplitPaneUI;
 import main.Resources.enums.FocusState;
@@ -127,21 +129,27 @@ public class ModulesPanel extends JPanel
         panel.add(scroll, BorderLayout.CENTER);
         
         JPanel buttonPanel = new JPanel();
-        buttonPanel.setBackground(new Color(50, 50, 50));
-        buttonPanel.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(new Color(59, 30, 84), 2),
-            BorderFactory.createEmptyBorder(15, 15, 15, 15) 
-        ));
+        buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
+        buttonPanel.setBackground(new Color(30, 30, 30));
+        buttonPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
         
-        JButton refreshBtn = new JButton("Обновить");
+
+        // Короче проблема в том, что кнопки не отображаются вообще, кроме сохранить
+        
+        CustomButton refreshBtn = new CustomButton("Обновить", 0, 0);
         refreshBtn.addActionListener(e -> refreshModulesList());
-        UIUtils.styleButton(refreshBtn);
+        refreshBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
+        refreshBtn.setMaximumSize(new Dimension(Integer.MAX_VALUE, 30));
+
         
-        JButton openBtn = new JButton("Открыть папку");
+        CustomButton openBtn = new CustomButton("Открыть папку", 0, 0);
         openBtn.addActionListener(e -> openModulesFolder());
-        UIUtils.styleButton(openBtn);
+        openBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
+        openBtn.setMaximumSize(new Dimension(Integer.MAX_VALUE, 30));
+
         
         buttonPanel.add(refreshBtn);
+        buttonPanel.add(Box.createVerticalStrut(5));
         buttonPanel.add(openBtn);
         
         panel.add(buttonPanel, BorderLayout.SOUTH);
@@ -162,9 +170,8 @@ public class ModulesPanel extends JPanel
         JScrollPane scroll = new JScrollPane(configArea);
         UIUtils.styleScrollPane(scroll);
         
-        JButton saveBtn = new JButton("Сохранить");
+        CustomButton saveBtn = UIUtils.createSaveButton("Сохранить", getWidth(), getHeight());
         saveBtn.addActionListener(this::saveModuleConfig);
-        UIUtils.styleButton(saveBtn);
         
         panel.add(scroll, BorderLayout.CENTER);
         panel.add(saveBtn, BorderLayout.SOUTH);

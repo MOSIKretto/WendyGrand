@@ -4,6 +4,8 @@ import main.Resources.enums.ConstPaths;
 import javax.swing.border.EmptyBorder;
 import java.awt.event.ActionEvent;
 import main.Resources.UI.UIUtils;
+import main.Resources.UI.Components.CustomButton;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -37,12 +39,11 @@ public class ModulesDictPanel extends JPanel
         modulesDictionaryArea.setFont(new Font("Courier", Font.BOLD, 15));
 
         JScrollPane scroll = new JScrollPane(modulesDictionaryArea);
-        JButton saveBtn = new JButton("Сохранить словарь");
+        CustomButton saveBtn = UIUtils.createSaveButton("Сохранить словарь", getWidth(), getHeight());
 
         saveBtn.addActionListener(this::saveModulesDict);
 
         UIUtils.styleScrollPane(scroll);
-        UIUtils.styleButton(saveBtn);
         
         add(scroll, BorderLayout.CENTER);
         add(saveBtn, BorderLayout.SOUTH);

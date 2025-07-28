@@ -3,6 +3,8 @@ package main.Resources.UI.Panels.TabPanel;
 import main.Resources.enums.ConstPaths;
 import javax.swing.border.EmptyBorder;
 import main.Resources.UI.UIUtils;
+import main.Resources.UI.Components.CustomButton;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -83,13 +85,14 @@ public class AppsSettingsPanel extends JPanel
 
     private void initSaveButton() 
     {
-        JButton saveBtn = new JButton("Сохранить");
-        saveBtn.addActionListener(e -> saveConfig());
-        UIUtils.styleButton(saveBtn);
-        
-        JPanel buttonPanel = new JPanel();
+        JPanel buttonPanel = new JPanel(new BorderLayout());
         buttonPanel.setBackground(new Color(50, 50, 50));
-        buttonPanel.add(saveBtn);
+        buttonPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 35));
+        
+        CustomButton saveBtn = UIUtils.createSaveButton("Сохранить", getWidth(), getHeight());
+        saveBtn.addActionListener(e -> saveConfig());
+
+        buttonPanel.add(saveBtn, BorderLayout.CENTER);
         add(buttonPanel, BorderLayout.SOUTH);
     }
 

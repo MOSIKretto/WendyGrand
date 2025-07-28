@@ -2,33 +2,22 @@ package main.Resources.UI;
 
 import javax.swing.plaf.basic.BasicScrollBarUI;
 import javax.swing.text.DefaultCaret;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+
+import main.Resources.UI.Components.CustomButton;
 import javax.swing.*;
 import java.awt.*;
 
 public class UIUtils 
 {
-    public static void styleButton(JButton btn) 
-    {
-        btn.setContentAreaFilled(false);
-        btn.setBorderPainted(false);
-        btn.setFocusPainted(false);
-        btn.setForeground(Color.WHITE);
-        btn.setFont(new Font("Arial", Font.PLAIN, 14));
-        
-        btn.addMouseListener(new MouseAdapter() 
-        {
-            public void mouseEntered(MouseEvent e) 
-            {
-                btn.setForeground(new Color(200, 200, 200));
-            }
 
-            public void mouseExited(MouseEvent e)
-            {
-                btn.setForeground(Color.WHITE);
-            }
-        });
+    public static CustomButton createSaveButton(String text, int width, int height)
+    {
+        CustomButton saveButton = new CustomButton(text, width, height);
+        saveButton.setFont(new Font("Arial", Font.BOLD, 14));
+        saveButton.setPressedColor(new Color(55, 168, 78));
+        saveButton.setHoverColor(new Color(50, 105, 60));
+        saveButton.setCornerRadius(0);
+        return saveButton;
     }
 
     public static void styleScrollPane(JScrollPane scrollPane) 
