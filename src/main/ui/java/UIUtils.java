@@ -3,7 +3,7 @@ package src.main.ui.java;
 import javax.swing.plaf.basic.BasicScrollBarUI;
 import javax.swing.text.DefaultCaret;
 
-import main.Resources.UI.Components.CustomButton;
+import src.main.ui.java.components.CustomButton;
 import javax.swing.*;
 import java.awt.*;
 

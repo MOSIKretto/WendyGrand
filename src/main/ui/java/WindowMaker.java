@@ -315,19 +315,6 @@ public class WindowMaker extends JFrame
         });
     }
 
-    private boolean isFocusInTabbedPane(Component comp)
-    {
-        while (comp != null) 
-        {
-            if (comp instanceof CustomTabbedPane)
-            {
-                return true;
-            }
-            comp = comp.getParent();
-        }
-        return false;
-    }    
-
     public void setCurrentFocusState(FocusState state)
     {
         this.currentFocusState = state;

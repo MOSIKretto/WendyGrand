@@ -1,4 +1,4 @@
-package main.Resources.UI.Components;
+package src.main.ui.java.components;
 
 import java.awt.geom.RoundRectangle2D;
 import javax.swing.*;

@@ -3,7 +3,6 @@ package src.main.ui.java.panels.basePanel;
 import src.main.helpers.java.enums.FocusState;
 import src.main.ui.java.MenuListRenderer;
 import src.main.ui.java.WindowMaker;
-
 import java.awt.event.FocusAdapter;
 import java.awt.event.ActionEvent;
 import java.awt.event.FocusEvent;

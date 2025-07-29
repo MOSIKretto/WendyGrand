@@ -1,16 +1,10 @@
 package src.main.ui.java.panels.tabPanel.dictionary;
 
+import src.main.ui.java.components.CustomButton;
 import src.main.helpers.java.enums.ConstPaths;
-import src.main.ui.java.UIUtils;
-
 import javax.swing.border.EmptyBorder;
 import java.awt.event.ActionEvent;
-<<<<<<< HEAD:src/main/ui/java/panels/tabPanel/dictionary/VoiceOverDict.java
-=======
-import main.Resources.UI.UIUtils;
-import main.Resources.UI.Components.CustomButton;
-
->>>>>>> 7a5441ae93da21ee70b7415827d1b81ef56fb93f:main/Resources/UI/Panels/TabPanel/Dictionary/VoiceOverDict.java
+import src.main.ui.java.UIUtils;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;

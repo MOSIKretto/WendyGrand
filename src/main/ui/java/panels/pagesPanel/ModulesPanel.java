@@ -1,22 +1,16 @@
 package src.main.ui.java.panels.pagesPanel;
 
-import src.main.ui.java.components.CustomDivider;
-import src.main.helpers.java.enums.FocusState;
-import src.main.ui.java.WindowMaker;
-import src.main.ui.java.UIUtils;
-
 import javax.swing.plaf.basic.BasicSplitPaneDivider;
-<<<<<<< HEAD:src/main/ui/java/panels/pagesPanel/ModulesPanel.java
-=======
-
-import main.Resources.UI.Components.CustomButton;
-import main.Resources.UI.Components.CustomDivider;
->>>>>>> 7a5441ae93da21ee70b7415827d1b81ef56fb93f:main/Resources/UI/Panels/PagesPanel/ModulesPanel.java
+import src.main.ui.java.components.CustomDivider;
+import src.main.ui.java.components.CustomButton;
 import javax.swing.plaf.basic.BasicSplitPaneUI;
+import src.main.helpers.java.enums.FocusState;
 import javax.swing.border.EmptyBorder;
+import src.main.ui.java.WindowMaker;
 import java.awt.event.FocusAdapter;
 import java.awt.event.ActionEvent;
 import java.awt.event.FocusEvent;
+import src.main.ui.java.UIUtils;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;

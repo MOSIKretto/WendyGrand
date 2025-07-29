@@ -1,5 +1,6 @@
 package src.main.ui.java.panels.tabPanel;
 
+import src.main.ui.java.components.CustomButton;
 import src.main.helpers.java.enums.ConstPaths;
 import src.main.ui.java.UIUtils;
 import javax.swing.border.EmptyBorder;
