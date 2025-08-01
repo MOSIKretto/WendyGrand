@@ -23,7 +23,6 @@ public class CustomTabbedPane extends JTabbedPane
 
         im.put(KeyStroke.getKeyStroke("RIGHT"), "nextTab");
         im.put(KeyStroke.getKeyStroke("LEFT"), "prevTab");
-        im.put(KeyStroke.getKeyStroke("SPACE"), "selectTab");
         im.put(KeyStroke.getKeyStroke("ENTER"), "selectTab");
 
         am.put("nextTab", new AbstractAction() 

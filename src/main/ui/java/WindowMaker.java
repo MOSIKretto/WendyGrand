@@ -198,18 +198,10 @@ public class WindowMaker extends JFrame
             return;
         }
 
-        if (e.getKeyCode() == KeyEvent.VK_LEFT && spacePressed) 
-        {
-            focusOnMainMenu();
-            e.consume();
-            return;
-        }
-
         if (e.getKeyCode() != KeyEvent.VK_SPACE) 
         {
             spacePressed = false;
         }
-
 
         switch (currentFocusState) 
         {
@@ -233,25 +225,41 @@ public class WindowMaker extends JFrame
                 break;
                 
             case MODULES_LIST:
-                if (e.getKeyCode() == KeyEvent.VK_LEFT && spacePressed) 
-                {
-                    focusOnMainMenu();
-                }
                 break;
 
             case DICTIONARIES:
-                if (e.getKeyCode() == KeyEvent.VK_LEFT && spacePressed) 
+            if (e.getKeyCode() == KeyEvent.VK_LEFT) 
+            {
+                Component comp = contentPanel.getComponent(3);
+                if (comp instanceof DictionariesPanel) 
                 {
-                    focusOnMainMenu();
+                    DictionariesPanel dictPanel = (DictionariesPanel) comp;
+                    CustomTabbedPane tabs = dictPanel.getTabs();
+                    if ("Основной словарь".equals(tabs.getTitleAt(tabs.getSelectedIndex()))) 
+                    {
+                        focusOnMainMenu();
+                        e.consume();
+                    }
                 }
-                break;
-                
-            case SETTINGS:
-                if (e.getKeyCode() == KeyEvent.VK_LEFT && spacePressed) 
+            }
+            break;
+            
+        case SETTINGS:
+            if (e.getKeyCode() == KeyEvent.VK_LEFT) 
+            {
+                Component comp = contentPanel.getComponent(1);
+                if (comp instanceof SettingsPanel) 
                 {
-                    focusOnMainMenu();
+                    SettingsPanel settingsPanel = (SettingsPanel) comp;
+                    CustomTabbedPane tabs = settingsPanel.getTabs();
+                    if ("Окно".equals(tabs.getTitleAt(tabs.getSelectedIndex()))) 
+                    {
+                        focusOnMainMenu();
+                        e.consume();
+                    }
                 }
-                break;
+            }
+            break;
         }
     }
 

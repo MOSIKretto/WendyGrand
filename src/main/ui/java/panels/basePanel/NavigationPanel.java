@@ -107,7 +107,14 @@ public class NavigationPanel extends JPanel
             public void focusGained(FocusEvent e)
             {
                frame.setCurrentFocusState(FocusState.MAIN_MENU);
-            }    
+               menuList.repaint();
+            }
+            
+            @Override
+            public void focusLost(FocusEvent e)
+            {
+                menuList.repaint();
+            }
         });
         
         add(menuList);
