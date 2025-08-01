@@ -12,11 +12,9 @@ import java.awt.*;
 public class NavigationPanel extends JPanel 
 {
     private JList<String> menuList;
-    private WindowMaker frame;
 
     public NavigationPanel(WindowMaker frame) 
     {
-        this.frame = frame;
 
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setPreferredSize(new Dimension(200, 0));

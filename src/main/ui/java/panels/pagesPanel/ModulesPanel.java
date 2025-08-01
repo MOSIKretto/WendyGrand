@@ -132,9 +132,6 @@ public class ModulesPanel extends JPanel
         buttonPanel.setBackground(new Color(30, 30, 30));
         buttonPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
         
-
-        // Короче проблема в том, что кнопки не отображаются вообще, кроме сохранить
-        
         CustomButton refreshBtn = new CustomButton("Обновить", 0, 0);
         refreshBtn.addActionListener(e -> refreshModulesList());
         refreshBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -325,11 +322,7 @@ public class ModulesPanel extends JPanel
         });
     }
 
-    private void returnFocusToMainMenu()
-    {
-        modulesList.clearSelection();
-        window.focusOnMainMenu();
-    }
+    
 
     public void restoreLastModule(int index) 
     {
