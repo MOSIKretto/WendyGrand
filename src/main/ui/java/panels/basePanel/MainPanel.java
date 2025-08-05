@@ -1,7 +1,11 @@
 package src.main.ui.java.panels.basePanel;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.RenderingHints;
+import java.awt.BorderLayout;
+import java.awt.Graphics2D;
+import javax.swing.JPanel;
+import java.awt.Graphics;
+import java.awt.Color;
 
 public class MainPanel extends JPanel 
 {

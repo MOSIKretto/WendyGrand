@@ -1,8 +1,13 @@
 package src.main.ui.java;
 
+import javax.swing.DefaultListCellRenderer;
 import javax.swing.border.EmptyBorder;
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.SwingConstants;
+import java.awt.Component;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import java.awt.Color;
+import java.awt.Font;
 
 public class MenuListRenderer extends DefaultListCellRenderer 
 {

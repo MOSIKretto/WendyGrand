@@ -2,9 +2,12 @@ package src.main.ui.java.panels.pagesPanel;
 
 import javax.swing.border.EmptyBorder;
 import src.main.ui.java.UIUtils;
-import javax.swing.*;
+import javax.swing.JScrollPane;
+import javax.swing.JEditorPane;
+import java.awt.BorderLayout;
+import javax.swing.JPanel;
+import java.awt.Color;
 import java.io.File;
-import java.awt.*;
 
 public class WendyPanel extends JPanel 
 {

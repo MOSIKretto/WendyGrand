@@ -2,20 +2,29 @@ package src.main.ui.java.panels.tabPanel.settings;
 
 import src.main.ui.java.components.CustomButton;
 import src.main.helpers.java.enums.ConstPaths;
-import src.main.ui.java.UIUtils;
 import javax.swing.border.EmptyBorder;
+import src.main.ui.java.UIUtils;
+import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+import java.awt.BorderLayout;
+import javax.swing.BoxLayout;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.awt.GridLayout;
+import javax.swing.JPanel;
+import java.awt.Dimension;
+import javax.swing.JLabel;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Arrays;
+import java.awt.Color;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Font;
 
 public class AppsSettingsPanel extends JPanel 
 {

@@ -6,14 +6,18 @@ import java.nio.file.WatchService;
 import java.nio.file.FileSystems;
 import src.main.ui.java.UIUtils;
 import java.nio.file.WatchEvent;
+import javax.swing.JScrollPane;
 import java.io.BufferedReader;
 import java.nio.file.WatchKey;
+import javax.swing.JTextArea;
+import java.awt.BorderLayout;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.Path;
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JPanel;
+import java.awt.Color;
+import java.awt.Font;
 
 public class HistoryPanel extends JPanel
 {

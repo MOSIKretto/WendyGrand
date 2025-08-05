@@ -185,9 +185,6 @@ public class WindowMaker extends JFrame
         }
     }
 
-    
-    
-
     private void handleKeyPress(KeyEvent e) 
     {
         if (e.getID() != KeyEvent.KEY_PRESSED) return;

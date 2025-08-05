@@ -2,12 +2,21 @@ package src.main.ui.java.panels.basePanel;
 
 import src.main.helpers.java.enums.FocusState;
 import src.main.ui.java.MenuListRenderer;
+import javax.swing.ListSelectionModel;
 import src.main.ui.java.WindowMaker;
 import java.awt.event.FocusAdapter;
 import java.awt.event.ActionEvent;
+import javax.swing.AbstractAction;
 import java.awt.event.FocusEvent;
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JComponent;
+import javax.swing.BoxLayout;
+import javax.swing.ActionMap;
+import javax.swing.KeyStroke;
+import javax.swing.InputMap;
+import javax.swing.JPanel;
+import java.awt.Dimension;
+import javax.swing.JList;
+import java.awt.Color;
 
 public class NavigationPanel extends JPanel 
 {

@@ -1,15 +1,13 @@
 package src.main.ui.java.panels.tabPanel.settings;
 
-import javax.swing.Box;
+import javax.swing.border.EmptyBorder;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
-
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import javax.swing.Box;
+import java.awt.Color;
 import java.awt.Font;
 
 public class WindowSettingsPanel extends JPanel
