@@ -17,6 +17,7 @@ int main()
     system(("javac ../WendyGrand/src/main/ui/java/panels/pagesPanel/*.java"));
     system(("javac ../WendyGrand/src/main/ui/java/panels/tabPanel/*.java"));
     system(("javac ../WendyGrand/src/main/ui/java/panels/tabPanel/dictionary/*.java"));
+    system(("javac ../WendyGrand/src/main/ui/java/panels/tabPanel/settings/*.java"));
 
     // Запуск
     system("java ../WendyGrand/src/main/java/Main.java");

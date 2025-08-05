@@ -51,15 +51,15 @@ public class NavigationPanel extends JPanel
                 String selected = menuList.getSelectedValue();
                 if ("Модули".equals(selected)) 
                 {
-                    frame.focusOnModulesList();
+                    frame.focusOnPanel("Modules");
                 } 
                 else if ("Словари".equals(selected)) 
                 {
-                    frame.focusOnDictionaries();
+                    frame.focusOnPanel("Dictionaries");
                 }
                 else if ("Настройки".equals(selected)) 
                 {
-                    frame.focusOnSettings();
+                    frame.focusOnPanel("Settings");
                 }
             }
         });
@@ -92,11 +92,11 @@ public class NavigationPanel extends JPanel
                 String selected = menuList.getSelectedValue();
                 if ("Модули".equals(selected)) 
                 {
-                    frame.focusOnModulesList();
+                    frame.focusOnPanel("Modules");
                 } 
                 else if ("Словари".equals(selected)) 
                 {
-                    frame.focusOnDictionaries();
+                    frame.focusOnPanel("Dictionaries");
                 }
             }
         });

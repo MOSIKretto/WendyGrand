@@ -9,7 +9,6 @@ import java.awt.*;
 
 public class UIUtils 
 {
-
     public static CustomButton createSaveButton(String text, int width, int height)
     {
         CustomButton saveButton = new CustomButton(text, width, height);
@@ -45,26 +44,6 @@ public class UIUtils
                 this.trackColor = new Color(40, 40, 40);    
             }
 
-            @Override
-            protected JButton createDecreaseButton(int orientation) 
-            {
-                return createInvisibleButton();
-            }
-
-            @Override
-            protected JButton createIncreaseButton(int orientation) 
-            {
-                return createInvisibleButton();
-            }
-
-            private JButton createInvisibleButton() 
-            {
-                JButton button = new JButton();
-                button.setPreferredSize(new Dimension(0, 0));
-                button.setMinimumSize(new Dimension(0, 0));
-                button.setMaximumSize(new Dimension(0, 0));
-                return button;
-            }
         });
         
         scrollBar.addMouseListener(new java.awt.event.MouseAdapter() 

@@ -5,7 +5,6 @@ import java.awt.*;
 
 public class MainPanel extends JPanel 
 {
-    
     public MainPanel() 
     {
         super(new BorderLayout());

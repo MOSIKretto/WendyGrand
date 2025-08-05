@@ -9,14 +9,12 @@ import src.main.ui.java.panels.basePanel.ControlPanel;
 import src.main.ui.java.components.CustomTabbedPane;
 import src.main.ui.java.panels.basePanel.MainPanel;
 import src.main.helpers.java.enums.FocusState;
-
 import javax.swing.border.EmptyBorder;
 import java.awt.geom.RoundRectangle2D;
 import java.util.prefs.Preferences;
 import java.awt.event.*;
 import javax.swing.*;
 import java.awt.*;
-
 
 public class WindowMaker extends JFrame 
 {
@@ -112,78 +110,83 @@ public class WindowMaker extends JFrame
         switch (lastMenu) 
         {
             case 1: 
-                focusOnSettings();
+                focusOnPanel("Settings");
                 break;
 
             case 2: 
-                focusOnModulesList();
+                focusOnPanel("Modules");
                 int lastModule = PREFS.getInt("last_module", 0);
                 ((ModulesPanel)contentPanel.getComponent(2)).restoreLastModule(lastModule);
                 break;
 
             case 3: 
-                focusOnDictionaries();
+                focusOnPanel("Dictioraries");
                 int lastDictTab = PREFS.getInt("last_dict_tab", 0);
                 ((DictionariesPanel)contentPanel.getComponent(3)).getTabs().setSelectedIndex(lastDictTab);
                 break;
         }
     }
 
-    public void focusOnMainMenu() 
+    public void focusOnPanel(String target)
     {
-        PREFS.putInt("last_menu_item", navPanel.getMenuList().getSelectedIndex());
-        navPanel.focusOnList();
-        setCurrentFocusState(FocusState.MAIN_MENU); 
-    }
-
-    public void focusOnModulesList() 
-    {
-        ((CardLayout)contentPanel.getLayout()).show(contentPanel, "2");
-        setCurrentFocusState(FocusState.MODULES_LIST);
-        
-        for (Component comp : contentPanel.getComponents()) 
+        switch (target) 
         {
-            if (comp instanceof ModulesPanel) 
-            {
-                ((ModulesPanel)comp).focusOnList();
+            case "MainMenu":
+                PREFS.putInt("last_menu_item", navPanel.getMenuList().getSelectedIndex());
+                navPanel.focusOnList();
+                setCurrentFocusState(FocusState.MAIN_MENU); 
                 break;
-            }
+            
+            case "Settings":
+                ((CardLayout)contentPanel.getLayout()).show(contentPanel, "1");
+                setCurrentFocusState(FocusState.SETTINGS);
+
+                Component comp = contentPanel.getComponent(1);
+                if (comp instanceof SettingsPanel) 
+                {
+                    CustomTabbedPane tabs = ((SettingsPanel)comp).getTabs();
+                    if (tabs != null && tabs.getTabCount() > 0) 
+                    {
+                        tabs.setSelectedIndex(0);
+                        tabs.requestFocusInWindow();
+                    }
+                }
+                break;
+
+            case "Modules":
+                ((CardLayout)contentPanel.getLayout()).show(contentPanel, "2");
+                setCurrentFocusState(FocusState.MODULES_LIST);
+                
+                for (Component modComp : contentPanel.getComponents()) 
+                {
+                    if (modComp instanceof ModulesPanel) 
+                    {
+                        ((ModulesPanel)modComp).focusOnList();
+                        break;
+                    }
+                }
+                break;
+            
+            case "Dictionaries":
+                ((CardLayout)contentPanel.getLayout()).show(contentPanel, "3");
+                setCurrentFocusState(FocusState.DICTIONARIES);
+
+                Component dictComp = contentPanel.getComponent(3);
+                if (dictComp instanceof DictionariesPanel) 
+                {
+                    CustomTabbedPane tabs = ((DictionariesPanel)dictComp).getTabs();
+                    if (tabs != null && tabs.getTabCount() > 0) 
+                    {
+                        tabs.setSelectedIndex(0);
+                        tabs.requestFocusInWindow();
+                    }
+                }
+                break;
         }
     }
 
-    public void focusOnDictionaries() 
-    {
-        ((CardLayout)contentPanel.getLayout()).show(contentPanel, "3");
-        setCurrentFocusState(FocusState.DICTIONARIES);
-
-        Component comp = contentPanel.getComponent(3);
-        if (comp instanceof DictionariesPanel) 
-        {
-            CustomTabbedPane tabs = ((DictionariesPanel)comp).getTabs();
-            if (tabs != null && tabs.getTabCount() > 0) 
-            {
-                tabs.setSelectedIndex(0);
-                tabs.requestFocusInWindow();
-            }
-        }
-    }
-
-    public void focusOnSettings() 
-    {
-        ((CardLayout)contentPanel.getLayout()).show(contentPanel, "1");
-        setCurrentFocusState(FocusState.SETTINGS);
-
-        Component comp = contentPanel.getComponent(1);
-        if (comp instanceof SettingsPanel) 
-        {
-            CustomTabbedPane tabs = ((SettingsPanel)comp).getTabs();
-            if (tabs != null && tabs.getTabCount() > 0) 
-            {
-                tabs.setSelectedIndex(0);
-                tabs.requestFocusInWindow();
-            }
-        }
-    }
+    
+    
 
     private void handleKeyPress(KeyEvent e) 
     {
@@ -211,15 +214,15 @@ public class WindowMaker extends JFrame
                     String selected = navPanel.getMenuList().getSelectedValue();
                     if ("Модули".equals(selected)) 
                     {
-                        focusOnModulesList();
+                        focusOnPanel("Modules");
                     } 
                     else if ("Словари".equals(selected)) 
                     {
-                        focusOnDictionaries();
+                        focusOnPanel("Dictionaries");
                     }
                     else if ("Настройки".equals(selected))
                     {
-                        focusOnSettings();
+                        focusOnPanel("Settings");
                     }
                 }
                 break;
@@ -237,7 +240,7 @@ public class WindowMaker extends JFrame
                     CustomTabbedPane tabs = dictPanel.getTabs();
                     if ("Основной словарь".equals(tabs.getTitleAt(tabs.getSelectedIndex()))) 
                     {
-                        focusOnMainMenu();
+                        focusOnPanel("MainMenu");
                         e.consume();
                     }
                 }
@@ -254,7 +257,7 @@ public class WindowMaker extends JFrame
                     CustomTabbedPane tabs = settingsPanel.getTabs();
                     if ("Окно".equals(tabs.getTitleAt(tabs.getSelectedIndex()))) 
                     {
-                        focusOnMainMenu();
+                        focusOnPanel("MainMenu");
                         e.consume();
                     }
                 }

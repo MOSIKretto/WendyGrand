@@ -12,7 +12,6 @@ import java.awt.*;
 
 public class ContentPanel extends JPanel 
 {
-
     public ContentPanel(WindowMaker frame) 
     {
         super(new CardLayout());

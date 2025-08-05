@@ -263,7 +263,7 @@ public class ModulesPanel extends JPanel
             @Override
             public void actionPerformed(ActionEvent e) 
             {
-                window.focusOnMainMenu();
+                window.focusOnPanel("MainMenu");;
             }
         });
     }
@@ -288,7 +288,7 @@ public class ModulesPanel extends JPanel
             public void actionPerformed(ActionEvent e)
             {
                 modulesList.clearSelection();
-                window.focusOnMainMenu();
+                window.focusOnPanel("MainMenu");;
             }
         });
 

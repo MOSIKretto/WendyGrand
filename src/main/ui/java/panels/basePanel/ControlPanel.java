@@ -8,7 +8,6 @@ import java.awt.*;
 
 public class ControlPanel extends JPanel 
 {
-    
     public ControlPanel(JFrame frame) 
     {
         setLayout(new FlowLayout(FlowLayout.RIGHT, 8, 0));

@@ -1,4 +1,4 @@
-package src.main.ui.java.panels.tabPanel;
+package src.main.ui.java.panels.tabPanel.settings;
 
 import src.main.ui.java.components.CustomButton;
 import src.main.helpers.java.enums.ConstPaths;

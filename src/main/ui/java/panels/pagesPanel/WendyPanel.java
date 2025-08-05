@@ -1,17 +1,13 @@
 package src.main.ui.java.panels.pagesPanel;
 
-import src.main.ui.java.UIUtils;
-
 import javax.swing.border.EmptyBorder;
+import src.main.ui.java.UIUtils;
 import javax.swing.*;
 import java.io.File;
 import java.awt.*;
 
-
-
 public class WendyPanel extends JPanel 
 {
-
     private static final String CONTENT_FILE = "../WendyGrand/src/main/resources/ui/java/content.html";
     private JEditorPane editorPane;
     
