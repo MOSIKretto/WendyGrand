@@ -7,8 +7,9 @@ import src.main.ui.java.panels.pagesPanel.ModulesPanel;
 import src.main.ui.java.panels.pagesPanel.WendyPanel;
 import src.main.ui.java.WindowMaker;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.CardLayout;
+import javax.swing.JPanel;
+import java.awt.Color;
 
 public class ContentPanel extends JPanel 
 {

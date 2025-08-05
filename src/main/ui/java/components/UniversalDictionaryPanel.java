@@ -1,8 +1,9 @@
 package src.main.ui.java.components;
 
+import src.main.ui.java.UIUtils;
+
 import javax.swing.border.EmptyBorder;
 import java.awt.event.ActionEvent;
-import src.main.ui.java.UIUtils;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;

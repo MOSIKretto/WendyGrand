@@ -1,7 +1,8 @@
 package src.main.ui.java.panels.pagesPanel;
 
-import javax.swing.border.EmptyBorder;
 import src.main.ui.java.UIUtils;
+
+import javax.swing.border.EmptyBorder;
 import javax.swing.JScrollPane;
 import javax.swing.JEditorPane;
 import java.awt.BorderLayout;

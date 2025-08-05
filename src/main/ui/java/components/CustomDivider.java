@@ -2,7 +2,8 @@ package src.main.ui.java.components;
 
 import javax.swing.plaf.basic.BasicSplitPaneDivider;
 import javax.swing.plaf.basic.BasicSplitPaneUI;
-import java.awt.*;
+import java.awt.Graphics;
+import java.awt.Color;
 
 public class CustomDivider extends BasicSplitPaneDivider 
 {

@@ -1,10 +1,10 @@
 package src.main.ui.java.panels.pagesPanel;
 
+import src.main.ui.java.UIUtils;
 import java.nio.file.StandardWatchEventKinds;
 import javax.swing.border.EmptyBorder;
 import java.nio.file.WatchService;
 import java.nio.file.FileSystems;
-import src.main.ui.java.UIUtils;
 import java.nio.file.WatchEvent;
 import javax.swing.JScrollPane;
 import java.io.BufferedReader;

@@ -9,12 +9,22 @@ import src.main.ui.java.panels.basePanel.ControlPanel;
 import src.main.ui.java.components.CustomTabbedPane;
 import src.main.ui.java.panels.basePanel.MainPanel;
 import src.main.helpers.java.enums.FocusState;
+
 import javax.swing.border.EmptyBorder;
 import java.awt.geom.RoundRectangle2D;
+import java.awt.KeyboardFocusManager;
 import java.util.prefs.Preferences;
-import java.awt.event.*;
-import javax.swing.*;
-import java.awt.*;
+import java.awt.event.MouseAdapter;
+import javax.swing.SwingUtilities;
+import java.awt.event.MouseEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.BorderLayout;
+import java.awt.CardLayout;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import java.awt.Component;
+import java.awt.Point;
 
 public class WindowMaker extends JFrame 
 {

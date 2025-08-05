@@ -1,20 +1,21 @@
 package src.main.ui.java.panels.pagesPanel;
 
-import javax.swing.plaf.basic.BasicSplitPaneDivider;
 import src.main.ui.java.components.CustomDivider;
 import src.main.ui.java.components.CustomButton;
-import javax.swing.plaf.basic.BasicSplitPaneUI;
 import src.main.helpers.java.enums.FocusState;
+import src.main.ui.java.WindowMaker;
+import src.main.ui.java.UIUtils;
+
+import javax.swing.plaf.basic.BasicSplitPaneDivider;
+import javax.swing.plaf.basic.BasicSplitPaneUI;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.border.EmptyBorder;
 import javax.swing.DefaultListModel;
-import src.main.ui.java.WindowMaker;
 import java.awt.event.FocusAdapter;
 import javax.swing.AbstractAction;
 import java.awt.event.ActionEvent;
 import java.awt.event.FocusEvent;
 import javax.swing.BorderFactory;
-import src.main.ui.java.UIUtils;
 import javax.swing.JScrollPane;
 import javax.swing.JOptionPane;
 import java.io.BufferedReader;

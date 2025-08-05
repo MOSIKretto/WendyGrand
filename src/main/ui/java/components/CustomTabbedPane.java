@@ -1,7 +1,12 @@
 package src.main.ui.java.components;
 
 import java.awt.event.ActionEvent;
-import javax.swing.*;
+import javax.swing.AbstractAction;
+import javax.swing.JTabbedPane;
+import javax.swing.JComponent;
+import javax.swing.ActionMap;
+import javax.swing.KeyStroke;
+import javax.swing.InputMap;
 
 public class CustomTabbedPane extends JTabbedPane 
 {

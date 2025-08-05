@@ -1,8 +1,15 @@
 package src.main.ui.java.components;
 
 import javax.swing.plaf.basic.BasicTabbedPaneUI;
-import java.awt.*;
-
+import java.awt.RenderingHints;
+import java.awt.FontMetrics;
+import java.awt.BasicStroke;
+import java.awt.Graphics2D;
+import java.awt.Rectangle;
+import java.awt.Graphics;
+import java.awt.Insets;
+import java.awt.Color;
+import java.awt.Font;
 
 public class CustomTabbedPaneUI extends BasicTabbedPaneUI 
 {

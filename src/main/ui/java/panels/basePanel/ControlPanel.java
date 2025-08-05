@@ -1,7 +1,8 @@
 package src.main.ui.java.panels.basePanel;
 
-import javax.swing.border.EmptyBorder;
 import src.main.ui.java.UIUtils;
+
+import javax.swing.border.EmptyBorder;
 import java.awt.FlowLayout;
 import javax.swing.JPanel;
 import javax.swing.JFrame;

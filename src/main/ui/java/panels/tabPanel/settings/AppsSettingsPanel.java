@@ -2,6 +2,7 @@ package src.main.ui.java.panels.tabPanel.settings;
 
 import src.main.ui.java.components.CustomButton;
 import src.main.helpers.java.enums.ConstPaths;
+
 import javax.swing.border.EmptyBorder;
 import src.main.ui.java.UIUtils;
 import javax.swing.JOptionPane;

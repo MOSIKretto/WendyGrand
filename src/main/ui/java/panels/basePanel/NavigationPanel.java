@@ -2,8 +2,9 @@ package src.main.ui.java.panels.basePanel;
 
 import src.main.helpers.java.enums.FocusState;
 import src.main.ui.java.MenuListRenderer;
-import javax.swing.ListSelectionModel;
 import src.main.ui.java.WindowMaker;
+
+import javax.swing.ListSelectionModel;
 import java.awt.event.FocusAdapter;
 import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
