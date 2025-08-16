@@ -6,6 +6,7 @@
 # Безлимитный, бесплатный ChatGPT.
 
 LIBS_FOR_WENDY = """
+typing_extensions,
 PyQt6-WebEngine, 
 Pygments,
 PyQt6, 
