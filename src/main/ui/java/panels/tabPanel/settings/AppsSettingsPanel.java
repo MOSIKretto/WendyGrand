@@ -99,7 +99,7 @@ public class AppsSettingsPanel extends JPanel
         buttonPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 35));
         
         CustomButton saveBtn = UIUtils.createSaveButton("Сохранить", getWidth(), getHeight());
-        saveBtn.addActionListener(e -> saveConfig());
+        saveBtn.addActionListener(_ -> saveConfig());
 
         buttonPanel.add(saveBtn, BorderLayout.CENTER);
         add(buttonPanel, BorderLayout.SOUTH);
