@@ -1,6 +1,7 @@
 package src.main.logic.main.managers.mainLogics;
 
-import src.main.logic.helpers.GeneralHelper;
+import src.main.logic.helpers.Performer;
+
 import java.util.Collections;
 import java.io.IOException;
 import java.util.HashMap;
@@ -69,6 +70,6 @@ public class VolumeManager
             default -> volume + "%";
         };
         
-        GeneralHelper.Performer(new String[]{VOLUME_CMD, "set-sink-volume", DEFAULT_SINK, arg});
+        Performer.execute(new String[]{VOLUME_CMD, "set-sink-volume", DEFAULT_SINK, arg});
     }
 }

@@ -1,6 +1,5 @@
 import sounddevice as sd
 import subprocess
-import queue
 import vosk
 import time
 import os
@@ -12,13 +11,12 @@ class Recognizer:
         self.lastCommandTime = 0
         self.model = vosk.Model(os.path.abspath("../WendyGrand/src/main/recognizer/resources/model_small"))
         self.samplerate = int(sd.query_devices(sd.default.device[0], 'input')['default_samplerate'])
-        self.wordHandler = os.path.abspath("../WendyGrand/src/main/logic/main/WordHandler.java")
+        self.wordHandler = os.path.abspath("../WendyGrand/src/main/logic/main/DictionaryHandler.java")
         self.voiceoverVenv = os.path.abspath("../WendyGrand/src/main/voiceover/resources/venv/bin/python")
         self.voiceover = os.path.abspath("../WendyGrand/src/main/voiceover/main/Voiceover.py")
         self.names = {"венди", "вэнди", "среда"}
         self.exitPhrases = self.exit()
         self.running = True
-        self.commandQueue = queue.Queue()
         self.recognizer = None
 
     def exit(self):
@@ -64,7 +62,7 @@ class Recognizer:
             current_time = time.time()
             time_valid = current_time - self.lastCommandTime <= 10
             if text in self.exitPhrases or any(text.startswith(name) for name in self.names) or time_valid:
-                self.commandQueue.put(text)
+                self.processCommand(text)
 
     def mainLoop(self):
         self.recognizer = vosk.KaldiRecognizer(self.model, self.samplerate)
@@ -77,11 +75,7 @@ class Recognizer:
             callback=self.callback
         ):
             while self.running:
-                try:
-                    text = self.commandQueue.get(timeout=0.1)
-                    self.processCommand(text)
-                except queue.Empty:
-                    continue
+                time.sleep(0.1)
 
 if __name__ == "__main__":
     Recognizer().start()

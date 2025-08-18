@@ -2,13 +2,13 @@ package src.main.logic.main.managers.modulesLogics;
 
 import src.main.logic.main.managers.modulesLogics.addons.RunPythonModules;
 import src.main.logic.helpers.enums.ConstPaths;
-import src.main.logic.helpers.GeneralHelper;
+import src.main.logic.helpers.Performer;
 
 import java.io.IOException;
 import java.nio.file.Paths;
 
 
-public class RunModulesHandler
+public class RunModulesManager
 {
 
     private final static String PATH = ConstPaths.DIRECTORY_MODULES.getConfPath();
@@ -35,11 +35,11 @@ public class RunModulesHandler
                 break;
 
             case "":
-                GeneralHelper.Performer("./" + modulePath);
+                Performer.execute("./" + modulePath);
                 break;
             
             default:
-                GeneralHelper.Performer(extension, modulePath);
+                Performer.execute(extension, modulePath);
                 break;
         }
     }

@@ -1,6 +1,7 @@
 package src.main.logic.main.managers.modulesLogics.addons;
 
-import src.main.logic.helpers.GeneralHelper;
+import src.main.logic.helpers.Performer;
+import src.main.logic.helpers.enums.ConstPaths;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -15,6 +16,9 @@ import java.io.File;
 public class RunPythonModules
 {
 
+    private static final String VOICEOVER = ConstPaths.VOICEOVER.getConfPath();
+    private static final String VOICEOVERVENV = ConstPaths.VOICEOVERVENV.getConfPath();
+   
     public static void runPythonModule(String modulePath, String currentDirectory) throws 
     InterruptedException, 
     IOException 
@@ -25,7 +29,7 @@ public class RunPythonModules
         upgradePip(pipPath);
         
         installRequiredLibraries(modulePath, pipPath);
-        GeneralHelper.Performer(Paths.get(venvPath, "bin", "python").toString(), modulePath);
+        Performer.execute(Paths.get(venvPath, "bin", "python").toString(), modulePath);
     }
 
     private static void upgradePip(String pipPath) throws 
@@ -39,7 +43,7 @@ public class RunPythonModules
         if (process.waitFor() != 0)
         {
             System.err.println("Предупреждение: не удалось обновить pip. Продолжение работы...");
-            GeneralHelper.Voiceover("errUpgradePip");
+            Performer.execute(VOICEOVERVENV, VOICEOVER, "errUpgradePip");
         }
     }
 
@@ -60,7 +64,7 @@ public class RunPythonModules
             
             if (process.waitFor() != 0)
             {
-                GeneralHelper.Voiceover("errVenvCreate");
+                Performer.execute(VOICEOVERVENV, VOICEOVER, "errVenvCreate");
                 throw new IOException("Не удалось создать виртуальное окружение");
             }
         }
@@ -74,7 +78,7 @@ public class RunPythonModules
         List<String> libraries = extractLibsFromModule(modulePath);
         if (libraries.isEmpty()) return;
 
-        GeneralHelper.Voiceover("dependenciesFound");
+        Performer.execute(VOICEOVERVENV, VOICEOVER, "dependenciesFound");
         System.out.println("Обнаружены зависимости: " + libraries);
 
         for (String lib : libraries) 
@@ -88,7 +92,7 @@ public class RunPythonModules
                         
                 if (process.waitFor() != 0)
                 {
-                    GeneralHelper.Voiceover("errorInstallLibs");
+                    Performer.execute(VOICEOVERVENV, VOICEOVER, "errorInstallLibs");
                     throw new IOException("Ошибка установки библиотеки: " + lib);
                 }
             }

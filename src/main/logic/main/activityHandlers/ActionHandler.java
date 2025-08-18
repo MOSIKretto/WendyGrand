@@ -1,9 +1,10 @@
 package src.main.logic.main.activityHandlers;
 
-import src.main.logic.main.managers.mainLogics.AppManager;
 import src.main.logic.main.managers.mainLogics.ShutdownManager;
 import src.main.logic.main.managers.mainLogics.VolumeManager;
-import src.main.logic.helpers.GeneralHelper;
+import src.main.logic.helpers.ConfigReader;
+import src.main.logic.helpers.Performer;
+import src.main.logic.helpers.Scholar;
 import src.main.logic.helpers.enums.ConstPaths;
 
 import java.io.IOException;
@@ -15,7 +16,9 @@ import java.util.Set;
 public class ActionHandler 
 {
 
-    private static final String CONFIG = ConstPaths.APPS.getConfPath();
+    private static final String CONFIG = ConstPaths.APPS_CONF.getConfPath();
+    private static final String VOICEOVER = ConstPaths.VOICEOVER.getConfPath();
+    private static final String VOICEOVERVENV = ConstPaths.VOICEOVERVENV.getConfPath();
 
     public static void CallFunction(String functionName, Object... args) throws 
     InterruptedException, 
@@ -35,10 +38,10 @@ public class ActionHandler
     public static void CallApps(String args) throws 
     IOException 
     {
-        GeneralHelper.Voiceover(args);
-        List<String> app = GeneralHelper.readConfig(CONFIG, args);
+        Performer.execute(VOICEOVERVENV, VOICEOVER, args);
+        List<String> app = ConfigReader.readConfig(CONFIG, args);
         if (app != null && !app.isEmpty())
-            AppManager.execute(app.get(0));
+            Performer.execute(app.get(0));
     }
 
     // работа с системой
@@ -49,15 +52,15 @@ public class ActionHandler
         switch (args) 
         {
             case "shutdown":
-                GeneralHelper.Voiceover(args);
+                Performer.execute(VOICEOVERVENV, VOICEOVER, args);
                 ShutdownManager.systemShutdown("-h", "выключена");
                 break;
             case "reboot":
-                GeneralHelper.Voiceover(args);
+                Performer.execute(VOICEOVERVENV, VOICEOVER, args);
                 ShutdownManager.systemShutdown("-r", "перезапущена");
                 break;
             case "sleep":
-                GeneralHelper.Voiceover(args);
+                Performer.execute(VOICEOVERVENV, VOICEOVER, args);
                 ShutdownManager.systemSleep("переведена в спящий режим");
                 break;
         }
@@ -71,14 +74,14 @@ public class ActionHandler
         if (volumeCommands.stream().noneMatch(input::startsWith))
             return;
 
-        String clearTextVolume = GeneralHelper.cleanInput(input, List.of("громкость", "на", "мне", "меня", "процента", 
+        String clearTextVolume = Scholar.cleanInput(input, List.of("громкость", "на", "мне", "меня", "процента", 
                                                                         "процент", "процентов", "сделай", "поставь", "установи"));
         
         Integer volume = VolumeManager.NUMBER_MAP.get(clearTextVolume);
         if (volume != null) 
         {
             VolumeManager.setSystemVolume(volume);
-            GeneralHelper.Voiceover("volume");
+            Performer.execute(VOICEOVERVENV, VOICEOVER, "volume");
             return;
         }
 
@@ -87,12 +90,12 @@ public class ActionHandler
             if (clearTextVolume.contains(entry.getKey())) 
             {
                 VolumeManager.setSystemVolume(entry.getValue());
-                GeneralHelper.Voiceover("volume");
+                Performer.execute(VOICEOVERVENV, VOICEOVER, "volume");
                 return;
             }
         }
 
-        GeneralHelper.Voiceover("volumeErr");
+        Performer.execute(VOICEOVERVENV, VOICEOVER, "volumeErr");
     }
 
     // для поиска в интернете и на видео площадках
@@ -111,15 +114,15 @@ public class ActionHandler
                                         ? Set.of("найди", "найти", "на", "ищи", "ютубе", "ютюбе", "ютуб", "ютюб")
                                         : Set.of("найди", "найти", "в", "интернете", "ищи");
 
-        String searchQuery = GeneralHelper.cleanInput(input, cleanWords).replace(" ", "%20").trim();
+        String searchQuery = Scholar.cleanInput(input, cleanWords).replace(" ", "%20").trim();
         
         if (searchQuery.isEmpty())
             return;
 
-        List<String> browser = GeneralHelper.readConfig(CONFIG, "browser");
-        List<String> searchEngine = GeneralHelper.readConfig(CONFIG, searchType);
+        List<String> browser = ConfigReader.readConfig(CONFIG, "browser");
+        List<String> searchEngine = ConfigReader.readConfig(CONFIG, searchType);
 
-        GeneralHelper.Voiceover(searchType);
-        AppManager.execute(browser.get(0), searchEngine.get(0) + searchQuery);
+        Performer.execute(VOICEOVERVENV, VOICEOVER, searchType);
+        Performer.execute(browser.get(0), searchEngine.get(0) + searchQuery);
     }
 }
