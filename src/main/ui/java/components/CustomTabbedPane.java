@@ -15,6 +15,7 @@ public class CustomTabbedPane extends JTabbedPane
     public CustomTabbedPane() 
     {
         setUI(customUI);
+        setSelectedIndex(-1);
         initKeyboardNavigation();
         setFocusCycleRoot(true);
     }

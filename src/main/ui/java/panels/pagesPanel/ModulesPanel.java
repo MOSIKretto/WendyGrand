@@ -153,13 +153,13 @@ public class ModulesPanel extends JPanel
         buttonPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
         
         CustomButton refreshBtn = new CustomButton("Обновить", 0, 0);
-        refreshBtn.addActionListener(e -> refreshModulesList());
+        refreshBtn.addActionListener(_ -> refreshModulesList());
         refreshBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
         refreshBtn.setMaximumSize(new Dimension(Integer.MAX_VALUE, 30));
 
         
         CustomButton openBtn = new CustomButton("Открыть папку", 0, 0);
-        openBtn.addActionListener(e -> openModulesFolder());
+        openBtn.addActionListener(_ -> openModulesFolder());
         openBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
         openBtn.setMaximumSize(new Dimension(Integer.MAX_VALUE, 30));
 
