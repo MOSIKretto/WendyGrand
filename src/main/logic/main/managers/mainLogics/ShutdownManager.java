@@ -1,6 +1,6 @@
 package src.main.logic.main.managers.mainLogics;
 
-import src.main.logic.helpers.GeneralHelper;
+import src.main.logic.helpers.Performer;
 
 import java.io.IOException;
 
@@ -13,7 +13,7 @@ public class ShutdownManager
     IOException
     {
         printMessage(message);
-        GeneralHelper.Performer(new String[]{"shutdown", arg, "now"});
+        Performer.execute(new String[]{"shutdown", arg, "now"});
     }
 
     public static void systemSleep(String message) throws 
@@ -21,7 +21,7 @@ public class ShutdownManager
     IOException
     {
         printMessage(message);
-        GeneralHelper.Performer(new String[]{"systemctl", "suspend", "-i"});
+        Performer.execute(new String[]{"systemctl", "suspend", "-i"});
     }
 
     private static void printMessage(String message) throws 

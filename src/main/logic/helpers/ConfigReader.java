@@ -1,24 +1,18 @@
 package src.main.logic.helpers;
 
-import java.util.stream.Collectors;
 import java.io.BufferedReader;
-import java.util.Collection;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.io.FileReader;
-import java.util.HashSet;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 
 
-public class GeneralHelper
+public class ConfigReader
 {
     // чтение конфигов
-    public static List<String> readConfig(String... args) throws 
+    public static List<String> readConfig(String path, String key) throws 
     IOException
     {
-        String path = args[0], key = args[1];
         List<String> result = new ArrayList<>();
         StringBuilder block = new StringBuilder();
 
@@ -57,32 +51,5 @@ public class GeneralHelper
             for (String value : parts[1].trim().split(",\\s*"))
                 if (!value.isEmpty())
                     result.add(value);
-    }
-
-    // очищение текста
-    public static String cleanInput(String input, Collection<String> words) 
-    {
-        Set<String> toRemove = words instanceof Set ? (Set<String>)words : new HashSet<>(words);
-        return Arrays.stream(input.split("\\s+"))
-        .filter(word -> !toRemove.contains(word))
-        .collect(Collectors.joining(" "));
-    }
-    
-    // озвучка
-    public static void Voiceover(String FunctionVoice) throws 
-    IOException 
-    {
-        Performer("../WendyGrand/src/main/voiceover/resources/venv/bin/python", 
-                            "../WendyGrand/src/main/voiceover/main/Voiceover.py", 
-                            FunctionVoice);
-    }
-
-    // запуск процессов
-    public static void Performer(String... command) throws 
-    IOException 
-    {
-        new ProcessBuilder(command)
-        .inheritIO()
-        .start();
     }
 }
