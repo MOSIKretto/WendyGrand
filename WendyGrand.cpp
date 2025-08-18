@@ -1,25 +1,26 @@
 #include <iostream>
 
 int main() 
-{   
-    std::cout << "Сборка зависимостей и компиляция...\n";
-
+{
     // Создание и настройка виртуального окружения для Python
-    system("python3 -m venv ../WendyGrand/src/main/resources/python/venv/");
-    system(("bash -c 'source ../WendyGrand/src/main/resources/python/venv/bin/activate && pip install -U vosk playsound3 sounddevice'"));
+
+    // Для Recognizer
+    system("python3 -m venv ../WendyGrand/src/main/recognizer/resources/venv/ &&" 
+        "bash -c 'source ../WendyGrand/src/main/recognizer/resources/venv/bin/activate &&"
+        "pip install -U vosk sounddevice'");
+
+    // Для Voiceover (здесь у вас ошибка в пути, должно быть voiceover, а не recognizer)
+    system("python3 -m venv ../WendyGrand/src/main/voiceover/resources/venv/ &&"
+        "bash -c 'source ../WendyGrand/src/main/voiceover/resources/venv/bin/activate &&"
+        "pip install -U playsound3'");
+
 
     // Компиляция всего Java-проекта
-    system(("javac ../WendyGrand/src/main/java/core/WordHandler.java"));
+    system(("javac ../WendyGrand/src/main/logic/main/WordHandler.java"));
 
-    system(("javac ../WendyGrand/src/main/ui/java/*.java"));
-    system(("javac ../WendyGrand/src/main/ui/java/components/*.java"));
-    system(("javac ../WendyGrand/src/main/ui/java/panels/basePanel/*.java"));
-    system(("javac ../WendyGrand/src/main/ui/java/panels/pagesPanel/*.java"));
-    system(("javac ../WendyGrand/src/main/ui/java/panels/tabPanel/*.java"));
-    system(("javac ../WendyGrand/src/main/ui/java/panels/tabPanel/dictionary/*.java"));
 
     // Запуск
-    system("java ../WendyGrand/src/main/java/Main.java");
+    system("java ../WendyGrand/src/main/demonsController/main/DemonsController.java");
     
     return 0;
 }
