@@ -1,7 +1,6 @@
 from playsound3 import playsound
 from random import choice
 import sys
-import os
 
 '''
 Универсальные файлы озвучки которые подайдут к большенсву функций:
@@ -130,7 +129,21 @@ class ActionsVoiceover:
     def volumeErr():
         executive_voice = choice(['SorryButIDontKnowSuchAVolumeCommand.mp3', 'SorryButThereIsNoSuchVolumeCommand.mp3', 
                                   'VolumeChangeError.mp3', 'AnErrorOccurredWhileChangingTheVolume.mp3', 
-                                  'ThereWasAProblemChangingTheVolume.mp3'])
+                                  'ThereWasAProblemChangingTheVolume.mp3', 'SorryIDontKnowHowToDoIt.mp3'])
+        ActionsVoiceover.ActivateVoice(executive_voice)
+
+#----------------------------------------------------------------------------------------------------------------------------------
+
+    @staticmethod
+    def brightness():
+        executive_voice = choice(['BrightnessSet.mp3', 'IPutUpABrightness.mp3', 
+                                  'ActionsVoiceover.StandardModule_StandardResponse()'])
+        ActionsVoiceover.ActivateVoice(executive_voice)
+
+    @staticmethod
+    def brightnessErr():
+        executive_voice = choice(['SorryIDontKnowHowToDoIt.mp3', 'BrightnessChangeError.mp3', 
+                                  'SorryButSuchABrightnessCommandIsNotKnown.mp3'])
         ActionsVoiceover.ActivateVoice(executive_voice)
 
 #----------------------------------------------------------------------------------------------------------------------------------

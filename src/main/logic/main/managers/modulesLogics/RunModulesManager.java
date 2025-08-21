@@ -11,7 +11,7 @@ import java.nio.file.Paths;
 public class RunModulesManager
 {
 
-    private final static String PATH = ConstPaths.DIRECTORY_MODULES.getConfPath();
+    private final static String DIRECTORY_MODULES_PATH = ConstPaths.DIRECTORY_MODULES_PATH.getConfPath();
 
     // определение языка по расширению файла
     private static String sliceUntilPeriod(String inputString)
@@ -26,12 +26,12 @@ public class RunModulesManager
     IOException
     {
         String extension = sliceUntilPeriod(arg);
-        String modulePath = Paths.get(PATH, arg).toString();
+        String modulePath = Paths.get(DIRECTORY_MODULES_PATH, arg).toString();
 
         switch (extension) 
         {
             case "py":
-                RunPythonModules.runPythonModule(modulePath, PATH);
+                RunPythonModules.runPythonModule(modulePath, DIRECTORY_MODULES_PATH);
                 break;
 
             case "":

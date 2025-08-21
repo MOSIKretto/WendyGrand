@@ -1,128 +1,134 @@
 package src.main.logic.main.activityHandlers;
 
 import src.main.logic.main.managers.mainLogics.ShutdownManager;
-import src.main.logic.main.managers.mainLogics.VolumeManager;
+import src.main.logic.main.managers.mainLogics.SystemValueManager;
 import src.main.logic.helpers.ConfigReader;
 import src.main.logic.helpers.Performer;
 import src.main.logic.helpers.Scholar;
 import src.main.logic.helpers.enums.ConstPaths;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 
 public class ActionHandler 
 {
-
-    private static final String CONFIG = ConstPaths.APPS_CONF.getConfPath();
+    private static final String APPS_CONF = ConstPaths.APPS_CONF.getConfPath();
+    private static final String DICTIONARY_CONF = ConstPaths.DICTIONARY_CONF.getConfPath();
     private static final String VOICEOVER = ConstPaths.VOICEOVER.getConfPath();
     private static final String VOICEOVERVENV = ConstPaths.VOICEOVERVENV.getConfPath();
 
-    public static void CallFunction(String functionName, Object... args) throws 
-    InterruptedException, 
+    public static void callFunction(String functionName, Object arg) throws 
+    InterruptedException,
     IOException
     {
-        if (args == null) 
-            return;
-        
         if (functionName.equals("CallApps"))
-            CallApps((String) args[0]);
-
+            callApps((String) arg);
         else
-            CallShutdown((String) args[0]);
+            callShutdown((String) arg);
     }
 
-    // вызов приложений
-    public static void CallApps(String args) throws 
-    IOException 
+    private static void callApps(String args) throws 
+    IOException
     {
         Performer.execute(VOICEOVERVENV, VOICEOVER, args);
-        List<String> app = ConfigReader.readConfig(CONFIG, args);
+        List<String> app = ConfigReader.readConfig(APPS_CONF, args);
         if (app != null && !app.isEmpty())
             Performer.execute(app.get(0));
     }
 
-    // работа с системой
-    public static void CallShutdown(String args) throws 
-    InterruptedException, 
+    private static void callShutdown(String args) throws 
+    InterruptedException,
     IOException 
     {
+        Performer.execute(VOICEOVERVENV, VOICEOVER, args);
         switch (args) 
         {
-            case "shutdown":
-                Performer.execute(VOICEOVERVENV, VOICEOVER, args);
-                ShutdownManager.systemShutdown("-h", "выключена");
-                break;
-            case "reboot":
-                Performer.execute(VOICEOVERVENV, VOICEOVER, args);
-                ShutdownManager.systemShutdown("-r", "перезапущена");
-                break;
-            case "sleep":
-                Performer.execute(VOICEOVERVENV, VOICEOVER, args);
-                ShutdownManager.systemSleep("переведена в спящий режим");
-                break;
+            case "shutdown" -> ShutdownManager.systemShutdown("-h", "выключена");
+            case "reboot" -> ShutdownManager.systemShutdown("-r", "перезапущена");
+            case "sleep" -> ShutdownManager.systemSleep("переведена в спящий режим");
         }
     }
-
-    // для громкости
-    public static void CallVolume(String input, List<String> volumeCommands) throws 
-    InterruptedException, 
-    IOException
+    
+    public static void callSearch(String input, List<String> webSearchCommands, List<String> youtubeSearchCommands) throws 
+    IOException 
     {
-        if (volumeCommands.stream().noneMatch(input::startsWith))
-            return;
-
-        String clearTextVolume = Scholar.cleanInput(input, List.of("громкость", "на", "мне", "меня", "процента", 
-                                                                        "процент", "процентов", "сделай", "поставь", "установи"));
+        boolean isYoutube = youtubeSearchCommands.stream().anyMatch(input::startsWith);
+        boolean isWeb = webSearchCommands.stream().anyMatch(input::startsWith);
         
-        Integer volume = VolumeManager.NUMBER_MAP.get(clearTextVolume);
-        if (volume != null) 
+        if (isYoutube || isWeb) 
         {
-            VolumeManager.setSystemVolume(volume);
-            Performer.execute(VOICEOVERVENV, VOICEOVER, "volume");
-            return;
-        }
-
-        for (Map.Entry<String, Integer> entry : VolumeManager.NUMBER_MAP.entrySet()) 
-        {
-            if (clearTextVolume.contains(entry.getKey())) 
+            List<String> cleanWords = isYoutube ? 
+                ConfigReader.readConfig(DICTIONARY_CONF, "deletevideosearch") :
+                ConfigReader.readConfig(DICTIONARY_CONF, "deletewebsearch");
+            
+            String query = Scholar.cleanInput(input, cleanWords).replace(" ", "%20").trim();
+            
+            if (!query.isEmpty()) 
             {
-                VolumeManager.setSystemVolume(entry.getValue());
-                Performer.execute(VOICEOVERVENV, VOICEOVER, "volume");
-                return;
+                String searchType = isYoutube ? "videosearch" : "websearch";
+                List<String> browser = ConfigReader.readConfig(APPS_CONF, "browser");
+                List<String> searchEngine = ConfigReader.readConfig(APPS_CONF, searchType);
+
+                Performer.execute(VOICEOVERVENV, VOICEOVER, searchType);
+                Performer.execute(browser.get(0), searchEngine.get(0) + query);
             }
         }
-
-        Performer.execute(VOICEOVERVENV, VOICEOVER, "volumeErr");
     }
 
-    // для поиска в интернете и на видео площадках
-    public static void CallSearch(String input, List<String> webSearchCommands, List<String> youtubeSearchCommands) throws 
-    InterruptedException,
-    IOException
+    private static final Map<String, Integer> VALUE_ACTIONS = Map.of(
+        "value+", -2,
+        "value-", -3,
+        "valuemax", 100,
+        "valuemin", 10,
+        "valueon", 50,
+        "valueoff", 0
+    );
+
+    public static void callSystemValue(String input, List<String> valueKeys, String valueType) throws 
+    IOException 
     {
-        final boolean isYoutubeSearch = youtubeSearchCommands.stream().anyMatch(input::startsWith);
-        final boolean isWebSearch = !isYoutubeSearch && webSearchCommands.stream().anyMatch(input::startsWith);
-        
-        if (!isWebSearch && !isYoutubeSearch)
-            return;
+        try
+        {   
+            if (!valueKeys.stream().anyMatch(input::contains)) 
+                return;
+            
+            String cleanedInput = Scholar.cleanInput(input, ConfigReader.readConfig(DICTIONARY_CONF, "delete" + valueType));
+            
+            Map<String, List<String>> actionConfigs = new HashMap<>();
+            for (String key : VALUE_ACTIONS.keySet())
+                actionConfigs.put(key, ConfigReader.readConfig(DICTIONARY_CONF, key));
+            
+            Integer targetValue = null;
+            for (Map.Entry<String, Integer> entry : VALUE_ACTIONS.entrySet()) 
+            {
+                if (SystemValueManager.containsAny(cleanedInput, actionConfigs.get(entry.getKey()))) 
+                {
+                    targetValue = entry.getValue();
+                    break;
+                }
+            }
 
-        final String searchType = isYoutubeSearch ? "videosearch" : "websearch";
-        final Set<String> cleanWords = isYoutubeSearch 
-                                        ? Set.of("найди", "найти", "на", "ищи", "ютубе", "ютюбе", "ютуб", "ютюб")
-                                        : Set.of("найди", "найти", "в", "интернете", "ищи");
+            if (targetValue == null) 
+                targetValue = SystemValueManager.parseNumber(cleanedInput);
 
-        String searchQuery = Scholar.cleanInput(input, cleanWords).replace(" ", "%20").trim();
-        
-        if (searchQuery.isEmpty())
-            return;
-
-        List<String> browser = ConfigReader.readConfig(CONFIG, "browser");
-        List<String> searchEngine = ConfigReader.readConfig(CONFIG, searchType);
-
-        Performer.execute(VOICEOVERVENV, VOICEOVER, searchType);
-        Performer.execute(browser.get(0), searchEngine.get(0) + searchQuery);
+            if (targetValue != null) 
+            {
+                switch (valueType) 
+                {
+                    case "volume" -> SystemValueManager.setSystemVolume(targetValue);
+                    case "brightness" -> SystemValueManager.setSystemBrightness(targetValue);
+                }
+                
+                Performer.execute(VOICEOVERVENV, VOICEOVER, valueType);
+            }
+        } 
+        catch (IOException e) 
+        {
+            Performer.execute(VOICEOVERVENV, VOICEOVER, valueType + "Err");
+            throw e;
+        }
     }
 }

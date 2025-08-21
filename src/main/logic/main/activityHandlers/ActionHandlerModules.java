@@ -24,7 +24,7 @@ public class ActionHandlerModules
 
         for (String module : modules)
         {
-            File moduleFile = new File(ConstPaths.DIRECTORY_MODULES.getConfPath(), module);
+            File moduleFile = new File(ConstPaths.DIRECTORY_MODULES_PATH.getConfPath(), module);
 
             if (moduleFile.exists()) 
             {
