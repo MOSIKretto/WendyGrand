@@ -13,10 +13,9 @@ import java.util.List;
 
 public class DictionaryHandler
 {
-
     private static final String DICTIONARY_CONF = ConstPaths.DICTIONARY_CONF.getConfPath();
 
-    public static void main(String[] args) throws 
+    public static void main(String[] args) throws
     Exception
     {
         for (String arg : args) 

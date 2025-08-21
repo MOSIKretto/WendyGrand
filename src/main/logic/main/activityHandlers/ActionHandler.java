@@ -8,7 +8,6 @@ import src.main.logic.helpers.Scholar;
 import src.main.logic.helpers.enums.ConstPaths;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -77,43 +76,41 @@ public class ActionHandler
             }
         }
     }
-
+    
     private static final Map<String, Integer> VALUE_ACTIONS = Map.of(
-        "value+", -2,
-        "value-", -3,
+        "value+", -2, 
+        "value-", -3, 
         "valuemax", 100,
-        "valuemin", 10,
-        "valueon", 50,
+        "valuemin", 10, 
+        "valueon", 50, 
         "valueoff", 0
     );
 
     public static void callSystemValue(String input, List<String> valueKeys, String valueType) throws 
     IOException 
     {
-        try
-        {   
-            if (!valueKeys.stream().anyMatch(input::contains)) 
-                return;
-            
+        if (valueKeys.stream().noneMatch(input::contains)) 
+            return;
+        
+        try 
+        {
             String cleanedInput = Scholar.cleanInput(input, ConfigReader.readConfig(DICTIONARY_CONF, "delete" + valueType));
-            
-            Map<String, List<String>> actionConfigs = new HashMap<>();
-            for (String key : VALUE_ACTIONS.keySet())
-                actionConfigs.put(key, ConfigReader.readConfig(DICTIONARY_CONF, key));
-            
             Integer targetValue = null;
+            
             for (Map.Entry<String, Integer> entry : VALUE_ACTIONS.entrySet()) 
             {
-                if (SystemValueManager.containsAny(cleanedInput, actionConfigs.get(entry.getKey()))) 
+                List<String> configValues = ConfigReader.readConfig(DICTIONARY_CONF, entry.getKey());
+
+                if (SystemValueManager.containsAny(cleanedInput, configValues)) 
                 {
                     targetValue = entry.getValue();
                     break;
                 }
             }
-
-            if (targetValue == null) 
+            
+            if (targetValue == null)
                 targetValue = SystemValueManager.parseNumber(cleanedInput);
-
+            
             if (targetValue != null) 
             {
                 switch (valueType) 
@@ -121,14 +118,12 @@ public class ActionHandler
                     case "volume" -> SystemValueManager.setSystemVolume(targetValue);
                     case "brightness" -> SystemValueManager.setSystemBrightness(targetValue);
                 }
-                
                 Performer.execute(VOICEOVERVENV, VOICEOVER, valueType);
             }
         } 
-        catch (IOException e) 
+        catch (IOException e)
         {
             Performer.execute(VOICEOVERVENV, VOICEOVER, valueType + "Err");
-            throw e;
         }
     }
 }

@@ -12,7 +12,6 @@ import java.io.File;
 
 public class ActionHandlerModules 
 {
-
     private static final String VOICEOVER = ConstPaths.VOICEOVER.getConfPath();
     private static final String VOICEOVERVENV = ConstPaths.VOICEOVERVENV.getConfPath();
 
