@@ -19,23 +19,29 @@ public class ActionHandler
     private static final String VOICEOVER = ConstPaths.VOICEOVER.getConfPath();
     private static final String VOICEOVERVENV = ConstPaths.VOICEOVERVENV.getConfPath();
 
+    private static final Map<String, Integer> VALUE_ACTIONS = Map.of(
+        "value+", -2,
+        "value-", -3,
+        "valuemax", 100,
+        "valuemin", 10, 
+        "valueon", 50, 
+        "valueoff", 0
+    );
+
     public static void callFunction(String functionName, Object arg) throws 
-    InterruptedException,
-    IOException
+    InterruptedException, 
+    IOException 
     {
-        if (functionName.equals("CallApps"))
-            callApps((String) arg);
-        else
-            callShutdown((String) arg);
+        if (functionName.equals("CallApps")) callApps((String) arg);
+        else callShutdown((String) arg);
     }
 
     private static void callApps(String args) throws 
-    IOException
+    IOException 
     {
         Performer.execute(VOICEOVERVENV, VOICEOVER, args);
         List<String> app = ConfigReader.readConfig(APPS_CONF, args);
-        if (app != null && !app.isEmpty())
-            Performer.execute(app.get(0));
+        if (app != null && !app.isEmpty()) Performer.execute(app.get(0));
     }
 
     private static void callShutdown(String args) throws 
@@ -60,12 +66,12 @@ public class ActionHandler
         if (isYoutube || isWeb) 
         {
             List<String> cleanWords = isYoutube ? 
-                ConfigReader.readConfig(DICTIONARY_CONF, "deletevideosearch") :
-                ConfigReader.readConfig(DICTIONARY_CONF, "deletewebsearch");
+                                                ConfigReader.readConfig(DICTIONARY_CONF, "deletevideosearch") :
+                                                ConfigReader.readConfig(DICTIONARY_CONF, "deletewebsearch");
             
             String query = Scholar.cleanInput(input, cleanWords).replace(" ", "%20").trim();
             
-            if (!query.isEmpty()) 
+            if (!query.isEmpty())
             {
                 String searchType = isYoutube ? "videosearch" : "websearch";
                 List<String> browser = ConfigReader.readConfig(APPS_CONF, "browser");
@@ -77,15 +83,6 @@ public class ActionHandler
         }
     }
     
-    private static final Map<String, Integer> VALUE_ACTIONS = Map.of(
-        "value+", -2, 
-        "value-", -3, 
-        "valuemax", 100,
-        "valuemin", 10, 
-        "valueon", 50, 
-        "valueoff", 0
-    );
-
     public static void callSystemValue(String input, List<String> valueKeys, String valueType) throws 
     IOException 
     {
@@ -108,8 +105,7 @@ public class ActionHandler
                 }
             }
             
-            if (targetValue == null)
-                targetValue = SystemValueManager.parseNumber(cleanedInput);
+            if (targetValue == null) targetValue = SystemValueManager.parseNumber(cleanedInput);
             
             if (targetValue != null) 
             {
@@ -121,9 +117,6 @@ public class ActionHandler
                 Performer.execute(VOICEOVERVENV, VOICEOVER, valueType);
             }
         } 
-        catch (IOException e)
-        {
-            Performer.execute(VOICEOVERVENV, VOICEOVER, valueType + "Err");
-        }
+        catch (IOException e) { Performer.execute(VOICEOVERVENV, VOICEOVER, valueType + "Err"); }
     }
 }

@@ -5,101 +5,124 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.regex.Pattern;
 
 public class ConfigReader {
     private static final Map<String, Map<String, List<String>>> CACHE = new ConcurrentHashMap<>();
+    private static final Pattern COMMA_SPLIT = Pattern.compile("\\s*,\\s*");
     
     public static List<String> readConfig(String path, String key) throws IOException {
         Map<String, List<String>> config = CACHE.get(path);
         if (config != null) {
-            return config.getOrDefault(key, Collections.emptyList());
+            List<String> result = config.get(key);
+            return result != null ? result : Collections.emptyList();
         }
         
         config = new ConcurrentHashMap<>();
         String content = Files.readString(Path.of(path));
-        int length = content.length();
-        StringBuilder currentLine = new StringBuilder();
+        final int length = content.length();
+        boolean inComment = false;
         boolean inContinuation = false;
+        StringBuilder currentLine = new StringBuilder(128);
         
         for (int i = 0; i < length; i++) {
             char c = content.charAt(i);
             
-            // Пропускаем комментарии
+            // Обработка комментариев
             if (c == '#') {
-                while (i < length && content.charAt(i) != '\n' && content.charAt(i) != '\r') i++;
+                inComment = true;
                 continue;
             }
             
-            // Обрабатываем конец строки
             if (c == '\n' || c == '\r') {
-                if (c == '\r' && i + 1 < length && content.charAt(i + 1) == '\n') i++;
-                
-                if (!inContinuation) {
-                    processLine(config, currentLine.toString());
-                    currentLine.setLength(0);
-                } else {
-                    inContinuation = false;
+                if (c == '\r' && i + 1 < length && content.charAt(i + 1) == '\n') {
+                    i++;
                 }
+                
+                if (!inContinuation && !inComment && currentLine.length() > 0) {
+                    processLineFast(config, currentLine.toString());
+                    currentLine.setLength(0);
+                }
+                
+                inComment = false;
+                inContinuation = false;
                 continue;
             }
             
-            // Проверяем на продолжение строки
-            if (c == '\\' && i + 1 < length && 
-                (content.charAt(i + 1) == '\n' || content.charAt(i + 1) == '\r')) {
-                inContinuation = true;
-                i++; // Пропускаем символ перевода строки
-                continue;
+            if (inComment) continue;
+            
+            // Обработка продолжения строки
+            if (c == '\\' && i + 1 < length) {
+                char next = content.charAt(i + 1);
+                if (next == '\n' || next == '\r') {
+                    inContinuation = true;
+                    i++;
+                    continue;
+                }
             }
             
-            currentLine.append(c);
+            if (!inContinuation) {
+                currentLine.append(c);
+            }
         }
         
-        // Обрабатываем последнюю строку
-        if (currentLine.length() > 0) {
-            processLine(config, currentLine.toString());
+        if (!inComment && currentLine.length() > 0) {
+            processLineFast(config, currentLine.toString());
         }
         
         CACHE.put(path, config);
-        return config.getOrDefault(key, Collections.emptyList());
+        List<String> result = config.get(key);
+        return result != null ? result : Collections.emptyList();
     }
     
-    private static void processLine(Map<String, List<String>> config, String line) {
-        line = line.trim();
-        if (line.isEmpty()) return;
+    private static void processLineFast(Map<String, List<String>> config, String line) {
+        final int len = line.length();
+        int eqIndex = -1;
         
-        int eqIndex = line.indexOf('=');
+        // Быстрый поиск позиции '='
+        for (int i = 0; i < len; i++) {
+            char c = line.charAt(i);
+            if (c == '=') {
+                eqIndex = i;
+                break;
+            }
+            if (Character.isWhitespace(c)) continue;
+        }
+        
         if (eqIndex <= 0) return;
         
+        // Извлечение ключа
         String key = line.substring(0, eqIndex).trim();
-        String valuesStr = line.substring(eqIndex + 1).trim();
+        if (key.isEmpty()) return;
         
+        // Извлечение значений
+        String valuesStr = line.substring(eqIndex + 1).trim();
         if (valuesStr.isEmpty()) {
             config.put(key, Collections.emptyList());
             return;
         }
         
-        // Быстрый парсинг значений
-        List<String> values = new ArrayList<>();
-        int start = 0;
-        boolean inQuotes = false;
-        
-        for (int i = 0; i < valuesStr.length(); i++) {
-            char c = valuesStr.charAt(i);
+        List<String> values;
+        if (!valuesStr.contains("\"")) {
+            values = Arrays.asList(COMMA_SPLIT.split(valuesStr));
+        } else {
+            values = new ArrayList<>();
+            int start = 0;
+            boolean inQuotes = false;
             
-            if (c == '"') {
-                inQuotes = !inQuotes;
-            } else if (c == ',' && !inQuotes) {
-                values.add(valuesStr.substring(start, i).trim());
-                start = i + 1;
+            for (int i = 0; i < valuesStr.length(); i++) {
+                char c = valuesStr.charAt(i);
+                if (c == '"') {
+                    inQuotes = !inQuotes;
+                } else if (c == ',' && !inQuotes) {
+                    values.add(valuesStr.substring(start, i).trim());
+                    start = i + 1;
+                }
             }
-        }
-        
-        // Добавляем последнее значение
-        if (start < valuesStr.length()) {
             values.add(valuesStr.substring(start).trim());
         }
         
-        config.put(key, values);
+        config.put(key, Collections.unmodifiableList(values));
     }
     
     public static void clearCache() {
