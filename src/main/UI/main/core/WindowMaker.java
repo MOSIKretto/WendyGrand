@@ -9,7 +9,6 @@ import src.main.UI.main.panels.basePanel.ControlPanel;
 import src.main.UI.main.components.CustomTabbedPane;
 import src.main.UI.main.panels.basePanel.MainPanel;
 import src.main.UI.helpers.enums.FocusState;
-import src.main.UI.assistant.dialogs.ErrorHandler;
 
 import javax.swing.border.EmptyBorder;
 import java.awt.geom.RoundRectangle2D;
@@ -30,7 +29,6 @@ import java.awt.Point;
 public class WindowMaker extends JFrame 
 {
     public static final Preferences PREFS = Preferences.userNodeForPackage(WindowMaker.class);
-    private static ErrorHandler errorHandler;
     
     private FocusState currentFocusState = FocusState.MAIN_MENU;
     private JPanel contentPanel;
@@ -41,49 +39,26 @@ public class WindowMaker extends JFrame
 
     public WindowMaker() 
     {
-        try {
             configureWindow();
             initUI();
             setInitialFocus();
             setFocus(FocusState.MAIN_MENU);
             restoreLastState();
-        } catch (Exception e) {
-            getErrorHandler().handleFatalError("Ошибка инициализации приложения", e);
-            throw new RuntimeException("Failed to initialize WindowMaker", e);
-        }
+        
     }
 
-    // Метод для получения обработчика ошибок
-    private static ErrorHandler getErrorHandler() {
-        if (errorHandler == null) {
-            // Создаем стандартный обработчик, если не установлен
-            errorHandler = new src.main.UI.assistant.dialogs.SwingErrorHandler();
-        }
-        return errorHandler;
-    }
-    
-    // Метод для установки кастомного обработчика ошибок
-    public static void setErrorHandler(ErrorHandler handler) {
-        errorHandler = handler;
-    }
 
     private void configureWindow() 
     {
-        try {
             setTitle("Wendy");
             setSize(1280, 840);
             setUndecorated(true);
             setDefaultCloseOperation(EXIT_ON_CLOSE);
             setLocationRelativeTo(null);
             setShape(new RoundRectangle2D.Double(0, 0, getWidth(), getHeight(), 20, 20));
-        } catch (Exception e) {
-            getErrorHandler().handleFatalError("Ошибка конфигурации окна", e);
-            throw e;
-        }
     }
 
     private void initUI() {
-        try {
             JPanel mainPanel = new MainPanel();
             mainPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
 
@@ -138,15 +113,10 @@ public class WindowMaker extends JFrame
                 }
                 return false;
             });
-        } catch (Exception e) {
-            getErrorHandler().handleFatalError("Ошибка инициализации UI", e);
-            throw e;
-        }
     }
 
     private void restoreLastState() 
     {
-        try {
             int lastMenu = PREFS.getInt("last_menu_item", 0);
             navPanel.getMenuList().setSelectedIndex(lastMenu);
 
@@ -168,15 +138,10 @@ public class WindowMaker extends JFrame
                     ((DictionariesPanel)contentPanel.getComponent(3)).getTabs().setSelectedIndex(lastDictTab);
                     break;
             }
-        } catch (Exception e) {
-            getErrorHandler().showWarning("Восстановление состояния", 
-                "Не удалось восстановить предыдущее состояние приложения: " + e.getMessage());
-        }
     }
 
     public void focusOnPanel(String target)
     {
-        try {
             switch (target) 
             {
                 case "MainMenu":
@@ -231,17 +196,13 @@ public class WindowMaker extends JFrame
                     }
                     break;
             }
-        } catch (Exception e) {
-            getErrorHandler().showWarning("Навигация", 
-                "Ошибка при переходе к панели " + target + ": " + e.getMessage());
-        }
     }
 
     private void handleKeyPress(KeyEvent e) 
     {
         if (e.getID() != KeyEvent.KEY_PRESSED) return;
 
-        try {
+        
             if ((e.getModifiersEx() & KeyEvent.CTRL_DOWN_MASK) != 0) 
             {
                 if (e.getKeyCode() == KeyEvent.VK_Q) 
@@ -314,10 +275,6 @@ public class WindowMaker extends JFrame
                 }
                 break;
             }
-        } catch (Exception ex) {
-            getErrorHandler().showWarning("Обработка клавиш", 
-                "Ошибка при обработке нажатия клавиши: " + ex.getMessage());
-        }
     }
 
     private void setFocus(FocusState newState) 
@@ -360,45 +317,26 @@ public class WindowMaker extends JFrame
 
     public void navigateTo(int index) 
     {
-        try {
-            ((CardLayout) contentPanel.getLayout()).show(contentPanel, String.valueOf(index));
-        } catch (Exception e) {
-            getErrorHandler().showWarning("Навигация", 
-                "Ошибка при переходе к индексу " + index + ": " + e.getMessage());
-        }
+        ((CardLayout) contentPanel.getLayout()).show(contentPanel, String.valueOf(index));
+    
     }
 
-    private static void safeStart() {
-        try {
-            SwingUtilities.invokeLater(() -> {
-                try {
+    public static void startWindow() 
+    {
+        SwingUtilities.invokeLater(() -> {
+       
                     WindowMaker window = new WindowMaker();
                     window.setVisible(true);
-                } catch (Exception e) {
-                    getErrorHandler().handleFatalError("Ошибка создания окна", e);
-                }
             });
-        } catch (Exception e) {
-            getErrorHandler().handleFatalError("Ошибка в потоке EDT", e);
-        }
-    }
-
-    public static void startWindow() {
-        safeStart();
     }
 
     public void setInitialFocus()
     {
-        try {
             SwingUtilities.invokeLater(() -> 
             {
                 navPanel.getMenuList().requestFocusInWindow();
                 navPanel.getMenuList().setSelectedIndex(0);
             });
-        } catch (Exception e) {
-            getErrorHandler().showWarning("Установка фокуса", 
-                "Ошибка при установке начального фокуса: " + e.getMessage());
-        }
     }
 
     public void setCurrentFocusState(FocusState state)
@@ -409,14 +347,5 @@ public class WindowMaker extends JFrame
     public FocusState getCurrentFocusState()
     {
         return currentFocusState;
-    }
-    
-    // Вспомогательные методы для доступа к обработчику ошибок из других классов
-    public static void showWarning(String title, String message) {
-        getErrorHandler().showWarning(title, message);
-    }
-    
-    public static void showInfo(String title, String message) {
-        getErrorHandler().showInfo(title, message);
     }
 }
