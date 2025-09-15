@@ -1,48 +1,57 @@
 package src.main.logic.main.activityHandlers;
 
-import src.main.logic.helpers.ConfigReader;
+import src.main.logic.helpers.ConfigReaderLogic;
 import src.main.logic.helpers.Performer;
-import src.main.logic.helpers.enums.ConstPaths;
-import src.main.logic.main.managers.modulesLogics.RunModulesManager;
+import src.main.logic.helpers.enums.ConstantsLogic;
+import src.main.logic.main.managers.addons.RunPythonModules;
+import src.main.voiceover.main.Voiceover;
 
-import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.List;
 import java.io.File;
 
 
 public class ActionHandlerModules 
 {
-    private static final String VOICEOVER = ConstPaths.VOICEOVER.getConfPath();
-    private static final String VOICEOVERVENV = ConstPaths.VOICEOVERVENV.getConfPath();
-
     public static void handleModule(String word) throws 
-    InterruptedException,
-    IOException
+    Exception 
     {
-        List<String> modules = ConfigReader.readConfig(ConstPaths.DICTIONARY_MODULES_CONF.getConfPath(), word);
-
-        for (String module : modules)
+        List<String> modules = ConfigReaderLogic.readConfig(ConstantsLogic.DICTIONARY_MODULES_CONF.getConfPath(), word);
+        boolean hasValidModules = false;
+        
+        for (String module : modules) 
         {
-            File moduleFile = new File(ConstPaths.DIRECTORY_MODULES_PATH.getConfPath(), module);
-
+            File moduleFile = new File(ConstantsLogic.DIRECTORY_MODULES_PATH.getConfPath(), module.trim());
             if (moduleFile.exists()) 
             {
-                if (!modules.isEmpty()) 
+                if (!hasValidModules) 
                 {
-                    Performer.execute(VOICEOVERVENV, VOICEOVER, "StandardModule_StandardResponse");
+                    Voiceover.startVoice("MODULES");
                     Thread.sleep(500);
+                    hasValidModules = true;
                 }
-
-                System.out.println("Активация модуля: " + module.trim());
-                RunModulesManager.run(module.trim());
+                runModules(module.trim());
             } 
             else 
             {
-                Performer.execute(VOICEOVERVENV, VOICEOVER, "ErrModule");
+                Voiceover.startVoice("moduleERR");
                 Thread.sleep(500);
-                    
-                System.err.println("Ошибка при запуске модуля: " + module);
             }
+        }
+    }
+    
+    private static void runModules(String arg) throws 
+    Exception 
+    {
+        int periodIndex = arg.lastIndexOf('.');
+        String extension = periodIndex != -1 ? arg.substring(periodIndex + 1) : "";
+        String modulePath = Paths.get(ConstantsLogic.DIRECTORY_MODULES_PATH.getConfPath(), arg).toString();
+
+        switch (extension) 
+        {
+            case "py" -> RunPythonModules.runPythonModule(modulePath, ConstantsLogic.DIRECTORY_MODULES_PATH.getConfPath());
+            case "" -> Performer.execute("./" + modulePath);
+            default -> Performer.execute(extension, modulePath);
         }
     }
 }

@@ -5,7 +5,6 @@ import java.io.IOException;
 
 public class DemonsController
 {
-
     public static void main(String[] args) throws 
     IOException 
     {

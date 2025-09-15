@@ -1,58 +1,48 @@
 package src.main.logic.main;
 
-import src.main.logic.main.activityHandlers.ActionHandler;
-import src.main.logic.main.activityHandlers.ActionHandlerModules;
-import src.main.logic.helpers.ConfigReader;
+import src.main.logic.main.activityHandlers.*;
+import src.main.logic.helpers.ConfigReaderLogic;
 import src.main.logic.helpers.Scholar;
-import src.main.logic.helpers.enums.ConstPaths;
+import src.main.logic.helpers.enums.ConstantsLogic;
 
-import java.lang.reflect.InvocationTargetException;
-import java.io.IOException;
 import java.util.List;
 
 
-public class DictionaryHandler
+public class DictionaryHandler 
 {
-    private static final String DICTIONARY_CONF = ConstPaths.DICTIONARY_CONF.getConfPath();
-
-    public static void main(String[] args) throws
-    Exception
+    public static void main(String[] args) throws 
+    Exception 
     {
         for (String arg : args) 
         {
-            String clearText = Scholar.cleanInput(arg, ConfigReader.readConfig(DICTIONARY_CONF, "delete"));
+            String clearText = Scholar.cleanInput(arg, ConfigReaderLogic.readConfig(ConstantsLogic.DICTIONARY_CONF.getConfPath(), "delete"));
 
-            // Основные команды
-            executeCommand(clearText, ConfigReader.readConfig(DICTIONARY_CONF, "hello"), "CallApps", "hello");
-            executeCommand(clearText, ConfigReader.readConfig(DICTIONARY_CONF, "browser"), "CallApps", "browser");
-            executeCommand(clearText, ConfigReader.readConfig(DICTIONARY_CONF, "conductor"), "CallApps", "conductor");
-            executeCommand(clearText, ConfigReader.readConfig(DICTIONARY_CONF, "terminal"), "CallApps", "terminal");
-            executeCommand(clearText, ConfigReader.readConfig(DICTIONARY_CONF, "store"), "CallApps", "store");
-            executeCommand(clearText, ConfigReader.readConfig(DICTIONARY_CONF, "office"), "CallApps", "office");
-            executeCommand(clearText, ConfigReader.readConfig(DICTIONARY_CONF, "messenger"), "CallApps", "messenger");
-            executeCommand(clearText, ConfigReader.readConfig(DICTIONARY_CONF, "socialnetwork"), "CallApps", "socialnetwork");
-            executeCommand(clearText, ConfigReader.readConfig(DICTIONARY_CONF, "notes"), "CallApps", "notes");
-            executeCommand(clearText, ConfigReader.readConfig(DICTIONARY_CONF, "codeeditor"), "CallApps", "codeeditor");
-            executeCommand(clearText, ConfigReader.readConfig(DICTIONARY_CONF, "reboot"), "CallShutdown", "reboot");
-            executeCommand(clearText, ConfigReader.readConfig(DICTIONARY_CONF, "shutdown"), "CallShutdown", "shutdown");
-            executeCommand(clearText, ConfigReader.readConfig(DICTIONARY_CONF, "sleep"), "CallShutdown", "sleep");
-            ActionHandler.callSearch(clearText, ConfigReader.readConfig(DICTIONARY_CONF, "websearch"), ConfigReader.readConfig(DICTIONARY_CONF, "videosearch"));
-            ActionHandler.callSystemValue(clearText, ConfigReader.readConfig(DICTIONARY_CONF, "volume"), "volume");
-            ActionHandler.callSystemValue(clearText, ConfigReader.readConfig(DICTIONARY_CONF, "brightness"), "brightness");
+            executeCommand(clearText, "hello", "CallApps", "hello");
+            executeCommand(clearText, "browser", "CallApps", "browser");
+            executeCommand(clearText, "conductor", "CallApps", "conductor");
+            executeCommand(clearText, "terminal", "CallApps", "terminal");
+            executeCommand(clearText, "store", "CallApps", "store");
+            executeCommand(clearText, "office", "CallApps", "office");
+            executeCommand(clearText, "messenger", "CallApps", "messenger");
+            executeCommand(clearText, "socialnetwork", "CallApps", "socialnetwork");
+            executeCommand(clearText, "notes", "CallApps", "notes");
+            executeCommand(clearText, "codeeditor", "CallApps", "codeeditor");
+            executeCommand(clearText, "reboot", "CallShutdown", "reboot");
+            executeCommand(clearText, "shutdown", "CallShutdown", "shutdown");
+            executeCommand(clearText, "sleep", "CallShutdown", "sleep");
+            ActionHandler.callSystemValue(clearText, ConfigReaderLogic.readConfig(ConstantsLogic.DICTIONARY_CONF.getConfPath(), "volume"), "volume");
+            ActionHandler.callSystemValue(clearText, ConfigReaderLogic.readConfig(ConstantsLogic.DICTIONARY_CONF.getConfPath(), "brightness"), "brightness");
+            ActionHandler.callSearch(clearText, ConfigReaderLogic.readConfig(ConstantsLogic.DICTIONARY_CONF.getConfPath(), "websearch"), 
+                                                ConfigReaderLogic.readConfig(ConstantsLogic.DICTIONARY_CONF.getConfPath(), "videosearch"));
 
-            if (!clearText.isEmpty()) 
-                ActionHandlerModules.handleModule(clearText);
+            if (!clearText.isEmpty()) ActionHandlerModules.handleModule(clearText);
         }
     }
 
-    private static void executeCommand(String input, List<String> commands, String functionName, String argForFunctions) throws
-    InvocationTargetException,
-    IllegalAccessException,
-    NoSuchMethodException,
-    InterruptedException,
-    IOException
+    private static void executeCommand(String input, String commandKey, String functionName, String argForFunctions) throws 
+    Exception 
     {
-        if (commands != null && !commands.isEmpty() && commands.contains(input))
-            ActionHandler.callFunction(functionName, argForFunctions);
+        List<String> commands = ConfigReaderLogic.readConfig(ConstantsLogic.DICTIONARY_CONF.getConfPath(), commandKey);
+        if (commands != null && !commands.isEmpty() && commands.contains(input)) ActionHandler.callFunction(functionName, argForFunctions);
     }
 }

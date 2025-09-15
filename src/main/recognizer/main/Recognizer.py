@@ -11,9 +11,13 @@ class Recognizer:
         self.lastCommandTime = 0
         self.model = vosk.Model(os.path.abspath("../WendyGrand/src/main/recognizer/resources/model_small"))
         self.samplerate = int(sd.query_devices(sd.default.device[0], 'input')['default_samplerate'])
-        self.wordHandler = os.path.abspath("../WendyGrand/src/main/logic/main/DictionaryHandler.java")
-        self.voiceoverVenv = os.path.abspath("../WendyGrand/src/main/voiceover/resources/venv/bin/python")
-        self.voiceover = os.path.abspath("../WendyGrand/src/main/voiceover/main/Voiceover.py")
+
+        self.dictionaryHandler = os.path.abspath("../WendyGrand/src/main/logic/main/DictionaryHandler.java")
+
+        self.helloSTART = os.path.abspath("../WendyGrand/src/main/recognizer/helpers/voiceover/helloSTART.java")
+        self.byeFINISH = os.path.abspath("../WendyGrand/src/main/recognizer/helpers/voiceover/byeFINISH.java")
+        self.hello = os.path.abspath("../WendyGrand/src/main/recognizer/helpers/voiceover/hello.java")
+
         self.names = {"венди", "вэнди", "среда"}
         self.exitPhrases = self.exit()
         self.running = True
@@ -24,16 +28,16 @@ class Recognizer:
         return commands | {f"{name} {cmd}" for name in self.names for cmd in commands}
 
     def start(self):
-        subprocess.run([self.voiceoverVenv, self.voiceover, "HelloVoiceover"])
+        subprocess.run(["java", self.helloSTART])
         self.mainLoop()
 
     def processCommand(self, text):
         print(f"Распознано: {text}")
-        with open('../WendyGrand/configs/History.conf', 'a') as f:
+        with open('../WendyGrand/settings/configs/History.conf', 'a') as f:
             f.write(f"{text}\n")
 
         if text in self.exitPhrases:
-            subprocess.run([self.voiceoverVenv, self.voiceover, "ByeVoiceover"])
+            subprocess.run(["java", self.byeFINISH])
             self.running = False
             return
 
@@ -41,15 +45,15 @@ class Recognizer:
             if text.startswith(name):
                 command = text[len(name):].strip()
                 if command:
-                    subprocess.run(["java", self.wordHandler, command])
+                    subprocess.run(["java", self.dictionaryHandler, command])
                 else:
                     self.lastCommandTime = time.time()
-                    subprocess.run([self.voiceoverVenv, self.voiceover, "hello"])
+                    subprocess.run(["java", self.hello])
                 return
 
         current_time = time.time()
         if current_time - self.lastCommandTime <= 10:
-            subprocess.run(["java", self.wordHandler, text])
+            subprocess.run(["java", self.dictionaryHandler, text])
             self.lastCommandTime = 0
 
     def callback(self, indata, frames, time_info, status):
@@ -76,6 +80,7 @@ class Recognizer:
         ):
             while self.running:
                 time.sleep(0.1)
+
 
 if __name__ == "__main__":
     Recognizer().start()

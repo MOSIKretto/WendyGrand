@@ -1,36 +1,31 @@
 package src.main.logic.main.activityHandlers;
 
-import src.main.logic.main.managers.mainLogics.ShutdownManager;
-import src.main.logic.main.managers.mainLogics.SystemValueManager;
-import src.main.logic.helpers.ConfigReader;
+import src.main.logic.main.managers.ShutdownManager;
+import src.main.logic.main.managers.SystemValueManager;
+import src.main.voiceover.main.Voiceover;
+import src.main.logic.helpers.ConfigReaderLogic;
 import src.main.logic.helpers.Performer;
 import src.main.logic.helpers.Scholar;
-import src.main.logic.helpers.enums.ConstPaths;
+import src.main.logic.helpers.enums.ConstantsLogic;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
 
-public class ActionHandler 
+public class ActionHandler
 {
-    private static final String APPS_CONF = ConstPaths.APPS_CONF.getConfPath();
-    private static final String DICTIONARY_CONF = ConstPaths.DICTIONARY_CONF.getConfPath();
-    private static final String VOICEOVER = ConstPaths.VOICEOVER.getConfPath();
-    private static final String VOICEOVERVENV = ConstPaths.VOICEOVERVENV.getConfPath();
-
     private static final Map<String, Integer> VALUE_ACTIONS = Map.of(
         "value+", -2,
         "value-", -3,
         "valuemax", 100,
-        "valuemin", 10, 
-        "valueon", 50, 
+        "valuemin", 10,
+        "valueon", 50,
         "valueoff", 0
     );
 
     public static void callFunction(String functionName, Object arg) throws 
-    InterruptedException, 
-    IOException 
+    Exception 
     {
         if (functionName.equals("CallApps")) callApps((String) arg);
         else callShutdown((String) arg);
@@ -39,16 +34,15 @@ public class ActionHandler
     private static void callApps(String args) throws 
     IOException 
     {
-        Performer.execute(VOICEOVERVENV, VOICEOVER, args);
-        List<String> app = ConfigReader.readConfig(APPS_CONF, args);
+        Voiceover.startVoice(args);
+        List<String> app = ConfigReaderLogic.readConfig(ConstantsLogic.APPS_CONF.getConfPath(), args);
         if (app != null && !app.isEmpty()) Performer.execute(app.get(0));
     }
 
     private static void callShutdown(String args) throws 
-    InterruptedException,
-    IOException 
+    Exception 
     {
-        Performer.execute(VOICEOVERVENV, VOICEOVER, args);
+        Voiceover.startVoice(args);
         switch (args) 
         {
             case "shutdown" -> ShutdownManager.systemShutdown("-h", "выключена");
@@ -66,18 +60,18 @@ public class ActionHandler
         if (isYoutube || isWeb) 
         {
             List<String> cleanWords = isYoutube ? 
-                                                ConfigReader.readConfig(DICTIONARY_CONF, "deletevideosearch") :
-                                                ConfigReader.readConfig(DICTIONARY_CONF, "deletewebsearch");
+                ConfigReaderLogic.readConfig(ConstantsLogic.DICTIONARY_CONF.getConfPath(), "deletevideosearch") :
+                ConfigReaderLogic.readConfig(ConstantsLogic.DICTIONARY_CONF.getConfPath(), "deletewebsearch");
             
             String query = Scholar.cleanInput(input, cleanWords).replace(" ", "%20").trim();
             
-            if (!query.isEmpty())
+            if (!query.isEmpty()) 
             {
                 String searchType = isYoutube ? "videosearch" : "websearch";
-                List<String> browser = ConfigReader.readConfig(APPS_CONF, "browser");
-                List<String> searchEngine = ConfigReader.readConfig(APPS_CONF, searchType);
+                List<String> browser = ConfigReaderLogic.readConfig(ConstantsLogic.APPS_CONF.getConfPath(), "browser");
+                List<String> searchEngine = ConfigReaderLogic.readConfig(ConstantsLogic.APPS_CONF.getConfPath(), searchType);
 
-                Performer.execute(VOICEOVERVENV, VOICEOVER, searchType);
+                Voiceover.startVoice(searchType);
                 Performer.execute(browser.get(0), searchEngine.get(0) + query);
             }
         }
@@ -86,18 +80,16 @@ public class ActionHandler
     public static void callSystemValue(String input, List<String> valueKeys, String valueType) throws 
     IOException 
     {
-        if (valueKeys.stream().noneMatch(input::contains)) 
-            return;
+        if (valueKeys.stream().noneMatch(input::contains)) return;
         
         try 
         {
-            String cleanedInput = Scholar.cleanInput(input, ConfigReader.readConfig(DICTIONARY_CONF, "delete" + valueType));
+            String cleanedInput = Scholar.cleanInput(input, ConfigReaderLogic.readConfig(ConstantsLogic.DICTIONARY_CONF.getConfPath(), "delete" + valueType));
             Integer targetValue = null;
             
             for (Map.Entry<String, Integer> entry : VALUE_ACTIONS.entrySet()) 
             {
-                List<String> configValues = ConfigReader.readConfig(DICTIONARY_CONF, entry.getKey());
-
+                List<String> configValues = ConfigReaderLogic.readConfig(ConstantsLogic.DICTIONARY_CONF.getConfPath(), entry.getKey());
                 if (SystemValueManager.containsAny(cleanedInput, configValues)) 
                 {
                     targetValue = entry.getValue();
@@ -114,9 +106,9 @@ public class ActionHandler
                     case "volume" -> SystemValueManager.setSystemVolume(targetValue);
                     case "brightness" -> SystemValueManager.setSystemBrightness(targetValue);
                 }
-                Performer.execute(VOICEOVERVENV, VOICEOVER, valueType);
+                Voiceover.startVoice(valueType);
             }
-        } 
-        catch (IOException e) { Performer.execute(VOICEOVERVENV, VOICEOVER, valueType + "Err"); }
+        }
+        catch (IOException e) { Voiceover.startVoice(valueType + "Err"); }
     }
 }
