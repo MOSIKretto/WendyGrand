@@ -24,7 +24,7 @@ public class ActionHandlerModules
             File moduleFile = new File(ConstantsLogic.DIRECTORY_MODULES_PATH.getConfPath(), module.trim());
             if (moduleFile.exists()) 
             {
-                if (!hasValidModules) 
+                if (!hasValidModules)
                 {
                     Voiceover.startVoice("MODULES");
                     Thread.sleep(500);
