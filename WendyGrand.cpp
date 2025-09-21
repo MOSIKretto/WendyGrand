@@ -11,7 +11,7 @@ int main()
 
 
     // Компиляция всего Java-проекта
-    system("javac ../WendyGrand/src/main/logic/main/DictionaryHandler.java");
+    system("javac ../WendyGrand/src/main/logic/main/DictionaryHandler.java && javac -cp . src/main/UI/main/StartWindow.java");
 
 
     // Запуск

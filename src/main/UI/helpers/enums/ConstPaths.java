@@ -5,20 +5,14 @@ public enum ConstPaths
 {
     // ПУТИ
 
-    // Для основной логики
-    DICTIONARY("../WendyGrand/configs/mainConfigs/Dictionary.conf"),
-    APPS("../WendyGrand/configs/mainConfigs/Apps.conf"),
-    VOICEOVER("../WendyGrand/configs/mainConfigs/Voiceover.conf"),
+    // КОНФИГИ
+    DICTIONARY("../WendyGrand/settings/configs/Dictionary.conf"),
+    DICTIONARY_MODULES("../WendyGrand/settings/configs/DictionaryModules.conf"),
+    VOICEOVER("../WendyGrand/settings/configs/Voiceover.conf"),
+    HISTORY("../WendyGrand/settings/configs/History.conf"),
+    APPS("../WendyGrand/settings/configs/Apps.conf"),
 
-    // Для модулей
-    DIRECTORY_MODULES("../WendyGrand/modules/"),
-    DICTIONARY_MODULES("../WendyGrand/configs/modulesConfigs/DictionaryModules.conf"),
-    MODULES("../WendyGrand/configs/modulesConfigs/Modules.conf"),
-    VOICEOVER_MODULES("../WendyGrand/configs/modulesConfigs/DictionaryModules.conf"),
-
-    // Для озвучки
-    SOUNDS("../WendyGrand/main/Resources/Audio/new/");
-
+    MODULES_DIR("../WendyGrand/settings/modules/");
     
     // ОБРАБОТКА ВОЗВРАЩЕНИЧ ДАННЫХ
     private final String path;
