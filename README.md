@@ -4,12 +4,7 @@
   <img src="https://github.com/MOSIKretto/WendyGrand/blob/develop/backend/__refactoring__/src/main/UI/resources/logo.png" alt="WendyGrand Logo" width="200" height="200">
   <br>
   <strong>Интеллектуальный голосовой помощник для автоматизации любых задач на вашем компьютере</strong>
-  <br><br>
-  <a href="#-быстрый-старт">Быстрый старт</a> •
-  <a href="#-особенности">Особенности</a> •
-  <a href="#-настройка">Настройка</a> •
-  <a href="#-модули">Модули</a> •
-  <a href="#-разработка">Разработка</a>
+  <br>
 </p>
 
 <div align="center">
