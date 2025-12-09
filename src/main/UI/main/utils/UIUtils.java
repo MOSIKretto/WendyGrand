@@ -105,7 +105,7 @@ public class UIUtils
         if (highlightLine) 
         {
             Color lineColor = highlightColor != null ? highlightColor : new Color(100, 100, 255, 50); 
-            textArea.addCaretListener(_ -> highlightCurrentLine(textArea, lineColor));
+            textArea.addCaretListener(e -> highlightCurrentLine(textArea, lineColor));
         }
     }
 

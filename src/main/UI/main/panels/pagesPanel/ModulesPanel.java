@@ -44,7 +44,7 @@ import java.io.File;
 
 public class ModulesPanel extends JPanel 
 {
-    private static final String MODULES_DIR = ConstPaths.MODULES_DIR.getConfPath();
+    private static final String MODULESeDIR = ConstPaths.MODULES_DIR.getConfPath();
     private DefaultListModel<String> listModel;
     private JList<String> modulesList;
     private JTextArea configArea;
@@ -141,13 +141,13 @@ public class ModulesPanel extends JPanel
         buttonPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
         
         CustomButton refreshBtn = new CustomButton("Обновить", 0, 0);
-        refreshBtn.addActionListener(_ -> refreshModulesList());
+        refreshBtn.addActionListener(e -> refreshModulesList());
         refreshBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
         refreshBtn.setMaximumSize(new Dimension(Integer.MAX_VALUE, 30));
 
         
         CustomButton openBtn = new CustomButton("Открыть папку", 0, 0);
-        openBtn.addActionListener(_ -> openModulesFolder());
+        openBtn.addActionListener(e -> openModulesFolder());
         openBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
         openBtn.setMaximumSize(new Dimension(Integer.MAX_VALUE, 30));
 
@@ -186,7 +186,7 @@ public class ModulesPanel extends JPanel
     private void refreshModulesList() 
     {
         listModel.clear();
-        File modulesDir = new File(MODULES_DIR);
+        File modulesDir = new File(MODULESeDIR);
 
         if (modulesDir.exists() && modulesDir.isDirectory()) 
         {
@@ -211,7 +211,7 @@ public class ModulesPanel extends JPanel
             return;
         }
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(MODULES_DIR + File.separator + name)))
+        try (BufferedReader reader = new BufferedReader(new FileReader(MODULESeDIR + File.separator + name)))
         {
             StringBuilder content = new StringBuilder();
             String line;
@@ -223,7 +223,7 @@ public class ModulesPanel extends JPanel
         catch (IOException e) { configArea.setText("Ошибка загрузки: " + e.getMessage()); }
         configArea.setCaretPosition(0);
 
-        if (modulesList.getSelectedIndex() != -1) WindowMaker.PREFS.putInt("last_module", modulesList.getSelectedIndex());
+        if (modulesList.getSelectedIndex() != -1) WindowMaker.PREFS.putInt("lastemodule", modulesList.getSelectedIndex());
     }
 
     private void saveModuleConfig(ActionEvent e) 
@@ -231,7 +231,7 @@ public class ModulesPanel extends JPanel
         String name = modulesList.getSelectedValue();
         if (name == null || name.equals("Нет модулей")) return;
 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(MODULES_DIR + File.separator + name))) 
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(MODULESeDIR + File.separator + name))) 
         {
             writer.write(configArea.getText());
             JOptionPane.showMessageDialog(this, "Модуль сохранен");
@@ -241,7 +241,7 @@ public class ModulesPanel extends JPanel
 
     private void openModulesFolder() 
     {
-        try { java.awt.Desktop.getDesktop().open(new File(MODULES_DIR)); } 
+        try { java.awt.Desktop.getDesktop().open(new File(MODULESeDIR)); } 
         catch (Exception ex) { JOptionPane.showMessageDialog(this, "Ошибка открытия папки: " + ex.getMessage()); }
     }
 
@@ -324,7 +324,7 @@ public class ModulesPanel extends JPanel
         {
             modulesList.setSelectedIndex(index);
             loadModuleConfig();
-            WindowMaker.PREFS.putInt("last_module", index);
+            WindowMaker.PREFS.putInt("lastemodule", index);
         }
     }
 

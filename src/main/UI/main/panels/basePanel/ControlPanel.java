@@ -16,7 +16,7 @@ public class ControlPanel extends JPanel
         setOpaque(false);
         setBorder(new EmptyBorder(0, 0, 10, 10));
         
-        add(UIUtils.createControlButton("minimize", _ -> frame.setState(JFrame.ICONIFIED)));
-        add(UIUtils.createControlButton("close", _ -> System.exit(0)));
+        add(UIUtils.createControlButton("minimize", e -> frame.setState(JFrame.ICONIFIED)));
+        add(UIUtils.createControlButton("close", e -> System.exit(0)));
     }
 }
