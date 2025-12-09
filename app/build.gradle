@@ -1,0 +1,75 @@
+plugins {
+    id 'application'
+    id 'java'
+    id 'org.graalvm.buildtools.native' version '0.10.2'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'net.java.dev.jna:jna:5.13.0'
+    implementation 'com.alphacephei:vosk:0.3.45'
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(24)
+    }
+}
+
+application {
+    mainClass = 'org.wendygrand.Main'
+}
+
+sourceSets {
+    main {
+        resources {
+            srcDirs = ['src/main/resources']
+        }
+    }
+}
+
+graalvmNative {
+    toolchainDetection = true
+    binaries {
+        main {
+            imageName = 'wendygrand'
+            buildArgs.addAll([
+                '--verbose',
+                '--no-fallback',
+                '-H:+JNI',
+                '--enable-native-access=ALL-UNNAMED',
+                '--enable-url-protocols=http,https,file,jar',
+                '-H:IncludeResources=.*\\.(so|dll|dylib|conf|properties|wav|model|mdl|fst|int|txt)$',
+                '-H:ResourceConfigurationFiles=./native-config/resource-config.json',
+                '-H:JNIConfigurationFiles=./native-config/jni-config.json',
+                '--initialize-at-build-time=org.vosk,com.sun.jna',
+                '--initialize-at-run-time=javax.sound',
+                '-H:+ReportExceptionStackTraces',
+                '-H:ConfigurationFileDirectories=./native-config',
+                '--allow-incomplete-classpath'
+            ])
+        }
+    }
+    
+    metadataRepository {
+        enabled = true
+    }
+}
+
+task fatJar(type: Jar) {
+    manifest {
+        attributes 'Main-Class': 'org.wendygrand.Main'
+    }
+    archiveBaseName = 'WendyGrand'
+    archiveVersion = '1.0.0'
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    from { 
+        configurations.runtimeClasspath.collect { 
+            it.isDirectory() ? it : zipTree(it) 
+        } 
+    }
+    with jar
+}
